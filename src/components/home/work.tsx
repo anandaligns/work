@@ -1,0 +1,102 @@
+import { headings, START } from '@/content/site';
+
+import { Band } from '../layout/band';
+import { Pausable } from '../motion/pause-toggle';
+import { RollLink } from '../ui/roll-link';
+import { BRANDS, type Brand, DesktopSite, Scaled } from '../visuals/concept-sites';
+import { SectionHead } from './section-head';
+
+/**
+ * Work — codify's gallery, at codify's size.
+ *
+ * One plane, tilted in three axes under a 1600px perspective, straightening as the section arrives
+ * (`.tilt-plane`, driven by `ScrollEffects`). Inside it three rows drift sideways in alternate
+ * directions. Every card is a concept site at 1280 × 800, scaled to 600 × 375 on a desktop and
+ * 320 × 200 on a phone.
+ *
+ * The section says what these are. They are concept designs, and when real projects complete this
+ * is where their case studies go — it does not borrow anyone else's website to look busy.
+ */
+const ROWS: { brands: Brand[]; duration: string; reverse?: boolean }[] = [
+  {
+    brands: [BRANDS.northfield!, BRANDS.ember!, BRANDS.kora!, BRANDS.fieldnote!, BRANDS.loom!],
+    duration: '70s',
+  },
+  {
+    brands: [
+      BRANDS.meridian!,
+      BRANDS.saffron!,
+      BRANDS.brightpath!,
+      BRANDS.northfield!,
+      BRANDS.ember!,
+    ],
+    duration: '90s',
+    reverse: true,
+  },
+  {
+    brands: [BRANDS.loom!, BRANDS.fieldnote!, BRANDS.meridian!, BRANDS.kora!, BRANDS.saffron!],
+    duration: '80s',
+  },
+];
+
+function Card({ b }: { b: Brand }) {
+  return (
+    <div className="relative shrink-0 px-2.5 md:px-3.5">
+      <Scaled className="h-[200px] w-[320px] rounded-xl [--k:0.25] md:h-[375px] md:w-[600px] md:rounded-2xl md:[--k:0.46875]">
+        <DesktopSite b={b} />
+      </Scaled>
+      <span className="absolute bottom-3 left-5 inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-[0.6875rem] font-medium text-white backdrop-blur md:bottom-4 md:left-7">
+        <span className="size-1.5 rounded-full bg-white/80" />
+        {b.name} · {b.kind}
+      </span>
+    </div>
+  );
+}
+
+export function Work() {
+  return (
+    <Band
+      id="work"
+      labelledBy="work-heading"
+      contain={false}
+      className="on-night overflow-hidden border-t-0 bg-night text-white"
+    >
+      <div className="contain grid gap-8 pt-24 lg:grid-cols-[1fr_auto] lg:items-end lg:pt-32">
+        <SectionHead
+          id="work"
+          eyebrow="Concept work"
+          tone="night"
+          heading={headings.work}
+          intro="Concept designs for a clinic, a restaurant, a store and more, made to show how we work. Real client projects appear here as they launch."
+        />
+        <div data-reveal="">
+          <RollLink href={START.href} variant="paper">
+            Start your website
+          </RollLink>
+        </div>
+      </div>
+      <Pausable label="the gallery" tone="night" className="mt-16 pb-24 lg:pb-32">
+        <div className="tilt-stage" aria-hidden="true">
+          <div className="tilt-plane flex flex-col gap-5 md:gap-7">
+            {ROWS.map((row, i) => (
+              <div
+                key={i}
+                className="marquee [mask-image:none]"
+                style={{
+                  ['--marquee-duration' as string]: row.duration,
+                  ['--marquee-direction' as string]: row.reverse ? 'reverse' : 'normal',
+                }}
+              >
+                <div className="marquee__track">
+                  {[...row.brands, ...row.brands].map((b, j) => (
+                    <Card key={`${b.id}-${j}`} b={b} />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Pausable>
+    </Band>
+  );
+}

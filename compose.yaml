@@ -1,0 +1,26 @@
+# Independent copy of the final design. Its container, cache, and port do not overlap with
+# the original project serving on 3010.
+name: pixel-kinetix-ui-final-copy
+
+services:
+  web:
+    image: node:22-alpine
+    working_dir: /app
+    command: ['sh', '-c', 'npm install --no-audit --no-fund && npm run dev']
+    environment:
+      NEXT_TELEMETRY_DISABLED: '1'
+      WATCHPACK_POLLING: 'true'
+      TZ: Asia/Kolkata
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+      - next_cache:/app/.next
+    restart: 'no'
+
+volumes:
+  node_modules:
+    name: pixel_kinetix_ui_final_node_modules
+  next_cache:
+    name: pixel_kinetix_ui_final_next_cache

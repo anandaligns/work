@@ -1,0 +1,1087 @@
+{
+ "serviceCategories": [
+  {
+   "slug": "website-development",
+   "name": "Website Development",
+   "line": "We build it.",
+   "intro": null
+  },
+  {
+   "slug": "website-hosting",
+   "name": "Website Hosting",
+   "line": "We keep it online.",
+   "intro": null
+  },
+  {
+   "slug": "website-care",
+   "name": "Website Care",
+   "line": "We look after it.",
+   "intro": null
+  }
+ ],
+ "services": [
+  {
+   "categorySlug": "website-development",
+   "anchor": "business-websites",
+   "name": "Business Websites",
+   "summary": "Local businesses, service companies, professionals, clinics, hospitality, real estate, education, startups"
+  },
+  {
+   "categorySlug": "website-development",
+   "anchor": "e-commerce-websites",
+   "name": "E-commerce Websites",
+   "summary": "Catalogue, cart, checkout, payment, shipping and order workflows, store admin"
+  },
+  {
+   "categorySlug": "website-development",
+   "anchor": "landing-pages",
+   "name": "Landing Pages",
+   "summary": "Campaigns, lead generation, promotions, launches, focused conversion journeys"
+  },
+  {
+   "categorySlug": "website-development",
+   "anchor": "website-redesign",
+   "name": "Website Redesign",
+   "summary": "Existing site needing stronger design, mobile experience, IA, performance, conversion path"
+  },
+  {
+   "categorySlug": "website-development",
+   "anchor": "custom-websites",
+   "name": "Custom Websites",
+   "summary": "Business-specific forms, booking flows, portals, calculators, dashboards, payment workflows, integrations"
+  },
+  {
+   "categorySlug": "website-hosting",
+   "anchor": "managed-hosting",
+   "name": "Managed Hosting",
+   "summary": "Setup, deployment, managed hosting coordination"
+  },
+  {
+   "categorySlug": "website-hosting",
+   "anchor": "domain-email-setup",
+   "name": "Domain & Email Setup",
+   "summary": "Domain, DNS, business email records, related configuration"
+  },
+  {
+   "categorySlug": "website-hosting",
+   "anchor": "security-backups",
+   "name": "Security & Backups",
+   "summary": "SSL, backup setup, recovery readiness, baseline hardening"
+  },
+  {
+   "categorySlug": "website-hosting",
+   "anchor": "speed-performance",
+   "name": "Speed & Performance",
+   "summary": "Caching, CDN, image optimisation, performance engineering"
+  },
+  {
+   "categorySlug": "website-hosting",
+   "anchor": "website-migration",
+   "name": "Website Migration",
+   "summary": "Move hosting, domains, platforms or existing sites with controlled cutover and testing"
+  },
+  {
+   "categorySlug": "website-care",
+   "anchor": "website-updates",
+   "name": "Website Updates",
+   "summary": "Pages, sections, images, banners, offers, contact details, minor design updates"
+  },
+  {
+   "categorySlug": "website-care",
+   "anchor": "content-management",
+   "name": "Content Management",
+   "summary": "Regular content, product and service updates"
+  },
+  {
+   "categorySlug": "website-care",
+   "anchor": "fixes-technical-support",
+   "name": "Fixes & Technical Support",
+   "summary": "Forms, layout, browser, mobile, integration, general technical issues"
+  },
+  {
+   "categorySlug": "website-care",
+   "anchor": "security-maintenance",
+   "name": "Security & Maintenance",
+   "summary": "Routine updates, patches, backup checks, maintenance"
+  },
+  {
+   "categorySlug": "website-care",
+   "anchor": "monitoring-recovery",
+   "name": "Monitoring & Recovery",
+   "summary": "Uptime and performance checks, backup verification, restoration support"
+  }
+ ],
+ "solutions": [
+  {
+   "slug": "get-online",
+   "name": "Get Online",
+   "line": "We build your presence.",
+   "positioning": null,
+   "bundles": [
+    {
+     "anchor": "business-online-presence",
+     "name": "Business Online Presence",
+     "includes": [
+      "Business Website",
+      "Domain Setup",
+      "Hosting",
+      "SSL",
+      "Business Email Setup",
+      "Contact/Enquiry Flow",
+      "Analytics Foundation"
+     ]
+    },
+    {
+     "anchor": "lead-generation-website",
+     "name": "Lead Generation Website",
+     "includes": [
+      "Business Website",
+      "Conversion-Focused Pages",
+      "Enquiry Forms",
+      "WhatsApp CTA",
+      "Call CTA",
+      "Basic Conversion Tracking"
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "sell-and-book-online",
+   "name": "Sell & Book Online",
+   "line": "We help you sell.",
+   "positioning": null,
+   "bundles": [
+    {
+     "anchor": "e-commerce-solution",
+     "name": "E-commerce Solution",
+     "includes": [
+      "E-commerce Website",
+      "Product Catalogue",
+      "Payment Gateway",
+      "Order/Shipping Setup",
+      "Hosting",
+      "Security",
+      "Tracking"
+     ]
+    },
+    {
+     "anchor": "booking-appointment-solution",
+     "name": "Booking & Appointment Solution",
+     "includes": [
+      "Website",
+      "Booking/Appointment Flow",
+      "Confirmation Flow",
+      "Notifications",
+      "Optional Payments",
+      "Calendar Integration where required"
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "fix-and-improve",
+   "name": "Fix & Improve",
+   "line": "We make it work better.",
+   "positioning": null,
+   "bundles": [
+    {
+     "anchor": "website-modernisation",
+     "name": "Website Modernisation",
+     "includes": [
+      "Website Redesign",
+      "Mobile UX",
+      "Information Architecture",
+      "Speed Improvements",
+      "Conversion Improvements",
+      "Security Review"
+     ]
+    },
+    {
+     "anchor": "move-to-better-hosting",
+     "name": "Move to Better Hosting",
+     "includes": [
+      "Managed Hosting",
+      "Migration",
+      "Domain/DNS",
+      "SSL",
+      "Backups",
+      "Performance",
+      "CDN",
+      "Monitoring baseline"
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "managed-website",
+   "name": "Managed Website",
+   "line": "We keep it running.",
+   "positioning": "You run your business. We manage your website.",
+   "bundles": [
+    {
+     "anchor": "managed-website-solution",
+     "name": "Managed Website Solution",
+     "includes": [
+      "Hosting",
+      "Website Updates",
+      "Content Changes",
+      "Backups",
+      "Security",
+      "Monitoring",
+      "Technical Support"
+     ]
+    }
+   ]
+  }
+ ],
+ "offers": [
+  {
+   "kind": "WEBSITE_PACKAGE",
+   "slug": "starter",
+   "name": "Starter",
+   "summary": "1 page, contact form, WhatsApp + call buttons",
+   "timeline": "3–5 days",
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 500000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹5,000"
+    }
+   ]
+  },
+  {
+   "kind": "WEBSITE_PACKAGE",
+   "slug": "business",
+   "name": "Business",
+   "summary": "Up to 6 pages, logo included, built on our system",
+   "timeline": "10–14 days",
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 1200000
+     }
+    }
+   ],
+   "features": [
+    {
+     "label": "Design",
+     "value": "Proven layouts from our system"
+    },
+    {
+     "label": "Design directions shown",
+     "value": "One"
+    },
+    {
+     "label": "Revision rounds",
+     "value": "1"
+    },
+    {
+     "label": "Page structure",
+     "value": "Fixed"
+    },
+    {
+     "label": "Content",
+     "value": "Supplied before we start"
+    },
+    {
+     "label": "Timeline",
+     "value": "10–14 days"
+    }
+   ],
+   "notes": [
+    "Need to be online quickly."
+   ],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹12,000"
+    }
+   ]
+  },
+  {
+   "kind": "WEBSITE_PACKAGE",
+   "slug": "signature",
+   "name": "Signature",
+   "summary": "5–8 pages, custom designed for your brand",
+   "timeline": "3–4 weeks",
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 3200000
+     }
+    }
+   ],
+   "features": [
+    {
+     "label": "Design",
+     "value": "Designed from scratch for your brand"
+    },
+    {
+     "label": "Design directions shown",
+     "value": "Two, you choose"
+    },
+    {
+     "label": "Revision rounds",
+     "value": "3"
+    },
+    {
+     "label": "Page structure",
+     "value": "Built around your business"
+    },
+    {
+     "label": "Content",
+     "value": "We shape it with you"
+    },
+    {
+     "label": "Timeline",
+     "value": "3–4 weeks"
+    }
+   ],
+   "notes": [
+    "Need to stand out."
+   ],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹32,000"
+    }
+   ]
+  },
+  {
+   "kind": "WEBSITE_PACKAGE",
+   "slug": "store",
+   "name": "Store",
+   "summary": "Online shop, up to 50 products, payments, orders",
+   "timeline": "4–5 weeks",
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 4200000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹42,000"
+    }
+   ]
+  },
+  {
+   "kind": "WEBSITE_PACKAGE",
+   "slug": "custom",
+   "name": "Custom",
+   "summary": "Booking systems, portals, dashboards",
+   "timeline": "Quoted",
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "FROM",
+      "amountPaise": 6500000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "From ₹65,000"
+    }
+   ]
+  },
+  {
+   "kind": "CARE_PLAN",
+   "slug": "essential",
+   "name": "Essential",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": "Monthly",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 89900
+     }
+    },
+    {
+     "label": "Yearly",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 899000
+     }
+    },
+    {
+     "label": "Extra change",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 30000
+     }
+    }
+   ],
+   "features": [
+    {
+     "label": "Hosting, SSL, CDN",
+     "value": "Yes"
+    },
+    {
+     "label": "Daily backups",
+     "value": "30 days"
+    },
+    {
+     "label": "Uptime monitoring",
+     "value": "Yes"
+    },
+    {
+     "label": "Content changes",
+     "value": "2 / month"
+    },
+    {
+     "label": "Security updates",
+     "value": "Monthly"
+    },
+    {
+     "label": "If your site goes down",
+     "value": "Within 1 business day"
+    },
+    {
+     "label": "Normal requests",
+     "value": "Within 3 business days"
+    },
+    {
+     "label": "Monthly report",
+     "value": "—"
+    }
+   ],
+   "notes": [
+    "Hosting is included in all three. Annual is two months free."
+   ],
+   "headline": [
+    {
+     "label": "Monthly",
+     "text": "₹899"
+    },
+    {
+     "label": "Yearly",
+     "text": "₹8,990"
+    },
+    {
+     "label": "Extra change",
+     "text": "₹300"
+    }
+   ]
+  },
+  {
+   "kind": "CARE_PLAN",
+   "slug": "standard",
+   "name": "Standard",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": "Monthly",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 219900
+     }
+    },
+    {
+     "label": "Yearly",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 2199000
+     }
+    },
+    {
+     "label": "Extra change",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 25000
+     }
+    }
+   ],
+   "features": [
+    {
+     "label": "Hosting, SSL, CDN",
+     "value": "Yes"
+    },
+    {
+     "label": "Daily backups",
+     "value": "60 days"
+    },
+    {
+     "label": "Uptime monitoring",
+     "value": "Yes"
+    },
+    {
+     "label": "Content changes",
+     "value": "5 / month"
+    },
+    {
+     "label": "Security updates",
+     "value": "Fortnightly"
+    },
+    {
+     "label": "If your site goes down",
+     "value": "Within 4 business hours"
+    },
+    {
+     "label": "Normal requests",
+     "value": "Within 1 business day"
+    },
+    {
+     "label": "Monthly report",
+     "value": "Yes"
+    }
+   ],
+   "notes": [
+    "Hosting is included in all three. Annual is two months free."
+   ],
+   "headline": [
+    {
+     "label": "Monthly",
+     "text": "₹2,199"
+    },
+    {
+     "label": "Yearly",
+     "text": "₹21,990"
+    },
+    {
+     "label": "Extra change",
+     "text": "₹250"
+    }
+   ]
+  },
+  {
+   "kind": "CARE_PLAN",
+   "slug": "complete",
+   "name": "Complete",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": "Monthly",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 449900
+     }
+    },
+    {
+     "label": "Yearly",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 4499000
+     }
+    },
+    {
+     "label": "Extra change",
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 15000
+     }
+    }
+   ],
+   "features": [
+    {
+     "label": "Hosting, SSL, CDN",
+     "value": "Yes"
+    },
+    {
+     "label": "Daily backups",
+     "value": "90 days"
+    },
+    {
+     "label": "Uptime monitoring",
+     "value": "Yes + performance"
+    },
+    {
+     "label": "Content changes",
+     "value": "12 / month"
+    },
+    {
+     "label": "Security updates",
+     "value": "Weekly"
+    },
+    {
+     "label": "If your site goes down",
+     "value": "Within 2 business hours"
+    },
+    {
+     "label": "Normal requests",
+     "value": "Within 4 business hours"
+    },
+    {
+     "label": "Monthly report",
+     "value": "Yes + call"
+    }
+   ],
+   "notes": [
+    "Hosting is included in all three. Annual is two months free."
+   ],
+   "headline": [
+    {
+     "label": "Monthly",
+     "text": "₹4,499"
+    },
+    {
+     "label": "Yearly",
+     "text": "₹44,990"
+    },
+    {
+     "label": "Extra change",
+     "text": "₹150"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "extra-page-during-build",
+   "name": "Extra page during build",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 180000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹1,800"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "content-writing",
+   "name": "Content writing",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "PER_UNIT",
+      "amountPaise": 90000,
+      "unit": "page"
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹900 / page"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "logo-only",
+   "name": "Logo only (no website)",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 400000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹4,000"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "extra-revision-round",
+   "name": "Extra revision round",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 200000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹2,000"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "product-descriptions",
+   "name": "Product descriptions",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "PER_UNIT",
+      "amountPaise": 12000,
+      "unit": "product"
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹120 / product"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "domain-and-business-email-setup",
+   "name": "Domain & business email setup",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 200000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹2,000"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "site-migration",
+   "name": "Move an existing site to us",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "RANGE",
+      "minPaise": 500000,
+      "maxPaise": 1200000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹5,000 – ₹12,000"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "speed-optimisation",
+   "name": "Speed optimisation",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 500000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹5,000"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "google-business-profile-setup",
+   "name": "Google Business Profile setup",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 250000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹2,500"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "rush-delivery",
+   "name": "Rush delivery",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "PERCENT_SURCHARGE",
+      "percent": 30
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "+30%"
+    }
+   ]
+  },
+  {
+   "kind": "ADD_ON",
+   "slug": "anything-else",
+   "name": "Anything else",
+   "summary": null,
+   "timeline": null,
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "PER_UNIT",
+      "amountPaise": 70000,
+      "unit": "hour"
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹700 / hour"
+    }
+   ]
+  }
+ ],
+ "faqs": [
+  {
+   "topic": "pricing",
+   "question": "What does every website include?",
+   "answer": "Mobile-first design, a contact form, WhatsApp and call buttons, SEO setup (titles, meta, sitemap, schema), analytics, a custom 404 page, and a 30-day warranty."
+  },
+  {
+   "topic": "pricing",
+   "question": "Is hosting included in a website package?",
+   "answer": "Hosting is separate. It is included in all three Care plans."
+  },
+  {
+   "topic": "pricing",
+   "question": "How do Business and Signature differ?",
+   "answer": "Business uses proven layouts from our system, one design direction and one revision round, on a fixed page structure, in 10–14 days. Signature is designed from scratch for your brand, with two directions to choose from, three revision rounds and a structure built around your business, in 3–4 weeks. Need to be online quickly, choose Business. Need to stand out, choose Signature."
+  },
+  {
+   "topic": "pricing",
+   "question": "What counts as one content change?",
+   "answer": "One content change is one set of edits, sent together, to one page. Five staff photos on one page is one change. Three different pages is three changes. A brand-new page is not a content change — it is quoted separately."
+  },
+  {
+   "topic": "pricing",
+   "question": "What are the Care plan terms?",
+   "answer": "Three months minimum, then monthly. Cancel with 30 days' notice. You own your domain and your content, always, and get a full export within 10 working days if you leave."
+  },
+  {
+   "topic": "pricing",
+   "question": "What is not included in any package?",
+   "answer": "Content writing, photography, videography, brand identity beyond the logo, SEO campaigns, paid advertising, social media, third-party subscription fees, domain registration and renewal (passed through at cost), and translations."
+  },
+  {
+   "topic": "pricing",
+   "question": "How does payment work?",
+   "answer": "Up to ₹25,000: 50% to start, 50% on approval. ₹25,000 to ₹75,000: 40% to start, 30% at design approval, 30% on launch. Above ₹75,000: 30%, 30%, 25%, 15%. Work starts once the advance clears, and the site goes live on your domain once the final payment clears."
+  },
+  {
+   "topic": "pricing",
+   "question": "Do you need my content before you start?",
+   "answer": "Content must be supplied in full before we start. This is what makes the timeline possible."
+  },
+  {
+   "topic": "pricing",
+   "question": "What does the warranty cover?",
+   "answer": "Thirty days from launch, and 45 days for Store and Custom. It covers defects in what we built. It does not cover changes you ask for later, edits you make yourself, or a third-party service breaking."
+  },
+  {
+   "topic": "pricing",
+   "question": "Is GST charged?",
+   "answer": "Prices are exclusive of GST and no GST is currently applicable. Should Pixel Kinetix become GST-registered during the term, GST will be added to invoices issued from the date of registration."
+  }
+ ],
+ "homeBlocks": [
+  {
+   "kind": "HERO",
+   "title": "You run your business. We manage your website.",
+   "body": "Built, hosted and looked after by one team. No agencies to chase, no plugins to babysit, no surprise invoices."
+  },
+  {
+   "kind": "PORTAL",
+   "title": "You never have to ask where things stand.",
+   "body": "Every client gets a portal: what stage your project is at and what happens next, your files, the agreement you signed, every invoice and every request you have raised."
+  },
+  {
+   "kind": "SECTOR",
+   "title": "Retail",
+   "body": null
+  },
+  {
+   "kind": "SECTOR",
+   "title": "Clinics",
+   "body": null
+  },
+  {
+   "kind": "SECTOR",
+   "title": "Hospitality",
+   "body": null
+  },
+  {
+   "kind": "SECTOR",
+   "title": "Real Estate",
+   "body": null
+  },
+  {
+   "kind": "SECTOR",
+   "title": "Education",
+   "body": null
+  },
+  {
+   "kind": "SECTOR",
+   "title": "Professional Services",
+   "body": null
+  },
+  {
+   "kind": "SECTOR",
+   "title": "Startups",
+   "body": null
+  },
+  {
+   "kind": "SECTOR",
+   "title": "Manufacturing",
+   "body": null
+  },
+  {
+   "kind": "PROMISE",
+   "title": "You see the price before we start",
+   "body": "Every package has a published price. Your scope and your price are agreed in writing, and work starts only once the advance clears."
+  },
+  {
+   "kind": "PROMISE",
+   "title": "The timeline is on the price list too",
+   "body": "A one-page Starter site takes 3–5 days and a Business site 10–14, counted from the day your content is complete. Larger builds carry their own."
+  },
+  {
+   "kind": "PROMISE",
+   "title": "A change takes a message, not a meeting",
+   "body": "Raise it from your portal in a sentence. Your care plan sets how quickly it is done — as little as four business hours — and you can follow it until it is."
+  },
+  {
+   "kind": "PROCESS_STEP",
+   "title": "Enquiry",
+   "body": "You tell us what you need in a short form. We reply with a straight answer about whether we are the right fit."
+  },
+  {
+   "kind": "PROCESS_STEP",
+   "title": "Proposal",
+   "body": "A fixed scope and a fixed price, in writing. Work starts once the advance clears, and not before."
+  },
+  {
+   "kind": "PROCESS_STEP",
+   "title": "Design",
+   "body": "You see real pages, not a mood board. One round of revisions on Business and three on Signature, before anything is built."
+  },
+  {
+   "kind": "PROCESS_STEP",
+   "title": "Build",
+   "body": "Mobile-first, with titles, meta, sitemap and schema set up for search. Your portal shows which stage it is at and what comes next."
+  },
+  {
+   "kind": "PROCESS_STEP",
+   "title": "Launch",
+   "body": "Domain, email, SSL and analytics, configured and checked. The site goes live on your domain once the final payment clears."
+  },
+  {
+   "kind": "PROCESS_STEP",
+   "title": "Care",
+   "body": "Updates, fixes, daily backups and monitoring on a monthly plan, so there is no hosting panel for you to learn."
+  }
+ ],
+ "businessProfiles": [
+  {
+   "name": "Pixel Kinetix",
+   "legalName": null,
+   "description": "Pixel Kinetix builds, hosts and looks after websites for businesses in India.",
+   "email": null,
+   "telephone": null,
+   "address": null,
+   "areaServed": [
+    "IN"
+   ],
+   "sameAs": []
+  }
+ ]
+}
