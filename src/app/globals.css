@@ -369,53 +369,95 @@ html.lenis body {
   }
 
   /* ==========================================================================================
-     The global bar — Apple's, in this site's type, in glassy Graphite Ink. One strip across the
-     top, 44px on a desktop and 48px on a phone, the lockup and every item spread evenly along one
-     line, white on the closing section's black, frosting what scrolls beneath it; after the first screen a
-     hairline of light settles under it. It never changes shape. A menu opens as a flyout of the
-     same ink, full width, with the page behind it dimmed and softened out of focus.
+     The global bar — Apple's, in this site's type. One frosted strip across the top, 44px on a
+     desktop and 48px on a phone, the lockup and every item spread evenly along one line. By day
+     it is Apple's light bar; by night, the brand's glassy ink — the visitor's own clock decides
+     (`lib/daypart.ts`, on `<html data-daypart>`). Its flyouts and the phone sheet take the same
+     light. It never changes shape; after the first screen a hairline settles under it. Every
+     colour below comes from the `--nav-*` set, so day and night differ in one place.
      ========================================================================================== */
   .gnav {
     --gnav-h: 3rem;
+    /* Night: the closing section's black, what shows through blurred and dimmed first. */
+    --nav-bg: rgb(11 13 18 / 0.82);
+    --nav-filter: blur(20px) saturate(180%) brightness(0.18);
+    --nav-solid: rgb(11 13 18);
+    --nav-fg: #fff;
+    --nav-fg-2: rgb(255 255 255 / 0.78);
+    --nav-fg-3: #8a8fa3;
+    --nav-rule: rgb(255 255 255 / 0.1);
+    --nav-hover: rgb(255 255 255 / 0.07);
+    --nav-pill: rgb(255 255 255 / 0.12);
+    --nav-btn-bg: #fff;
+    --nav-btn-fg: var(--color-ink);
+    --nav-scrim: rgb(11 13 18 / 0.32);
+    --nav-shadow: rgb(0 0 0 / 0.55);
     position: fixed;
     inset: 0 0 auto;
     z-index: 50;
     height: var(--gnav-h);
+  }
+  /* Day: Apple's own bar, `--globalnav-background: rgba(245, 245, 247, .8)`. */
+  :root[data-daypart='day'] .gnav {
+    --nav-bg: rgb(245 245 247 / 0.8);
+    --nav-filter: saturate(180%) blur(20px);
+    --nav-solid: rgb(245 245 247);
+    --nav-fg: var(--color-ink);
+    --nav-fg-2: rgb(11 13 18 / 0.8);
+    --nav-fg-3: var(--color-ink-2);
+    --nav-rule: rgb(11 13 18 / 0.1);
+    --nav-hover: #fff;
+    --nav-pill: rgb(11 13 18 / 0.06);
+    --nav-btn-bg: var(--color-graphite);
+    --nav-btn-fg: #fff;
+    --nav-scrim: rgb(232 232 237 / 0.4);
+    --nav-shadow: rgb(0 0 0 / 0.14);
   }
   @media (min-width: 1024px) {
     .gnav {
       --gnav-h: 2.75rem;
     }
   }
-  /* The closing section's own black. What shows through is blurred and dimmed first, then the ink
-     laid over it — so over white paper the bar still reads as that black, and the page beneath
-     is only a faint, moving shadow in it. Without backdrop filters, the ink is solid. */
   .gnav__bar {
     position: absolute;
     inset: 0;
-    background: rgb(11 13 18 / 0.82);
-    -webkit-backdrop-filter: blur(20px) saturate(180%) brightness(0.18);
-    backdrop-filter: blur(20px) saturate(180%) brightness(0.18);
-    box-shadow: 0 1px 0 rgb(255 255 255 / 0);
+    background: var(--nav-bg);
+    -webkit-backdrop-filter: var(--nav-filter);
+    backdrop-filter: var(--nav-filter);
+    box-shadow: 0 1px 0 transparent;
     transition:
-      background-color 0.32s cubic-bezier(0.4, 0, 0.6, 1),
+      background-color 0.6s ease,
       box-shadow 0.5s ease;
   }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .gnav__bar {
-      background: rgb(11 13 18);
+      background: var(--nav-solid);
     }
   }
   .gnav[data-scrolled] .gnav__bar {
-    box-shadow: 0 1px 0 rgb(255 255 255 / 0.08);
+    box-shadow: 0 1px 0 var(--nav-rule);
   }
-  /* Open, the bar and its flyout are one sheet of ink. */
+  /* Open, the bar and its flyout are one sheet. */
   .gnav:is([data-flyout], [data-sheet]) .gnav__bar {
-    background: rgb(11 13 18 / 1);
-    box-shadow: 0 1px 0 rgb(255 255 255 / 0);
+    background: var(--nav-solid);
+    box-shadow: 0 1px 0 transparent;
   }
+  .gnav,
   .gnav .burger {
-    color: #fff;
+    color: var(--nav-fg);
+  }
+  .gnav :focus-visible {
+    outline-color: var(--nav-fg);
+  }
+  /* The call to action in the bar, the flyouts and the phone sheet: white by night, ink by day. */
+  .gnav .nav-btn {
+    background: var(--nav-btn-bg);
+    color: var(--nav-btn-fg);
+    box-shadow: none;
+  }
+  .gnav .nav-btn:hover {
+    background: var(--nav-btn-bg);
+    opacity: 0.88;
   }
   /* The bar's row sits in the page's one container, so the lockup lines up with every section. */
   .gnav__content {
@@ -427,28 +469,48 @@ html.lenis body {
   }
 
   .gnav-link {
+    position: relative;
     display: inline-flex;
     height: var(--gnav-h);
     align-items: center;
-    padding-inline: 0.5rem;
-    color: rgb(255 255 255 / 0.78);
+    padding-inline: 0.75rem;
+    color: var(--nav-fg-2);
     font-size: 0.75rem;
     font-weight: 400;
     transition: color 0.32s cubic-bezier(0.4, 0, 0.6, 1);
   }
+  /* The earlier pill: it grows in under the item the pointer is on, is held under Services or
+     Solutions while its menu is open, and lets go when the pointer moves away. */
+  .gnav-link::before {
+    content: '';
+    position: absolute;
+    inset: 0.4375rem 0;
+    z-index: -1;
+    border-radius: 9999px;
+    background: var(--nav-pill);
+    opacity: 0;
+    transform: scale(0.9);
+    transition:
+      opacity 0.25s ease,
+      transform 0.35s var(--ease-premium);
+  }
+  .gnav-link:is(:hover, [aria-expanded='true'])::before {
+    opacity: 1;
+    transform: none;
+  }
   .gnav-link:hover,
   .gnav-link[aria-expanded='true'] {
-    color: #fff;
+    color: var(--nav-fg);
   }
-  /* Where the visitor is: full white and a pixel beneath, centred — the brand's square. */
+  /* Where the visitor is: the full colour and a pixel beneath the pill, centred — the brand's
+     square. */
   .gnav-link[data-active] {
-    position: relative;
-    color: #fff;
+    color: var(--nav-fg);
   }
   .gnav-link[data-active]::after {
     content: '';
     position: absolute;
-    bottom: 0.45rem;
+    bottom: 0.1875rem;
     left: 50%;
     width: 3px;
     height: 3px;
@@ -466,8 +528,8 @@ html.lenis body {
     position: absolute;
     inset-inline: 0;
     top: 100%;
-    background: rgb(11 13 18);
-    box-shadow: 0 40px 70px -40px rgb(0 0 0 / 0.55);
+    background: var(--nav-solid);
+    box-shadow: 0 40px 70px -40px var(--nav-shadow);
     clip-path: inset(0 0 100% 0);
     visibility: hidden;
     transition:
@@ -495,51 +557,121 @@ html.lenis body {
     opacity: 1;
     transform: none;
     transition:
-      opacity 0.32s cubic-bezier(0.4, 0, 0.6, 1) calc(0.08s + var(--i, 0) * 0.02s),
-      transform 0.36s cubic-bezier(0.4, 0, 0.6, 1) calc(0.08s + var(--i, 0) * 0.02s);
+      opacity 0.32s cubic-bezier(0.4, 0, 0.6, 1) calc(0.08s + var(--i, 0) * 0.03s),
+      transform 0.36s cubic-bezier(0.4, 0, 0.6, 1) calc(0.08s + var(--i, 0) * 0.03s);
   }
   .gnav-flyout__label {
-    color: #8a8fa3;
+    color: var(--nav-fg-3);
     font-size: 0.75rem;
   }
-  .gnav-flyout__big {
-    display: inline-block;
-    padding-block: 0.3rem;
-    color: #fff;
+
+  /* ---- Inside the flyout: the earlier mega menu's pattern, on the sheet -------------------- */
+  /* A column's title — the group or solution, linking to its page — and its line, over a hairline;
+     indented to the items' own padding, so titles and names share one edge. */
+  .mega-title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 0 0.625rem 0.6rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--nav-rule);
+  }
+  .mega-title__name {
+    align-self: flex-start;
+    color: var(--nav-fg);
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    transition: color 0.25s ease;
+    letter-spacing: -0.015em;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.25s ease;
   }
-  .gnav-flyout__big:hover {
-    color: rgb(255 255 255 / 0.7);
+  .mega-title__name:hover {
+    text-decoration-color: currentColor;
   }
-  .gnav-flyout__small {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding-block: 0.35rem;
-    color: rgb(255 255 255 / 0.8);
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 1.33;
-    transition: color 0.25s ease;
+  .mega-title__line {
+    color: var(--nav-fg-3);
+    font-size: 0.8125rem;
   }
-  .gnav-flyout__small:hover {
-    color: #fff;
+  /* An item: its icon, name, one-line summary and the tilted arrow. Pointed at, a soft pill and the
+     icon and arrow in full colour; where you are, the pill held with a hairline round it. */
+  .mega-link {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.625rem;
+    border-radius: 0.75rem;
+    white-space: normal;
+    transition: background-color 0.3s ease;
   }
-  .gnav-flyout__small[data-active] {
-    color: #fff;
-    font-weight: 600;
+  .mega-link:hover,
+  .mega-link[aria-current] {
+    background: var(--nav-hover);
   }
-  .gnav-flyout__small[data-active]::before {
-    content: '';
-    width: 4px;
-    height: 4px;
+  .mega-link[aria-current] {
+    box-shadow: inset 0 0 0 1px var(--nav-rule);
+  }
+  .mega-link__icon {
+    display: grid;
+    width: 1.25rem;
+    height: 1.25rem;
     flex: none;
-    background: var(--color-kinetic);
+    margin-top: 1px;
+    place-items: center;
+    color: var(--nav-fg-3);
+    transition: color 0.3s ease;
+  }
+  .mega-link__name {
+    display: block;
+    color: var(--nav-fg);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  /* The summary in full, over as many lines as it takes — nothing cut off with an ellipsis. */
+  .mega-link__summary {
+    display: block;
+    margin-top: 0.125rem;
+    color: var(--nav-fg-3);
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+  .mega-link__arrow {
+    width: 0.875rem;
+    height: 0.875rem;
+    flex: 0 0 0.875rem;
+    margin-top: 0.25rem;
+    color: var(--nav-fg-3);
+    transition: color 0.3s ease;
+  }
+  .mega-link:is(:hover, [aria-current]) :is(.mega-link__icon, .mega-link__arrow) {
+    color: var(--nav-fg);
+  }
+  /* The foot: under a hairline, a line of words and the button to everything. */
+  .mega-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+    padding: 1.25rem 0.625rem 0;
+    border-top: 1px solid var(--nav-rule);
+    color: var(--nav-fg-2);
+    font-size: 0.875rem;
+  }
+  .mega-foot__link {
+    color: var(--nav-fg);
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-decoration-color: var(--nav-rule);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.25s ease;
+  }
+  .mega-foot__link:hover {
+    text-decoration-color: currentColor;
   }
 
   /* The page behind an open flyout, dimmed and softened. It never takes the pointer, so moving
@@ -547,7 +679,7 @@ html.lenis body {
   .gnav-scrim {
     position: fixed;
     inset: var(--gnav-h) 0 0;
-    background: rgb(11 13 18 / 0.32);
+    background: var(--nav-scrim);
     -webkit-backdrop-filter: blur(18px);
     backdrop-filter: blur(18px);
     opacity: 0;
@@ -1117,7 +1249,7 @@ html.lenis body {
   /* The sheet draws down from under the bar and back up into it. Closed, it keeps its place in
      the page but is invisible and out of reach — visibility waits for the draw to finish. */
   .m-menu {
-    background: rgb(11 13 18);
+    background: var(--nav-solid);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
     clip-path: inset(0 0 100% 0);
@@ -1158,12 +1290,12 @@ html.lenis body {
     justify-content: space-between;
     gap: 1rem;
     padding-block: 0.4rem;
-    color: #fff;
+    color: var(--nav-fg);
     text-align: left;
     transition: color 0.25s ease;
   }
   .sheet-link:hover {
-    color: rgb(255 255 255 / 0.7);
+    color: var(--nav-fg-2);
   }
   .sheet-link__label {
     display: inline-flex;
@@ -1186,16 +1318,16 @@ html.lenis body {
     align-items: center;
     gap: 0.6rem;
     padding-block: 0.4rem;
-    color: rgb(255 255 255 / 0.8);
+    color: var(--nav-fg-2);
     font-size: 1.0625rem;
     font-weight: 500;
     transition: color 0.2s ease;
   }
   .sheet-sublink:hover {
-    color: #fff;
+    color: var(--nav-fg);
   }
   .sheet-sublink[data-active] {
-    color: #fff;
+    color: var(--nav-fg);
     font-weight: 600;
   }
   .sheet-sublink[data-active]::before {
@@ -1437,71 +1569,6 @@ html.lenis body {
 }
 
 @layer components {
-  /* ---- The footer's social row: a tile per profile, from the owner's reference ------------- */
-  .social-tile {
-    display: flex;
-    min-height: 11.5rem;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 2.5rem;
-    padding: 1.15rem 1.15rem 1.3rem;
-    border: 1px solid transparent;
-    border-radius: 0.625rem;
-    background: var(--color-fill);
-    color: var(--color-ink-3);
-    transition:
-      background-color 0.3s ease,
-      border-color 0.3s ease,
-      box-shadow 0.4s ease;
-  }
-  .social-tile__disc {
-    display: grid;
-    width: 2.75rem;
-    height: 2.75rem;
-    place-items: center;
-    border-radius: 9999px;
-    background: var(--color-ink);
-    color: #fff;
-    transition: background-color 0.3s ease;
-  }
-  .social-tile__name {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 1.0625rem;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    text-decoration-line: underline;
-    text-decoration-color: transparent;
-    text-decoration-thickness: 1.5px;
-    text-underline-offset: 6px;
-    transition:
-      color 0.3s ease,
-      text-decoration-color 0.3s ease;
-  }
-  a.social-tile:is(:hover, :focus-visible) {
-    border-color: var(--color-line);
-    background: #fff;
-    box-shadow: 0 18px 40px -30px rgb(11 13 18 / 0.35);
-  }
-  a.social-tile:is(:hover, :focus-visible) .social-tile__disc {
-    background: var(--brand);
-  }
-  a.social-tile:is(:hover, :focus-visible) .social-tile__name {
-    color: var(--color-ink);
-    text-decoration-color: currentColor;
-  }
-  @media (max-width: 639px) {
-    .social-tile {
-      min-height: 8.5rem;
-      gap: 1.5rem;
-    }
-  }
-  /* A profile whose address is still to come: drawn, not a link. */
-  .social-tile[data-placeholder] {
-    cursor: default;
-  }
-
   /* ---- The identity's closing view: the symbol's pixel turning, as the identity's page has it */
   .pk-loop .pk-px {
     animation: pk-art-turn 5.5s cubic-bezier(0.7, 0, 0.2, 1) infinite;

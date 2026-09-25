@@ -305,12 +305,13 @@ export const contact = {
   instagram: '@pixelkinetix',
   instagramHref: 'https://www.instagram.com/pixelkinetix/',
   mapsHref: 'https://www.google.com/maps/search/?api=1&query=Pixel+Kinetix+Kalyan+Nagar+Bangalore',
-  locality: 'Kalyan Nagar · HRBR Layout · Bangalore',
-  /** The postal parts, for structured data. No street or PIN until the office address is confirmed. */
+  locality: 'Kalyan Nagar · HRBR Layout · Bangalore - 560043',
+  /** The postal parts, for structured data. No street until the office address is confirmed. */
   address: {
     area: 'HRBR Layout, Kalyan Nagar',
     city: 'Bengaluru',
     region: 'Karnataka',
+    postalCode: '560043',
     country: 'IN',
   },
 };
@@ -320,9 +321,9 @@ export const whatsappAbout = (topic: string) =>
   `https://wa.me/916309966099?text=${encodeURIComponent(`Hi Pixel Kinetix, I'd like to know about ${topic}.`)}`;
 
 /**
- * Social profiles, in the footer's row. Instagram is the business's real address; LinkedIn is a
- * placeholder (`href: null`) — its tile is drawn, but it is not a link until its address is added
- * here.
+ * Social profiles, in the footer's last column. Instagram is the business's real address; LinkedIn
+ * is a placeholder (`href: null`) — its name is shown, but it is not a link until its address is
+ * added here.
  */
 export type SocialId = 'instagram' | 'linkedin';
 export const socials: { id: SocialId; label: string; href: string | null }[] = [

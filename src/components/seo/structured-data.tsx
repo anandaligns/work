@@ -4,7 +4,7 @@ import { contact, faqGroups, SITE_URL, socials } from '@/content/site';
  * JSON-LD for the home page: the business and the website as one graph, and the FAQ as the page's
  * HTML carries it — the first shelf, the one open on arrival. The other shelves render only when
  * chosen, and structured data may only describe what is on the page.
- * Only facts the site already states go in — no street address or PIN until the office address is
+ * Only facts the site already states go in — no street address until the office address is
  * confirmed, no legal name until the company is incorporated, and `sameAs` only for profiles that
  * exist.
  */
@@ -23,6 +23,7 @@ const business = {
     streetAddress: contact.address.area,
     addressLocality: contact.address.city,
     addressRegion: contact.address.region,
+    postalCode: contact.address.postalCode,
     addressCountry: contact.address.country,
   },
   areaServed: { '@type': 'Country', name: 'India' },

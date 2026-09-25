@@ -6,8 +6,9 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 import { categories, evolve, nav, solutions, START } from '@/content/site';
 import { announceAnchor, useAnchor } from '@/lib/anchor';
+import { daypart } from '@/lib/daypart';
 
-import { Icon } from '../ui/icon';
+import { Icon, iconFor } from '../ui/icon';
 import { Logo } from '../ui/logo';
 import { RollLink } from '../ui/roll-link';
 
@@ -30,26 +31,24 @@ const PAGES_OF: Record<string, string> = {
   Contact: '/contact',
 };
 
-/** The Services menu: the three groups' services, each on its own page, and Evolve beneath them. */
+/** Every service group, service and Evolve has its own page. */
 const serviceHref = (slug: string) => `/services/${slug}`;
-const SERVICE_LINKS = [
-  ...categories.map((category) => ({ slug: category.slug, name: category.name })),
-  { slug: evolve.slug, name: evolve.name },
-];
 
 /**
  * The header — Apple's global bar, in this site's type.
  *
- * One strip of glassy Graphite Ink, 44px on a desktop and 48px on a phone: the lockup, the seven
- * items and the call to action spread evenly along one line, in white. It never changes shape; it
- * frosts the page scrolling under it, and a hairline of light settles beneath it once the page
- * has moved. The lockup's pixel turns a quarter each time the
- * reader enters a new section.
+ * One frosted strip, 44px on a desktop and 48px on a phone: the lockup, the seven items and the
+ * call to action spread evenly along one line. By day it is Apple's light bar, by night the brand's
+ * glassy ink — by the visitor's own clock (`lib/daypart.ts`), its sheets and menus with it. It
+ * never changes shape; a hairline settles beneath it once the page has moved. The lockup's pixel
+ * turns a quarter each time the reader enters a new section.
  *
  * Services and Solutions open flyouts: full-width sheets of the bar's own ink, drawn down from
- * under it while the page behind dims and softens out of focus. The first column is the big way in —
- * the three service groups and Evolve, the four solutions — and the columns beside it every item
- * underneath. Services open their own pages; solutions' bundles open their row on the home page.
+ * under it while the page behind dims and softens out of focus. Inside is the earlier mega menu's
+ * pattern, straight on the sheet and in line with the lockup: a column per service group or
+ * solution — its title linking to its page — every item with its icon, a one-line summary and a
+ * tilted arrow, and a foot with the way to everything (Evolve under the services). Services open their own pages; solutions' bundles open
+ * their row on the home page.
  * They open on hover and on focus, close on Escape with focus handed back to the trigger, and
  * only one is ever open; moving from one to the other swaps the contents in place.
  */
@@ -122,6 +121,15 @@ export function Header() {
     measure();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Day or night by the visitor's clock: the head script set it before the first paint; this keeps
+  // it true while the page stays open, so the bar turns at dusk and dawn.
+  useEffect(() => {
+    const apply = () => document.documentElement.setAttribute('data-daypart', daypart());
+    apply();
+    const timer = window.setInterval(apply, 60_000);
+    return () => window.clearInterval(timer);
   }, []);
 
   const show = useCallback((key: MenuKey | null) => {
@@ -198,143 +206,103 @@ export function Header() {
         onMouseEnter={() => openNow(key)}
         className="gnav-flyout max-lg:hidden"
       >
-        <div className="container-fluid flex gap-x-16 pt-10 pb-16">
-          {key === 'services' ? (
-            <>
-              <div className="w-[17rem] shrink-0">
-                <p className="gnav-flyout__label gnav-flyout__item" style={next()}>
-                  Explore services
-                </p>
-                <ul className="mt-3 flex flex-col">
-                  {SERVICE_LINKS.map((link) => (
-                    <li key={link.slug} className="gnav-flyout__item" style={next()}>
+        {/* Inside the sheet, the earlier mega menu's pattern, straight on the sheet: a column per
+            group or solution under its title — linking to its page — and its line, every item an
+            icon, a name, a one-line summary and a tilted arrow, and a foot with the way to
+            everything. It starts at the page's edge, in line with the lockup. */}
+        <div className="container-fluid pt-14 pb-12">
+          <div className={`grid gap-x-6 ${key === 'services' ? 'grid-cols-3' : 'grid-cols-4'}`}>
+            {key === 'services'
+              ? categories.map((category) => (
+                  <div key={category.slug} className="gnav-flyout__item min-w-0" style={next()}>
+                    <p className="mega-title">
                       <Link
-                        href={serviceHref(link.slug)}
-                        className="gnav-flyout__big"
-                        aria-current={pathname === serviceHref(link.slug) ? 'page' : undefined}
+                        href={serviceHref(category.slug)}
+                        className="mega-title__name"
+                        aria-current={pathname === serviceHref(category.slug) ? 'page' : undefined}
                         onClick={() => close(false)}
                       >
-                        {link.name}
+                        {category.name}
                       </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              {categories.map((category) => (
-                <div key={category.slug} className="min-w-0 flex-1">
-                  <p className="gnav-flyout__label gnav-flyout__item" style={next()}>
-                    {category.line}
-                  </p>
-                  <ul className="mt-3 flex flex-col">
-                    {category.services.map((service) => {
-                      const href = serviceHref(service.anchor);
-                      return (
-                        <li key={service.anchor} className="gnav-flyout__item" style={next()}>
-                          <Link
+                      <span className="mega-title__line">{category.line}</span>
+                    </p>
+                    <ul className="flex flex-col gap-0.5">
+                      {category.services.map((service) => {
+                        const href = serviceHref(service.anchor);
+                        return (
+                          <MenuItem
+                            key={service.anchor}
                             href={href}
-                            className="gnav-flyout__small"
-                            data-active={pathname === href || undefined}
-                            aria-current={pathname === href ? 'page' : undefined}
-                            onClick={() => close(false)}
-                          >
-                            {service.name}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ))}
-            </>
-          ) : (
-            <>
-              <div className="w-[17rem] shrink-0">
-                <p className="gnav-flyout__label gnav-flyout__item" style={next()}>
-                  Explore solutions
-                </p>
-                <ul className="mt-3 flex flex-col">
-                  {solutions.map((solution) => {
-                    const href = `/#${solution.bundles[0]?.anchor ?? 'solutions'}`;
-                    return (
-                      <li key={solution.slug} className="gnav-flyout__item" style={next()}>
-                        <Link href={href} className="gnav-flyout__big" onClick={() => pick(href)}>
-                          {solution.name}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="gnav-flyout__label gnav-flyout__item" style={next()}>
-                  Bundles
-                </p>
-                <ul className="mt-3 flex flex-col">
-                  {solutions.flatMap((solution) =>
-                    solution.bundles.map((bundle) => (
-                      <li key={bundle.anchor} className="gnav-flyout__item" style={next()}>
-                        <Link
-                          href={`/#${bundle.anchor}`}
-                          className="gnav-flyout__small"
-                          data-active={here(`/#${bundle.anchor}`, 'solutions') || undefined}
-                          aria-current={
-                            here(`/#${bundle.anchor}`, 'solutions') ? 'location' : undefined
-                          }
-                          onClick={() => pick(`/#${bundle.anchor}`)}
-                        >
-                          {bundle.name}
-                        </Link>
-                      </li>
-                    )),
-                  )}
-                </ul>
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="gnav-flyout__label gnav-flyout__item" style={next()}>
-                  Before you choose
-                </p>
-                <ul className="mt-3 flex flex-col">
-                  {[
-                    { label: 'See the prices', href: '/#pricing' },
-                    { label: 'How a project runs', href: '/#process' },
-                    { label: 'Your client portal', href: '/#portal' },
-                    { label: 'Questions, answered', href: '/#faq' },
-                  ].map((link) => (
-                    <li key={link.href} className="gnav-flyout__item" style={next()}>
+                            icon={iconFor(service.anchor)}
+                            name={service.name}
+                            summary={service.summary}
+                            active={pathname === href}
+                            current="page"
+                            onPick={() => close(false)}
+                          />
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ))
+              : solutions.map((solution) => (
+                  <div key={solution.slug} className="gnav-flyout__item min-w-0" style={next()}>
+                    <p className="mega-title">
                       <Link
-                        href={link.href}
-                        className="gnav-flyout__small"
+                        href={`/solutions/${solution.slug}`}
+                        className="mega-title__name"
+                        aria-current={
+                          pathname === `/solutions/${solution.slug}` ? 'page' : undefined
+                        }
                         onClick={() => close(false)}
                       >
-                        {link.label}
+                        {solution.name}
                       </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="w-[15rem] shrink-0">
-                <p className="gnav-flyout__label gnav-flyout__item" style={next()}>
-                  Not sure which?
-                </p>
-                <p
-                  className="gnav-flyout__item mt-3 text-[0.8125rem] leading-relaxed text-white/60"
-                  style={next()}
+                      <span className="mega-title__line">{solution.line}</span>
+                    </p>
+                    <ul className="flex flex-col gap-0.5">
+                      {solution.bundles.map((bundle) => (
+                        <MenuItem
+                          key={bundle.anchor}
+                          href={`/#${bundle.anchor}`}
+                          icon={iconFor(bundle.anchor)}
+                          name={bundle.name}
+                          summary={bundle.includes.join(' · ')}
+                          active={here(`/#${bundle.anchor}`, 'solutions')}
+                          current="location"
+                          onPick={() => pick(`/#${bundle.anchor}`)}
+                        />
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+          </div>
+          {/* The foot, under a hairline: the way to everything. */}
+          <div className="gnav-flyout__item mega-foot" style={next()}>
+            {key === 'services' ? (
+              <p>
+                Underneath all three:{' '}
+                <Link
+                  href={serviceHref(evolve.slug)}
+                  className="mega-foot__link"
+                  onClick={() => close(false)}
                 >
-                  Tell us the problem. We’ll map the right system and quote it in writing.
-                </p>
-                <div className="gnav-flyout__item mt-4" style={next()}>
-                  <RollLink
-                    href={START.href}
-                    size="xs"
-                    variant="paper"
-                    onClick={() => close(false)}
-                  >
-                    {START.label}
-                  </RollLink>
-                </div>
-              </div>
-            </>
-          )}
+                  {evolve.name}
+                </Link>{' '}
+                — {evolve.summary.charAt(0).toLowerCase() + evolve.summary.slice(1)}
+              </p>
+            ) : (
+              <p>Tell us the problem. We’ll map the right system and quote it in writing.</p>
+            )}
+            <RollLink
+              href={key === 'services' ? '/#services' : '/#solutions'}
+              size="sm"
+              onClick={() => close(false)}
+              className="nav-btn shrink-0"
+            >
+              {key === 'services' ? 'All services' : 'All solutions'}
+            </RollLink>
+          </div>
         </div>
       </div>
     );
@@ -343,7 +311,7 @@ export function Header() {
   return (
     <header
       ref={header}
-      className="gnav on-night"
+      className="gnav"
       data-scrolled={scrolled || undefined}
       data-flyout={open || undefined}
       data-swap={swap || undefined}
@@ -354,7 +322,7 @@ export function Header() {
       <span aria-hidden="true" className="gnav-scrim -z-[2]" />
 
       <div className="gnav__content container-fluid">
-        <Logo turnKey={section} tone="white" />
+        <Logo turnKey={section} tone="inherit" />
 
         <nav aria-label="Primary" className="hidden h-full flex-1 lg:block">
           <ul className="flex h-full items-center justify-evenly">
@@ -406,7 +374,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1.5" onMouseEnter={closeSoon}>
-          <RollLink href={START.href} size="xs" variant="paper" className="max-md:hidden">
+          <RollLink href={START.href} size="xs" className="nav-btn max-md:hidden">
             {START.label}
           </RollLink>
           {/* aoutive's menu control — Apple's too: two bars that meet and cross. */}
@@ -467,7 +435,7 @@ export function Header() {
                         <Icon
                           name="chevron"
                           size={18}
-                          className={`shrink-0 text-white/50 transition-transform duration-500 ease-[var(--ease-premium)] ${
+                          className={`shrink-0 text-[var(--nav-fg-3)] transition-transform duration-500 ease-[var(--ease-premium)] ${
                             sheetSection === item.menu ? 'rotate-180' : ''
                           }`}
                         />
@@ -564,17 +532,68 @@ export function Header() {
             })}
           </ul>
           <div className="m-item mt-10" style={{ ['--i' as string]: nav.length }}>
-            <RollLink
-              href={START.href}
-              variant="paper"
-              className="w-full"
-              onClick={() => setSheet(false)}
-            >
+            <RollLink href={START.href} className="nav-btn w-full" onClick={() => setSheet(false)}>
               {START.label}
             </RollLink>
           </div>
         </nav>
       </div>
     </header>
+  );
+}
+
+/** An item in the mega menu: its icon, name, one-line summary and a tilted arrow that rolls. */
+function MenuItem({
+  href,
+  icon,
+  name,
+  summary,
+  active = false,
+  current,
+  onPick,
+}: {
+  href: string;
+  icon: Parameters<typeof Icon>[0]['name'];
+  name: string;
+  summary: string;
+  active?: boolean;
+  /** How the item marks where the visitor is: a page, or a place on the home page. */
+  current: 'page' | 'location';
+  onPick: () => void;
+}) {
+  const arrow = (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+  return (
+    <li>
+      <Link
+        href={href}
+        onClick={onPick}
+        aria-current={active ? current : undefined}
+        className="mega-link roll"
+      >
+        <span className="mega-link__icon">
+          <Icon name={icon} size={18} />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="mega-link__name">{name}</span>
+          <span className="mega-link__summary">{summary}</span>
+        </span>
+        {/* The tilted arrow is there at rest; pointing at the row rolls it out and its twin in. */}
+        <span aria-hidden="true" className="roll__arrow mega-link__arrow">
+          {arrow}
+          {arrow}
+        </span>
+      </Link>
+    </li>
   );
 }

@@ -20,7 +20,8 @@ export function Logo({
   turnKey,
   className = 'h-4 w-auto lg:h-[1.0625rem]',
 }: {
-  tone?: 'ink' | 'white';
+  /** `inherit` takes the colour of whatever it sits in — the header sets it by day or night. */
+  tone?: 'ink' | 'white' | 'inherit';
   turnKey?: string;
   className?: string;
 }) {
@@ -49,7 +50,7 @@ export function Logo({
     >
       <BrandLockup
         pixelRef={pixel}
-        className={`${className} transition-colors duration-300 ${tone === 'white' ? 'text-white' : 'text-ink'}`}
+        className={`${className} transition-colors duration-300 ${tone === 'white' ? 'text-white' : tone === 'ink' ? 'text-ink' : ''}`}
       />
     </Link>
   );
