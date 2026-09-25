@@ -260,6 +260,165 @@ export const PATHS = {
       <path d="M9 14l2 2l4 -4" />
     </>
   ),
+  // Pages: what gets in the way, what we build, and how it works
+  move: (
+    <>
+      <path d="M14 12l-10 0" />
+      <path d="M14 12l-4 4" />
+      <path d="M14 12l-4 -4" />
+      <path d="M20 4l0 16" />
+    </>
+  ),
+  chart: (
+    <>
+      <path d="M3 13a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -6" />
+      <path d="M15 9a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -10" />
+      <path d="M9 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -14" />
+      <path d="M4 20h14" />
+    </>
+  ),
+  key: (
+    <>
+      <path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0" />
+      <path d="M15 9h.01" />
+    </>
+  ),
+  truck: (
+    <>
+      <path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+      <path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+      <path d="M5 17h-2v-11a1 1 0 0 1 1 -1h9v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+    </>
+  ),
+  devices: (
+    <>
+      <path d="M13 9a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1v-10" />
+      <path d="M18 8v-3a1 1 0 0 0 -1 -1h-13a1 1 0 0 0 -1 1v12a1 1 0 0 0 1 1h9" />
+      <path d="M16 9h2" />
+    </>
+  ),
+  download: (
+    <>
+      <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+      <path d="M7 11l5 5l5 -5" />
+      <path d="M12 4l0 12" />
+    </>
+  ),
+  history: (
+    <>
+      <path d="M12 8l0 4l2 2" />
+      <path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5" />
+    </>
+  ),
+  eye: (
+    <>
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+    </>
+  ),
+  upload: (
+    <>
+      <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+      <path d="M7 9l5 -5l5 5" />
+      <path d="M12 4l0 12" />
+    </>
+  ),
+  clock: (
+    <>
+      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+      <path d="M12 7v5l3 3" />
+    </>
+  ),
+  table: (
+    <>
+      <path d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14" />
+      <path d="M3 10h18" />
+      <path d="M10 3v18" />
+    </>
+  ),
+  card: (
+    <>
+      <path d="M3 8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3l0 -8" />
+      <path d="M3 10l18 0" />
+      <path d="M7 15l.01 0" />
+      <path d="M11 15l2 0" />
+    </>
+  ),
+  rupee: (
+    <>
+      <path d="M18 5h-11h3a4 4 0 0 1 0 8h-3l6 6" />
+      <path d="M7 9l11 0" />
+    </>
+  ),
+  repeat: (
+    <>
+      <path d="M4 12v-3a3 3 0 0 1 3 -3h13m-3 -3l3 3l-3 3" />
+      <path d="M20 12v3a3 3 0 0 1 -3 3h-13m3 3l-3 -3l3 -3" />
+    </>
+  ),
+  question: (
+    <>
+      <path d="M8 9h8" />
+      <path d="M8 13h6" />
+      <path d="M14 18h-1l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5" />
+      <path d="M19 22v.01" />
+      <path d="M19 19a2.003 2.003 0 0 0 .914 -3.782a1.98 1.98 0 0 0 -2.414 .483" />
+    </>
+  ),
+  book: (
+    <>
+      <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+      <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+      <path d="M3 6l0 13" />
+      <path d="M12 6l0 13" />
+      <path d="M21 6l0 13" />
+    </>
+  ),
+  scan: (
+    <>
+      <path d="M5 12h14" />
+      <path d="M3 7v-2a2 2 0 0 1 2 -2h2" />
+      <path d="M3 17v2a2 2 0 0 0 2 2h2" />
+      <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+      <path d="M17 21h2a2 2 0 0 0 2 -2v-2" />
+    </>
+  ),
+  tasks: (
+    <>
+      <path d="M3.5 5.5l1.5 1.5l2.5 -2.5" />
+      <path d="M3.5 11.5l1.5 1.5l2.5 -2.5" />
+      <path d="M3.5 17.5l1.5 1.5l2.5 -2.5" />
+      <path d="M11 6l9 0" />
+      <path d="M11 12l9 0" />
+      <path d="M11 18l9 0" />
+    </>
+  ),
+  filter: (
+    <path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227" />
+  ),
+  apps: (
+    <>
+      <path d="M4 5a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+      <path d="M4 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+      <path d="M14 15a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1l0 -4" />
+      <path d="M14 7l6 0" />
+      <path d="M17 4l0 6" />
+    </>
+  ),
+  userCheck: (
+    <>
+      <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+      <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+      <path d="M15 19l2 2l4 -4" />
+    </>
+  ),
+  alert: (
+    <>
+      <path d="M12 9v4" />
+      <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0" />
+      <path d="M12 16h.01" />
+    </>
+  ),
   // Sectors
   store: (
     <>
@@ -423,3 +582,14 @@ export const SERVICE_ICONS: Record<string, IconName> = {
 };
 
 export const iconFor = (anchor: string): IconName => SERVICE_ICONS[anchor] ?? 'spark';
+
+/**
+ * The four solutions' marks — in the Solutions menu, on their cards, and as the subject of each
+ * solution page's closing scene.
+ */
+export const SOLUTION_ICONS: Record<string, IconName> = {
+  'never-miss-a-lead': 'chat',
+  'sell-and-book-online': 'store',
+  'run-it-in-one-place': 'layers',
+  'keep-it-improving': 'move',
+};

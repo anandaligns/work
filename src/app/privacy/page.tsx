@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { LegalPage } from '@/components/pages/legal';
 import { contact } from '@/content/site';
+import { enquiryLive } from '@/lib/enquiry';
 
 /** `/privacy` — what this site collects (very little) and what happens to a message you send us. */
 export const metadata: Metadata = {
@@ -9,6 +10,12 @@ export const metadata: Metadata = {
   description: 'How Pixel Kinetix handles your information when you visit this site or contact us.',
   alternates: { canonical: '/privacy' },
 };
+
+/**
+ * Once the contact form is on (`enquiryLive`), this page says what it collects and who handles it
+ * — before the form goes live, never after.
+ */
+const form = enquiryLive();
 
 export default function Privacy() {
   return (
@@ -21,10 +28,24 @@ export default function Privacy() {
         {
           heading: 'What this website collects',
           body: [
-            'This website has no forms, no accounts and no advertising trackers, and it sets no cookies of its own.',
+            form
+              ? 'This website has one form, the enquiry form on the contact page. It has no accounts and no advertising trackers, and it sets no cookies of its own.'
+              : 'This website has no forms, no accounts and no advertising trackers, and it sets no cookies of its own.',
             'Like any website, the service that hosts it keeps short-lived technical logs, such as IP addresses and browser types, to keep the site running and secure.',
           ],
         },
+        ...(form
+          ? [
+              {
+                heading: 'When you use the enquiry form',
+                body: [
+                  'The form asks for your name, your business’s name, a phone number and an email address, and what your business does and what you need. If you choose, it also takes your city, what you are interested in, a budget and when you need it.',
+                  'With it, the form sends the page you came from and any campaign tags in the link you followed, so we know how you found us.',
+                  'We use it to reply to you, by phone, email or WhatsApp as you agree on the form, and, if we work together, to deliver your project. It reaches us through the service that hosts this website and the services we use to receive enquiries and to send email and WhatsApp messages. We do not sell it, and we do not share it with anyone for marketing.',
+                ],
+              },
+            ]
+          : []),
         {
           heading: 'When you contact us',
           body: [

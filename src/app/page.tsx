@@ -16,6 +16,7 @@ import { Services } from '@/components/home/services';
 import { Solutions, SolutionsHead } from '@/components/home/solutions';
 import { Work } from '@/components/home/work';
 import { HomeStructuredData } from '@/components/seo/structured-data';
+import { ConnectScene } from '@/components/visuals/connect-scene';
 import { headings } from '@/content/site';
 
 export const metadata: Metadata = { alternates: { canonical: '/' } };
@@ -61,7 +62,18 @@ export default function Home() {
         />
         <Faq />
       </Band>
-      <Closing />
+      <Closing
+        visual={
+          <ConnectScene
+            converge={[
+              { icon: 'device', tone: 'violet' },
+              { icon: 'database', tone: 'sky' },
+              { icon: 'spark', tone: 'mint' },
+            ]}
+            result={{ icon: 'shield', tone: 'butter' }}
+          />
+        }
+      />
     </>
   );
 }

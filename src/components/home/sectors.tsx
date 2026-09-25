@@ -14,7 +14,7 @@ import { Icon, type IconName } from '../ui/icon';
  * often build for it. Both run with the page's scroll (`KineticMarquee`), turning back when the
  * page does.
  */
-const MARKS: Record<string, IconName> = {
+export const MARKS: Record<string, IconName> = {
   Retail: 'store',
   Clinics: 'medical',
   Hospitality: 'dining',
@@ -24,7 +24,7 @@ const MARKS: Record<string, IconName> = {
   Startups: 'rocket',
   Manufacturing: 'factory',
 };
-const TINTS = ['#eceefb', '#e6f7ee', '#e5f3fb', '#fff5d6', '#fdecee'];
+export const TINTS = ['#eceefb', '#e6f7ee', '#e5f3fb', '#fff5d6', '#fdecee'];
 const SIGNALS = ['#6e78ff', '#1fb866', '#1e9be0', '#f0a500', '#f0506e'];
 
 export function Sectors() {

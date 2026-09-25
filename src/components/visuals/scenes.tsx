@@ -15,6 +15,7 @@ import {
   p,
   topMatrix,
 } from './iso';
+import type { IconName } from '../ui/icon';
 
 /**
  * Every illustration on the site, drawn from the isometric kit. Word-free by design: the words
@@ -24,7 +25,7 @@ import {
 // --- small shared parts ----------------------------------------------------------------------
 
 /** A page layout on a screen face: hero block, two lines, an image and a row of cards. */
-function PageLayout({
+export function PageLayout({
   w,
   h,
   accent = INK,
@@ -290,7 +291,8 @@ export const SERVICE_SCENES = {
 
 // --- the four solutions ---------------------------------------------------------------------
 
-function GetOnlineScene() {
+/** `subject` is the glyph on the black block the enquiries come from — a chat on its own page. */
+export function GetOnlineScene({ subject = 'globe' }: { subject?: IconName }) {
   // The web → the site → a reply on chat and the lead passed on: wires run centre to centre along
   // the ground, under the blocks.
   return (
@@ -323,7 +325,7 @@ function GetOnlineScene() {
         ]}
         dashed
       />
-      <GlyphBlock x={-220} y={30} s={50} h={26} icon="globe" tone="black" />
+      <GlyphBlock x={-220} y={30} s={50} h={26} icon={subject} tone="black" />
       <Joint at={[25, 55]} />
       <Screen
         x={-60}
@@ -449,7 +451,11 @@ function FixImproveScene() {
   );
 }
 
-function ManagedScene() {
+/**
+ * `incoming` adds, far left, a grey block on a dashed route: a site built elsewhere, being moved in —
+ * Keep It Improving's own page.
+ */
+export function ManagedScene({ incoming = false }: { incoming?: boolean }) {
   const ring: {
     at: [number, number];
     icon: 'server' | 'database' | 'lock' | 'spark' | 'gauge' | 'mail';
@@ -463,7 +469,20 @@ function ManagedScene() {
     { at: [-170, 90], icon: 'mail', tone: 'violet' },
   ];
   return (
-    <Scene box={[-271, -148, 515, 358]}>
+    <Scene box={incoming ? [-395, -148, 639, 358] : [-271, -148, 515, 358]}>
+      {incoming ? (
+        <>
+          <Route
+            points={[
+              [-230, 170],
+              [-230, 20],
+              [20, 20],
+            ]}
+            dashed
+          />
+          <Joint at={[-230, 20]} r={2.6} />
+        </>
+      ) : null}
       {ring.map(({ at }) => (
         <Route
           key={at.join()}
@@ -482,6 +501,7 @@ function ManagedScene() {
       {ring.map(({ at, icon, tone }) => (
         <GlyphBlock key={icon} x={at[0]} y={at[1]} s={36} h={14} icon={icon} tone={tone} />
       ))}
+      {incoming ? <GlyphBlock x={-250} y={150} s={40} h={14} icon="globe" tone="fill" /> : null}
     </Scene>
   );
 }

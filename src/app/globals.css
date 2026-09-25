@@ -677,6 +677,41 @@ html.lenis body {
     font-size: 0.75rem;
     line-height: 1.4;
   }
+  /* A solution's ways in, as points under a hairline: a small square — the brand's pixel, in the
+     menu's grey — then the bundle's name and what it includes. */
+  .mega-link__points {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--nav-rule);
+  }
+  .mega-link__point {
+    position: relative;
+    display: block;
+    padding-left: 0.875rem;
+  }
+  .mega-link__point::before {
+    content: '';
+    position: absolute;
+    top: 0.375rem;
+    left: 0;
+    width: 0.3125rem;
+    height: 0.3125rem;
+    background: var(--nav-fg-3);
+    transition: background-color 0.3s ease;
+  }
+  .mega-link:is(:hover, [aria-current]) .mega-link__point::before {
+    background: var(--nav-fg);
+  }
+  .mega-link__point-name {
+    display: block;
+    color: var(--nav-fg-2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
   .mega-link__arrow {
     width: 0.875rem;
     height: 0.875rem;
@@ -1252,6 +1287,218 @@ html.lenis body {
     transition-property: background-color, color, border-color;
     transition-duration: 300ms;
   }
+  /* ---- The contact form: 16px fields (no zoom on a phone), errors in words under each -------- */
+  .enquiry__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .enquiry__field > label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  .enquiry__field :is(input, textarea, select) {
+    width: 100%;
+    border: 1px solid var(--color-line-2);
+    border-radius: 0.875rem;
+    background: #fff;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: var(--color-ink);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .enquiry__field :is(input, select) {
+    height: 3rem;
+  }
+  .enquiry__field textarea {
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .enquiry__field ::placeholder {
+    color: var(--color-ink-3);
+  }
+  .enquiry__field :is(input, textarea, select):focus-visible {
+    border-color: var(--color-ink);
+    box-shadow: 0 0 0 3px rgb(11 13 18 / 0.08);
+  }
+  .enquiry__field [aria-invalid] {
+    border-color: #b42318;
+  }
+  .enquiry__select {
+    position: relative;
+    display: block;
+  }
+  .enquiry__select select {
+    appearance: none;
+    padding-right: 2.75rem;
+  }
+  .enquiry__select svg {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    translate: 0 -50%;
+    color: var(--color-ink-2);
+    pointer-events: none;
+  }
+  .enquiry__error {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    color: #b42318;
+  }
+  .enquiry__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-ink-2);
+    cursor: pointer;
+  }
+  .enquiry__consent input {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex: none;
+    margin-top: 0.15rem;
+    accent-color: var(--color-ink);
+  }
+  .enquiry__consent input[aria-invalid] {
+    outline: 2px solid #b42318;
+    outline-offset: 2px;
+  }
+  .enquiry__trap {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .enquiry button[disabled] {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  /* ---- The Connect scene: routes that draw in, then a signal that pings once --------------- */
+  .connect[data-armed] .connect__route {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  .connect[data-armed] .connect__joints {
+    opacity: 0;
+  }
+  .connect[data-drawn] .connect__route {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.9s var(--ease-premium);
+  }
+  .connect[data-drawn] .connect__joints {
+    opacity: 1;
+    transition: opacity 0.4s ease 0.6s;
+  }
+  .connect__ping {
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .connect[data-ping] .connect__ping {
+    animation: connect-ping 1s ease-out;
+  }
+  @keyframes connect-ping {
+    from {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(3.2);
+    }
+  }
+
+  /* ---- The flow strip: a route through one glyph block per step, a blue dot run once ------ */
+  .flow {
+    position: relative;
+    display: grid;
+    gap: 1.75rem;
+  }
+  @media (min-width: 768px) {
+    .flow {
+      grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+  }
+  .flow__step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  @media (min-width: 768px) {
+    .flow__step {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+  }
+  /* A block from the drawing kit, head on: an ink outline and the depth of its lower face. */
+  .flow__block {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    flex: none;
+    place-items: center;
+    border: 1px solid var(--color-ink);
+    border-radius: 0.875rem;
+    box-shadow: 0 3px 0 var(--color-ink);
+    color: var(--color-ink);
+  }
+  .flow__label {
+    padding-top: 0.125rem;
+  }
+  .flow__line,
+  .flow__dot {
+    position: absolute;
+    left: var(--x0);
+    top: var(--y0);
+    visibility: hidden;
+  }
+  .flow[data-placed] :is(.flow__line, .flow__dot) {
+    visibility: visible;
+  }
+  .flow__line {
+    width: max(1px, calc(var(--x1) - var(--x0)));
+    height: max(1px, calc(var(--y1) - var(--y0)));
+    background: var(--color-line-2);
+  }
+  .flow__dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    margin: -0.3125rem 0 0 -0.3125rem;
+    border-radius: 9999px;
+    background: var(--color-kinetic);
+    box-shadow: 0 0 0 4px rgb(46 59 255 / 0.15);
+    opacity: 0;
+  }
+  .flow[data-play] .flow__dot {
+    animation: flow-run 2s var(--ease-premium) 0.2s forwards;
+  }
+  @keyframes flow-run {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0);
+    }
+    8%,
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(var(--x1) - var(--x0)), calc(var(--y1) - var(--y0)));
+    }
+  }
+
   .process-step h3 {
     color: color-mix(
       in srgb,

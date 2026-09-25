@@ -1,1132 +1,1213 @@
 {
- "serviceCategories": [
-  {
-   "slug": "digital-experiences",
-   "name": "Digital Experiences",
-   "line": "Where customers meet you.",
-   "intro": null
-  },
-  {
-   "slug": "business-systems",
-   "name": "Business Systems",
-   "line": "How your team runs the business.",
-   "intro": null
-  },
-  {
-   "slug": "automation-ai",
-   "name": "Automation & AI",
-   "line": "Work that moves on its own.",
-   "intro": null
-  }
- ],
- "services": [
-  {
-   "categorySlug": "digital-experiences",
-   "anchor": "business-websites",
-   "name": "Business Websites",
-   "summary": "Fast, search-ready websites designed around your customers."
-  },
-  {
-   "categorySlug": "digital-experiences",
-   "anchor": "e-commerce-stores",
-   "name": "E-commerce Stores",
-   "summary": "Online stores with payments, orders and stock that stay in sync."
-  },
-  {
-   "categorySlug": "digital-experiences",
-   "anchor": "customer-portals",
-   "name": "Customer Portals",
-   "summary": "A private space where customers see orders, bookings and documents."
-  },
-  {
-   "categorySlug": "digital-experiences",
-   "anchor": "web-apps",
-   "name": "Web Apps",
-   "summary": "App-like tools that run in the browser. No app store needed."
-  },
-  {
-   "categorySlug": "digital-experiences",
-   "anchor": "mobile-apps",
-   "name": "Mobile Apps",
-   "summary": "iOS and Android apps for your customers or your team."
-  },
-  {
-   "categorySlug": "business-systems",
-   "anchor": "dashboards",
-   "name": "Dashboards",
-   "summary": "Leads, bookings, payments and performance in one live view."
-  },
-  {
-   "categorySlug": "business-systems",
-   "anchor": "internal-tools",
-   "name": "Admin Panels & Internal Tools",
-   "summary": "Tools shaped around how your team actually works."
-  },
-  {
-   "categorySlug": "business-systems",
-   "anchor": "crm-systems",
-   "name": "CRM-Connected Systems",
-   "summary": "Your website, WhatsApp and team feeding one customer record."
-  },
-  {
-   "categorySlug": "business-systems",
-   "anchor": "custom-software",
-   "name": "Custom Business Software",
-   "summary": "Software built around your process, not the other way round."
-  },
-  {
-   "categorySlug": "business-systems",
-   "anchor": "business-platforms",
-   "name": "Business Platforms & SaaS",
-   "summary": "Multi-team platforms and software products, built to scale."
-  },
-  {
-   "categorySlug": "automation-ai",
-   "anchor": "whatsapp-automation",
-   "name": "WhatsApp & Email Automation",
-   "summary": "Instant replies, reminders and follow-ups without anyone typing them."
-  },
-  {
-   "categorySlug": "automation-ai",
-   "anchor": "booking-payment-workflows",
-   "name": "Booking & Payment Workflows",
-   "summary": "Customers book and pay themselves; confirmations go out on their own."
-  },
-  {
-   "categorySlug": "automation-ai",
-   "anchor": "api-integrations",
-   "name": "API Integrations",
-   "summary": "Payments, CRM, accounting and Google Workspace, talking to each other."
-  },
-  {
-   "categorySlug": "automation-ai",
-   "anchor": "ai-assistants",
-   "name": "AI Assistants",
-   "summary": "An assistant that answers customers using your business’s own information."
-  },
-  {
-   "categorySlug": "automation-ai",
-   "anchor": "ai-workflows",
-   "name": "AI Workflows & Insights",
-   "summary": "AI that reads documents, enters data and spots what needs attention."
-  }
- ],
- "solutions": [
-  {
-   "slug": "never-miss-a-lead",
-   "name": "Never Miss a Lead",
-   "line": "We catch every enquiry.",
-   "positioning": null,
-   "bundles": [
+  "serviceCategories": [
     {
-     "anchor": "connected-website",
-     "name": "Connected Website",
-     "includes": [
-      "Website",
-      "Enquiries from site, ads and WhatsApp in one place",
-      "Instant WhatsApp and email replies",
-      "Team alerts",
-      "Lead dashboard",
-      "3 months of Evolve"
-     ]
+      "slug": "digital-experiences",
+      "name": "Digital Experiences",
+      "line": "Where customers meet you.",
+      "intro": null
     },
     {
-     "anchor": "lead-follow-up",
-     "name": "Lead Follow-up Automation",
-     "includes": [
-      "Lead routing",
-      "Follow-up reminders",
-      "WhatsApp message templates",
-      "CRM sync",
-      "Conversion tracking"
-     ]
+      "slug": "business-systems",
+      "name": "Business Systems",
+      "line": "How your team runs the business.",
+      "intro": null
+    },
+    {
+      "slug": "automation-ai",
+      "name": "Automation & AI",
+      "line": "Work that moves on its own.",
+      "intro": null
     }
-   ]
-  },
-  {
-   "slug": "sell-and-book-online",
-   "name": "Sell & Book Online",
-   "line": "We help you sell.",
-   "positioning": null,
-   "bundles": [
+  ],
+  "services": [
     {
-     "anchor": "e-commerce-system",
-     "name": "E-commerce System",
-     "includes": [
-      "Online store",
-      "Product catalogue",
-      "Payment gateway",
-      "Order and shipping setup",
-      "Order updates on WhatsApp",
-      "Hosting and security"
-     ]
+      "categorySlug": "digital-experiences",
+      "anchor": "business-websites",
+      "name": "Business Websites",
+      "summary": "Fast, search-ready websites designed around your customers."
     },
     {
-     "anchor": "booking-system",
-     "name": "Booking & Appointment System",
-     "includes": [
-      "Online booking",
-      "Confirmations and reminders on WhatsApp",
-      "Optional payments",
-      "Calendar integration where required",
-      "No-show follow-ups"
-     ]
+      "categorySlug": "digital-experiences",
+      "anchor": "e-commerce-stores",
+      "name": "E-commerce Stores",
+      "summary": "Online stores with payments, orders and stock that stay in sync."
+    },
+    {
+      "categorySlug": "digital-experiences",
+      "anchor": "customer-portals",
+      "name": "Customer Portals",
+      "summary": "A private space where customers see orders, bookings and documents."
+    },
+    {
+      "categorySlug": "digital-experiences",
+      "anchor": "web-apps",
+      "name": "Web Apps",
+      "summary": "App-like tools that run in the browser. No app store needed."
+    },
+    {
+      "categorySlug": "digital-experiences",
+      "anchor": "mobile-apps",
+      "name": "Mobile Apps",
+      "summary": "iOS and Android apps for your customers or your team."
+    },
+    {
+      "categorySlug": "business-systems",
+      "anchor": "dashboards",
+      "name": "Dashboards",
+      "summary": "Leads, bookings, payments and performance in one live view."
+    },
+    {
+      "categorySlug": "business-systems",
+      "anchor": "internal-tools",
+      "name": "Admin Panels & Internal Tools",
+      "summary": "Tools shaped around how your team actually works."
+    },
+    {
+      "categorySlug": "business-systems",
+      "anchor": "crm-systems",
+      "name": "CRM-Connected Systems",
+      "summary": "Your website, WhatsApp and team feeding one customer record."
+    },
+    {
+      "categorySlug": "business-systems",
+      "anchor": "custom-software",
+      "name": "Custom Business Software",
+      "summary": "Software built around your process, not the other way round."
+    },
+    {
+      "categorySlug": "business-systems",
+      "anchor": "business-platforms",
+      "name": "Business Platforms & SaaS",
+      "summary": "Multi-team platforms and software products, built to scale."
+    },
+    {
+      "categorySlug": "automation-ai",
+      "anchor": "whatsapp-automation",
+      "name": "WhatsApp & Email Automation",
+      "summary": "Instant replies, reminders and follow-ups without anyone typing them."
+    },
+    {
+      "categorySlug": "automation-ai",
+      "anchor": "booking-payment-workflows",
+      "name": "Booking & Payment Workflows",
+      "summary": "Customers book and pay themselves; confirmations go out on their own."
+    },
+    {
+      "categorySlug": "automation-ai",
+      "anchor": "api-integrations",
+      "name": "API Integrations",
+      "summary": "Payments, CRM, accounting and Google Workspace, talking to each other."
+    },
+    {
+      "categorySlug": "automation-ai",
+      "anchor": "ai-assistants",
+      "name": "AI Assistants",
+      "summary": "An assistant that answers customers using your business’s own information."
+    },
+    {
+      "categorySlug": "automation-ai",
+      "anchor": "ai-workflows",
+      "name": "AI Workflows & Insights",
+      "summary": "AI that reads documents, enters data and spots what needs attention."
     }
-   ]
-  },
-  {
-   "slug": "run-it-in-one-place",
-   "name": "Run It in One Place",
-   "line": "We connect your operations.",
-   "positioning": null,
-   "bundles": [
+  ],
+  "solutions": [
     {
-     "anchor": "business-dashboard",
-     "name": "Business Dashboard & CRM",
-     "includes": [
-      "Leads, bookings and payments in one view",
-      "Team roles and access",
-      "Daily summaries",
-      "Exports and reports"
-     ]
+      "slug": "never-miss-a-lead",
+      "name": "Never Miss a Lead",
+      "line": "We catch every enquiry.",
+      "positioning": null,
+      "bundles": [
+        {
+          "anchor": "connected-website",
+          "name": "Connected Website",
+          "includes": [
+            "Website",
+            "Enquiries from site, ads and WhatsApp in one place",
+            "Instant WhatsApp and email replies",
+            "Team alerts",
+            "Lead dashboard",
+            "3 months of Evolve"
+          ]
+        },
+        {
+          "anchor": "lead-follow-up",
+          "name": "Lead Follow-up Automation",
+          "includes": [
+            "Lead routing",
+            "Follow-up reminders",
+            "WhatsApp message templates",
+            "CRM sync",
+            "Conversion tracking"
+          ]
+        }
+      ]
     },
     {
-     "anchor": "modernise-and-connect",
-     "name": "Modernise & Connect",
-     "includes": [
-      "Website redesign",
-      "Connect the tools you already use",
-      "Move off spreadsheets",
-      "Speed improvements",
-      "Security review"
-     ]
+      "slug": "sell-and-book-online",
+      "name": "Sell & Book Online",
+      "line": "We help you sell.",
+      "positioning": null,
+      "bundles": [
+        {
+          "anchor": "e-commerce-system",
+          "name": "E-commerce System",
+          "includes": [
+            "Online store",
+            "Product catalogue",
+            "Payment gateway",
+            "Order and shipping setup",
+            "Order updates on WhatsApp",
+            "Hosting and security"
+          ]
+        },
+        {
+          "anchor": "booking-system",
+          "name": "Booking & Appointment System",
+          "includes": [
+            "Online booking",
+            "Confirmations and reminders on WhatsApp",
+            "Optional payments",
+            "Calendar integration where required",
+            "No-show follow-ups"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "run-it-in-one-place",
+      "name": "Run It in One Place",
+      "line": "We connect your operations.",
+      "positioning": null,
+      "bundles": [
+        {
+          "anchor": "business-dashboard",
+          "name": "Business Dashboard & CRM",
+          "includes": [
+            "Leads, bookings and payments in one view",
+            "Team roles and access",
+            "Daily summaries",
+            "Exports and reports"
+          ]
+        },
+        {
+          "anchor": "modernise-and-connect",
+          "name": "Modernise & Connect",
+          "includes": [
+            "Website redesign",
+            "Connect the tools you already use",
+            "Move off spreadsheets",
+            "Speed improvements",
+            "Security review"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "keep-it-improving",
+      "name": "Keep It Improving",
+      "line": "We keep it running and improving.",
+      "positioning": "You run your business. We keep your system fast, safe and getting better.",
+      "bundles": [
+        {
+          "anchor": "evolve-plan",
+          "name": "Evolve Plan",
+          "includes": [
+            "Hosting, SSL and CDN",
+            "Uptime monitoring",
+            "Daily backups",
+            "Security updates",
+            "Content changes every month",
+            "Technical support"
+          ]
+        },
+        {
+          "anchor": "move-to-better-hosting",
+          "name": "Move to Better Hosting",
+          "includes": [
+            "Managed hosting",
+            "Migration",
+            "Domain/DNS",
+            "SSL",
+            "Backups",
+            "Performance",
+            "CDN",
+            "Monitoring baseline"
+          ]
+        }
+      ]
     }
-   ]
-  },
-  {
-   "slug": "keep-it-improving",
-   "name": "Keep It Improving",
-   "line": "We keep it running and improving.",
-   "positioning": "You run your business. We keep your system fast, safe and getting better.",
-   "bundles": [
+  ],
+  "offers": [
     {
-     "anchor": "evolve-plan",
-     "name": "Evolve Plan",
-     "includes": [
-      "Hosting, SSL and CDN",
-      "Uptime monitoring",
-      "Daily backups",
-      "Security updates",
-      "Content changes every month",
-      "Technical support"
-     ]
+      "kind": "WEBSITE_PACKAGE",
+      "slug": "website",
+      "name": "Website",
+      "summary": "Up to 6 pages, logo included, enquiries to one inbox",
+      "timeline": "10–14 days",
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 1200000
+          }
+        }
+      ],
+      "features": [
+        {
+          "label": "Design",
+          "value": "Proven layouts from our system"
+        },
+        {
+          "label": "Design directions shown",
+          "value": "One"
+        },
+        {
+          "label": "Revision rounds",
+          "value": "1"
+        },
+        {
+          "label": "Page structure",
+          "value": "Fixed"
+        },
+        {
+          "label": "Content",
+          "value": "Supplied before we start"
+        },
+        {
+          "label": "Timeline",
+          "value": "10–14 days"
+        }
+      ],
+      "notes": ["Need to be online quickly."],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹12,000"
+        }
+      ]
     },
     {
-     "anchor": "move-to-better-hosting",
-     "name": "Move to Better Hosting",
-     "includes": [
-      "Managed hosting",
-      "Migration",
-      "Domain/DNS",
-      "SSL",
-      "Backups",
-      "Performance",
-      "CDN",
-      "Monitoring baseline"
-     ]
+      "kind": "WEBSITE_PACKAGE",
+      "slug": "connected-website",
+      "name": "Connected Website",
+      "summary": "Website + enquiries + WhatsApp + booking + dashboard",
+      "timeline": "4–6 weeks",
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "FROM",
+            "amountPaise": 4500000
+          }
+        }
+      ],
+      "features": [
+        {
+          "label": "Design",
+          "value": "Designed from scratch for your brand"
+        },
+        {
+          "label": "Revision rounds",
+          "value": "3"
+        },
+        {
+          "label": "Replies",
+          "value": "Instant WhatsApp and email"
+        },
+        {
+          "label": "Booking",
+          "value": "Online booking or callbacks"
+        },
+        {
+          "label": "Dashboard",
+          "value": "Every lead and its status"
+        },
+        {
+          "label": "Evolve",
+          "value": "3 months included"
+        },
+        {
+          "label": "Timeline",
+          "value": "4–6 weeks"
+        }
+      ],
+      "notes": ["Start here."],
+      "headline": [
+        {
+          "label": null,
+          "text": "From ₹45,000"
+        }
+      ]
+    },
+    {
+      "kind": "WEBSITE_PACKAGE",
+      "slug": "store",
+      "name": "Store",
+      "summary": "Online shop, up to 50 products, payments, orders",
+      "timeline": "4–5 weeks",
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 4200000
+          }
+        }
+      ],
+      "features": [
+        {
+          "label": "Products",
+          "value": "Up to 50"
+        },
+        {
+          "label": "Payments",
+          "value": "Gateway, orders and shipping setup"
+        },
+        {
+          "label": "Warranty",
+          "value": "45 days from launch"
+        },
+        {
+          "label": "Payment stages",
+          "value": "Start, design approval, launch"
+        },
+        {
+          "label": "Product descriptions",
+          "value": "₹120 each (optional)"
+        },
+        {
+          "label": "Timeline",
+          "value": "4–5 weeks"
+        }
+      ],
+      "notes": ["Sell online."],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹42,000"
+        }
+      ]
+    },
+    {
+      "kind": "WEBSITE_PACKAGE",
+      "slug": "blueprint",
+      "name": "System Blueprint",
+      "summary": "A fixed-fee study of how your business works, with a roadmap and a fixed quote",
+      "timeline": "1–2 weeks",
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 1000000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹10,000"
+        }
+      ]
+    },
+    {
+      "kind": "WEBSITE_PACKAGE",
+      "slug": "custom",
+      "name": "Custom",
+      "summary": "Business software, portals, dashboards and automation",
+      "timeline": "Quoted",
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "FROM",
+            "amountPaise": 6500000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "From ₹65,000"
+        }
+      ]
+    },
+    {
+      "kind": "CARE_PLAN",
+      "slug": "essential",
+      "name": "Essential",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": "Monthly",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 89900
+          }
+        },
+        {
+          "label": "Yearly",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 899000
+          }
+        },
+        {
+          "label": "Extra change",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 30000
+          }
+        }
+      ],
+      "features": [
+        {
+          "label": "Hosting, SSL, CDN",
+          "value": "Yes"
+        },
+        {
+          "label": "Daily backups",
+          "value": "30 days"
+        },
+        {
+          "label": "Uptime monitoring",
+          "value": "Yes"
+        },
+        {
+          "label": "Content changes",
+          "value": "2 / month"
+        },
+        {
+          "label": "Security updates",
+          "value": "Monthly"
+        },
+        {
+          "label": "If your site goes down",
+          "value": "Within 1 business day"
+        },
+        {
+          "label": "Normal requests",
+          "value": "Within 3 business days"
+        },
+        {
+          "label": "Monthly report",
+          "value": "—"
+        }
+      ],
+      "notes": ["Hosting is included in all three. Annual is two months free."],
+      "headline": [
+        {
+          "label": "Monthly",
+          "text": "₹899"
+        },
+        {
+          "label": "Yearly",
+          "text": "₹8,990"
+        },
+        {
+          "label": "Extra change",
+          "text": "₹300"
+        }
+      ]
+    },
+    {
+      "kind": "CARE_PLAN",
+      "slug": "standard",
+      "name": "Standard",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": "Monthly",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 219900
+          }
+        },
+        {
+          "label": "Yearly",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 2199000
+          }
+        },
+        {
+          "label": "Extra change",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 25000
+          }
+        }
+      ],
+      "features": [
+        {
+          "label": "Hosting, SSL, CDN",
+          "value": "Yes"
+        },
+        {
+          "label": "Daily backups",
+          "value": "60 days"
+        },
+        {
+          "label": "Uptime monitoring",
+          "value": "Yes"
+        },
+        {
+          "label": "Content changes",
+          "value": "5 / month"
+        },
+        {
+          "label": "Security updates",
+          "value": "Fortnightly"
+        },
+        {
+          "label": "If your site goes down",
+          "value": "Within 4 business hours"
+        },
+        {
+          "label": "Normal requests",
+          "value": "Within 1 business day"
+        },
+        {
+          "label": "Monthly report",
+          "value": "Yes"
+        }
+      ],
+      "notes": ["Hosting is included in all three. Annual is two months free."],
+      "headline": [
+        {
+          "label": "Monthly",
+          "text": "₹2,199"
+        },
+        {
+          "label": "Yearly",
+          "text": "₹21,990"
+        },
+        {
+          "label": "Extra change",
+          "text": "₹250"
+        }
+      ]
+    },
+    {
+      "kind": "CARE_PLAN",
+      "slug": "complete",
+      "name": "Complete",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": "Monthly",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 449900
+          }
+        },
+        {
+          "label": "Yearly",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 4499000
+          }
+        },
+        {
+          "label": "Extra change",
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 15000
+          }
+        }
+      ],
+      "features": [
+        {
+          "label": "Hosting, SSL, CDN",
+          "value": "Yes"
+        },
+        {
+          "label": "Daily backups",
+          "value": "90 days"
+        },
+        {
+          "label": "Uptime monitoring",
+          "value": "Yes + performance"
+        },
+        {
+          "label": "Content changes",
+          "value": "12 / month"
+        },
+        {
+          "label": "Security updates",
+          "value": "Weekly"
+        },
+        {
+          "label": "If your site goes down",
+          "value": "Within 2 business hours"
+        },
+        {
+          "label": "Normal requests",
+          "value": "Within 4 business hours"
+        },
+        {
+          "label": "Monthly report",
+          "value": "Yes + call"
+        }
+      ],
+      "notes": ["Hosting is included in all three. Annual is two months free."],
+      "headline": [
+        {
+          "label": "Monthly",
+          "text": "₹4,499"
+        },
+        {
+          "label": "Yearly",
+          "text": "₹44,990"
+        },
+        {
+          "label": "Extra change",
+          "text": "₹150"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "extra-page-during-build",
+      "name": "Extra page during build",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 180000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹1,800"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "content-writing",
+      "name": "Content writing",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "PER_UNIT",
+            "amountPaise": 90000,
+            "unit": "page"
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹900 / page"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "logo-only",
+      "name": "Logo only (no website)",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 400000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹4,000"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "extra-revision-round",
+      "name": "Extra revision round",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 200000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹2,000"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "product-descriptions",
+      "name": "Product descriptions",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "PER_UNIT",
+            "amountPaise": 12000,
+            "unit": "product"
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹120 / product"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "domain-and-business-email-setup",
+      "name": "Domain & business email setup",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 200000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹2,000"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "site-migration",
+      "name": "Move an existing site to us",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "RANGE",
+            "minPaise": 500000,
+            "maxPaise": 1200000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹5,000 – ₹12,000"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "speed-optimisation",
+      "name": "Speed optimisation",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 500000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹5,000"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "google-business-profile-setup",
+      "name": "Google Business Profile setup",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "EXACT",
+            "amountPaise": 250000
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹2,500"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "rush-delivery",
+      "name": "Rush delivery",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "PERCENT_SURCHARGE",
+            "percent": 30
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "+30%"
+        }
+      ]
+    },
+    {
+      "kind": "ADD_ON",
+      "slug": "anything-else",
+      "name": "Anything else",
+      "summary": null,
+      "timeline": null,
+      "prices": [
+        {
+          "label": null,
+          "price": {
+            "kind": "PER_UNIT",
+            "amountPaise": 70000,
+            "unit": "hour"
+          }
+        }
+      ],
+      "features": [],
+      "notes": [],
+      "headline": [
+        {
+          "label": null,
+          "text": "₹700 / hour"
+        }
+      ]
     }
-   ]
-  }
- ],
- "offers": [
-  {
-   "kind": "WEBSITE_PACKAGE",
-   "slug": "website",
-   "name": "Website",
-   "summary": "Up to 6 pages, logo included, enquiries to one inbox",
-   "timeline": "10–14 days",
-   "prices": [
+  ],
+  "faqs": [
     {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 1200000
-     }
+      "topic": "project",
+      "question": "Do you only build websites?",
+      "answer": "No. The website is often where we start, but we build the system around it too: business software, integrations, automation, and an Evolve plan that keeps it improving."
+    },
+    {
+      "topic": "project",
+      "question": "What does every build include?",
+      "answer": "Mobile-first design, a contact form, WhatsApp and call buttons, SEO setup (titles, meta, sitemap, schema), analytics, a custom 404 page, and a 30-day warranty."
+    },
+    {
+      "topic": "project",
+      "question": "How do the Website and the Connected Website differ?",
+      "answer": "The Website uses proven layouts from our system, one revision round and a fixed page structure, in 10–14 days. The Connected Website is designed from scratch for your brand, with three revision rounds, and adds instant WhatsApp and email replies, online booking or callbacks and a dashboard of every lead, in 4–6 weeks, with three months of Evolve."
+    },
+    {
+      "topic": "project",
+      "question": "What is a System Blueprint?",
+      "answer": "A fixed-fee study of how your business works: ₹10,000, in 1–2 weeks. You get a map of where it loses time and money, the system it needs in phases, and a fixed quote. The fee is credited in full if you go ahead."
+    },
+    {
+      "topic": "project",
+      "question": "Can you connect WhatsApp to our website and CRM?",
+      "answer": "Yes. We use the official WhatsApp Business Platform through an approved provider, and connect it to your website, CRM, payments and email. Meta charges for some messages; we estimate this for you upfront."
+    },
+    {
+      "topic": "website",
+      "question": "Will my website show up on Google?",
+      "answer": "Every build includes SEO setup (titles, meta descriptions, a sitemap and schema), so Google can read and list your pages. Climbing higher for competitive searches takes ongoing SEO campaigns, which are not part of any package."
+    },
+    {
+      "topic": "website",
+      "question": "Is the website mobile-friendly?",
+      "answer": "Yes. Every build is designed for phones first, then larger screens."
+    },
+    {
+      "topic": "website",
+      "question": "Do you need my content before you start?",
+      "answer": "For the Website, yes: content must be supplied in full before we start. This is what makes the 10–14 day timeline possible. For the Connected Website and larger builds, we shape the content with you."
+    },
+    {
+      "topic": "website",
+      "question": "Can you write the content?",
+      "answer": "Yes, for ₹900 a page. Product descriptions for a store are ₹120 each."
+    },
+    {
+      "topic": "website",
+      "question": "Do you make the logo?",
+      "answer": "The Website package includes a logo. A logo on its own, without a website, is ₹4,000. Brand identity beyond the logo is not included."
+    },
+    {
+      "topic": "website",
+      "question": "Can I add pages later?",
+      "answer": "An extra page during the build is ₹1,800. After launch, a brand-new page is quoted separately; changes to existing pages are part of your Evolve plan."
+    },
+    {
+      "topic": "website",
+      "question": "Do you set up the domain and business email?",
+      "answer": "Yes, for ₹2,000. The domain’s own registration and renewal are passed through at cost."
+    },
+    {
+      "topic": "website",
+      "question": "Can you set up our Google Business Profile?",
+      "answer": "Yes, for ₹2,500."
+    },
+    {
+      "topic": "website",
+      "question": "Can you move my existing website to you?",
+      "answer": "Yes. Moving an existing site to us costs ₹5,000 to ₹12,000, depending on the site."
+    },
+    {
+      "topic": "website",
+      "question": "Can you make my existing website faster?",
+      "answer": "Yes. Speed optimisation for an existing site is ₹5,000."
+    },
+    {
+      "topic": "evolve",
+      "question": "Is hosting included in a package?",
+      "answer": "Hosting is separate. It is included in all three Evolve plans, and the Connected Website comes with its first three months of Evolve."
+    },
+    {
+      "topic": "evolve",
+      "question": "What counts as one content change?",
+      "answer": "One content change is one set of edits, sent together, to one page. Five staff photos on one page is one change. Three different pages is three changes. A brand-new page is not a content change; it is quoted separately."
+    },
+    {
+      "topic": "evolve",
+      "question": "What are the Evolve plan terms?",
+      "answer": "Three months minimum, then monthly. Cancel with 30 days’ notice. You own your domain and your content, always, and get a full export within 10 working days if you leave."
+    },
+    {
+      "topic": "evolve",
+      "question": "What does the warranty cover?",
+      "answer": "Thirty days from launch, and 45 days for Store and Custom. It covers defects in what we built. It does not cover changes you ask for later, edits you make yourself, or a third-party service breaking."
+    },
+    {
+      "topic": "evolve",
+      "question": "Do I own my website?",
+      "answer": "You own your domain and your content, always. If you leave Evolve, you get a full export within 10 working days."
+    },
+    {
+      "topic": "evolve",
+      "question": "How do I know where my project stands?",
+      "answer": "In your own client portal: the stage your project is at and what happens next, your files, the agreement you signed, every invoice and every request you have raised."
+    },
+    {
+      "topic": "payments",
+      "question": "How does payment work?",
+      "answer": "Up to ₹25,000: 50% to start, 50% on approval. ₹25,000 to ₹75,000: 40% to start, 30% at design approval, 30% on launch. Above ₹75,000: 30%, 30%, 25%, 15%. Work starts once the advance clears, and the site goes live on your domain once the final payment clears."
+    },
+    {
+      "topic": "payments",
+      "question": "Is GST charged?",
+      "answer": "Prices are exclusive of GST and no GST is currently applicable. Should Pixel Kinetix become GST-registered during the term, GST will be added to invoices issued from the date of registration."
+    },
+    {
+      "topic": "payments",
+      "question": "What is not included in any package?",
+      "answer": "Content writing, photography, videography, brand identity beyond the logo, SEO campaigns, paid advertising, social media, third-party subscription fees, domain registration and renewal (passed through at cost), and translations."
+    },
+    {
+      "topic": "payments",
+      "question": "Are there any other costs?",
+      "answer": "Only third-party ones, paid at cost or straight to the provider: domain registration, WhatsApp message charges, payment gateway fees, AI usage and app store fees. We tell you which apply before you start."
+    },
+    {
+      "topic": "payments",
+      "question": "Can you deliver sooner?",
+      "answer": "Yes. Rush delivery is 30% on top of the package price."
+    },
+    {
+      "topic": "payments",
+      "question": "What if I want more revisions?",
+      "answer": "An extra revision round is ₹2,000."
+    },
+    {
+      "topic": "payments",
+      "question": "Who will I work with?",
+      "answer": "Directly with the founder, Anand M, who designs your system. When a project needs extra hands, trusted specialists join, working to our standards, with one point of responsibility: us."
+    },
+    {
+      "topic": "payments",
+      "question": "Do you only work with businesses in Bangalore?",
+      "answer": "No. We are based in Kalyan Nagar, Bangalore, and work with businesses across India."
+    },
+    {
+      "topic": "payments",
+      "question": "Do you run social media or ads?",
+      "answer": "No. Paid advertising, social media and SEO campaigns are not part of any package. We build the system your marketing sends people to."
+    },
+    {
+      "topic": "payments",
+      "question": "How do we get started?",
+      "answer": "Message us on WhatsApp, call, or fill in the form on our contact page. We reply with a clear next step: a package, a System Blueprint, or honest advice."
     }
-   ],
-   "features": [
+  ],
+  "homeBlocks": [
     {
-     "label": "Design",
-     "value": "Proven layouts from our system"
+      "kind": "HERO",
+      "title": "Technology built around your business.",
+      "body": "You run the business. We build the system behind it: websites, software and automation, engineered as one and improved every month."
     },
     {
-     "label": "Design directions shown",
-     "value": "One"
+      "kind": "PORTAL",
+      "title": "Track your project anytime, in your own portal.",
+      "body": "Every client gets a portal: what stage your project is at and what happens next, your files, the agreement you signed, every invoice and every request you have raised."
     },
     {
-     "label": "Revision rounds",
-     "value": "1"
+      "kind": "SECTOR",
+      "title": "Retail",
+      "body": null
     },
     {
-     "label": "Page structure",
-     "value": "Fixed"
+      "kind": "SECTOR",
+      "title": "Clinics",
+      "body": null
     },
     {
-     "label": "Content",
-     "value": "Supplied before we start"
+      "kind": "SECTOR",
+      "title": "Hospitality",
+      "body": null
     },
     {
-     "label": "Timeline",
-     "value": "10–14 days"
+      "kind": "SECTOR",
+      "title": "Real Estate",
+      "body": null
+    },
+    {
+      "kind": "SECTOR",
+      "title": "Education",
+      "body": null
+    },
+    {
+      "kind": "SECTOR",
+      "title": "Professional Services",
+      "body": null
+    },
+    {
+      "kind": "SECTOR",
+      "title": "Startups",
+      "body": null
+    },
+    {
+      "kind": "SECTOR",
+      "title": "Manufacturing",
+      "body": null
+    },
+    {
+      "kind": "PROMISE",
+      "title": "Your price is fixed before we build",
+      "body": "Every package has a published price. Bigger systems start with a System Blueprint that ends in a fixed quote. Your scope and your price are agreed in writing, and work starts only once the advance clears."
+    },
+    {
+      "kind": "PROMISE",
+      "title": "Clear timelines, written down",
+      "body": "A Website takes 10–14 days and a Connected Website 4–6 weeks, counted from the day your content is complete. Larger builds carry their own."
+    },
+    {
+      "kind": "PROMISE",
+      "title": "Changes by message, not meetings",
+      "body": "Raise it from your portal in a sentence. Your Evolve plan sets how quickly it is done — as little as four business hours — and you can follow it until it is."
+    },
+    {
+      "kind": "PROCESS_STEP",
+      "title": "Understand",
+      "body": "You tell us what is slowing the business down. We learn how it actually runs before we choose any technology."
+    },
+    {
+      "kind": "PROCESS_STEP",
+      "title": "Proposal",
+      "body": "A fixed scope and a fixed price, in writing. Bigger systems start with a System Blueprint that ends in a fixed quote. Work starts once the advance clears, and not before."
+    },
+    {
+      "kind": "PROCESS_STEP",
+      "title": "Design",
+      "body": "You see real screens, not a mood board. One round of revisions on the Website and three on the Connected Website, before anything is built."
+    },
+    {
+      "kind": "PROCESS_STEP",
+      "title": "Build & connect",
+      "body": "Mobile-first, set up for search, and connected: WhatsApp, payments, email and your data working as one. Your portal shows which stage it is at and what comes next."
+    },
+    {
+      "kind": "PROCESS_STEP",
+      "title": "Launch",
+      "body": "Domain, email, SSL, analytics and every automation, configured and checked. It goes live on your domain once the final payment clears."
+    },
+    {
+      "kind": "PROCESS_STEP",
+      "title": "Evolve",
+      "body": "Hosting, monitoring, daily backups and a set number of changes every month, so the system keeps up as the business grows."
     }
-   ],
-   "notes": [
-    "Need to be online quickly."
-   ],
-   "headline": [
+  ],
+  "businessProfiles": [
     {
-     "label": null,
-     "text": "₹12,000"
+      "name": "Pixel Kinetix",
+      "legalName": null,
+      "description": "Pixel Kinetix designs and engineers websites, business software and automation, as one connected system, for businesses in India.",
+      "email": null,
+      "telephone": null,
+      "address": null,
+      "areaServed": ["IN"],
+      "sameAs": []
     }
-   ]
-  },
-  {
-   "kind": "WEBSITE_PACKAGE",
-   "slug": "connected-website",
-   "name": "Connected Website",
-   "summary": "Website + enquiries + WhatsApp + booking + dashboard",
-   "timeline": "4–6 weeks",
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "FROM",
-      "amountPaise": 4500000
-     }
-    }
-   ],
-   "features": [
-    {
-     "label": "Design",
-     "value": "Designed from scratch for your brand"
-    },
-    {
-     "label": "Revision rounds",
-     "value": "3"
-    },
-    {
-     "label": "Replies",
-     "value": "Instant WhatsApp and email"
-    },
-    {
-     "label": "Booking",
-     "value": "Online booking or callbacks"
-    },
-    {
-     "label": "Dashboard",
-     "value": "Every lead and its status"
-    },
-    {
-     "label": "Evolve",
-     "value": "3 months included"
-    },
-    {
-     "label": "Timeline",
-     "value": "4–6 weeks"
-    }
-   ],
-   "notes": [
-    "Start here."
-   ],
-   "headline": [
-    {
-     "label": null,
-     "text": "From ₹45,000"
-    }
-   ]
-  },
-  {
-   "kind": "WEBSITE_PACKAGE",
-   "slug": "store",
-   "name": "Store",
-   "summary": "Online shop, up to 50 products, payments, orders",
-   "timeline": "4–5 weeks",
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 4200000
-     }
-    }
-   ],
-   "features": [
-    {
-     "label": "Products",
-     "value": "Up to 50"
-    },
-    {
-     "label": "Payments",
-     "value": "Gateway, orders and shipping setup"
-    },
-    {
-     "label": "Warranty",
-     "value": "45 days from launch"
-    },
-    {
-     "label": "Payment stages",
-     "value": "Start, design approval, launch"
-    },
-    {
-     "label": "Product descriptions",
-     "value": "₹120 each (optional)"
-    },
-    {
-     "label": "Timeline",
-     "value": "4–5 weeks"
-    }
-   ],
-   "notes": [
-    "Sell online."
-   ],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹42,000"
-    }
-   ]
-  },
-  {
-   "kind": "WEBSITE_PACKAGE",
-   "slug": "blueprint",
-   "name": "System Blueprint",
-   "summary": "A fixed-fee study of how your business works, with a roadmap and a fixed quote",
-   "timeline": "1–2 weeks",
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 1000000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹10,000"
-    }
-   ]
-  },
-  {
-   "kind": "WEBSITE_PACKAGE",
-   "slug": "custom",
-   "name": "Custom",
-   "summary": "Business software, portals, dashboards and automation",
-   "timeline": "Quoted",
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "FROM",
-      "amountPaise": 6500000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "From ₹65,000"
-    }
-   ]
-  },
-  {
-   "kind": "CARE_PLAN",
-   "slug": "essential",
-   "name": "Essential",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": "Monthly",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 89900
-     }
-    },
-    {
-     "label": "Yearly",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 899000
-     }
-    },
-    {
-     "label": "Extra change",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 30000
-     }
-    }
-   ],
-   "features": [
-    {
-     "label": "Hosting, SSL, CDN",
-     "value": "Yes"
-    },
-    {
-     "label": "Daily backups",
-     "value": "30 days"
-    },
-    {
-     "label": "Uptime monitoring",
-     "value": "Yes"
-    },
-    {
-     "label": "Content changes",
-     "value": "2 / month"
-    },
-    {
-     "label": "Security updates",
-     "value": "Monthly"
-    },
-    {
-     "label": "If your site goes down",
-     "value": "Within 1 business day"
-    },
-    {
-     "label": "Normal requests",
-     "value": "Within 3 business days"
-    },
-    {
-     "label": "Monthly report",
-     "value": "—"
-    }
-   ],
-   "notes": [
-    "Hosting is included in all three. Annual is two months free."
-   ],
-   "headline": [
-    {
-     "label": "Monthly",
-     "text": "₹899"
-    },
-    {
-     "label": "Yearly",
-     "text": "₹8,990"
-    },
-    {
-     "label": "Extra change",
-     "text": "₹300"
-    }
-   ]
-  },
-  {
-   "kind": "CARE_PLAN",
-   "slug": "standard",
-   "name": "Standard",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": "Monthly",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 219900
-     }
-    },
-    {
-     "label": "Yearly",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 2199000
-     }
-    },
-    {
-     "label": "Extra change",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 25000
-     }
-    }
-   ],
-   "features": [
-    {
-     "label": "Hosting, SSL, CDN",
-     "value": "Yes"
-    },
-    {
-     "label": "Daily backups",
-     "value": "60 days"
-    },
-    {
-     "label": "Uptime monitoring",
-     "value": "Yes"
-    },
-    {
-     "label": "Content changes",
-     "value": "5 / month"
-    },
-    {
-     "label": "Security updates",
-     "value": "Fortnightly"
-    },
-    {
-     "label": "If your site goes down",
-     "value": "Within 4 business hours"
-    },
-    {
-     "label": "Normal requests",
-     "value": "Within 1 business day"
-    },
-    {
-     "label": "Monthly report",
-     "value": "Yes"
-    }
-   ],
-   "notes": [
-    "Hosting is included in all three. Annual is two months free."
-   ],
-   "headline": [
-    {
-     "label": "Monthly",
-     "text": "₹2,199"
-    },
-    {
-     "label": "Yearly",
-     "text": "₹21,990"
-    },
-    {
-     "label": "Extra change",
-     "text": "₹250"
-    }
-   ]
-  },
-  {
-   "kind": "CARE_PLAN",
-   "slug": "complete",
-   "name": "Complete",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": "Monthly",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 449900
-     }
-    },
-    {
-     "label": "Yearly",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 4499000
-     }
-    },
-    {
-     "label": "Extra change",
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 15000
-     }
-    }
-   ],
-   "features": [
-    {
-     "label": "Hosting, SSL, CDN",
-     "value": "Yes"
-    },
-    {
-     "label": "Daily backups",
-     "value": "90 days"
-    },
-    {
-     "label": "Uptime monitoring",
-     "value": "Yes + performance"
-    },
-    {
-     "label": "Content changes",
-     "value": "12 / month"
-    },
-    {
-     "label": "Security updates",
-     "value": "Weekly"
-    },
-    {
-     "label": "If your site goes down",
-     "value": "Within 2 business hours"
-    },
-    {
-     "label": "Normal requests",
-     "value": "Within 4 business hours"
-    },
-    {
-     "label": "Monthly report",
-     "value": "Yes + call"
-    }
-   ],
-   "notes": [
-    "Hosting is included in all three. Annual is two months free."
-   ],
-   "headline": [
-    {
-     "label": "Monthly",
-     "text": "₹4,499"
-    },
-    {
-     "label": "Yearly",
-     "text": "₹44,990"
-    },
-    {
-     "label": "Extra change",
-     "text": "₹150"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "extra-page-during-build",
-   "name": "Extra page during build",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 180000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹1,800"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "content-writing",
-   "name": "Content writing",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "PER_UNIT",
-      "amountPaise": 90000,
-      "unit": "page"
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹900 / page"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "logo-only",
-   "name": "Logo only (no website)",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 400000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹4,000"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "extra-revision-round",
-   "name": "Extra revision round",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 200000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹2,000"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "product-descriptions",
-   "name": "Product descriptions",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "PER_UNIT",
-      "amountPaise": 12000,
-      "unit": "product"
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹120 / product"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "domain-and-business-email-setup",
-   "name": "Domain & business email setup",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 200000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹2,000"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "site-migration",
-   "name": "Move an existing site to us",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "RANGE",
-      "minPaise": 500000,
-      "maxPaise": 1200000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹5,000 – ₹12,000"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "speed-optimisation",
-   "name": "Speed optimisation",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 500000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹5,000"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "google-business-profile-setup",
-   "name": "Google Business Profile setup",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 250000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹2,500"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "rush-delivery",
-   "name": "Rush delivery",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "PERCENT_SURCHARGE",
-      "percent": 30
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "+30%"
-    }
-   ]
-  },
-  {
-   "kind": "ADD_ON",
-   "slug": "anything-else",
-   "name": "Anything else",
-   "summary": null,
-   "timeline": null,
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "PER_UNIT",
-      "amountPaise": 70000,
-      "unit": "hour"
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹700 / hour"
-    }
-   ]
-  }
- ],
- "faqs": [
-  {
-   "topic": "pricing",
-   "question": "Do you only build websites?",
-   "answer": "No. The website is often where we start, but we build the system around it too: business software, integrations, automation, and an Evolve plan that keeps it improving."
-  },
-  {
-   "topic": "pricing",
-   "question": "What does every build include?",
-   "answer": "Mobile-first design, a contact form, WhatsApp and call buttons, SEO setup (titles, meta, sitemap, schema), analytics, a custom 404 page, and a 30-day warranty."
-  },
-  {
-   "topic": "pricing",
-   "question": "How do the Website and the Connected Website differ?",
-   "answer": "The Website uses proven layouts from our system, one design direction and one revision round, on a fixed page structure, in 10–14 days. The Connected Website is designed from scratch for your brand, with three revision rounds, and adds the system behind it: instant WhatsApp and email replies, online booking or callbacks, and a dashboard of every lead, in 4–6 weeks, with the first three months of Evolve included. Need to be online quickly, choose the Website. Need every enquiry answered, choose the Connected Website."
-  },
-  {
-   "topic": "pricing",
-   "question": "Do you need my content before you start?",
-   "answer": "For the Website, yes: content must be supplied in full before we start. This is what makes the 10–14 day timeline possible. For the Connected Website and larger builds, we shape the content with you."
-  },
-  {
-   "topic": "pricing",
-   "question": "Can you connect WhatsApp to our website and CRM?",
-   "answer": "Yes. We use the official WhatsApp Business Platform through an approved provider, and connect it to your website, CRM, payments and email. Meta charges for some messages; we estimate this for you upfront."
-  },
-  {
-   "topic": "pricing",
-   "question": "Is hosting included in a package?",
-   "answer": "Hosting is separate. It is included in all three Evolve plans, and the Connected Website comes with its first three months of Evolve."
-  },
-  {
-   "topic": "pricing",
-   "question": "What counts as one content change?",
-   "answer": "One content change is one set of edits, sent together, to one page. Five staff photos on one page is one change. Three different pages is three changes. A brand-new page is not a content change — it is quoted separately."
-  },
-  {
-   "topic": "pricing",
-   "question": "What are the Evolve plan terms?",
-   "answer": "Three months minimum, then monthly. Cancel with 30 days' notice. You own your domain and your content, always, and get a full export within 10 working days if you leave."
-  },
-  {
-   "topic": "pricing",
-   "question": "What does the warranty cover?",
-   "answer": "Thirty days from launch, and 45 days for Store and Custom. It covers defects in what we built. It does not cover changes you ask for later, edits you make yourself, or a third-party service breaking."
-  },
-  {
-   "topic": "pricing",
-   "question": "How does payment work?",
-   "answer": "Up to ₹25,000: 50% to start, 50% on approval. ₹25,000 to ₹75,000: 40% to start, 30% at design approval, 30% on launch. Above ₹75,000: 30%, 30%, 25%, 15%. Work starts once the advance clears, and the site goes live on your domain once the final payment clears."
-  },
-  {
-   "topic": "pricing",
-   "question": "Is GST charged?",
-   "answer": "Prices are exclusive of GST and no GST is currently applicable. Should Pixel Kinetix become GST-registered during the term, GST will be added to invoices issued from the date of registration."
-  },
-  {
-   "topic": "pricing",
-   "question": "What is not included in any package?",
-   "answer": "Content writing, photography, videography, brand identity beyond the logo, SEO campaigns, paid advertising, social media, third-party subscription fees, domain registration and renewal (passed through at cost), and translations."
-  }
- ],
- "homeBlocks": [
-  {
-   "kind": "HERO",
-   "title": "Technology built around your business.",
-   "body": "You run the business. We build the system behind it: websites, software and automation, engineered as one and improved every month."
-  },
-  {
-   "kind": "PORTAL",
-   "title": "Track your project anytime, in your own portal.",
-   "body": "Every client gets a portal: what stage your project is at and what happens next, your files, the agreement you signed, every invoice and every request you have raised."
-  },
-  {
-   "kind": "SECTOR",
-   "title": "Retail",
-   "body": null
-  },
-  {
-   "kind": "SECTOR",
-   "title": "Clinics",
-   "body": null
-  },
-  {
-   "kind": "SECTOR",
-   "title": "Hospitality",
-   "body": null
-  },
-  {
-   "kind": "SECTOR",
-   "title": "Real Estate",
-   "body": null
-  },
-  {
-   "kind": "SECTOR",
-   "title": "Education",
-   "body": null
-  },
-  {
-   "kind": "SECTOR",
-   "title": "Professional Services",
-   "body": null
-  },
-  {
-   "kind": "SECTOR",
-   "title": "Startups",
-   "body": null
-  },
-  {
-   "kind": "SECTOR",
-   "title": "Manufacturing",
-   "body": null
-  },
-  {
-   "kind": "PROMISE",
-   "title": "Your price is fixed before we build",
-   "body": "Every package has a published price. Bigger systems start with a System Blueprint that ends in a fixed quote. Your scope and your price are agreed in writing, and work starts only once the advance clears."
-  },
-  {
-   "kind": "PROMISE",
-   "title": "Clear timelines, written down",
-   "body": "A Website takes 10–14 days and a Connected Website 4–6 weeks, counted from the day your content is complete. Larger builds carry their own."
-  },
-  {
-   "kind": "PROMISE",
-   "title": "Changes by message, not meetings",
-   "body": "Raise it from your portal in a sentence. Your Evolve plan sets how quickly it is done — as little as four business hours — and you can follow it until it is."
-  },
-  {
-   "kind": "PROCESS_STEP",
-   "title": "Understand",
-   "body": "You tell us what is slowing the business down. We learn how it actually runs before we choose any technology."
-  },
-  {
-   "kind": "PROCESS_STEP",
-   "title": "Proposal",
-   "body": "A fixed scope and a fixed price, in writing. Bigger systems start with a System Blueprint that ends in a fixed quote. Work starts once the advance clears, and not before."
-  },
-  {
-   "kind": "PROCESS_STEP",
-   "title": "Design",
-   "body": "You see real screens, not a mood board. One round of revisions on the Website and three on the Connected Website, before anything is built."
-  },
-  {
-   "kind": "PROCESS_STEP",
-   "title": "Build & connect",
-   "body": "Mobile-first, set up for search, and connected: WhatsApp, payments, email and your data working as one. Your portal shows which stage it is at and what comes next."
-  },
-  {
-   "kind": "PROCESS_STEP",
-   "title": "Launch",
-   "body": "Domain, email, SSL, analytics and every automation, configured and checked. It goes live on your domain once the final payment clears."
-  },
-  {
-   "kind": "PROCESS_STEP",
-   "title": "Evolve",
-   "body": "Hosting, monitoring, daily backups and a set number of changes every month, so the system keeps up as the business grows."
-  }
- ],
- "businessProfiles": [
-  {
-   "name": "Pixel Kinetix",
-   "legalName": null,
-   "description": "Pixel Kinetix designs and engineers websites, business software and automation, as one connected system, for businesses in India.",
-   "email": null,
-   "telephone": null,
-   "address": null,
-   "areaServed": [
-    "IN"
-   ],
-   "sameAs": []
-  }
- ]
+  ]
 }

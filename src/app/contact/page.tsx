@@ -1,24 +1,52 @@
 import type { Metadata } from 'next';
 
+import { EnquiryForm } from '@/components/contact/enquiry-form';
+import { NextSteps } from '@/components/contact/next-steps';
 import { Band } from '@/components/layout/band';
 import { Card, CardBand } from '@/components/pages/cards';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
+import { Questions, Section } from '@/components/pages/sections';
 import { Icon } from '@/components/ui/icon';
 import { RollLink } from '@/components/ui/roll-link';
+import { ConnectScene } from '@/components/visuals/connect-scene';
 import { contact } from '@/content/site';
+import { ENQUIRY_AUTOMATION_LIVE, enquiryLive } from '@/lib/enquiry';
 
 /**
- * `/contact` — where every "Get Started" leads. Every way to reach us, and what to put in the
- * first message so the reply can be a real next step. The enquiry form joins this page when its
- * automation is built; until then email, WhatsApp and a call do its job — the three buttons
- * under the headline, email first in Kinetic Blue, WhatsApp in its own green and Call Now with its
- * phone ringing.
+ * `/contact` — where every "Get Started" leads. Under the headline, the three quickest ways in:
+ * email first in Kinetic Blue, WhatsApp in its own green and Call Now with its phone ringing.
+ * Then the enquiry form, "Tell us about it", with what happens next beside it; the ways to reach
+ * us; and three questions.
+ *
+ * The form shows only once it has somewhere to send to (`enquiryLive`). Until then the page keeps
+ * the four things to put in a first message, so nothing on it goes nowhere.
  */
+const live = enquiryLive();
+
 export const metadata: Metadata = {
-  title: 'Contact',
-  description: `Tell Pixel Kinetix what’s slowing your business down. Message us on WhatsApp, call ${contact.phone} or email ${contact.email}. Kalyan Nagar, Bangalore.`,
+  title: 'Contact: Start a Project in Bangalore',
+  description: `Tell Pixel Kinetix what’s slowing your business down. ${
+    live ? 'Fill in a short form, message us on WhatsApp or call' : 'Message us on WhatsApp or call'
+  } ${contact.phone}. Kalyan Nagar, Bangalore.`,
   alternates: { canonical: '/contact' },
 };
+
+const FAQS = [
+  {
+    question: 'Is the first conversation free?',
+    answer:
+      'Yes. The first conversation is free. For bigger projects, a System Blueprint is the paid next step.',
+  },
+  {
+    question: 'What should I put in my first message?',
+    answer:
+      'What your business does, what’s slowing it down or what you want to build, the tools you use today, and when you’d like it working.',
+  },
+  {
+    question: 'Where are you based?',
+    answer: 'Kalyan Nagar, HRBR Layout, Bangalore. We work with businesses across India.',
+  },
+];
 
 const ASKS = [
   'What your business does, and where',
@@ -70,6 +98,39 @@ export default function Contact() {
         </Actions>
       </PageIntro>
 
+      {live ? (
+        <Band id="form" labelledBy="form-heading" className="py-20 lg:py-28">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:gap-16">
+            <div>
+              <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
+                <span className="size-1.5 bg-ink" />
+                Enquiry
+              </p>
+              <h2
+                id="form-heading"
+                className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
+              >
+                Tell us about it
+              </h2>
+              <div className="mt-10 rounded-[var(--radius-panel)] border border-line bg-white p-6 sm:p-9">
+                <EnquiryForm />
+              </div>
+            </div>
+            <div className="flex flex-col gap-10 lg:pt-24">
+              <NextSteps />
+              <figure>
+                <ConnectScene icon="file" result={{ icon: 'chat', tone: 'white' }} />
+                {ENQUIRY_AUTOMATION_LIVE ? (
+                  <figcaption className="mt-3 text-sm text-ink-2">
+                    This form runs on our own Connected Website.
+                  </figcaption>
+                ) : null}
+              </figure>
+            </div>
+          </div>
+        </Band>
+      ) : null}
+
       <CardBand id="reach" eyebrow="Reach us" title="Whichever suits you." columns={4}>
         <Card
           icon="whatsapp"
@@ -97,34 +158,40 @@ export default function Contact() {
         />
       </CardBand>
 
-      <Band id="first-message" labelledBy="first-message-heading" className="py-20 lg:py-28">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-          <div>
-            <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
-              <span className="size-1.5 bg-ink" />
-              Your first message
-            </p>
-            <h2
-              id="first-message-heading"
-              className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
-            >
-              Four things help us reply with a real next step.
-            </h2>
+      {live ? null : (
+        <Band id="first-message" labelledBy="first-message-heading" className="py-20 lg:py-28">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+            <div>
+              <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
+                <span className="size-1.5 bg-ink" />
+                Your first message
+              </p>
+              <h2
+                id="first-message-heading"
+                className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
+              >
+                Four things help us reply with a real next step.
+              </h2>
+            </div>
+            <ul data-reveal="" className="flex flex-col divide-y divide-line border-y border-line">
+              {ASKS.map((ask, i) => (
+                <li key={ask} className="flex items-center gap-5 py-5 text-lead text-ink">
+                  <span className="font-tech text-xs text-ink-2">0{i + 1}</span>
+                  {ask}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul data-reveal="" className="flex flex-col divide-y divide-line border-y border-line">
-            {ASKS.map((ask, i) => (
-              <li key={ask} className="flex items-center gap-5 py-5 text-lead text-ink">
-                <span className="font-tech text-xs text-ink-2">0{i + 1}</span>
-                {ask}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <p className="mt-12 inline-flex items-center gap-2 text-sm text-ink-2">
-          <Icon name="check" size={14} />
-          Not sure what you need? That’s fine. Tell us the problem and we’ll map it with you.
-        </p>
-      </Band>
+          <p className="mt-12 inline-flex items-center gap-2 text-sm text-ink-2">
+            <Icon name="check" size={14} />
+            Not sure what you need? That’s fine. Tell us the problem and we’ll map it with you.
+          </p>
+        </Band>
+      )}
+
+      <Section id="questions" eyebrow="Contact" title="Questions">
+        <Questions faqs={FAQS} />
+      </Section>
     </>
   );
 }

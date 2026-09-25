@@ -345,56 +345,25 @@ export const assistant = {
 };
 
 /**
- * The twelve questions, sorted into three shelves for the FAQ's category rail — each with a
- * one-word name for the phone's tabs. Matched by the
- * question's own words, so a reordered catalogue cannot put an answer on the wrong shelf; a
- * question nobody has shelved lands on the last one rather than disappearing.
+ * The thirty-one questions, on four shelves for the FAQ's category rail — each with a one-word name
+ * for the phone's tabs. Each answer carries its shelf (`topic` in the catalogue), so a reordered
+ * catalogue cannot put an answer on the wrong one.
  */
 const SHELVES = [
+  { id: 'project', label: 'Your project', short: 'Project', icon: 'clipboard' as const },
+  { id: 'website', label: 'Your website', short: 'Website', icon: 'globe' as const },
+  { id: 'evolve', label: 'Evolve and support', short: 'Evolve', icon: 'shield' as const },
   {
-    id: 'project',
-    label: 'Your project',
-    short: 'Project',
-    icon: 'clipboard' as const,
-    asks: [
-      'Do you only build websites?',
-      'What does every build include?',
-      'How do the Website and the Connected Website differ?',
-      'Do you need my content before you start?',
-      'Can you connect WhatsApp to our website and CRM?',
-    ],
-  },
-  {
-    id: 'evolve',
-    label: 'Evolve and support',
-    short: 'Evolve',
-    icon: 'shield' as const,
-    asks: [
-      'Is hosting included in a package?',
-      'What counts as one content change?',
-      'What are the Evolve plan terms?',
-      'What does the warranty cover?',
-    ],
-  },
-  {
-    id: 'money',
-    label: 'Payments and terms',
+    id: 'payments',
+    label: 'Payments and working with us',
     short: 'Payments',
     icon: 'receipt' as const,
-    asks: ['How does payment work?', 'Is GST charged?', 'What is not included in any package?'],
   },
 ];
 
-export const faqGroups = SHELVES.map((shelf, index) => ({
-  id: shelf.id,
-  label: shelf.label,
-  short: shelf.short,
-  icon: shelf.icon,
-  items: faqs.filter((faq) =>
-    index === SHELVES.length - 1
-      ? shelf.asks.includes(faq.question) || !SHELVES.some((s) => s.asks.includes(faq.question))
-      : shelf.asks.includes(faq.question),
-  ),
+export const faqGroups = SHELVES.map((shelf) => ({
+  ...shelf,
+  items: faqs.filter((faq) => faq.topic === shelf.id),
 }));
 
 export const nav = [
@@ -409,3 +378,69 @@ export const nav = [
 
 /** Every "Get Started" and "Start a Project": the contact page, where every way to reach us is. */
 export const START = { label: 'Get Started', href: '/contact' };
+
+/**
+ * The form's "Interested in" choices, and which one a page's `?interest=` picks: a package slug
+ * picks its package, and a service, solution or bundle picks the package it is sold as. Anything
+ * else is "Not sure yet"; the slug itself travels with the enquiry, so its source is never lost.
+ */
+export const INTERESTS = [
+  'Website',
+  'Connected Website',
+  'Store',
+  'System Blueprint',
+  'Custom system',
+  'Evolve',
+  'Not sure yet',
+] as const;
+export type Interest = (typeof INTERESTS)[number];
+
+const INTEREST_OF: Record<string, Interest> = {
+  website: 'Website',
+  'business-websites': 'Website',
+  'connected-website': 'Connected Website',
+  'never-miss-a-lead': 'Connected Website',
+  'whatsapp-automation': 'Connected Website',
+  'booking-payment-workflows': 'Connected Website',
+  'booking-system': 'Connected Website',
+  store: 'Store',
+  'e-commerce-stores': 'Store',
+  'e-commerce-system': 'Store',
+  'sell-and-book-online': 'Store',
+  blueprint: 'System Blueprint',
+  'business-systems': 'System Blueprint',
+  'run-it-in-one-place': 'System Blueprint',
+  custom: 'Custom system',
+  'customer-portals': 'Custom system',
+  'web-apps': 'Custom system',
+  'mobile-apps': 'Custom system',
+  dashboards: 'Custom system',
+  'internal-tools': 'Custom system',
+  'crm-systems': 'Custom system',
+  'custom-software': 'Custom system',
+  'business-platforms': 'Custom system',
+  'api-integrations': 'Custom system',
+  'ai-assistants': 'Custom system',
+  'ai-workflows': 'Custom system',
+  'lead-follow-up': 'Custom system',
+  'business-dashboard': 'Custom system',
+  'modernise-and-connect': 'Custom system',
+  evolve: 'Evolve',
+  'evolve-plan': 'Evolve',
+  essential: 'Evolve',
+  standard: 'Evolve',
+  complete: 'Evolve',
+  'keep-it-improving': 'Evolve',
+  'move-to-better-hosting': 'Evolve',
+};
+
+export const interestFor = (slug?: string | null): Interest =>
+  (slug && INTEREST_OF[slug]) || 'Not sure yet';
+
+/** A "Get Started" that tells the form where it came from. */
+export const startFor = (interest?: string) =>
+  interest ? `${START.href}?interest=${encodeURIComponent(interest)}` : START.href;
+
+/** Every closing band's line, under its heading. */
+export const CLOSING_LINE =
+  'Message us on WhatsApp, call or email. We’ll tell you honestly if we’re the right fit.';

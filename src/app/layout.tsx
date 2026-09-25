@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: 'Pixel Kinetix · Technology built around your business',
     description: DESCRIPTION,
   },
-  twitter: { card: 'summary' },
+  twitter: { card: 'summary_large_image' },
   icons: { icon: '/brand/logo.svg' },
 };
 

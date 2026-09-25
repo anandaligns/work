@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
 
-import { headings, solutions, START } from '@/content/site';
+import { headings, solutions } from '@/content/site';
 import { useAnchor } from '@/lib/anchor';
 
 import { Icon, iconFor } from '../ui/icon';
 import { RollLabel } from '../ui/roll-link';
+import { Corners } from '../visuals/scene-panel';
 import { SOLUTION_SCENES } from '../visuals/scenes';
 
 import { SectionHead } from './section-head';
@@ -192,10 +193,10 @@ export function Solutions() {
                       ))}
                     </ul>
                     <Link
-                      href={START.href}
+                      href={`/solutions/${solution.slug}`}
                       className="roll mt-6 inline-flex text-sm font-semibold text-ink"
                     >
-                      <RollLabel>{`Talk to us about ${solution.name}`}</RollLabel>
+                      <RollLabel>{`Explore ${solution.name}`}</RollLabel>
                     </Link>
                   </div>
                 </div>
@@ -225,18 +226,6 @@ export function Solutions() {
         </div>
       </div>
     </div>
-  );
-}
-
-function Corners() {
-  const mark = 'absolute size-2.5 border-ink';
-  return (
-    <>
-      <span aria-hidden="true" className={`${mark} top-4 left-4 border-t border-l`} />
-      <span aria-hidden="true" className={`${mark} top-4 right-4 border-t border-r`} />
-      <span aria-hidden="true" className={`${mark} bottom-4 left-4 border-b border-l`} />
-      <span aria-hidden="true" className={`${mark} right-4 bottom-4 border-r border-b`} />
-    </>
   );
 }
 

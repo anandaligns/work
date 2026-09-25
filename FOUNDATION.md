@@ -1,10 +1,21 @@
-# UI foundation — v2.11
+# UI foundation — v2.12
 
 Locked 23 Sep 2026, after the owner's review of the home page; brought onto the new brand identity
 25 Sep 2026. Every page of the public site is built from what is below — and when this build moves
 into `apps/web`, this is the spec it moves with. Change it on purpose: bump the version, say what
 changed and why.
 
+- **v2.12** — the remaining pages, from "Remaining Pages: Content & Visuals" (25 Sep 2026): no
+  page is coming soon. Four templates — service, group, solution, Evolve — each built from what
+  the home page has: the intro on the moving pattern, the page's hero scene in a wide well of its
+  tint (arriving through the pixel dissolve), problem cards in grey, build cards, the flow strip,
+  still sector chips, price cards, a one-shelf FAQ, related cards, and the closing. Every closing
+  but About's ends on the Connect scene (subject → the P cube → result, played once at 45% in
+  view). The home FAQ grows to 31 answers on four shelves, every one in the HTML and the
+  FAQPage data. The contact page gains its form ("Tell us about it") and a thanks page; every Get
+  Started carries `?interest=`. Service, BreadcrumbList and FAQPage data on every service and
+  solution page, and a 1200 × 630 share image for every page, drawn from its own scene. The Solutions menu lists the four solution pages, each with its two ways in as points under
+  a hairline, inside the one link to its page.
 - **v2.11** — at the owner's request: the assistant's launcher is parked until the assistant
   works (`assistant.tsx`, rendered by no page); the footer's closing row loses the room it kept
   for it. The hero tiles' notifications are black glass — the tile blurred and dimmed behind
@@ -174,6 +185,9 @@ request leaves the site.
 | **Cards**               | White on paper, 1px `line`, panel radius. One dark focal card per row at most (`night`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Footer**              | Still, on Apple's #f5f5f7 under a hairline. The full lockup and "Engineered to move you forward." — on the left edge, across the width on phones and tablets and the first column from 1280px. Then six columns of plain links: Explore, Services, Solutions, Legal, Business info (phone, email, address with PIN) and Social (a profile without an address is its name alone). Under a hairline: "Copyright © year Pixel Kinetix. All rights reserved." left, Back to top right.                                                                                                                                                        |
 | **Assistant**           | Parked — rendered by no page until the assistant works. When shown: lower right, every page, on desktops only — not under 1280px, nor on a touch screen (`assistant.tsx`; name, role and face in `site.ts`). A 48px graphite pill — the face, then "Ask Kix". The brand pixel at the face's corner turns once on load and on hover. Opens a non-modal panel: the note, Mail us / WhatsApp / Call now, a composer marked Coming soon. Escape or a click outside closes it.                                                                                                                                                                 |
+| **Flow strip**          | One glyph block per step on a route — across from 768px, down on a phone, measured block centre to block centre. A Kinetic Blue dot runs it once at 45% in view; none under reduced motion. First and last blocks take the page's tint.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Connect scene**       | The closing picture: subject block (page tint) → the black P cube → a white check with a green signal, in the Solutions frame. Routes draw in (0.9s), a blue dot travels (1.4s), the pixel turns at the cube, the signal pings; hovering replays the dot. Drawn complete and still under reduced motion. Home's converges three blocks into Evolve's shield.                                                                                                                                                                                                                                                                              |
+| **Enquiry form**        | White panel, 16px fields, labels above, "(optional)" in grey, errors in words under the field with a mark, the first taking focus. Consent never pre-ticked. Honeypot, no puzzle. Shown only once `LEAD_WEBHOOK_URL` is set (always on the dev server).                                                                                                                                                                                                                                                                                                                                                                                   |
 | **Icons**               | Tabler Icons outline (`Icon`), 24 × 24 at 1.5, `currentColor`, no fills — heavier (1.8–2) only on solid buttons and at 14px or under. One idea, one mark (`SERVICE_ICONS`); a new one is copied in from Tabler, never drawn.                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 Every interactive thing has a visible `:focus-visible` state, a keyboard path, and a 40px target.

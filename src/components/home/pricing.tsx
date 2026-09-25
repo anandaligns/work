@@ -7,7 +7,7 @@ import {
   everyWebsiteIncludes,
   largerBuilds,
   type Offer,
-  START,
+  startFor,
   websitePackages,
 } from '@/content/site';
 import { ANCHOR_EVENT, announceAnchor } from '@/lib/anchor';
@@ -25,7 +25,8 @@ import { Segmented } from '../ui/segmented';
  * popularity claim nobody has measured.
  *
  * `/#evolve-plans` lands on the row of tabs with the Evolve plans open — the link under the
- * Services cards goes there.
+ * Services cards goes there. `only="care"` is the Evolve page's table: the plans alone, with their
+ * yearly switch and no Build tab. Every button carries its package's `?interest=`.
  */
 type Segment = 'websites' | 'care';
 
@@ -54,8 +55,8 @@ export function EvolvePlansLink({
 const priceOf = (offer: Offer, label: string | null) =>
   offer.headline.find((price) => price.label === label)?.text ?? offer.headline[0]?.text ?? '—';
 
-export function Pricing() {
-  const [segment, setSegment] = useState<Segment>('websites');
+export function Pricing({ only }: { only?: Segment } = {}) {
+  const [segment, setSegment] = useState<Segment>(only ?? 'websites');
   // Once the tabs have been used, a new tab's cards dissolve in at once rather than on first sight.
   const [switched, setSwitched] = useState(false);
   const [yearly, setYearly] = useState(false);
@@ -86,20 +87,22 @@ export function Pricing() {
   const more = segment === 'websites' ? websitePackages.slice(3) : [];
 
   return (
-    <div className="mt-12">
+    <div className={only ? '' : 'mt-12'}>
       <div id="evolve-plans" className="flex flex-wrap items-center justify-between gap-4">
-        <Segmented
-          label="What to price"
-          value={segment}
-          onChange={(next) => {
-            setSwitched(true);
-            setSegment(next);
-          }}
-          options={[
-            { value: 'websites', label: 'Build' },
-            { value: 'care', label: 'Evolve plans' },
-          ]}
-        />
+        {only ? null : (
+          <Segmented
+            label="What to price"
+            value={segment}
+            onChange={(next) => {
+              setSwitched(true);
+              setSegment(next);
+            }}
+            options={[
+              { value: 'websites', label: 'Build' },
+              { value: 'care', label: 'Evolve plans' },
+            ]}
+          />
+        )}
         {segment === 'care' ? (
           <label
             htmlFor={`${ids}-yearly`}
@@ -184,7 +187,7 @@ export function Pricing() {
                   </p>
                 ) : null}
                 <RollLink
-                  href={START.href}
+                  href={startFor(segment === 'websites' ? offer.slug : 'evolve')}
                   variant={focal ? 'paper' : 'line'}
                   className="mt-7 w-full"
                 >
@@ -194,9 +197,14 @@ export function Pricing() {
                   className={`mt-7 flex flex-col gap-3 border-t pt-6 text-sm ${focal ? 'border-white/15' : 'border-line'}`}
                 >
                   {(offer.features.length
-                    ? offer.features
-                        .filter((f) => f.label !== 'Timeline')
-                        .map((f) => `${f.label}: ${f.value}`)
+                    ? [
+                        ...offer.features
+                          .filter((f) => f.label !== 'Timeline')
+                          .map((f) => `${f.label}: ${f.value}`),
+                        ...(segment === 'care'
+                          ? [`Extra change: ${priceOf(offer, 'Extra change')}`]
+                          : []),
+                      ]
                     : everyWebsiteIncludes.slice(0, 5)
                   ).map((line) => (
                     <li key={line} className="flex items-start gap-2.5">
@@ -261,7 +269,7 @@ export function Pricing() {
                     ) : null}
                     {/* Pushes the button to the foot of the column, never closer than 1.75rem. */}
                     <span aria-hidden="true" className="min-h-7 grow" />
-                    <RollLink href={START.href} variant="line" className="w-full">
+                    <RollLink href={startFor(offer.slug)} variant="line" className="w-full">
                       {offer.slug === 'custom'
                         ? 'Ask for a quote'
                         : offer.slug === 'blueprint'

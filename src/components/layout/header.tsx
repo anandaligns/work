@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
-import { categories, evolve, nav, solutions, START } from '@/content/site';
+import { categories, evolve, nav, solutions, START, startFor } from '@/content/site';
 import { announceAnchor, useAnchor } from '@/lib/anchor';
 
-import { Icon, iconFor } from '../ui/icon';
+import { Icon, iconFor, SOLUTION_ICONS } from '../ui/icon';
 import { Logo } from '../ui/logo';
 import { RollLink } from '../ui/roll-link';
 
@@ -75,6 +75,8 @@ export function Header() {
   /** The nav item for where the visitor is: a section on the home page, a page anywhere else. */
   const pathname = usePathname();
   const home = pathname === '/';
+  // On a service or solution page, Get Started tells the form which one.
+  const start = startFor(/^\/(?:services|solutions)\/([a-z0-9-]+)$/.exec(pathname)?.[1]);
   const isCurrent = (label: string) => {
     if (home) return SECTION_OF[label] === section;
     const root = PAGES_OF[label];
@@ -178,10 +180,6 @@ export function Header() {
     window.clearTimeout(closeTimer.current);
     closeTimer.current = window.setTimeout(() => show(null), 160);
   };
-  const pick = (href: string) => {
-    announceAnchor(href);
-    close(false);
-  };
 
   /** A flyout, rendered inside its trigger's list item so Tab walks from the trigger into it. */
   const flyout = (key: MenuKey) => {
@@ -234,37 +232,26 @@ export function Header() {
                     </ul>
                   </div>
                 ))
-              : solutions.map((solution) => (
-                  <div key={solution.slug} className="gnav-flyout__item min-w-0" style={next()}>
-                    <p className="mega-title">
-                      <Link
-                        href={`/solutions/${solution.slug}`}
-                        className="mega-title__name"
-                        aria-current={
-                          pathname === `/solutions/${solution.slug}` ? 'page' : undefined
-                        }
-                        onClick={() => close(false)}
-                      >
-                        {solution.name}
-                      </Link>
-                      <span className="mega-title__line">{solution.line}</span>
-                    </p>
-                    <ul className="flex flex-col gap-0.5">
-                      {solution.bundles.map((bundle) => (
-                        <MenuItem
-                          key={bundle.anchor}
-                          href={`/#${bundle.anchor}`}
-                          icon={iconFor(bundle.anchor)}
-                          name={bundle.name}
-                          summary={bundle.includes.join(' · ')}
-                          active={here(`/#${bundle.anchor}`, 'solutions')}
-                          current="location"
-                          onPick={() => pick(`/#${bundle.anchor}`)}
-                        />
-                      ))}
+              : solutions.map((solution) => {
+                  const href = `/solutions/${solution.slug}`;
+                  return (
+                    <ul key={solution.slug} className="gnav-flyout__item min-w-0" style={next()}>
+                      <MenuItem
+                        href={href}
+                        icon={SOLUTION_ICONS[solution.slug] ?? 'layers'}
+                        name={solution.name}
+                        summary={solution.line}
+                        points={solution.bundles.map((bundle) => ({
+                          name: bundle.name,
+                          detail: bundle.includes.join(' · '),
+                        }))}
+                        active={pathname === href}
+                        current="page"
+                        onPick={() => close(false)}
+                      />
                     </ul>
-                  </div>
-                ))}
+                  );
+                })}
           </div>
           {/* The foot, under a hairline: the way to everything. */}
           <div className="gnav-flyout__item mega-foot" style={next()}>
@@ -363,7 +350,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-1.5" onMouseEnter={closeSoon}>
-          <RollLink href={START.href} size="xs" className="nav-btn max-md:hidden">
+          <RollLink href={start} size="xs" className="nav-btn max-md:hidden">
             {START.label}
           </RollLink>
           {/* aoutive's menu control — Apple's too: two bars that meet and cross. */}
@@ -463,18 +450,22 @@ export function Header() {
                                     ],
                                   },
                                 ]
-                              : solutions.map((solution) => ({
-                                  key: solution.slug,
-                                  name: solution.name,
-                                  items: solution.bundles.map((bundle) => ({
-                                    key: bundle.anchor,
-                                    name: bundle.name,
-                                    href: `/#${bundle.anchor}`,
-                                  })),
-                                }))
+                              : [
+                                  {
+                                    key: 'solutions',
+                                    name: '',
+                                    items: solutions.map((solution) => ({
+                                      key: solution.slug,
+                                      name: solution.name,
+                                      href: `/solutions/${solution.slug}`,
+                                    })),
+                                  },
+                                ]
                             ).map((group) => (
                               <div key={group.key}>
-                                <p className="gnav-flyout__label">{group.name}</p>
+                                {group.name ? (
+                                  <p className="gnav-flyout__label">{group.name}</p>
+                                ) : null}
                                 <ul className="mt-1.5 flex flex-col">
                                   {group.items.map((entry) => {
                                     const active =
@@ -521,7 +512,7 @@ export function Header() {
             })}
           </ul>
           <div className="m-item mt-10" style={{ ['--i' as string]: nav.length }}>
-            <RollLink href={START.href} className="nav-btn w-full" onClick={() => setSheet(false)}>
+            <RollLink href={start} className="nav-btn w-full" onClick={() => setSheet(false)}>
               {START.label}
             </RollLink>
           </div>
@@ -531,12 +522,17 @@ export function Header() {
   );
 }
 
-/** An item in the mega menu: its icon, name, one-line summary and a tilted arrow that rolls. */
+/**
+ * An item in the mega menu: its icon, name, one-line summary and a tilted arrow that rolls. A
+ * solution also lists its two ways in as points under a hairline — each bundle's name and what it
+ * includes — inside the one link to the solution's page.
+ */
 function MenuItem({
   href,
   icon,
   name,
   summary,
+  points,
   active = false,
   current,
   onPick,
@@ -545,6 +541,7 @@ function MenuItem({
   icon: Parameters<typeof Icon>[0]['name'];
   name: string;
   summary: string;
+  points?: { name: string; detail: string }[];
   active?: boolean;
   /** How the item marks where the visitor is: a page, or a place on the home page. */
   current: 'page' | 'location';
@@ -565,6 +562,16 @@ function MenuItem({
         <span className="min-w-0 flex-1">
           <span className="mega-link__name">{name}</span>
           <span className="mega-link__summary">{summary}</span>
+          {points?.length ? (
+            <span className="mega-link__points">
+              {points.map((point) => (
+                <span key={point.name} className="mega-link__point">
+                  <span className="mega-link__point-name">{point.name}</span>
+                  <span className="mega-link__summary">{point.detail}</span>
+                </span>
+              ))}
+            </span>
+          ) : null}
         </span>
         {/* The tilted arrow is there at rest; pointing at the row rolls it out and its twin in. */}
         <span aria-hidden="true" className="roll__arrow mega-link__arrow">

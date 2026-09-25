@@ -1,9 +1,8 @@
-import { contact, faqGroups, SITE_URL, socials } from '@/content/site';
+import { contact, faqs, SITE_URL, socials } from '@/content/site';
 
 /**
- * JSON-LD for the home page: the business and the website as one graph, and the FAQ as the page's
- * HTML carries it — the first shelf, the one open on arrival. The other shelves render only when
- * chosen, and structured data may only describe what is on the page.
+ * JSON-LD for the home page: the business and the website as one graph, and the FAQ — every
+ * answer on every shelf, word for word, as the page's HTML carries them all.
  * Only facts the site already states go in — no street address until the office address is
  * confirmed, no legal name until the company is incorporated, and `sameAs` only for profiles that
  * exist.
@@ -43,7 +42,7 @@ const website = {
 const faqPage = {
   '@type': 'FAQPage',
   '@id': `${SITE_URL}/#faq`,
-  mainEntity: (faqGroups[0]?.items ?? []).map((faq) => ({
+  mainEntity: faqs.map((faq) => ({
     '@type': 'Question',
     name: faq.question,
     acceptedAnswer: { '@type': 'Answer', text: faq.answer },
