@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
 import {
   carePlans,
@@ -10,6 +10,7 @@ import {
   START,
   websitePackages,
 } from '@/content/site';
+import { ANCHOR_EVENT, announceAnchor } from '@/lib/anchor';
 
 import { Morph } from '../motion/morph';
 import { PixelCover } from '../motion/pixel-reveal';
@@ -18,12 +19,37 @@ import { RollLink } from '../ui/roll-link';
 import { Segmented } from '../ui/segmented';
 
 /**
- * aoutive's pricing, with Pixel Kinetix's real numbers. Two segments — websites (one-time) and care
+ * aoutive's pricing, with Pixel Kinetix's real numbers. Two segments — Build (one-time) and Evolve
  * plans (monthly or yearly) — and every rupee comes from `offers`. The centre card is drawn in ink
- * to give the row a focal point; its label is the price list's own note ("Need to be online
- * quickly"), not a popularity claim nobody has measured.
+ * to give the row a focal point; its label is the price list's own note ("Start here."), not a
+ * popularity claim nobody has measured.
+ *
+ * `/#evolve-plans` lands on the row of tabs with the Evolve plans open — the link under the
+ * Services cards goes there.
  */
 type Segment = 'websites' | 'care';
+
+export const EVOLVE_PLANS_HREF = '/#evolve-plans';
+
+/** A link to the Evolve plans that opens their tab — usable from a server component. */
+export function EvolvePlansLink({
+  children,
+  className = '',
+}: {
+  children: string;
+  className?: string;
+}) {
+  return (
+    <RollLink
+      href={EVOLVE_PLANS_HREF}
+      variant="line"
+      className={className}
+      onClick={() => announceAnchor(EVOLVE_PLANS_HREF)}
+    >
+      {children}
+    </RollLink>
+  );
+}
 
 const priceOf = (offer: Offer, label: string | null) =>
   offer.headline.find((price) => price.label === label)?.text ?? offer.headline[0]?.text ?? '—';
@@ -34,13 +60,34 @@ export function Pricing() {
   const [switched, setSwitched] = useState(false);
   const [yearly, setYearly] = useState(false);
   const ids = useId();
+  // Sent to the Evolve plans — on arrival with the hash, and on every click of a link to them,
+  // even a second one after the visitor has gone back to Build.
+  useEffect(() => {
+    const openEvolve = () => {
+      setSwitched(true);
+      setSegment('care');
+    };
+    if (window.location.hash === '#evolve-plans') openEvolve();
+    const onAnchor = (event: Event) => {
+      if ((event as CustomEvent<string>).detail === '#evolve-plans') openEvolve();
+    };
+    const onHash = () => {
+      if (window.location.hash === '#evolve-plans') openEvolve();
+    };
+    window.addEventListener(ANCHOR_EVENT, onAnchor);
+    window.addEventListener('hashchange', onHash);
+    return () => {
+      window.removeEventListener(ANCHOR_EVENT, onAnchor);
+      window.removeEventListener('hashchange', onHash);
+    };
+  }, []);
 
   const main = segment === 'websites' ? websitePackages.slice(0, 3) : carePlans;
   const more = segment === 'websites' ? websitePackages.slice(3) : [];
 
   return (
     <div className="mt-12">
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div id="evolve-plans" className="flex flex-wrap items-center justify-between gap-4">
         <Segmented
           label="What to price"
           value={segment}
@@ -49,8 +96,8 @@ export function Pricing() {
             setSegment(next);
           }}
           options={[
-            { value: 'websites', label: 'Websites' },
-            { value: 'care', label: 'Care plans' },
+            { value: 'websites', label: 'Build' },
+            { value: 'care', label: 'Evolve plans' },
           ]}
         />
         {segment === 'care' ? (
@@ -76,9 +123,7 @@ export function Pricing() {
             </span>
           </label>
         ) : (
-          <p className="text-sm text-ink-2">
-            One-time payment · hosting is a separate monthly plan
-          </p>
+          <p className="text-sm text-ink-2">One-time payment · Evolve is a separate monthly plan</p>
         )}
       </div>
 
@@ -86,10 +131,14 @@ export function Pricing() {
         <ul className="grid overflow-hidden rounded-[var(--radius-panel)] border border-line bg-white lg:grid-cols-3">
           {main.map((offer, i) => {
             const focal = i === 1;
-            const price =
+            const headline =
               segment === 'websites'
                 ? priceOf(offer, null)
                 : priceOf(offer, yearly ? 'Yearly' : 'Monthly');
+            // A starting price keeps its "from" small, ahead of the figure, so the figure itself
+            // stays at the size of its neighbours.
+            const from = headline.startsWith('From ');
+            const price = from ? headline.slice(5) : headline;
             const unit = segment === 'websites' ? 'one-time' : yearly ? '/ year' : '/ month';
             return (
               <li
@@ -112,6 +161,11 @@ export function Pricing() {
                   {offer.summary ?? 'Hosting, SSL and a CDN are included in every plan.'}
                 </p>
                 <p className="mt-6 flex items-baseline gap-2">
+                  {from ? (
+                    <span className={`text-sm ${focal ? 'text-white/60' : 'text-ink-2'}`}>
+                      From
+                    </span>
+                  ) : null}
                   <span
                     key={price}
                     className="scene-swap font-display text-[2.5rem] leading-none tracking-[var(--tracking-display)]"
@@ -183,7 +237,7 @@ export function Pricing() {
                   className="relative grid gap-8 overflow-hidden rounded-[var(--radius-panel)] border border-line bg-white p-8 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:p-9"
                 >
                   <div className="flex flex-col">
-                    <div className="flex items-center justify-between gap-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
                       <h3 className="font-display text-h4 font-medium">{offer.name}</h3>
                       {detail ? (
                         <span className="rounded-full bg-fill px-2.5 py-1 text-[0.6875rem] font-semibold whitespace-nowrap text-ink">
@@ -208,7 +262,11 @@ export function Pricing() {
                     {/* Pushes the button to the foot of the column, never closer than 1.75rem. */}
                     <span aria-hidden="true" className="min-h-7 grow" />
                     <RollLink href={START.href} variant="line" className="w-full">
-                      {offer.slug === 'custom' ? 'Ask for a quote' : 'Start with ' + offer.name}
+                      {offer.slug === 'custom'
+                        ? 'Ask for a quote'
+                        : offer.slug === 'blueprint'
+                          ? 'Book a Blueprint'
+                          : 'Start with ' + offer.name}
                     </RollLink>
                   </div>
                   <ul className="flex flex-col gap-3 border-line text-sm max-sm:border-t max-sm:pt-6 sm:border-l sm:pl-7">

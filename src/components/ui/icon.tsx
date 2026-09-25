@@ -214,35 +214,45 @@ export function Icon({
 
 /** Sub-service anchors to their marks — the same map the platform keeps beside its menu. */
 export const SERVICE_ICONS: Record<string, IconName> = {
-  'business-websites': 'device',
-  'e-commerce-websites': 'cart',
-  'landing-pages': 'target',
-  'website-redesign': 'refresh',
-  'custom-websites': 'custom',
-  'managed-hosting': 'server',
-  'domain-email-setup': 'mail',
-  'security-backups': 'shield',
-  'speed-performance': 'gauge',
-  'website-migration': 'move',
-  'website-updates': 'spark',
-  'content-management': 'layers',
-  'fixes-technical-support': 'code',
-  'security-maintenance': 'lock',
-  'monitoring-recovery': 'database',
-  'business-online-presence': 'globe',
-  'lead-generation-website': 'target',
-  'e-commerce-solution': 'cart',
-  'booking-appointment-solution': 'calendar',
-  'website-modernisation': 'refresh',
+  // The three service groups, and Evolve beneath them.
+  'digital-experiences': 'device',
+  'business-systems': 'database',
+  'automation-ai': 'spark',
+  evolve: 'shield',
+  // Digital Experiences
+  'business-websites': 'globe',
+  'e-commerce-stores': 'cart',
+  'customer-portals': 'lock',
+  'web-apps': 'layers',
+  'mobile-apps': 'device',
+  // Business Systems
+  dashboards: 'gauge',
+  'internal-tools': 'custom',
+  'crm-systems': 'database',
+  'custom-software': 'code',
+  'business-platforms': 'cloud',
+  // Automation & AI
+  'whatsapp-automation': 'chat',
+  'booking-payment-workflows': 'calendar',
+  'api-integrations': 'refresh',
+  'ai-assistants': 'spark',
+  'ai-workflows': 'bulb',
+  // Solution bundles
+  'connected-website': 'globe',
+  'lead-follow-up': 'target',
+  'e-commerce-system': 'cart',
+  'booking-system': 'calendar',
+  'business-dashboard': 'gauge',
+  'modernise-and-connect': 'refresh',
+  'evolve-plan': 'shield',
   'move-to-better-hosting': 'move',
-  'managed-website-solution': 'shield',
 };
 
 export const SOLUTION_ICONS: Record<string, IconName> = {
-  'get-online': 'globe',
+  'never-miss-a-lead': 'chat',
   'sell-and-book-online': 'store',
-  'fix-and-improve': 'refresh',
-  'managed-website': 'shield',
+  'run-it-in-one-place': 'layers',
+  'keep-it-improving': 'shield',
 };
 
 export const iconFor = (anchor: string): IconName => SERVICE_ICONS[anchor] ?? 'spark';

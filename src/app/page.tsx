@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 import { Band } from '@/components/layout/band';
 import { Closing } from '@/components/home/closing';
 import { Faq } from '@/components/home/faq';
@@ -13,7 +15,10 @@ import { Sectors } from '@/components/home/sectors';
 import { Services } from '@/components/home/services';
 import { Solutions, SolutionsHead } from '@/components/home/solutions';
 import { Work } from '@/components/home/work';
+import { HomeStructuredData } from '@/components/seo/structured-data';
 import { headings } from '@/content/site';
+
+export const metadata: Metadata = { alternates: { canonical: '/' } };
 
 /**
  * Home. The order is the argument: what we are (hero), who it is for (sectors), what we do
@@ -24,6 +29,7 @@ import { headings } from '@/content/site';
 export default function Home() {
   return (
     <>
+      <HomeStructuredData />
       <Hero />
       <Sectors />
       <Services />
@@ -41,7 +47,7 @@ export default function Home() {
           id="pricing"
           eyebrow="Pricing"
           heading={headings.pricing}
-          intro="Every package has a fixed, published price. We start once the advance is paid."
+          intro="Every package has a published price. Bigger systems get a fixed quote after a System Blueprint. We start once the advance is paid."
         />
         <Pricing />
       </Band>
@@ -51,7 +57,7 @@ export default function Home() {
           id="faq"
           eyebrow="FAQ"
           heading={headings.faq}
-          intro="Straight answers about prices, hosting, payments and more."
+          intro="Straight answers about systems, prices, Evolve and more."
         />
         <Faq />
       </Band>

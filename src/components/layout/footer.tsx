@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-import { categories, contact, socials, solutions, type SocialId } from '@/content/site';
+import { categories, contact, evolve, socials, solutions, type SocialId } from '@/content/site';
 
 import { ModuleField } from '../motion/module-field';
 import { Pausable } from '../motion/pause-toggle';
@@ -31,7 +31,10 @@ const COLUMNS = [
   },
   {
     heading: 'Services',
-    links: categories.map((c) => ({ label: c.name, href: `/services/${c.slug}` })),
+    links: [
+      ...categories.map((c) => ({ label: c.name, href: `/services/${c.slug}` })),
+      { label: evolve.name, href: `/services/${evolve.slug}` },
+    ],
   },
   {
     heading: 'Solutions',
@@ -208,7 +211,7 @@ export function Footer() {
           <div className="relative grid justify-items-center gap-[1.875rem] pt-[clamp(5.5rem,12vw,9.5rem)] pb-9 text-center">
             <BrandSymbol ink="#FFFFFF" className="pk-loop w-[clamp(5.5rem,10vw,8.75rem)]" />
             <p className="max-w-[16em] font-display text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.02] font-bold tracking-[-0.03em]">
-              Digital experiences engineered to move you forward.
+              Engineered to move you forward.
             </p>
             <p className="mt-[clamp(3rem,8vw,6rem)] w-full border-t border-[#252a3b] pt-[1.125rem] font-tech text-[0.71875rem] tracking-[0.14em] text-[#8a8fa3] uppercase">
               © {new Date().getFullYear()} Pixel Kinetix · All rights reserved

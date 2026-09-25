@@ -1,146 +1,144 @@
 {
  "serviceCategories": [
   {
-   "slug": "website-development",
-   "name": "Website Development",
-   "line": "We build it.",
+   "slug": "digital-experiences",
+   "name": "Digital Experiences",
+   "line": "Where customers meet you.",
    "intro": null
   },
   {
-   "slug": "website-hosting",
-   "name": "Website Hosting",
-   "line": "We keep it online.",
+   "slug": "business-systems",
+   "name": "Business Systems",
+   "line": "How your team runs the business.",
    "intro": null
   },
   {
-   "slug": "website-care",
-   "name": "Website Care",
-   "line": "We look after it.",
+   "slug": "automation-ai",
+   "name": "Automation & AI",
+   "line": "Work that moves on its own.",
    "intro": null
   }
  ],
  "services": [
   {
-   "categorySlug": "website-development",
+   "categorySlug": "digital-experiences",
    "anchor": "business-websites",
    "name": "Business Websites",
-   "summary": "Local businesses, service companies, professionals, clinics, hospitality, real estate, education, startups"
+   "summary": "Fast, search-ready websites designed around your customers."
   },
   {
-   "categorySlug": "website-development",
-   "anchor": "e-commerce-websites",
-   "name": "E-commerce Websites",
-   "summary": "Catalogue, cart, checkout, payment, shipping and order workflows, store admin"
+   "categorySlug": "digital-experiences",
+   "anchor": "e-commerce-stores",
+   "name": "E-commerce Stores",
+   "summary": "Online stores with payments, orders and stock that stay in sync."
   },
   {
-   "categorySlug": "website-development",
-   "anchor": "landing-pages",
-   "name": "Landing Pages",
-   "summary": "Campaigns, lead generation, promotions, launches, focused conversion journeys"
+   "categorySlug": "digital-experiences",
+   "anchor": "customer-portals",
+   "name": "Customer Portals",
+   "summary": "A private space where customers see orders, bookings and documents."
   },
   {
-   "categorySlug": "website-development",
-   "anchor": "website-redesign",
-   "name": "Website Redesign",
-   "summary": "Existing site needing stronger design, mobile experience, IA, performance, conversion path"
+   "categorySlug": "digital-experiences",
+   "anchor": "web-apps",
+   "name": "Web Apps",
+   "summary": "App-like tools that run in the browser. No app store needed."
   },
   {
-   "categorySlug": "website-development",
-   "anchor": "custom-websites",
-   "name": "Custom Websites",
-   "summary": "Business-specific forms, booking flows, portals, calculators, dashboards, payment workflows, integrations"
+   "categorySlug": "digital-experiences",
+   "anchor": "mobile-apps",
+   "name": "Mobile Apps",
+   "summary": "iOS and Android apps for your customers or your team."
   },
   {
-   "categorySlug": "website-hosting",
-   "anchor": "managed-hosting",
-   "name": "Managed Hosting",
-   "summary": "Setup, deployment, managed hosting coordination"
+   "categorySlug": "business-systems",
+   "anchor": "dashboards",
+   "name": "Dashboards",
+   "summary": "Leads, bookings, payments and performance in one live view."
   },
   {
-   "categorySlug": "website-hosting",
-   "anchor": "domain-email-setup",
-   "name": "Domain & Email Setup",
-   "summary": "Domain, DNS, business email records, related configuration"
+   "categorySlug": "business-systems",
+   "anchor": "internal-tools",
+   "name": "Admin Panels & Internal Tools",
+   "summary": "Tools shaped around how your team actually works."
   },
   {
-   "categorySlug": "website-hosting",
-   "anchor": "security-backups",
-   "name": "Security & Backups",
-   "summary": "SSL, backup setup, recovery readiness, baseline hardening"
+   "categorySlug": "business-systems",
+   "anchor": "crm-systems",
+   "name": "CRM-Connected Systems",
+   "summary": "Your website, WhatsApp and team feeding one customer record."
   },
   {
-   "categorySlug": "website-hosting",
-   "anchor": "speed-performance",
-   "name": "Speed & Performance",
-   "summary": "Caching, CDN, image optimisation, performance engineering"
+   "categorySlug": "business-systems",
+   "anchor": "custom-software",
+   "name": "Custom Business Software",
+   "summary": "Software built around your process, not the other way round."
   },
   {
-   "categorySlug": "website-hosting",
-   "anchor": "website-migration",
-   "name": "Website Migration",
-   "summary": "Move hosting, domains, platforms or existing sites with controlled cutover and testing"
+   "categorySlug": "business-systems",
+   "anchor": "business-platforms",
+   "name": "Business Platforms & SaaS",
+   "summary": "Multi-team platforms and software products, built to scale."
   },
   {
-   "categorySlug": "website-care",
-   "anchor": "website-updates",
-   "name": "Website Updates",
-   "summary": "Pages, sections, images, banners, offers, contact details, minor design updates"
+   "categorySlug": "automation-ai",
+   "anchor": "whatsapp-automation",
+   "name": "WhatsApp & Email Automation",
+   "summary": "Instant replies, reminders and follow-ups without anyone typing them."
   },
   {
-   "categorySlug": "website-care",
-   "anchor": "content-management",
-   "name": "Content Management",
-   "summary": "Regular content, product and service updates"
+   "categorySlug": "automation-ai",
+   "anchor": "booking-payment-workflows",
+   "name": "Booking & Payment Workflows",
+   "summary": "Customers book and pay themselves; confirmations go out on their own."
   },
   {
-   "categorySlug": "website-care",
-   "anchor": "fixes-technical-support",
-   "name": "Fixes & Technical Support",
-   "summary": "Forms, layout, browser, mobile, integration, general technical issues"
+   "categorySlug": "automation-ai",
+   "anchor": "api-integrations",
+   "name": "API Integrations",
+   "summary": "Payments, CRM, accounting and Google Workspace, talking to each other."
   },
   {
-   "categorySlug": "website-care",
-   "anchor": "security-maintenance",
-   "name": "Security & Maintenance",
-   "summary": "Routine updates, patches, backup checks, maintenance"
+   "categorySlug": "automation-ai",
+   "anchor": "ai-assistants",
+   "name": "AI Assistants",
+   "summary": "An assistant that answers customers using your business’s own information."
   },
   {
-   "categorySlug": "website-care",
-   "anchor": "monitoring-recovery",
-   "name": "Monitoring & Recovery",
-   "summary": "Uptime and performance checks, backup verification, restoration support"
+   "categorySlug": "automation-ai",
+   "anchor": "ai-workflows",
+   "name": "AI Workflows & Insights",
+   "summary": "AI that reads documents, enters data and spots what needs attention."
   }
  ],
  "solutions": [
   {
-   "slug": "get-online",
-   "name": "Get Online",
-   "line": "We build your presence.",
+   "slug": "never-miss-a-lead",
+   "name": "Never Miss a Lead",
+   "line": "We catch every enquiry.",
    "positioning": null,
    "bundles": [
     {
-     "anchor": "business-online-presence",
-     "name": "Business Online Presence",
+     "anchor": "connected-website",
+     "name": "Connected Website",
      "includes": [
-      "Business Website",
-      "Domain Setup",
-      "Hosting",
-      "SSL",
-      "Business Email Setup",
-      "Contact/Enquiry Flow",
-      "Analytics Foundation"
+      "Website",
+      "Enquiries from site, ads and WhatsApp in one place",
+      "Instant WhatsApp and email replies",
+      "Team alerts",
+      "Lead dashboard",
+      "3 months of Evolve"
      ]
     },
     {
-     "anchor": "lead-generation-website",
-     "name": "Lead Generation Website",
+     "anchor": "lead-follow-up",
+     "name": "Lead Follow-up Automation",
      "includes": [
-      "Business Website",
-      "Conversion-Focused Pages",
-      "Enquiry Forms",
-      "WhatsApp CTA",
-      "Call CTA",
-      "Basic Conversion Tracking"
+      "Lead routing",
+      "Follow-up reminders",
+      "WhatsApp message templates",
+      "CRM sync",
+      "Conversion tracking"
      ]
     }
    ]
@@ -152,55 +150,82 @@
    "positioning": null,
    "bundles": [
     {
-     "anchor": "e-commerce-solution",
-     "name": "E-commerce Solution",
+     "anchor": "e-commerce-system",
+     "name": "E-commerce System",
      "includes": [
-      "E-commerce Website",
-      "Product Catalogue",
-      "Payment Gateway",
-      "Order/Shipping Setup",
-      "Hosting",
-      "Security",
-      "Tracking"
+      "Online store",
+      "Product catalogue",
+      "Payment gateway",
+      "Order and shipping setup",
+      "Order updates on WhatsApp",
+      "Hosting and security"
      ]
     },
     {
-     "anchor": "booking-appointment-solution",
-     "name": "Booking & Appointment Solution",
+     "anchor": "booking-system",
+     "name": "Booking & Appointment System",
      "includes": [
-      "Website",
-      "Booking/Appointment Flow",
-      "Confirmation Flow",
-      "Notifications",
-      "Optional Payments",
-      "Calendar Integration where required"
+      "Online booking",
+      "Confirmations and reminders on WhatsApp",
+      "Optional payments",
+      "Calendar integration where required",
+      "No-show follow-ups"
      ]
     }
    ]
   },
   {
-   "slug": "fix-and-improve",
-   "name": "Fix & Improve",
-   "line": "We make it work better.",
+   "slug": "run-it-in-one-place",
+   "name": "Run It in One Place",
+   "line": "We connect your operations.",
    "positioning": null,
    "bundles": [
     {
-     "anchor": "website-modernisation",
-     "name": "Website Modernisation",
+     "anchor": "business-dashboard",
+     "name": "Business Dashboard & CRM",
      "includes": [
-      "Website Redesign",
-      "Mobile UX",
-      "Information Architecture",
-      "Speed Improvements",
-      "Conversion Improvements",
-      "Security Review"
+      "Leads, bookings and payments in one view",
+      "Team roles and access",
+      "Daily summaries",
+      "Exports and reports"
+     ]
+    },
+    {
+     "anchor": "modernise-and-connect",
+     "name": "Modernise & Connect",
+     "includes": [
+      "Website redesign",
+      "Connect the tools you already use",
+      "Move off spreadsheets",
+      "Speed improvements",
+      "Security review"
+     ]
+    }
+   ]
+  },
+  {
+   "slug": "keep-it-improving",
+   "name": "Keep It Improving",
+   "line": "We keep it running and improving.",
+   "positioning": "You run your business. We keep your system fast, safe and getting better.",
+   "bundles": [
+    {
+     "anchor": "evolve-plan",
+     "name": "Evolve Plan",
+     "includes": [
+      "Hosting, SSL and CDN",
+      "Uptime monitoring",
+      "Daily backups",
+      "Security updates",
+      "Content changes every month",
+      "Technical support"
      ]
     },
     {
      "anchor": "move-to-better-hosting",
      "name": "Move to Better Hosting",
      "includes": [
-      "Managed Hosting",
+      "Managed hosting",
       "Migration",
       "Domain/DNS",
       "SSL",
@@ -211,59 +236,14 @@
      ]
     }
    ]
-  },
-  {
-   "slug": "managed-website",
-   "name": "Managed Website",
-   "line": "We keep it running.",
-   "positioning": "You run your business. We manage your website.",
-   "bundles": [
-    {
-     "anchor": "managed-website-solution",
-     "name": "Managed Website Solution",
-     "includes": [
-      "Hosting",
-      "Website Updates",
-      "Content Changes",
-      "Backups",
-      "Security",
-      "Monitoring",
-      "Technical Support"
-     ]
-    }
-   ]
   }
  ],
  "offers": [
   {
    "kind": "WEBSITE_PACKAGE",
-   "slug": "starter",
-   "name": "Starter",
-   "summary": "1 page, contact form, WhatsApp + call buttons",
-   "timeline": "3–5 days",
-   "prices": [
-    {
-     "label": null,
-     "price": {
-      "kind": "EXACT",
-      "amountPaise": 500000
-     }
-    }
-   ],
-   "features": [],
-   "notes": [],
-   "headline": [
-    {
-     "label": null,
-     "text": "₹5,000"
-    }
-   ]
-  },
-  {
-   "kind": "WEBSITE_PACKAGE",
-   "slug": "business",
-   "name": "Business",
-   "summary": "Up to 6 pages, logo included, built on our system",
+   "slug": "website",
+   "name": "Website",
+   "summary": "Up to 6 pages, logo included, enquiries to one inbox",
    "timeline": "10–14 days",
    "prices": [
     {
@@ -312,16 +292,16 @@
   },
   {
    "kind": "WEBSITE_PACKAGE",
-   "slug": "signature",
-   "name": "Signature",
-   "summary": "5–8 pages, custom designed for your brand",
-   "timeline": "3–4 weeks",
+   "slug": "connected-website",
+   "name": "Connected Website",
+   "summary": "Website + enquiries + WhatsApp + booking + dashboard",
+   "timeline": "4–6 weeks",
    "prices": [
     {
      "label": null,
      "price": {
-      "kind": "EXACT",
-      "amountPaise": 3200000
+      "kind": "FROM",
+      "amountPaise": 4500000
      }
     }
    ],
@@ -331,33 +311,37 @@
      "value": "Designed from scratch for your brand"
     },
     {
-     "label": "Design directions shown",
-     "value": "Two, you choose"
-    },
-    {
      "label": "Revision rounds",
      "value": "3"
     },
     {
-     "label": "Page structure",
-     "value": "Built around your business"
+     "label": "Replies",
+     "value": "Instant WhatsApp and email"
     },
     {
-     "label": "Content",
-     "value": "We shape it with you"
+     "label": "Booking",
+     "value": "Online booking or callbacks"
+    },
+    {
+     "label": "Dashboard",
+     "value": "Every lead and its status"
+    },
+    {
+     "label": "Evolve",
+     "value": "3 months included"
     },
     {
      "label": "Timeline",
-     "value": "3–4 weeks"
+     "value": "4–6 weeks"
     }
    ],
    "notes": [
-    "Need to stand out."
+    "Start here."
    ],
    "headline": [
     {
      "label": null,
-     "text": "₹32,000"
+     "text": "From ₹45,000"
     }
    ]
   },
@@ -376,8 +360,35 @@
      }
     }
    ],
-   "features": [],
-   "notes": [],
+   "features": [
+    {
+     "label": "Products",
+     "value": "Up to 50"
+    },
+    {
+     "label": "Payments",
+     "value": "Gateway, orders and shipping setup"
+    },
+    {
+     "label": "Warranty",
+     "value": "45 days from launch"
+    },
+    {
+     "label": "Payment stages",
+     "value": "Start, design approval, launch"
+    },
+    {
+     "label": "Product descriptions",
+     "value": "₹120 each (optional)"
+    },
+    {
+     "label": "Timeline",
+     "value": "4–5 weeks"
+    }
+   ],
+   "notes": [
+    "Sell online."
+   ],
    "headline": [
     {
      "label": null,
@@ -387,9 +398,33 @@
   },
   {
    "kind": "WEBSITE_PACKAGE",
+   "slug": "blueprint",
+   "name": "System Blueprint",
+   "summary": "A fixed-fee study of how your business works, with a roadmap and a fixed quote",
+   "timeline": "1–2 weeks",
+   "prices": [
+    {
+     "label": null,
+     "price": {
+      "kind": "EXACT",
+      "amountPaise": 1000000
+     }
+    }
+   ],
+   "features": [],
+   "notes": [],
+   "headline": [
+    {
+     "label": null,
+     "text": "₹10,000"
+    }
+   ]
+  },
+  {
+   "kind": "WEBSITE_PACKAGE",
    "slug": "custom",
    "name": "Custom",
-   "summary": "Booking systems, portals, dashboards",
+   "summary": "Business software, portals, dashboards and automation",
    "timeline": "Quoted",
    "prices": [
     {
@@ -924,18 +959,33 @@
  "faqs": [
   {
    "topic": "pricing",
-   "question": "What does every website include?",
+   "question": "Do you only build websites?",
+   "answer": "No. The website is often where we start, but we build the system around it too: business software, integrations, automation, and an Evolve plan that keeps it improving."
+  },
+  {
+   "topic": "pricing",
+   "question": "What does every build include?",
    "answer": "Mobile-first design, a contact form, WhatsApp and call buttons, SEO setup (titles, meta, sitemap, schema), analytics, a custom 404 page, and a 30-day warranty."
   },
   {
    "topic": "pricing",
-   "question": "Is hosting included in a website package?",
-   "answer": "Hosting is separate. It is included in all three Care plans."
+   "question": "How do the Website and the Connected Website differ?",
+   "answer": "The Website uses proven layouts from our system, one design direction and one revision round, on a fixed page structure, in 10–14 days. The Connected Website is designed from scratch for your brand, with three revision rounds, and adds the system behind it: instant WhatsApp and email replies, online booking or callbacks, and a dashboard of every lead, in 4–6 weeks, with the first three months of Evolve included. Need to be online quickly, choose the Website. Need every enquiry answered, choose the Connected Website."
   },
   {
    "topic": "pricing",
-   "question": "How do Business and Signature differ?",
-   "answer": "Business uses proven layouts from our system, one design direction and one revision round, on a fixed page structure, in 10–14 days. Signature is designed from scratch for your brand, with two directions to choose from, three revision rounds and a structure built around your business, in 3–4 weeks. Need to be online quickly, choose Business. Need to stand out, choose Signature."
+   "question": "Do you need my content before you start?",
+   "answer": "For the Website, yes: content must be supplied in full before we start. This is what makes the 10–14 day timeline possible. For the Connected Website and larger builds, we shape the content with you."
+  },
+  {
+   "topic": "pricing",
+   "question": "Can you connect WhatsApp to our website and CRM?",
+   "answer": "Yes. We use the official WhatsApp Business Platform through an approved provider, and connect it to your website, CRM, payments and email. Meta charges for some messages; we estimate this for you upfront."
+  },
+  {
+   "topic": "pricing",
+   "question": "Is hosting included in a package?",
+   "answer": "Hosting is separate. It is included in all three Evolve plans, and the Connected Website comes with its first three months of Evolve."
   },
   {
    "topic": "pricing",
@@ -944,23 +994,8 @@
   },
   {
    "topic": "pricing",
-   "question": "What are the Care plan terms?",
+   "question": "What are the Evolve plan terms?",
    "answer": "Three months minimum, then monthly. Cancel with 30 days' notice. You own your domain and your content, always, and get a full export within 10 working days if you leave."
-  },
-  {
-   "topic": "pricing",
-   "question": "What is not included in any package?",
-   "answer": "Content writing, photography, videography, brand identity beyond the logo, SEO campaigns, paid advertising, social media, third-party subscription fees, domain registration and renewal (passed through at cost), and translations."
-  },
-  {
-   "topic": "pricing",
-   "question": "How does payment work?",
-   "answer": "Up to ₹25,000: 50% to start, 50% on approval. ₹25,000 to ₹75,000: 40% to start, 30% at design approval, 30% on launch. Above ₹75,000: 30%, 30%, 25%, 15%. Work starts once the advance clears, and the site goes live on your domain once the final payment clears."
-  },
-  {
-   "topic": "pricing",
-   "question": "Do you need my content before you start?",
-   "answer": "Content must be supplied in full before we start. This is what makes the timeline possible."
   },
   {
    "topic": "pricing",
@@ -969,19 +1004,29 @@
   },
   {
    "topic": "pricing",
+   "question": "How does payment work?",
+   "answer": "Up to ₹25,000: 50% to start, 50% on approval. ₹25,000 to ₹75,000: 40% to start, 30% at design approval, 30% on launch. Above ₹75,000: 30%, 30%, 25%, 15%. Work starts once the advance clears, and the site goes live on your domain once the final payment clears."
+  },
+  {
+   "topic": "pricing",
    "question": "Is GST charged?",
    "answer": "Prices are exclusive of GST and no GST is currently applicable. Should Pixel Kinetix become GST-registered during the term, GST will be added to invoices issued from the date of registration."
+  },
+  {
+   "topic": "pricing",
+   "question": "What is not included in any package?",
+   "answer": "Content writing, photography, videography, brand identity beyond the logo, SEO campaigns, paid advertising, social media, third-party subscription fees, domain registration and renewal (passed through at cost), and translations."
   }
  ],
  "homeBlocks": [
   {
    "kind": "HERO",
-   "title": "You run your business. We manage your website.",
-   "body": "Built, hosted and looked after by one team. No agencies to chase, no plugins to babysit, no surprise invoices."
+   "title": "Technology built around your business.",
+   "body": "You run the business. We build the system behind it: websites, software and automation, engineered as one and improved every month."
   },
   {
    "kind": "PORTAL",
-   "title": "You never have to ask where things stand.",
+   "title": "Track your project anytime, in your own portal.",
    "body": "Every client gets a portal: what stage your project is at and what happens next, your files, the agreement you signed, every invoice and every request you have raised."
   },
   {
@@ -1026,55 +1071,55 @@
   },
   {
    "kind": "PROMISE",
-   "title": "You see the price before we start",
-   "body": "Every package has a published price. Your scope and your price are agreed in writing, and work starts only once the advance clears."
+   "title": "Your price is fixed before we build",
+   "body": "Every package has a published price. Bigger systems start with a System Blueprint that ends in a fixed quote. Your scope and your price are agreed in writing, and work starts only once the advance clears."
   },
   {
    "kind": "PROMISE",
-   "title": "The timeline is on the price list too",
-   "body": "A one-page Starter site takes 3–5 days and a Business site 10–14, counted from the day your content is complete. Larger builds carry their own."
+   "title": "Clear timelines, written down",
+   "body": "A Website takes 10–14 days and a Connected Website 4–6 weeks, counted from the day your content is complete. Larger builds carry their own."
   },
   {
    "kind": "PROMISE",
-   "title": "A change takes a message, not a meeting",
-   "body": "Raise it from your portal in a sentence. Your care plan sets how quickly it is done — as little as four business hours — and you can follow it until it is."
+   "title": "Changes by message, not meetings",
+   "body": "Raise it from your portal in a sentence. Your Evolve plan sets how quickly it is done — as little as four business hours — and you can follow it until it is."
   },
   {
    "kind": "PROCESS_STEP",
-   "title": "Enquiry",
-   "body": "You tell us what you need in a short form. We reply with a straight answer about whether we are the right fit."
+   "title": "Understand",
+   "body": "You tell us what is slowing the business down. We learn how it actually runs before we choose any technology."
   },
   {
    "kind": "PROCESS_STEP",
    "title": "Proposal",
-   "body": "A fixed scope and a fixed price, in writing. Work starts once the advance clears, and not before."
+   "body": "A fixed scope and a fixed price, in writing. Bigger systems start with a System Blueprint that ends in a fixed quote. Work starts once the advance clears, and not before."
   },
   {
    "kind": "PROCESS_STEP",
    "title": "Design",
-   "body": "You see real pages, not a mood board. One round of revisions on Business and three on Signature, before anything is built."
+   "body": "You see real screens, not a mood board. One round of revisions on the Website and three on the Connected Website, before anything is built."
   },
   {
    "kind": "PROCESS_STEP",
-   "title": "Build",
-   "body": "Mobile-first, with titles, meta, sitemap and schema set up for search. Your portal shows which stage it is at and what comes next."
+   "title": "Build & connect",
+   "body": "Mobile-first, set up for search, and connected: WhatsApp, payments, email and your data working as one. Your portal shows which stage it is at and what comes next."
   },
   {
    "kind": "PROCESS_STEP",
    "title": "Launch",
-   "body": "Domain, email, SSL and analytics, configured and checked. The site goes live on your domain once the final payment clears."
+   "body": "Domain, email, SSL, analytics and every automation, configured and checked. It goes live on your domain once the final payment clears."
   },
   {
    "kind": "PROCESS_STEP",
-   "title": "Care",
-   "body": "Updates, fixes, daily backups and monitoring on a monthly plan, so there is no hosting panel for you to learn."
+   "title": "Evolve",
+   "body": "Hosting, monitoring, daily backups and a set number of changes every month, so the system keeps up as the business grows."
   }
  ],
  "businessProfiles": [
   {
    "name": "Pixel Kinetix",
    "legalName": null,
-   "description": "Pixel Kinetix builds, hosts and looks after websites for businesses in India.",
+   "description": "Pixel Kinetix designs and engineers websites, business software and automation, as one connected system, for businesses in India.",
    "email": null,
    "telephone": null,
    "address": null,

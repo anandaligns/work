@@ -19,8 +19,7 @@ export function Closing() {
             {headings.cta.lead} <FillText text={headings.cta.fill} />
           </h2>
           <p data-reveal="" className="mt-6 max-w-md text-lead text-ink-2">
-            Fill in a short form or message us on WhatsApp. We’ll tell you honestly if we’re the
-            right fit.
+            Message us on WhatsApp, call or email. We’ll tell you honestly if we’re the right fit.
           </p>
           <div
             data-reveal=""

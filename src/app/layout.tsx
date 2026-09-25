@@ -5,16 +5,29 @@ import { Footer } from '@/components/layout/footer';
 import { Header } from '@/components/layout/header';
 import { ScrollEffects } from '@/components/motion/scroll-effects';
 import { SmoothScroll } from '@/components/motion/smooth-scroll';
+import { SITE_URL } from '@/content/site';
 
 import './globals.css';
 
+const DESCRIPTION =
+  'Pixel Kinetix designs and engineers websites, business software and automation as one connected system, for businesses in Bangalore and across India.';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Website Design, Hosting & Care in Bangalore | Pixel Kinetix',
+    default: 'Websites, Software & Automation in Bangalore | Pixel Kinetix',
     template: '%s · Pixel Kinetix',
   },
-  description:
-    'Website design, hosting and monthly care for businesses in Bangalore and across India. Published prices from ₹5,000 and a fixed quote in writing.',
+  description: DESCRIPTION,
+  applicationName: 'Pixel Kinetix',
+  openGraph: {
+    type: 'website',
+    siteName: 'Pixel Kinetix',
+    locale: 'en_IN',
+    title: 'Pixel Kinetix · Technology built around your business',
+    description: DESCRIPTION,
+  },
+  twitter: { card: 'summary' },
   icons: { icon: '/brand/logo.svg' },
 };
 

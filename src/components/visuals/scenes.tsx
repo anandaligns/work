@@ -276,10 +276,15 @@ export function CareScene() {
   );
 }
 
+/**
+ * Keyed by service group. The art is unchanged from the first three services and reads the same
+ * way: the laptop and its site for Digital Experiences, the linked stack for Business Systems, the
+ * cube and its connected nodes for Automation & AI.
+ */
 export const SERVICE_SCENES = {
-  'website-development': DevelopmentScene,
-  'website-hosting': HostingScene,
-  'website-care': CareScene,
+  'digital-experiences': DevelopmentScene,
+  'business-systems': HostingScene,
+  'automation-ai': CareScene,
 } as const;
 
 // --- the four solutions ---------------------------------------------------------------------
@@ -479,11 +484,16 @@ function ManagedScene() {
   );
 }
 
+/**
+ * Keyed by solution. Each scene stays with the solution in the same place in the list: the browser
+ * and its connected nodes for Never Miss a Lead, the two screens in sync for Run It in One Place,
+ * the shielded cube for Keep It Improving.
+ */
 export const SOLUTION_SCENES = {
-  'get-online': GetOnlineScene,
+  'never-miss-a-lead': GetOnlineScene,
   'sell-and-book-online': SellBookScene,
-  'fix-and-improve': FixImproveScene,
-  'managed-website': ManagedScene,
+  'run-it-in-one-place': FixImproveScene,
+  'keep-it-improving': ManagedScene,
 } as const;
 
 // --- the portal ----------------------------------------------------------------------------

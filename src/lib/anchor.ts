@@ -12,6 +12,9 @@ import { useEffect, useState } from 'react';
  */
 const EVENT = 'pk:anchor';
 
+/** The event a menu or link sends, for anything that must act on every announcement. */
+export const ANCHOR_EVENT = EVENT;
+
 export function announceAnchor(href: string) {
   const hash = href.includes('#') ? `#${href.split('#')[1]}` : '';
   window.dispatchEvent(new CustomEvent<string>(EVENT, { detail: hash }));

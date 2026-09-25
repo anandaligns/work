@@ -9,8 +9,8 @@ import { Icon } from '../ui/icon';
 
 /**
  * pk-static's quick-contact controls, brought across with their motion. Not in the site-wide
- * layout: they belong on the contact page, and are placed there when it is built. On a phone the
- * bar needs room at the foot of that page (`padding-bottom: 5rem` on its container).
+ * layout: they belong on the contact page. On a phone the bar needs room at the foot of that page;
+ * `globals.css` extends the footer's ink by 5rem whenever the bar is on the page.
  *
  * - **Call Now** — lower right, in Graphite Ink, its phone shaking on `ring-shake` every
  *   2.4s. On hover it lifts 2px into a larger shadow and the glyph spins a full turn (pk-static,
@@ -24,6 +24,9 @@ import { Icon } from '../ui/icon';
  *   slim graphite tab on the right edge.
  *
  * WhatsApp's green is darker than pk-static's: white on their #21bb63 is 2.6:1, and this is 5:1.
+ *
+ * `showStart={false}` leaves the phone's Get Started tab off — for the contact page, which is where
+ * Get Started leads.
  */
 function WhatsAppGlyph({ className = 'size-[1.1rem]' }: { className?: string }) {
   return (
@@ -61,7 +64,7 @@ function PhoneGlyph() {
   );
 }
 
-export function FloatingActions() {
+export function FloatingActions({ showStart = true }: { showStart?: boolean }) {
   const [away, setAway] = useState(false);
 
   useEffect(() => {
@@ -121,14 +124,17 @@ export function FloatingActions() {
           </span>
           <span>WhatsApp</span>
         </a>
-        <Link href={START.href} className="side-rail__start">
-          <span className="signal" aria-hidden="true" />
-          <span>{START.label}</span>
-          <span className="side-rail__arrow" aria-hidden="true">
-            <RailArrow />
-            <RailArrow />
-          </span>
-        </Link>
+        {/* On the page Get Started leads to, the tab would only lead back to it. */}
+        {showStart ? (
+          <Link href={START.href} className="side-rail__start">
+            <span className="signal" aria-hidden="true" />
+            <span>{START.label}</span>
+            <span className="side-rail__arrow" aria-hidden="true">
+              <RailArrow />
+              <RailArrow />
+            </span>
+          </Link>
+        ) : null}
       </div>
 
       {/* Phones: back to top above the bar, then the bar — Call Now and WhatsApp. */}

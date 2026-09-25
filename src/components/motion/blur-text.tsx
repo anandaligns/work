@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { Fragment, type CSSProperties } from 'react';
 
 /**
  * aoutive's headline effect: every character arrives from `blur(10px)`, invisible and a little
@@ -6,6 +6,9 @@ import type { CSSProperties } from 'react';
  * springy 0.4s per token — and rebuilt in CSS (`.blur-char`), so it starts at first paint instead
  * of waiting for hydration. The sentence itself is in the accessibility tree once, whole; the
  * animated copy is hidden from it, because a screen reader should not spell a headline out.
+ *
+ * A newline in `text` is where the line breaks from the `sm` width up; below it the words wrap
+ * where they fall, as a phone's narrow column needs.
  */
 export function BlurText({
   text,
@@ -19,26 +22,39 @@ export function BlurText({
   className?: string;
 }) {
   let index = 0;
-  const words = text.split(' ');
+  const lines = text.split('\n');
   return (
     <span className={className}>
-      <span className="sr-only">{text}</span>
+      <span className="sr-only">{lines.join(' ')}</span>
       <span aria-hidden="true">
-        {words.map((word, w) => (
-          <span key={`${word}-${w}`}>
-            <span className="inline-block whitespace-nowrap">
-              {[...word].map((char) => {
-                const d = delay + index++ * stagger;
-                return (
-                  <span key={d} className="blur-char" style={{ '--d': d } as CSSProperties}>
-                    {char}
+        {lines.map((line, l) => {
+          const words = line.split(' ');
+          return (
+            <Fragment key={l}>
+              {l > 0 ? (
+                <>
+                  {' '}
+                  <br className="hidden sm:inline" />
+                </>
+              ) : null}
+              {words.map((word, w) => (
+                <span key={`${word}-${l}-${w}`}>
+                  <span className="inline-block whitespace-nowrap">
+                    {[...word].map((char) => {
+                      const d = delay + index++ * stagger;
+                      return (
+                        <span key={d} className="blur-char" style={{ '--d': d } as CSSProperties}>
+                          {char}
+                        </span>
+                      );
+                    })}
                   </span>
-                );
-              })}
-            </span>
-            {w < words.length - 1 ? ' ' : null}
-          </span>
-        ))}
+                  {w < words.length - 1 ? ' ' : null}
+                </span>
+              ))}
+            </Fragment>
+          );
+        })}
       </span>
     </span>
   );

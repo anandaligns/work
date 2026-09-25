@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
-import { categories, nav, solutions, START } from '@/content/site';
+import { categories, evolve, nav, solutions, START } from '@/content/site';
 import { announceAnchor, useAnchor } from '@/lib/anchor';
 
 import { Icon } from '../ui/icon';
@@ -12,16 +13,29 @@ import { RollLink } from '../ui/roll-link';
 
 type MenuKey = 'services' | 'solutions';
 
-/** The section each nav item stands for on this one-page build. */
+/** The section each nav item stands for on the home page. About and Contact are pages. */
 const SECTION_OF: Record<string, string> = {
   Home: 'top',
   Services: 'services',
   Solutions: 'solutions',
   Work: 'work',
   Pricing: 'pricing',
-  About: 'process',
-  Contact: 'start',
 };
+
+/** Off the home page, the nav item whose pages the visitor is on. */
+const PAGES_OF: Record<string, string> = {
+  Services: '/services',
+  Solutions: '/solutions',
+  About: '/about',
+  Contact: '/contact',
+};
+
+/** The Services menu: the three groups' services, each on its own page, and Evolve beneath them. */
+const serviceHref = (slug: string) => `/services/${slug}`;
+const SERVICE_LINKS = [
+  ...categories.map((category) => ({ slug: category.slug, name: category.name })),
+  { slug: evolve.slug, name: evolve.name },
+];
 
 /**
  * The header — Apple's global bar, in this site's type.
@@ -34,7 +48,8 @@ const SECTION_OF: Record<string, string> = {
  *
  * Services and Solutions open flyouts: full-width sheets of the bar's own ink, drawn down from
  * under it while the page behind dims and softens out of focus. The first column is the big way in —
- * the three services, the four solutions — and the columns beside it every item underneath.
+ * the three service groups and Evolve, the four solutions — and the columns beside it every item
+ * underneath. Services open their own pages; solutions' bundles open their row on the home page.
  * They open on hover and on focus, close on Escape with focus handed back to the trigger, and
  * only one is ever open; moving from one to the other swaps the contents in place.
  */
@@ -59,6 +74,15 @@ export function Header() {
   const anchor = useAnchor();
   const here = (href: string, menu: MenuKey) =>
     anchor !== '' && href.endsWith(anchor) && section === menu;
+
+  /** The nav item for where the visitor is: a section on the home page, a page anywhere else. */
+  const pathname = usePathname();
+  const home = pathname === '/';
+  const isCurrent = (label: string) => {
+    if (home) return SECTION_OF[label] === section;
+    const root = PAGES_OF[label];
+    return root !== undefined && (pathname === root || pathname.startsWith(`${root}/`));
+  };
 
   /**
    * Which section is under the header, for a one-page site: the last section whose top has
@@ -182,14 +206,15 @@ export function Header() {
                   Explore services
                 </p>
                 <ul className="mt-3 flex flex-col">
-                  {categories.map((category) => (
-                    <li key={category.slug} className="gnav-flyout__item" style={next()}>
+                  {SERVICE_LINKS.map((link) => (
+                    <li key={link.slug} className="gnav-flyout__item" style={next()}>
                       <Link
-                        href={`/#${category.slug}`}
+                        href={serviceHref(link.slug)}
                         className="gnav-flyout__big"
+                        aria-current={pathname === serviceHref(link.slug) ? 'page' : undefined}
                         onClick={() => close(false)}
                       >
-                        {category.name}
+                        {link.name}
                       </Link>
                     </li>
                   ))}
@@ -201,21 +226,22 @@ export function Header() {
                     {category.line}
                   </p>
                   <ul className="mt-3 flex flex-col">
-                    {category.services.map((service) => (
-                      <li key={service.anchor} className="gnav-flyout__item" style={next()}>
-                        <Link
-                          href={`/#${service.anchor}`}
-                          className="gnav-flyout__small"
-                          data-active={here(`/#${service.anchor}`, 'services') || undefined}
-                          aria-current={
-                            here(`/#${service.anchor}`, 'services') ? 'location' : undefined
-                          }
-                          onClick={() => pick(`/#${service.anchor}`)}
-                        >
-                          {service.name}
-                        </Link>
-                      </li>
-                    ))}
+                    {category.services.map((service) => {
+                      const href = serviceHref(service.anchor);
+                      return (
+                        <li key={service.anchor} className="gnav-flyout__item" style={next()}>
+                          <Link
+                            href={href}
+                            className="gnav-flyout__small"
+                            data-active={pathname === href || undefined}
+                            aria-current={pathname === href ? 'page' : undefined}
+                            onClick={() => close(false)}
+                          >
+                            {service.name}
+                          </Link>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}
@@ -294,7 +320,7 @@ export function Header() {
                   className="gnav-flyout__item mt-3 text-[0.8125rem] leading-relaxed text-white/60"
                   style={next()}
                 >
-                  Tell us the goal. We’ll put the right services together and quote it in writing.
+                  Tell us the problem. We’ll map the right system and quote it in writing.
                 </p>
                 <div className="gnav-flyout__item mt-4" style={next()}>
                   <RollLink
@@ -354,7 +380,7 @@ export function Header() {
                       triggers.current.set(item.menu, node);
                     }}
                     className="gnav-link"
-                    data-active={SECTION_OF[item.label] === section || undefined}
+                    data-active={isCurrent(item.label) || undefined}
                     aria-expanded={open === item.menu}
                     aria-controls={`${ids}-${item.menu}`}
                     onClick={() => show(open === item.menu ? null : item.menu)}
@@ -368,8 +394,8 @@ export function Header() {
                   <Link
                     href={item.href!}
                     className="gnav-link"
-                    data-active={SECTION_OF[item.label] === section || undefined}
-                    aria-current={SECTION_OF[item.label] === section ? 'location' : undefined}
+                    data-active={isCurrent(item.label) || undefined}
+                    aria-current={isCurrent(item.label) ? (home ? 'location' : 'page') : undefined}
                   >
                     {item.label}
                   </Link>
@@ -422,7 +448,7 @@ export function Header() {
         <nav aria-label="Mobile" className="container-fluid pt-[4.75rem] pb-12">
           <ul className="flex flex-col">
             {nav.map((item, index) => {
-              const current = SECTION_OF[item.label] === section;
+              const current = isCurrent(item.label);
               return (
                 <li key={item.label} className="m-item" style={{ ['--i' as string]: index }}>
                   {item.menu ? (
@@ -458,48 +484,63 @@ export function Header() {
                         <div className="overflow-hidden">
                           <div className="flex flex-col gap-5 pt-2 pb-5">
                             {(item.menu === 'services'
-                              ? categories.map((category) => ({
-                                  key: category.slug,
-                                  name: category.name,
-                                  items: category.services.map((service) => ({
-                                    key: service.anchor,
-                                    name: service.name,
+                              ? [
+                                  ...categories.map((category) => ({
+                                    key: category.slug,
+                                    name: category.name,
+                                    items: category.services.map((service) => ({
+                                      key: service.anchor,
+                                      name: service.name,
+                                      href: serviceHref(service.anchor),
+                                    })),
                                   })),
-                                }))
+                                  {
+                                    key: evolve.slug,
+                                    name: evolve.name,
+                                    items: [
+                                      {
+                                        key: evolve.slug,
+                                        name: 'Hosting, care and improvements',
+                                        href: serviceHref(evolve.slug),
+                                      },
+                                    ],
+                                  },
+                                ]
                               : solutions.map((solution) => ({
                                   key: solution.slug,
                                   name: solution.name,
                                   items: solution.bundles.map((bundle) => ({
                                     key: bundle.anchor,
                                     name: bundle.name,
+                                    href: `/#${bundle.anchor}`,
                                   })),
                                 }))
                             ).map((group) => (
                               <div key={group.key}>
                                 <p className="gnav-flyout__label">{group.name}</p>
                                 <ul className="mt-1.5 flex flex-col">
-                                  {group.items.map((entry) => (
-                                    <li key={entry.key}>
-                                      <Link
-                                        href={`/#${entry.key}`}
-                                        onClick={() => {
-                                          announceAnchor(`/#${entry.key}`);
-                                          setSheet(false);
-                                        }}
-                                        className="sheet-sublink"
-                                        data-active={
-                                          here(`/#${entry.key}`, item.menu!) || undefined
-                                        }
-                                        aria-current={
-                                          here(`/#${entry.key}`, item.menu!)
-                                            ? 'location'
-                                            : undefined
-                                        }
-                                      >
-                                        {entry.name}
-                                      </Link>
-                                    </li>
-                                  ))}
+                                  {group.items.map((entry) => {
+                                    const active =
+                                      pathname === entry.href || here(entry.href, item.menu!);
+                                    return (
+                                      <li key={entry.key}>
+                                        <Link
+                                          href={entry.href}
+                                          onClick={() => {
+                                            announceAnchor(entry.href);
+                                            setSheet(false);
+                                          }}
+                                          className="sheet-sublink"
+                                          data-active={active || undefined}
+                                          aria-current={
+                                            active ? (home ? 'location' : 'page') : undefined
+                                          }
+                                        >
+                                          {entry.name}
+                                        </Link>
+                                      </li>
+                                    );
+                                  })}
                                 </ul>
                               </div>
                             ))}
@@ -513,7 +554,7 @@ export function Header() {
                       onClick={() => setSheet(false)}
                       className="sheet-link"
                       data-active={current || undefined}
-                      aria-current={current ? 'location' : undefined}
+                      aria-current={current ? (home ? 'location' : 'page') : undefined}
                     >
                       <span className="sheet-link__label">{item.label}</span>
                     </Link>

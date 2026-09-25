@@ -3,10 +3,12 @@ import catalogue from './catalogue.json';
 /**
  * Everything the site says.
  *
- * `catalogue.json` is a snapshot of the platform's own seed — the three services, fifteen
- * sub-services, four solutions, nineteen offers, ten pricing questions and nineteen home blocks,
- * word for word and rupee for rupee, dumped from `packages/domain` on 23 Sep 2026. When this site is
- * brought into the platform, every read below becomes a read of the CMS collection it came from.
+ * `catalogue.json` began as a snapshot of the platform's own seed, dumped from `packages/domain` on
+ * 23 Sep 2026. Since 25 Sep 2026 it holds catalogue v2 — the repositioning to one connected system
+ * (FOUNDATION.md v2.4): three service groups, fifteen services, four solutions, nineteen offers,
+ * twelve questions and nineteen home blocks. The platform's seed and `docs/10-public-surface.md` §7
+ * take the same text when this build moves across; until then this file is the source of truth, and
+ * every read below becomes a read of the CMS collection it came from.
  *
  * The rest of this file is the page's own voice: section headings written as two halves, because
  * the second half is the part that fills with ink as it scrolls into view. None of them makes a
@@ -37,48 +39,35 @@ const blocks = catalogue.homeBlocks as HomeBlock[];
 const ofKind = (kind: HomeBlock['kind']) => blocks.filter((block) => block.kind === kind);
 
 /**
- * The hero's second line is revised over the seed, in plainer words and the ones people search
- * for. The platform's `docs/10-public-surface.md` §7 and its seed take the same line when this
- * build moves across; until then `catalogue.json` stays a verbatim snapshot.
+ * The hero, with the reach the catalogue's line leaves out: where the business works. `lines` is
+ * the title as it breaks on a wide screen — two lines, the break carried by a newline.
  */
+const heroBlock = ofKind('HERO')[0]!;
 export const hero = {
-  ...ofKind('HERO')[0]!,
-  body: 'Website design, hosting and care for businesses in Bangalore and across India. No agencies to chase, no plugins to babysit, no surprise invoices.',
+  ...heroBlock,
+  body: `${heroBlock.body} For businesses in Bangalore and across India.`,
+  lines: 'Technology built\naround your business.',
 };
-/**
- * Titles revised over the seed in the copy review of 23 Sep 2026 — the bodies under them are
- * unchanged. They move into `docs/10-public-surface.md` §7 and the seed with the rest.
- */
-const REVISED_TITLES: Record<string, string> = {
-  'You never have to ask where things stand.': 'Track your project anytime, in your own portal.',
-  'You see the price before we start': 'Your price is fixed before we start',
-  'The timeline is on the price list too': 'Clear timelines, written down',
-  'A change takes a message, not a meeting': 'Changes by message, not meetings',
-};
-const revised = <T extends { title: string }>(block: T): T => ({
-  ...block,
-  title: REVISED_TITLES[block.title] ?? block.title,
-});
 
-export const portal = revised(ofKind('PORTAL')[0]!);
+export const portal = ofKind('PORTAL')[0]!;
 export const sectors = ofKind('SECTOR').map((block) => block.title);
 
 /**
  * What each kind of business most often asks for — the sector strip's second row. Each is a thing
- * the catalogue sells (a store, booking, landing pages, custom builds), said in the words people
- * search with. Page copy, not a CMS block yet: it moves to §7 with the rest.
+ * the catalogue sells (a store, booking, automation, dashboards), said in the words people search
+ * with. Page copy, not a CMS block yet: it moves to §7 with the rest.
  */
 export const sectorNeeds: Record<string, string> = {
-  Retail: 'Online stores for retail',
-  Clinics: 'Appointment booking for clinics',
-  Hospitality: 'Menus and table bookings for restaurants',
-  'Real Estate': 'Property listings for real estate',
-  Education: 'Course and batch pages for schools',
-  'Professional Services': 'Enquiry forms for consultants',
-  Startups: 'Launch pages for startups',
-  Manufacturing: 'Product catalogues for manufacturers',
+  Retail: 'Online stores with order updates for retail',
+  Clinics: 'Appointment booking with WhatsApp reminders for clinics',
+  Hospitality: 'Table bookings and order alerts for restaurants',
+  'Real Estate': 'Site-visit booking and lead follow-up for real estate',
+  Education: 'Admission enquiries and fee reminders for schools',
+  'Professional Services': 'Client intake and follow-ups for consultants',
+  Startups: 'Portals, dashboards and MVPs for startups',
+  Manufacturing: 'Dealer enquiries and order tracking for manufacturers',
 };
-export const promises = ofKind('PROMISE').map(revised);
+export const promises = ofKind('PROMISE');
 export const steps = ofKind('PROCESS_STEP');
 
 export const categories = catalogue.serviceCategories.map((category) => ({
@@ -88,10 +77,43 @@ export const categories = catalogue.serviceCategories.map((category) => ({
 
 export type Category = (typeof categories)[number];
 
+/**
+ * A service group's opening line on its own page: what the group covers, said through the
+ * services in it. Page copy, not a CMS block yet: it moves to §7 with the rest.
+ */
+export const groupIntros: Record<string, string> = {
+  'digital-experiences':
+    'Websites, stores, portals and apps: everything your customers see and use, designed around them and connected to the rest of your business.',
+  'business-systems':
+    'Dashboards, internal tools, CRM and custom software: the systems your team runs the business on, shaped around how it actually works.',
+  'automation-ai':
+    'WhatsApp and email automation, booking and payment workflows, integrations and AI: the work that should happen without anyone doing it.',
+};
+
+/** The site's own address, for canonical links, the sitemap and structured data. */
+export const SITE_URL = 'https://pixelkinetix.com';
+
 export const solutions = catalogue.solutions;
 export type Solution = (typeof solutions)[number];
 
+/**
+ * The fourth thing we do, under all three service groups: hosting, security, backups, monitoring
+ * and monthly improvements. Not a group of its own in the catalogue — its plans are the three
+ * `CARE_PLAN` offers, shown as "Evolve plans" — but it has a page, `/services/evolve`.
+ */
+export const evolve = {
+  slug: 'evolve',
+  name: 'Evolve',
+  line: 'Keeps it improving.',
+  summary:
+    'Hosting, security, backups, monitoring and monthly improvements for everything we build.',
+};
+
 const offers = catalogue.offers as Offer[];
+/**
+ * Everything built for a one-time price — the Build tab. The catalogue still calls the kind
+ * `WEBSITE_PACKAGE`, the platform's name for it; the System Blueprint and Custom sit in it too.
+ */
 export const websitePackages = offers.filter((offer) => offer.kind === 'WEBSITE_PACKAGE');
 export const carePlans = offers.filter((offer) => offer.kind === 'CARE_PLAN');
 export const faqs = catalogue.faqs;
@@ -102,10 +124,10 @@ export const faqs = catalogue.faqs;
  */
 export const warrantyPromise = {
   title: 'Covered after launch',
-  body: 'Thirty days from launch — 45 for Store and Custom. A defect in what we built is ours to fix; the changes you ask for later are what a care plan is for.',
+  body: 'Thirty days from launch — 45 for Store and Custom. A defect in what we built is ours to fix; the changes you ask for later are what an Evolve plan is for.',
 };
 
-/** `PK_Pricing_India.md`: what every website includes, whatever the package. */
+/** `PK_Pricing_India.md`: what every build includes, whatever the package. */
 export const everyWebsiteIncludes = [
   'Mobile-first design',
   'Contact form',
@@ -117,33 +139,32 @@ export const everyWebsiteIncludes = [
 ];
 
 /**
- * What the two larger builds add, line by line from `PK_Pricing_India.md`: Store and Custom carry a
- * 45-day warranty rather than 30, Store's ₹42,000 falls in the three-stage payment band, and
- * product descriptions are an add-on at ₹120 each.
+ * The two cards under the Build tab's main three, line by line: the System Blueprint (a fixed fee,
+ * credited in full if the build goes ahead) and Custom, which starts with one and carries a 45-day
+ * warranty rather than 30.
  */
 export const largerBuilds: Record<string, { tag: string; unit: string; lines: string[] }> = {
-  store: {
-    tag: 'Sell online',
-    unit: 'one-time',
+  blueprint: {
+    tag: 'Plan it first',
+    unit: 'fixed fee',
     lines: [
-      'Up to 50 products',
-      'Payments and order management',
-      'Everything every website includes',
-      '45-day warranty from launch',
-      'Paid in three stages — start, design approval, launch',
-      'Product descriptions written for you, ₹120 each',
+      'A map of how your business works today',
+      'Where it loses time and money',
+      'The system it needs, in phases',
+      'A fixed quote for the build',
+      'Fee credited in full if you go ahead',
     ],
   },
   custom: {
     tag: 'Built to order',
     unit: 'quoted in writing',
     lines: [
-      'Booking systems, portals and dashboards',
+      'Business software, portals, dashboards and automation',
+      'Starts with a System Blueprint',
       'Scope and price agreed in writing before work starts',
-      'Everything every website includes',
+      'Everything every build includes',
       '45-day warranty from launch',
       'Paid in stages set by the project value',
-      'Timeline agreed with the quote',
     ],
   },
 };
@@ -152,16 +173,19 @@ export const largerBuilds: Record<string, { tag: string; unit: string; lines: st
 export type Heading = { lead: string; fill: string };
 
 export const headings = {
-  services: { lead: 'We build it, host it,', fill: 'and look after it.' },
-  solutions: { lead: 'Tell us your goal.', fill: 'We’ll handle the rest.' },
-  work: { lead: 'See the kind of', fill: 'websites we design.' },
+  services: { lead: 'We build it, connect it,', fill: 'and keep it improving.' },
+  solutions: { lead: 'Tell us the problem.', fill: 'We’ll build the system.' },
+  work: { lead: 'See the kind of', fill: 'systems we design.' },
   promises: { lead: 'No surprises.', fill: 'Here’s how we work.' },
   numbers: { lead: 'Clear terms,', fill: 'upfront.' },
-  process: { lead: 'From first message to live website,', fill: 'and after.' },
+  process: { lead: 'From first message to a working system,', fill: 'and after.' },
   pricing: { lead: 'Simple pricing.', fill: 'See it before we start.' },
   reviews: { lead: 'What our', fill: 'clients say.' },
   faq: { lead: 'Frequently asked', fill: 'questions.' },
-  cta: { lead: 'Tell us what you need.', fill: 'We’ll reply with a plan and a fixed price.' },
+  cta: {
+    lead: 'Tell us what’s slowing your business down.',
+    fill: 'We’ll reply with a clear next step.',
+  },
 } satisfies Record<string, Heading>;
 
 /**
@@ -169,10 +193,20 @@ export const headings = {
  * statistic about clients this business does not have yet.
  */
 export const numbers = [
-  { value: 15, suffix: '', label: 'Services in one place', note: 'Build, host and care' },
+  {
+    value: catalogue.services.length,
+    suffix: '',
+    label: 'Services in one place',
+    note: 'Build, connect and evolve',
+  },
   { value: 30, suffix: '-day', label: 'Warranty on every build', note: '45 for Store and Custom' },
-  { value: 90, suffix: ' days', label: 'Of daily backups kept', note: 'On the Complete care plan' },
-  { value: 2, suffix: ' months', label: 'Free on yearly care', note: 'Any of the three plans' },
+  {
+    value: 90,
+    suffix: ' days',
+    label: 'Of daily backups kept',
+    note: 'On the Complete Evolve plan',
+  },
+  { value: 2, suffix: ' months', label: 'Free on yearly Evolve', note: 'Any of the three plans' },
 ];
 
 /**
@@ -214,7 +248,7 @@ const reviews: Review[] = [
     role: 'Owner',
     rating: 5,
     facts: [
-      { value: 'Business', label: 'Package, up to six pages' },
+      { value: 'Website', label: 'Package, up to six pages' },
       { value: '12 days', label: 'From enquiry to launch' },
     ],
   },
@@ -267,12 +301,23 @@ export const contact = {
   phoneHref: 'tel:+916309966099',
   email: 'contact@pixelkinetix.com',
   whatsappHref:
-    'https://wa.me/916309966099?text=Hi%20Pixel%20Kinetix%2C%20I%20would%20like%20to%20discuss%20a%20website.',
+    'https://wa.me/916309966099?text=Hi%20Pixel%20Kinetix%2C%20I%27d%20like%20to%20talk%20about%20my%20business.',
   instagram: '@pixelkinetix',
   instagramHref: 'https://www.instagram.com/pixelkinetix/',
   mapsHref: 'https://www.google.com/maps/search/?api=1&query=Pixel+Kinetix+Kalyan+Nagar+Bangalore',
   locality: 'Kalyan Nagar · HRBR Layout · Bangalore',
+  /** The postal parts, for structured data. No street or PIN until the office address is confirmed. */
+  address: {
+    area: 'HRBR Layout, Kalyan Nagar',
+    city: 'Bengaluru',
+    region: 'Karnataka',
+    country: 'IN',
+  },
 };
+
+/** A WhatsApp link that opens with a message about one topic — a service, a solution, a plan. */
+export const whatsappAbout = (topic: string) =>
+  `https://wa.me/916309966099?text=${encodeURIComponent(`Hi Pixel Kinetix, I'd like to know about ${topic}.`)}`;
 
 /**
  * Social profiles, in the footer's row. Instagram is the business's real address; LinkedIn is a
@@ -286,33 +331,35 @@ export const socials: { id: SocialId; label: string; href: string | null }[] = [
 ];
 
 /**
- * The ten pricing questions, sorted into three shelves for the FAQ's category rail — each with a
+ * The twelve questions, sorted into three shelves for the FAQ's category rail — each with a
  * one-word name for the phone's tabs. Matched by the
  * question's own words, so a reordered catalogue cannot put an answer on the wrong shelf; a
  * question nobody has shelved lands on the last one rather than disappearing.
  */
 const SHELVES = [
   {
-    id: 'website',
-    label: 'Your website',
-    short: 'Website',
+    id: 'project',
+    label: 'Your project',
+    short: 'Project',
     icon: 'device' as const,
     asks: [
-      'What does every website include?',
-      'How do Business and Signature differ?',
+      'Do you only build websites?',
+      'What does every build include?',
+      'How do the Website and the Connected Website differ?',
       'Do you need my content before you start?',
-      'What does the warranty cover?',
+      'Can you connect WhatsApp to our website and CRM?',
     ],
   },
   {
-    id: 'care',
-    label: 'Hosting and care',
-    short: 'Hosting',
+    id: 'evolve',
+    label: 'Evolve and support',
+    short: 'Evolve',
     icon: 'server' as const,
     asks: [
-      'Is hosting included in a website package?',
+      'Is hosting included in a package?',
       'What counts as one content change?',
-      'What are the Care plan terms?',
+      'What are the Evolve plan terms?',
+      'What does the warranty cover?',
     ],
   },
   {
@@ -342,8 +389,9 @@ export const nav = [
   { label: 'Solutions', menu: 'solutions' as const },
   { label: 'Work', href: '/#work' },
   { label: 'Pricing', href: '/#pricing' },
-  { label: 'About', href: '/#process' },
-  { label: 'Contact', href: '/#start' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
 ];
 
-export const START = { label: 'Get Started', href: '/#start' };
+/** Every "Get Started" and "Start a Project": the contact page, where every way to reach us is. */
+export const START = { label: 'Get Started', href: '/contact' };

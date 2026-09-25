@@ -17,7 +17,7 @@ import { SectionHead } from './section-head';
  * fade, no scale, exactly as aoutive moves them (`ScrollEffects`, `[data-spread]`).
  *
  * The cards are the three promises from the CMS, the warranty from the price list, and the list of
- * what every website includes.
+ * what every build includes.
  */
 const TINTS = ['bg-tint-butter', 'bg-tint-violet', 'bg-tint-blush', 'bg-tint-mint'];
 const COVERS = ['#fff5d6', '#eceefb', '#fdecee', '#e6f7ee'];
@@ -87,7 +87,7 @@ export function Promises() {
           <div>
             <p className="eyebrow text-white/60">Whatever the package</p>
             <p className="mt-4 font-display text-h3 tracking-[var(--tracking-heading)]">
-              Every website includes
+              Every build includes
             </p>
           </div>
           <ul className="grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-1">

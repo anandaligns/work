@@ -12,7 +12,7 @@ import { SectionHead } from './section-head';
  * `ScrollEffects` for every `[data-track]`), each step its index; a step lights when the fill
  * passes it, in CSS alone. The left column is sticky, so the heading stays while the steps pass.
  */
-const ICONS: IconName[] = ['bulb', 'file', 'pen', 'code', 'rocket', 'shield'];
+const ICONS: IconName[] = ['bulb', 'file', 'pen', 'code', 'rocket', 'refresh'];
 
 export function Process() {
   return (

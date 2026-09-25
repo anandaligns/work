@@ -1,10 +1,24 @@
-# UI foundation — v2.3
+# UI foundation — v2.4
 
 Locked 23 Sep 2026, after the owner's review of the home page; brought onto the new brand identity
 25 Sep 2026. Every page of the public site is built from what is below — and when this build moves
 into `apps/web`, this is the spec it moves with. Change it on purpose: bump the version, say what
 changed and why.
 
+- **v2.4** — 25 Sep 2026, at the owner's request: the site sells one connected system —
+  websites, business software and automation, improved every month — rather than websites,
+  hosting and care. Nothing in the look changes: every section, scene and motion stays. The
+  content does: catalogue v2 (three service groups — Digital Experiences, Business Systems,
+  Automation & AI — fifteen services, Evolve beneath them, four solutions, the Build lineup of
+  Website, Connected Website, Store, System Blueprint and Custom, twelve answers). Starter and
+  Signature are retired; Signature's custom design lives on in the Connected Website. Three small
+  additions: the hero tiles carry a notification each from the system behind them (`.hero-toast`),
+  a line for Evolve closes the Services section and opens the Evolve plans tab
+  (`/#evolve-plans`), and the site has pages beyond the home page — a coming-soon page for every
+  service group, service, Evolve and solution (`noindex`, out of the sitemap), and About,
+  Contact, Privacy, Terms and a 404. Every "Get Started" leads to `/contact`. The menus' Services
+  items open those pages, so "where you are" there is a pathname match; Solutions' bundles still
+  open their row on the home page.
 - **v2.3** — at the owner's request: the bar is glassy Graphite Ink everywhere (ink at 86%,
   frosted), its flyouts and the phone sheet the same ink; one fluid container, Bootstrap's
   `container-fluid`, from the bar to the footer, its gutter stepping up at Bootstrap's breakpoints;
@@ -106,9 +120,10 @@ request leaves the site.
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Button** (`RollLink`) | `ink` (graphite fill), `line` (outline), `paper` (white, for dark grounds). 48px / 40px / 30px (the bar). The label rolls and the tilted arrow ↗ rolls out as its twin rolls in, 550ms.                                                                                                                                                                                                                                                                     |
 | **Logo**                | The horizontal lockup, inline: the P and the pixel, the wordmark one colour. The pixel makes the quarter-turn 0.8s after load, on hover and focus, and each time the reader enters a new section. Never a loop.                                                                                                                                                                                                                                             |
-| **Header**              | Apple's global bar in glassy Graphite Ink: 44px (48px on phones), ink at 86% with a 20px frost, a hairline of light once the page moves. The white lockup, seven white items and a white 30px Get Started spread evenly on one line. Where you are: full white and a 3px pixel beneath. Never changes shape.                                                                                                                                                |
+| **Header**              | Apple's global bar in glassy Graphite Ink: 44px (48px on phones), ink at 86% with a 20px frost, a hairline of light once the page moves. The white lockup, seven white items and a white 30px Get Started spread evenly on one line. Where you are: full white and a 3px pixel beneath — the section on the home page, the page anywhere else. Never changes shape.                                                                                         |
 | **Flyouts**             | Full width, the bar's own ink, drawn down in 0.36s (Apple's curve), the page behind dimmed and softened (18px blur). First column: the big way in (24px bold, white); beside it, every item in small semibold type. Items arrive a beat apart. Where you are: white, a blue pixel before it.                                                                                                                                                                |
 | **Phone menu**          | Full-screen sheet of ink under the bar; the two-bar toggle. Items 28px bold white on one left edge, no rules; Services and Solutions open their lists in place, grouped under small grey labels. Where you are: a blue pixel after the item.                                                                                                                                                                                                                |
+| **Page intro**          | Every page but home opens with the hero's chip, a `BlurText` headline (the page's one `h1`), a lead line and its actions, on `ModuleField`. Coming-soon pages add a notice pill — "This page is on its way. The service is available now." — then a band of related cards.                                                                                                                                                                                  |
 | **Quick contact**       | Contact page only — not in the site-wide layout. Desktop: Call Now (graphite, 42px, a faint light ring) with back-to-top; WhatsApp rail on the right (green, 50×151). Phones: Call Now + WhatsApp bar (50px); Get Started edge tab (graphite, 40×157, ↖).                                                                                                                                                                                                   |
 | **Tabs**                | `Segmented`: a graphite thumb slides between options (Pricing; the FAQ on a phone, one word per category, no icons). Category rail (FAQ, desktop): 3px bar, wash, 4px nudge, counts in one column; the bar and wash are one marker that slides to the chosen category (0.55s).                                                                                                                                                                              |
 | **Accordion**           | automatix's rows: no card at rest, muted question, chevron; hover fills; open is a bordered card, chevron turned, answer rising in.                                                                                                                                                                                                                                                                                                                         |
@@ -125,7 +140,8 @@ New scroll behaviour is a data attribute on the element, never a second listener
 | Primitive                    | Use it for                                             | Values                                                                                                                                                                                                                                              |
 | ---------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Lenis smooth scroll          | the whole page                                         | `duration: 2`, anchors offset −88px                                                                                                                                                                                                                 |
-| `BlurText`                   | the page's one headline                                | per character: blur 10px, y 0.28em, 22ms stagger, 1000ms                                                                                                                                                                                            |
+| `BlurText`                   | the page's one headline                                | per character: blur 10px, y 0.28em, 22ms stagger, 1000ms; a newline in the text breaks the line from `sm` up                                                                                                                                        |
+| Hero notifications           | one per hero tile, the system behind the concept site  | `rise-in` from 1.9s, 350ms apart, left to right; phones under the site's bar, the desktop tile mid-way along its foot; shown still under reduced motion                                                                                             |
 | `[data-reveal]`              | blocks arriving below the fold                         | y 40px, 900ms `cubic-bezier(0.22,1,0.36,1)`                                                                                                                                                                                                         |
 | `FillText`                   | the second half of section headings                    | ink over grey, 90% → 40% of the viewport                                                                                                                                                                                                            |
 | `PixelReveal` / `PixelCover` | illustrations on first sight; content swapped in a tab | 20px cells, 20% band, bottom-up; 1.6s first sight, 0.7s on a tab switch                                                                                                                                                                             |
@@ -173,7 +189,14 @@ keeps focus on the page; tabs and radio groups take the arrow keys; a skip link 
 - No invented clients, logos, figures, awards or reviews. Concept work says so. Review samples
   render on the dev server only; a real review needs the client's words and consent to their name.
 - No duration the price list does not state, no portal feature the portal does not have
-  (platform: `docs/10-public-surface.md` §7, `docs/11-platform-reference.md` §15.7).
+  (platform: `docs/10-public-surface.md` §7, `docs/11-platform-reference.md` §15.7). So the portal
+  still lists five things, and the Evolve plans table keeps its eight rows.
+- `src/content/catalogue.json` holds catalogue v2 (25 Sep 2026) and is the source of truth until
+  the platform's seed and `docs/10-public-surface.md` §7 take the same text. The Connected Website
+  (from ₹45,000, 4–6 weeks, three months of Evolve) and the System Blueprint (₹10,000, 1–2 weeks,
+  credited in full if the build goes ahead) are the owner's prices, set 25 Sep 2026.
+- A page that is not written yet is a coming-soon page, never a dead link: `noindex`, out of the
+  sitemap, and saying plainly that the page is on its way while the service is on sale.
 
 ## 9. Moving into `apps/web`
 
@@ -181,7 +204,8 @@ keeps focus on the page; tabs and radio groups take the arrow keys; a skip link 
 2. Every read in `src/content/site.ts` becomes a CMS read. Section headings, the warranty card and
    reviews need a CMS home — a platform change with its rules test, and a `docs/10-public-surface.md`
    §7 update that `scripts/check-cms-seed.mjs` holds the seed to.
-3. Anchors become routes: services and solutions get their pages, and "where you are" in the
-   menus becomes a pathname match (`lib/anchor.ts` retires).
+3. Anchors become routes: services and solutions have their pages (coming soon for now), and
+   "where you are" is already a pathname match for services; when the solutions' bundles get
+   pages too, `lib/anchor.ts` retires.
 4. `lenis` is the only new runtime dependency — the port decides it.
 5. `/lab` stays out of production. The gate runs green before anything merges.

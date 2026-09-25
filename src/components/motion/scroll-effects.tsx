@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
 /**
@@ -21,10 +22,14 @@ import { useEffect } from 'react';
  *
  * All reads happen before any write, so the browser lays out once per frame. Reduced motion
  * turns off everything except the fills, which are colour, not movement.
+ *
+ * It sits in the layout, which stays mounted from page to page, so it looks for its elements
+ * again each time the page changes.
  */
 const clamp = (v: number) => Math.min(1, Math.max(0, v));
 
 export function ScrollEffects() {
+  const pathname = usePathname();
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const cleanup: (() => void)[] = [];
@@ -121,7 +126,7 @@ export function ScrollEffects() {
     });
 
     return () => cleanup.forEach((fn) => fn());
-  }, []);
+  }, [pathname]);
 
   return null;
 }

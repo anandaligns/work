@@ -16,7 +16,21 @@ import { SectionHead } from './section-head';
  *
  * The section says what these are. They are concept designs, and when real projects complete this
  * is where their case studies go — it does not borrow anyone else's website to look busy.
+ *
+ * Each card's label names the system behind the concept site — what the website is connected to —
+ * rather than the kind of business, which the site itself already shows.
  */
+const SYSTEMS: Record<string, string> = {
+  kora: 'Booking + WhatsApp reminders',
+  saffron: 'Table bookings + order alerts',
+  loom: 'Store + order updates',
+  brightpath: 'Admissions + fee reminders',
+  northfield: 'Site visits + lead dashboard',
+  ember: 'Online orders + stock sync',
+  meridian: 'Client intake + follow-ups',
+  fieldnote: 'Field-team dashboard',
+};
+
 const ROWS: { brands: Brand[]; duration: string; reverse?: boolean }[] = [
   {
     brands: [BRANDS.northfield!, BRANDS.ember!, BRANDS.kora!, BRANDS.fieldnote!, BRANDS.loom!],
@@ -47,7 +61,7 @@ function Card({ b }: { b: Brand }) {
       </Scaled>
       <span className="absolute bottom-3 left-5 inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-[0.6875rem] font-medium text-white backdrop-blur md:bottom-4 md:left-7">
         <span className="size-1.5 rounded-full bg-white/80" />
-        {b.name} · {b.kind}
+        {b.name} · {SYSTEMS[b.id] ?? b.kind}
       </span>
     </div>
   );
@@ -71,11 +85,11 @@ export function Work() {
             eyebrow="Concept work"
             tone="night"
             heading={headings.work}
-            intro="Concept designs for a clinic, a restaurant, a store and more, made to show how we work. Real client projects appear here as they launch."
+            intro="Concept systems for a clinic, a restaurant, a store and more: the website customers see, and the automation working behind it. Real client projects appear here as they launch."
           />
           <div data-reveal="">
             <RollLink href={START.href} variant="paper">
-              Start your website
+              Start your project
             </RollLink>
           </div>
         </div>

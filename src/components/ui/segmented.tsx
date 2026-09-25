@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 const useIsoLayout = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 /**
- * A segmented control — Pricing's Websites · Care plans, and the FAQ's categories on a phone. One
+ * A segmented control — Pricing's Build · Evolve plans, and the FAQ's categories on a phone. One
  * graphite thumb under the labels slides to the chosen one and takes its width, rather than the
  * colour jumping from button to button. Its place is measured off the chosen button, and again
  * whenever the group resizes (a font arriving, a narrower screen).

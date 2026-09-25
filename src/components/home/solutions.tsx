@@ -34,11 +34,13 @@ export function Solutions() {
   const [focused, setFocused] = useState(false);
   const [cycle, setCycle] = useState(0);
   const reduce = useRef(false);
+  const mountedAt = useRef(0);
   const remaining = useRef(DWELL);
   const paused = hovered || focused;
 
   useEffect(() => {
     reduce.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    mountedAt.current = performance.now();
   }, []);
 
   // Sent here for one of a solution's bundles (from a menu, or a link with its hash): open that
@@ -49,6 +51,24 @@ export function Solutions() {
     if (at < 0) return;
     setActive(at);
     setCycle((c) => c + 1);
+    // Arriving from another page, the browser has already scrolled to the bundle — before its
+    // row opened, and while the first row, above it, was still open. Once the rows settle, the
+    // bundle is brought back into view if that moved it out.
+    if (performance.now() - mountedAt.current > 1500) return;
+    const timer = window.setTimeout(() => {
+      const target = document.getElementById(anchor.slice(1));
+      if (!target) return;
+      const top = target.getBoundingClientRect().top;
+      if (top >= 88 && top <= window.innerHeight * 0.75) return;
+      const lenis = (
+        window as Window & {
+          __lenis?: { scrollTo: (target: HTMLElement, options?: { offset?: number }) => void };
+        }
+      ).__lenis;
+      if (lenis) lenis.scrollTo(target, { offset: -120 });
+      else window.scrollTo({ top: window.scrollY + top - 120 });
+    }, 800);
+    return () => window.clearTimeout(timer);
   }, [anchor]);
 
   // A new item gets the whole dwell. Declared before the clock so it runs first.
