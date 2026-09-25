@@ -21,17 +21,18 @@ docker compose down                           # stop
 
 ## What is where
 
-| Path                                       | What it is                                                                                                    |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| `src/app/globals.css`                      | Tokens (aoutive's palette, the tints, the type scale) and every CSS-driven motion                             |
-| `src/content/catalogue.json`               | The platform's seed, verbatim: services, solutions, offers, FAQs, home copy                                   |
-| `src/content/site.ts`                      | Typed reads of the catalogue, plus this page's own headings and figures                                       |
-| `src/components/motion/`                   | Lenis, the blur-in headline, scroll-filled headings, the pixel dissolve, count-ups, the one scroll controller |
-| `src/components/visuals/iso.tsx`           | The isometric drawing kit                                                                                     |
-| `src/components/visuals/scenes.tsx`        | Every illustration, composed from the kit                                                                     |
-| `src/components/visuals/concept-sites.tsx` | The concept websites in the hero and the gallery                                                              |
-| `src/components/layout/`                   | Header (condensing pill, mega menus), footer, framed band                                                     |
-| `src/components/home/`                     | The page's sections                                                                                           |
+| Path                                       | What it is                                                                                                                                                          |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/app/globals.css`                      | Tokens (the brand's Graphite Ink and cool greys, the tints, the type scale) and every CSS-driven motion                                                             |
+| `src/content/catalogue.json`               | The platform's seed, verbatim: services, solutions, offers, FAQs, home copy                                                                                         |
+| `src/content/site.ts`                      | Typed reads of the catalogue, plus this page's own headings and figures                                                                                             |
+| `src/components/motion/`                   | Lenis, the blur-in headline, scroll-filled headings, the pixel dissolve, count-ups, the one scroll controller, the logo's quarter-turn and the living brand pattern |
+| `src/components/visuals/iso.tsx`           | The isometric drawing kit                                                                                                                                           |
+| `src/components/visuals/scenes.tsx`        | Every illustration, composed from the kit                                                                                                                           |
+| `src/components/visuals/concept-sites.tsx` | The concept websites in the hero and the gallery                                                                                                                    |
+| `src/components/ui/brand.tsx`              | The mark from the identity's own geometry: symbol, lockup, wordmark                                                                                                 |
+| `src/components/layout/`                   | Header (Apple-style bar and flyouts), footer, framed band                                                                                                           |
+| `src/components/home/`                     | The page's sections                                                                                                                                                 |
 
 ## The foundation
 

@@ -115,19 +115,17 @@ function Featured({ review }: { review: Review }) {
         <div data-reveal="" className="flex flex-wrap items-center gap-x-4 gap-y-3">
           <span className="inline-flex items-center gap-3">
             <Mark review={review} lit />
-            <span className="text-lg font-semibold tracking-[-0.01em] text-ink">
-              {review.business}
-            </span>
+            <span className="text-body font-semibold text-ink">{review.business}</span>
           </span>
           <Stars rating={review.rating} />
         </div>
-        <blockquote className="mt-7 font-display text-[clamp(1.5rem,1.05rem+1.5vw,2.3rem)] leading-[1.28] font-medium tracking-[-0.025em] text-ink">
+        <blockquote className="mt-7 font-display text-[clamp(1.375rem,1.15rem+0.7vw,1.875rem)] leading-[1.24] font-medium tracking-[-0.025em] text-ink">
           <p>
             <FillText text={`“${review.quote}”`} />
           </p>
         </blockquote>
         <figcaption data-reveal="" className="mt-8 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <span className="text-xl font-medium tracking-[-0.015em] text-ink">{review.name}</span>
+          <span className="text-lg font-medium tracking-[-0.015em] text-ink">{review.name}</span>
           <span className="text-body text-ink-2">
             {review.role}, {review.business}
           </span>
@@ -140,7 +138,7 @@ function Featured({ review }: { review: Review }) {
           >
             {review.facts.map((fact) => (
               <li key={fact.label} className="flex items-center gap-4">
-                <span className="font-display text-[clamp(1.6rem,1.2rem+1vw,2.1rem)] leading-none tracking-[var(--tracking-display)] text-ink">
+                <span className="font-display text-[clamp(1.5rem,1.3rem+0.6vw,1.875rem)] leading-none tracking-[var(--tracking-display)] text-ink">
                   {fact.value}
                 </span>
                 <span className="max-w-[9rem] text-sm leading-snug text-ink-2">{fact.label}</span>
@@ -187,18 +185,16 @@ export function Reviews() {
               <figure className="flex h-full flex-col items-center text-center">
                 <span className="inline-flex items-center gap-2.5">
                   <Mark review={review} />
-                  <span className="text-lg font-semibold tracking-[-0.01em] text-ink-2 transition-colors duration-300 group-hover/review:text-ink">
+                  <span className="text-body font-semibold text-ink-2 transition-colors duration-300 group-hover/review:text-ink">
                     {review.business}
                   </span>
                 </span>
                 <Stars rating={review.rating} className="mt-5" />
-                <blockquote className="mt-5 max-w-sm text-[1.0625rem] leading-[1.65] text-ink-2">
+                <blockquote className="mt-5 max-w-sm text-body text-ink-2">
                   <p>“{review.quote}”</p>
                 </blockquote>
                 <figcaption className="mt-auto pt-8">
-                  <span className="block text-lg font-medium tracking-[-0.015em] text-ink">
-                    {review.name}
-                  </span>
+                  <span className="block text-body font-medium text-ink">{review.name}</span>
                   <span className="mt-1 block text-sm text-ink-2">
                     {review.role}, {review.kind}
                   </span>

@@ -275,7 +275,19 @@ export const contact = {
 };
 
 /**
- * The ten pricing questions, sorted into three shelves for the FAQ's category rail. Matched by the
+ * Social profiles, in the footer's row. Instagram is the business's real address; LinkedIn is a
+ * placeholder (`href: null`) — its tile is drawn, but it is not a link until its address is added
+ * here.
+ */
+export type SocialId = 'instagram' | 'linkedin';
+export const socials: { id: SocialId; label: string; href: string | null }[] = [
+  { id: 'instagram', label: 'Instagram', href: contact.instagramHref },
+  { id: 'linkedin', label: 'LinkedIn', href: null },
+];
+
+/**
+ * The ten pricing questions, sorted into three shelves for the FAQ's category rail — each with a
+ * one-word name for the phone's tabs. Matched by the
  * question's own words, so a reordered catalogue cannot put an answer on the wrong shelf; a
  * question nobody has shelved lands on the last one rather than disappearing.
  */
@@ -283,6 +295,7 @@ const SHELVES = [
   {
     id: 'website',
     label: 'Your website',
+    short: 'Website',
     icon: 'device' as const,
     asks: [
       'What does every website include?',
@@ -294,6 +307,7 @@ const SHELVES = [
   {
     id: 'care',
     label: 'Hosting and care',
+    short: 'Hosting',
     icon: 'server' as const,
     asks: [
       'Is hosting included in a website package?',
@@ -304,6 +318,7 @@ const SHELVES = [
   {
     id: 'money',
     label: 'Payments and terms',
+    short: 'Payments',
     icon: 'receipt' as const,
     asks: ['How does payment work?', 'Is GST charged?', 'What is not included in any package?'],
   },
@@ -312,6 +327,7 @@ const SHELVES = [
 export const faqGroups = SHELVES.map((shelf, index) => ({
   id: shelf.id,
   label: shelf.label,
+  short: shelf.short,
   icon: shelf.icon,
   items: faqs.filter((faq) =>
     index === SHELVES.length - 1

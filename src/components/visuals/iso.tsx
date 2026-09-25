@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { KINETIC, SYMBOL } from '../ui/brand';
 import { Icon, type IconName } from '../ui/icon';
 
 /**
@@ -15,7 +16,7 @@ import { Icon, type IconName } from '../ui/icon';
 const C = Math.cos(Math.PI / 6);
 const S = 0.5;
 
-export const INK = '#1a1a1a';
+export const INK = '#0b0d12';
 const STROKE = 1.25;
 
 export type Tone =
@@ -25,8 +26,8 @@ export type Tone =
 const FACES: Record<Tone, [string, string, string]> = {
   white: ['#ffffff', '#f2f2f2', '#e4e4e4'],
   fill: ['#f5f5f5', '#e9e9e9', '#dcdcdc'],
-  black: ['#1a1a1a', '#2c2c2c', '#0e0e0e'],
-  violet: ['#efecff', '#dfd9ff', '#cdc4ff'],
+  black: ['#12151c', '#252936', '#07080b'],
+  violet: ['#eceefb', '#dcdff7', '#c9cdf2'],
   mint: ['#e6f7ee', '#cfeedd', '#b6e3cb'],
   sky: ['#e5f3fb', '#cde8f7', '#b3dbf1'],
   butter: ['#fff5d6', '#ffe9a8', '#fbdc82'],
@@ -35,7 +36,7 @@ const FACES: Record<Tone, [string, string, string]> = {
 };
 
 export const SIGNAL = {
-  violet: '#6d5cff',
+  violet: '#6e78ff',
   green: '#1fb866',
   sky: '#1e9be0',
   amber: '#f0a500',
@@ -180,8 +181,9 @@ export function GlyphBlock({
 }
 
 /**
- * The Pixel Kinetix mark lying on a top face: the three stepped pixels from the logo, scaled to
- * a block of side `s`.
+ * The Pixel Kinetix symbol lying on a top face — the P in white, the pixel in Kinetic Blue, as
+ * the reversed mark is — centred on a block of side `s` at just over half its width. The pixel
+ * carries `data-turn`, so a `TurnOnView` around the scene turns it in the face's own plane.
  */
 export function MarkTop({
   x,
@@ -196,11 +198,14 @@ export function MarkTop({
   s: number;
   color?: string;
 }) {
+  const size = s * 0.56;
+  const inset = (s - size) / 2;
   return (
-    <g transform={`${topMatrix(x, y, z)} scale(${(s / 64).toFixed(4)})`}>
-      <rect x="12" y="32" width="20" height="20" rx="5" fill={color} />
-      <rect x="26" y="20" width="16" height="16" rx="4" fill={color} opacity="0.7" />
-      <rect x="38" y="11" width="13" height="13" rx="3.5" fill={color} opacity="0.42" />
+    <g
+      transform={`${topMatrix(x, y, z)} translate(${inset.toFixed(2)} ${inset.toFixed(2)}) scale(${(size / SYMBOL.size).toFixed(4)})`}
+    >
+      <path d={SYMBOL.p} fill={color} />
+      <path d={SYMBOL.pixel} fill={KINETIC} className="pk-px" data-turn="" />
     </g>
   );
 }

@@ -20,7 +20,7 @@ import { SectionHead } from './section-head';
  * what every website includes.
  */
 const TINTS = ['bg-tint-butter', 'bg-tint-violet', 'bg-tint-blush', 'bg-tint-mint'];
-const COVERS = ['#fff5d6', '#efecff', '#fdecee', '#e6f7ee'];
+const COVERS = ['#fff5d6', '#eceefb', '#fdecee', '#e6f7ee'];
 
 /**
  * Where each card sits, which way it starts displaced toward the centre of its row (1 to the

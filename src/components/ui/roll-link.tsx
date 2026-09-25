@@ -14,9 +14,10 @@ const VARIANTS = {
 } as const;
 
 const SIZES = {
-  md: 'h-12 px-6 text-sm font-semibold',
-  sm: 'h-10 px-4 text-[0.8125rem] font-semibold',
-  lg: 'h-14 px-7 text-[0.9375rem] font-semibold',
+  xs: 'h-[1.875rem] gap-2 px-3.5 text-xs font-semibold',
+  sm: 'h-9 px-4 text-[0.8125rem] font-semibold',
+  md: 'h-11 px-5 text-sm font-semibold',
+  lg: 'h-12 px-6 text-[0.9375rem] font-semibold',
 } as const;
 
 function Arrow() {

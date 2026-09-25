@@ -20,7 +20,7 @@ export function Numbers() {
             className="flex flex-col items-center gap-2 border-line px-4 py-10 text-center odd:border-r lg:border-r lg:last:border-r-0"
           >
             <dt className="order-2 text-sm font-medium text-ink">{n.label}</dt>
-            <dd className="order-1 font-display text-[clamp(1.9rem,1.1rem+3vw,3.75rem)] leading-none tracking-[var(--tracking-display)] whitespace-nowrap text-ink">
+            <dd className="order-1 font-display text-[clamp(2rem,1.5rem+1.6vw,3rem)] leading-none tracking-[var(--tracking-display)] whitespace-nowrap text-ink">
               <CountUp value={n.value} />
               <span className="text-ink-3">{n.suffix}</span>
             </dd>

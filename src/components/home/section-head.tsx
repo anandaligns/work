@@ -30,7 +30,7 @@ export function SectionHead({
         data-reveal=""
         className={`eyebrow inline-flex items-center gap-2 ${tone === 'night' ? 'text-white/70' : ''}`}
       >
-        <span className={`size-1.5 rounded-full ${tone === 'night' ? 'bg-white/70' : 'bg-ink'}`} />
+        <span className={`size-1.5 ${tone === 'night' ? 'bg-white/70' : 'bg-ink'}`} />
         {eyebrow}
       </p>
       <h2

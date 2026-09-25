@@ -12,7 +12,7 @@ import { SectionHead } from './section-head';
  * bordered row with shared hairlines, the way aoutive's grids are drawn.
  */
 const TINTS = ['bg-tint-violet', 'bg-tint-sky', 'bg-tint-mint'];
-const COVERS = ['#efecff', '#e5f3fb', '#e6f7ee'];
+const COVERS = ['#eceefb', '#e5f3fb', '#e6f7ee'];
 
 export function Services() {
   return (
@@ -31,6 +31,7 @@ export function Services() {
           return (
             <li
               key={category.slug}
+              id={category.slug}
               data-reveal=""
               style={{ ['--i' as string]: index }}
               className="flex flex-col border-line max-md:border-b max-md:last:border-b-0 md:border-r md:last:border-r-0"
@@ -55,7 +56,7 @@ export function Services() {
                       id={service.anchor}
                       className="group flex scroll-mt-40 items-center gap-3 py-3 text-sm"
                     >
-                      <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-line transition-colors duration-300 group-hover:bg-slate group-hover:text-white">
+                      <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-line transition-colors duration-300 group-hover:bg-graphite group-hover:text-white">
                         <Icon name={iconFor(service.anchor)} size={14} />
                       </span>
                       <span className="font-medium text-ink">{service.name}</span>

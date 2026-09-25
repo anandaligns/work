@@ -59,24 +59,27 @@ export function Work() {
       id="work"
       labelledBy="work-heading"
       contain={false}
+      pattern
+      seed={11}
       className="on-night overflow-hidden border-t-0 bg-night text-white"
     >
-      <div className="contain grid gap-8 pt-24 lg:grid-cols-[1fr_auto] lg:items-end lg:pt-32">
-        <SectionHead
-          id="work"
-          eyebrow="Concept work"
-          tone="night"
-          heading={headings.work}
-          intro="Concept designs for a clinic, a restaurant, a store and more, made to show how we work. Real client projects appear here as they launch."
-        />
-        <div data-reveal="">
-          <RollLink href={START.href} variant="paper">
-            Start your website
-          </RollLink>
+      {/* The whole band sits on the identity's cover: its modules, tone on tone on the ink. */}
+      <Pausable label="the gallery" tone="night" className="pb-24 lg:pb-32">
+        <div className="container-fluid relative grid gap-8 pt-24 lg:grid-cols-[1fr_auto] lg:items-end lg:pt-32">
+          <SectionHead
+            id="work"
+            eyebrow="Concept work"
+            tone="night"
+            heading={headings.work}
+            intro="Concept designs for a clinic, a restaurant, a store and more, made to show how we work. Real client projects appear here as they launch."
+          />
+          <div data-reveal="">
+            <RollLink href={START.href} variant="paper">
+              Start your website
+            </RollLink>
+          </div>
         </div>
-      </div>
-      <Pausable label="the gallery" tone="night" className="mt-16 pb-24 lg:pb-32">
-        <div className="tilt-stage" aria-hidden="true">
+        <div className="tilt-stage relative mt-16" aria-hidden="true">
           <div className="tilt-plane flex flex-col gap-5 md:gap-7">
             {ROWS.map((row, i) => (
               <div

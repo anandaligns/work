@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useId, useState } from 'react';
 
 import {
   carePlans,
@@ -15,6 +15,7 @@ import { Morph } from '../motion/morph';
 import { PixelCover } from '../motion/pixel-reveal';
 import { Icon } from '../ui/icon';
 import { RollLink } from '../ui/roll-link';
+import { Segmented } from '../ui/segmented';
 
 /**
  * aoutive's pricing, with Pixel Kinetix's real numbers. Two segments — websites (one-time) and care
@@ -26,92 +27,6 @@ type Segment = 'websites' | 'care';
 
 const priceOf = (offer: Offer, label: string | null) =>
   offer.headline.find((price) => price.label === label)?.text ?? offer.headline[0]?.text ?? '—';
-
-const useIsoLayout = typeof window === 'undefined' ? useEffect : useLayoutEffect;
-
-/**
- * Websites · Care plans. One slate thumb under both labels slides to the chosen one and takes its
- * width, rather than the colour jumping from button to button. Its place is measured off the
- * chosen button, and again whenever the group resizes (a font arriving, a narrower screen).
- *
- * The server's HTML paints the chosen button itself, so the control is right before any script
- * runs; the thumb takes over once it has been placed, without animating that first placement.
- * It is a radio group, so the arrow keys move the choice and Tab lands on the chosen one only.
- */
-function Segmented<T extends string>({
-  value,
-  options,
-  onChange,
-  label,
-}: {
-  value: T;
-  options: { value: T; label: string }[];
-  onChange: (v: T) => void;
-  label: string;
-}) {
-  const group = useRef<HTMLDivElement>(null);
-  const thumb = useRef<HTMLSpanElement>(null);
-  const [placed, setPlaced] = useState(false);
-
-  useIsoLayout(() => {
-    const place = () => {
-      const chosen = group.current?.querySelector<HTMLElement>('[aria-checked="true"]');
-      if (!chosen || !thumb.current) return;
-      thumb.current.style.width = `${chosen.offsetWidth}px`;
-      thumb.current.style.transform = `translateX(${chosen.offsetLeft}px)`;
-    };
-    place();
-    setPlaced(true);
-    const observer = new ResizeObserver(place);
-    if (group.current) observer.observe(group.current);
-    return () => observer.disconnect();
-  }, [value]);
-
-  const choose = (index: number) => {
-    const next = options[(index + options.length) % options.length]!;
-    onChange(next.value);
-    group.current?.querySelectorAll<HTMLElement>('[role="radio"]')[options.indexOf(next)]?.focus();
-  };
-
-  return (
-    <div
-      ref={group}
-      role="radiogroup"
-      aria-label={label}
-      className="relative inline-grid grid-flow-col rounded-full border border-line bg-white p-1"
-    >
-      <span
-        ref={thumb}
-        aria-hidden="true"
-        className={`seg-thumb ${placed ? 'seg-thumb--placed' : ''}`}
-      />
-      {options.map((option, i) => {
-        const checked = value === option.value;
-        return (
-          <button
-            key={option.value}
-            type="button"
-            role="radio"
-            aria-checked={checked}
-            tabIndex={checked ? 0 : -1}
-            onClick={() => onChange(option.value)}
-            onKeyDown={(event) => {
-              const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
-              if (!step) return;
-              event.preventDefault();
-              choose(i + step);
-            }}
-            className={`relative z-10 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-500 ${
-              checked ? 'text-white' : 'text-ink-2 hover:text-ink'
-            } ${checked && !placed ? 'bg-slate' : ''}`}
-          >
-            {option.label}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
 
 export function Pricing() {
   const [segment, setSegment] = useState<Segment>('websites');
@@ -149,7 +64,7 @@ export function Pricing() {
               role="switch"
               aria-checked={yearly}
               onClick={() => setYearly((y) => !y)}
-              className={`relative h-6 w-11 rounded-full transition-colors duration-300 ${yearly ? 'bg-slate' : 'bg-line-2'}`}
+              className={`relative h-6 w-11 rounded-full transition-colors duration-300 ${yearly ? 'bg-graphite' : 'bg-line-2'}`}
             >
               <span
                 className={`absolute top-0.5 left-0.5 size-5 rounded-full bg-white shadow transition-transform duration-300 ease-[var(--ease-premium)] ${yearly ? 'translate-x-5' : ''}`}
@@ -199,7 +114,7 @@ export function Pricing() {
                 <p className="mt-6 flex items-baseline gap-2">
                   <span
                     key={price}
-                    className="scene-swap font-display text-[2.75rem] leading-none tracking-[var(--tracking-display)]"
+                    className="scene-swap font-display text-[2.5rem] leading-none tracking-[var(--tracking-display)]"
                   >
                     {price}
                   </span>
@@ -243,7 +158,7 @@ export function Pricing() {
                 {/* First sight: the section's own 1.6s dissolve. A tab switch: the same, in
                     0.7s, so the new prices are readable almost at once. */}
                 <PixelCover
-                  cover={focal ? '#0f0f10' : '#ffffff'}
+                  cover={focal ? '#0b0d12' : '#ffffff'}
                   tone={focal ? 'dark' : 'light'}
                   delay={switched ? i * 60 : i * 110}
                   duration={switched ? 700 : undefined}
@@ -278,7 +193,7 @@ export function Pricing() {
                     </div>
                     <p className="mt-2 text-sm text-ink-2">{offer.summary}</p>
                     <p className="mt-6 flex flex-wrap items-baseline gap-x-2">
-                      <span className="font-display text-[clamp(1.9rem,1.2rem+1.6vw,2.5rem)] leading-none tracking-[var(--tracking-display)] whitespace-nowrap">
+                      <span className="font-display text-[clamp(1.75rem,1.4rem+1vw,2.25rem)] leading-none tracking-[var(--tracking-display)] whitespace-nowrap">
                         {from ? price.slice(5) : price}
                       </span>
                       <span className="text-sm text-ink-2">

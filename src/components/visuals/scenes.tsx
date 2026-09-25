@@ -27,8 +27,8 @@ import {
 function PageLayout({
   w,
   h,
-  accent = '#1a1a1a',
-  tint = '#efecff',
+  accent = INK,
+  tint = '#eceefb',
 }: {
   w: number;
   h: number;
@@ -353,7 +353,7 @@ function SellBookScene() {
               width={32}
               height={32}
               rx={3}
-              fill={i === 6 ? SIGNAL.violet : i === 2 ? '#efecff' : '#f3f3f3'}
+              fill={i === 6 ? SIGNAL.violet : i === 2 ? '#eceefb' : '#f3f3f3'}
               stroke={INK}
               strokeWidth={0.8}
             />
@@ -525,7 +525,7 @@ export function PortalScene() {
       <Box x={30} y={30} z={12} w={90} d={90} h={62} tone="black">
         <MarkTop x={30} y={30} z={74} s={90} />
       </Box>
-      <FrontEdges x={0} y={0} z={12} w={glass} d={glass} h={glass} color="#1a1a1a" />
+      <FrontEdges x={0} y={0} z={12} w={glass} d={glass} h={glass} color={INK} />
       {spokes.map(({ at, icon, tone }) => (
         <GlyphBlock key={icon} x={at[0]} y={at[1]} s={44} h={18} icon={icon} tone={tone} />
       ))}

@@ -7,9 +7,13 @@ import { contact, faqGroups, START } from '@/content/site';
 import { Morph } from '../motion/morph';
 import { Icon } from '../ui/icon';
 import { RollLink } from '../ui/roll-link';
+import { Segmented } from '../ui/segmented';
 
 /**
  * pk-static's category rail, with automatix's questions beside it.
+ *
+ * The rail's marker slides between categories as Pricing's thumb does, vertically. On a phone the
+ * rail becomes Pricing's segmented control, each category named in a word.
  *
  * The rail item is pk-static's (itself hbranalytics' menu link): a 3px bar at the left edge that
  * grows in, a tinted wash, a darker label and a 4px nudge right, on hover and when active, with the
@@ -35,6 +39,30 @@ export function Faq() {
   const panels = useRef(new Map<string, HTMLDivElement | null>());
 
   const current = faqGroups[group]!;
+  const count = faqGroups.length;
+  const choose = (i: number) => {
+    setGroup((i + count) % count);
+    setOpen(0);
+  };
+
+  // The rail's marker — its ink bar and wash — slides to the chosen category rather than jumping,
+  // measured off the chosen tab as Pricing's thumb is. Until it is placed, the tab marks itself.
+  const rail = useRef<HTMLDivElement>(null);
+  const marker = useRef<HTMLSpanElement>(null);
+  const [placed, setPlaced] = useState(false);
+  useIsoLayout(() => {
+    const place = () => {
+      const chosen = rail.current?.querySelector<HTMLElement>('[aria-selected="true"]');
+      if (!chosen || !marker.current) return;
+      marker.current.style.height = `${chosen.offsetHeight}px`;
+      marker.current.style.transform = `translateY(${chosen.offsetTop}px)`;
+    };
+    place();
+    setPlaced(true);
+    const observer = new ResizeObserver(place);
+    if (rail.current) observer.observe(rail.current);
+    return () => observer.disconnect();
+  }, [group]);
 
   // Pin every panel's height to its content: the open one to its scrollHeight, the rest to 0.
   useIsoLayout(() => {
@@ -56,12 +84,26 @@ export function Faq() {
   return (
     <div className="mt-14">
       <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] lg:gap-16">
+        {/* Phones: the categories as Pricing's segmented control, a word each. */}
+        <div className="lg:hidden">
+          <Segmented
+            label="Question categories"
+            stretch
+            value={current.id}
+            options={faqGroups.map((g) => ({ value: g.id, label: g.short }))}
+            onChange={(id) => choose(faqGroups.findIndex((g) => g.id === id))}
+          />
+        </div>
+
         <div
+          ref={rail}
           role="tablist"
           aria-label="Question categories"
           aria-orientation="vertical"
-          className="faq-rail flex gap-1 overflow-x-auto pb-2 max-lg:border-b max-lg:border-line lg:flex-col lg:overflow-visible lg:pb-0"
+          data-placed={placed || undefined}
+          className="faq-rail relative hidden flex-col gap-1 lg:flex"
         >
+          <span ref={marker} aria-hidden="true" className="faq-marker" />
           {faqGroups.map((g, i) => (
             <button
               key={g.id}
@@ -72,19 +114,15 @@ export function Faq() {
               aria-controls={`${ids}-panel`}
               tabIndex={i === group ? 0 : -1}
               data-active={i === group || undefined}
-              onClick={() => {
-                setGroup(i);
-                setOpen(0);
-              }}
+              onClick={() => choose(i)}
               onKeyDown={(event) => {
                 const keys = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'];
                 if (!keys.includes(event.key)) return;
                 event.preventDefault();
                 const step = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
-                const next = (i + step + faqGroups.length) % faqGroups.length;
-                setGroup(next);
-                setOpen(0);
-                document.getElementById(`${ids}-tab-${faqGroups[next]!.id}`)?.focus();
+                const to = (i + step + count) % count;
+                choose(to);
+                document.getElementById(`${ids}-tab-${faqGroups[to]!.id}`)?.focus();
               }}
               className="faq-tab shrink-0"
             >
@@ -93,7 +131,7 @@ export function Faq() {
               </span>
               {/* The label takes the slack, so every count sits in one column at the right. */}
               <span className="min-w-0 flex-1 whitespace-nowrap">{g.label}</span>
-              <span className="w-5 shrink-0 text-right font-tech text-xs tabular-nums opacity-60 max-lg:hidden">
+              <span className="w-5 shrink-0 text-right font-tech text-xs tabular-nums opacity-60">
                 {String(g.items.length).padStart(2, '0')}
               </span>
             </button>

@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { headings, solutions, START } from '@/content/site';
 import { useAnchor } from '@/lib/anchor';
 
-import { Icon, SOLUTION_ICONS, iconFor } from '../ui/icon';
+import { Icon, iconFor } from '../ui/icon';
 import { RollLabel } from '../ui/roll-link';
 import { SOLUTION_SCENES } from '../visuals/scenes';
 
@@ -186,39 +186,21 @@ export function Solutions() {
         })}
       </div>
 
-      {/* automatix's frame: a padded outer card, the picture in a rounded panel inside it, and two
-          chips on the picture. The picture repeats what the open row says, so it is hidden from
-          assistive tech; the chips carry the catalogue's own facts, not a metric. */}
+      {/* automatix's frame: a padded outer card, the picture in a rounded panel inside it, framed
+          by four corner marks and centred between them. The picture repeats what the open row
+          says, so it is hidden from assistive tech. */}
       <div
         aria-hidden="true"
-        className="rounded-[2rem] border border-line bg-fill p-3 sm:p-5 lg:sticky lg:top-28"
+        className="rounded-[2rem] border border-line bg-fill p-3 sm:p-5 lg:sticky lg:top-24"
       >
         <div className="relative overflow-hidden rounded-[1.4rem] border border-line bg-white">
           <Corners />
-          <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(26_26_26/0.08)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
+          <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.08)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
           <div
             key={current.slug}
-            className="scene-swap relative grid h-[19rem] place-items-center p-8 pb-20 sm:h-[26rem] sm:p-10 sm:pb-24 [&_svg]:max-h-full [&_svg]:max-w-[30rem]"
+            className="scene-swap relative grid h-[19rem] place-items-center p-10 sm:h-[26rem] sm:p-14 [&_svg]:max-h-full [&_svg]:max-w-[30rem]"
           >
             {Scene ? <Scene /> : null}
-          </div>
-          <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3">
-            <span
-              key={`${current.slug}-chip`}
-              className="scene-swap inline-flex items-center gap-2.5 rounded-full border border-line bg-white/90 py-1.5 pr-4 pl-1.5 shadow-[0_10px_30px_-18px_rgb(0_0_0/0.4)] backdrop-blur"
-            >
-              <span className="grid size-8 place-items-center rounded-full bg-slate text-white">
-                <Icon name={SOLUTION_ICONS[current.slug] ?? 'spark'} size={15} />
-              </span>
-              <span className="font-display text-body font-bold tracking-[-0.01em]">
-                {current.name}
-              </span>
-            </span>
-            <span className="rounded-full bg-slate px-3.5 py-2 font-tech text-xs text-white">
-              {String(current.bundles.length).padStart(2, '0')}{' '}
-              {current.bundles.length === 1 ? 'bundle' : 'bundles'} ·{' '}
-              {current.bundles.map((b) => b.includes.length).reduce((a, b) => a + b, 0)} parts
-            </span>
           </div>
         </div>
       </div>
@@ -232,8 +214,8 @@ function Corners() {
     <>
       <span aria-hidden="true" className={`${mark} top-4 left-4 border-t border-l`} />
       <span aria-hidden="true" className={`${mark} top-4 right-4 border-t border-r`} />
-      <span aria-hidden="true" className={`${mark} bottom-[4.25rem] left-4 border-b border-l`} />
-      <span aria-hidden="true" className={`${mark} right-4 bottom-[4.25rem] border-r border-b`} />
+      <span aria-hidden="true" className={`${mark} bottom-4 left-4 border-b border-l`} />
+      <span aria-hidden="true" className={`${mark} right-4 bottom-4 border-r border-b`} />
     </>
   );
 }

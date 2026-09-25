@@ -8,9 +8,11 @@ import { contact, START } from '@/content/site';
 import { Icon } from '../ui/icon';
 
 /**
- * pk-static's quick-contact controls, brought across with their motion.
+ * pk-static's quick-contact controls, brought across with their motion. Not in the site-wide
+ * layout: they belong on the contact page, and are placed there when it is built. On a phone the
+ * bar needs room at the foot of that page (`padding-bottom: 5rem` on its container).
  *
- * - **Call Now** — lower right, in pk-static's slate, its phone shaking on `ring-shake` every
+ * - **Call Now** — lower right, in Graphite Ink, its phone shaking on `ring-shake` every
  *   2.4s. On hover it lifts 2px into a larger shadow and the glyph spins a full turn (pk-static,
  *   from Carz). The shake and the spin live on different elements so they never fight.
  * - **Back to top** — at the edge, right of Call Now, opening its own slot once the page has moved a
@@ -19,7 +21,7 @@ import { Icon } from '../ui/icon';
  *   off-screen and sliding in on hover or focus while its glyph spins.
  * - **On a phone**, as pk-static has it, Call Now and WhatsApp share one bar along the bottom, and
  *   the rail becomes Get Started — which the header no longer carries at that width — as a
- *   slim slate tab on the right edge.
+ *   slim graphite tab on the right edge.
  *
  * WhatsApp's green is darker than pk-static's: white on their #21bb63 is 2.6:1, and this is 5:1.
  */
@@ -78,7 +80,7 @@ export function FloatingActions() {
 
   return (
     <aside aria-label="Quick contact">
-      {/* Lower right, from 768px: Call Now in pk-static's slate, back to top at the edge. */}
+      {/* Lower right, from 768px: Call Now in graphite, back to top at the edge. */}
       <div className="quick-actions">
         <a
           href={contact.phoneHref}

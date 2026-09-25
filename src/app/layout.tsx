@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 
-import { FloatingActions } from '@/components/layout/floating-actions';
 import { Footer } from '@/components/layout/footer';
 import { Header } from '@/components/layout/header';
 import { ScrollEffects } from '@/components/motion/scroll-effects';
@@ -36,7 +35,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
         <Footer />
-        <FloatingActions />
         <SmoothScroll />
         <ScrollEffects />
       </body>

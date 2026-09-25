@@ -2,21 +2,20 @@ import { contact, headings, START } from '@/content/site';
 
 import { Band } from '../layout/band';
 import { FillText } from '../motion/fill-text';
+import { Pausable } from '../motion/pause-toggle';
 import { RollLink } from '../ui/roll-link';
+import { BrandArt } from '../visuals/brand-art';
 
 /**
- * aoutive's closing band: the ask on the left, a quiet line drawing on the right — a circle, a
- * square and a triangle in outline, turning slowly with the scroll.
+ * aoutive's closing band: the ask on the left and, on the right, the identity's website hero art —
+ * its modules turning, the symbol at the centre — drifting a little with the scroll.
  */
 export function Closing() {
   return (
     <Band id="start" labelledBy="start-heading" className="overflow-hidden py-24 lg:py-32">
       <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
         <div>
-          <h2
-            id="start-heading"
-            className="text-[clamp(2.4rem,1.5rem+3.4vw,4.25rem)] leading-[1.02] tracking-[var(--tracking-display)]"
-          >
+          <h2 id="start-heading" className="text-display tracking-[var(--tracking-display)]">
             {headings.cta.lead} <FillText text={headings.cta.fill} />
           </h2>
           <p data-reveal="" className="mt-6 max-w-md text-lead text-ink-2">
@@ -36,30 +35,12 @@ export function Closing() {
             </RollLink>
           </div>
         </div>
-        <div aria-hidden="true" data-parallax="-40" className="mx-auto w-full max-w-md">
-          <svg
-            viewBox="0 0 400 320"
-            className="w-full"
-            fill="none"
-            stroke="#1a1a1a"
-            strokeWidth="1.25"
-          >
-            <circle cx="120" cy="190" r="100" />
-            <circle
-              cx="120"
-              cy="190"
-              r="100"
-              strokeDasharray="2 6"
-              transform="rotate(18 120 190)"
-              opacity="0.4"
-            />
-            <rect x="170" y="40" width="150" height="150" rx="2" />
-            <path d="M245 60 330 300H160z" />
-            <path d="M20 300h360" stroke="#d6d6d6" />
-            <circle cx="245" cy="115" r="5" fill="#1a1a1a" />
-            <circle cx="120" cy="190" r="5" fill="#6d5cff" stroke="none" />
-            <circle cx="330" cy="300" r="5" fill="#1fb866" stroke="none" />
-          </svg>
+        {/* The identity's website hero art: modules turning on their slow rhythm, the symbol's
+            pixel turning at the centre. It moves on its own, so it can be paused. */}
+        <div data-parallax="-40" className="mx-auto w-full max-w-[26rem] lg:justify-self-end">
+          <Pausable label="the brand art" tone="night" buttonClassName="bottom-3 left-3">
+            <BrandArt className="block h-auto w-full shadow-[0_40px_80px_-40px_rgb(11_13_18/0.55)]" />
+          </Pausable>
         </div>
       </div>
     </Band>

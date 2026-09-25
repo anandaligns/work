@@ -24,8 +24,8 @@ const MARKS: Record<string, IconName> = {
   Startups: 'rocket',
   Manufacturing: 'layers',
 };
-const TINTS = ['#efecff', '#e6f7ee', '#e5f3fb', '#fff5d6', '#fdecee'];
-const SIGNALS = ['#6d5cff', '#1fb866', '#1e9be0', '#f0a500', '#f0506e'];
+const TINTS = ['#eceefb', '#e6f7ee', '#e5f3fb', '#fff5d6', '#fdecee'];
+const SIGNALS = ['#6e78ff', '#1fb866', '#1e9be0', '#f0a500', '#f0506e'];
 
 export function Sectors() {
   return (

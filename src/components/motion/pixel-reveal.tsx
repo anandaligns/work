@@ -27,8 +27,8 @@ const BAND = 0.2;
 const MARGIN = 0.12;
 const DURATION = 1600;
 const GREYS = {
-  light: ['#ececec', '#e2e2e2', '#d8d8d8', '#f2f2f2'],
-  dark: ['#1d1d20', '#26262a', '#303035', '#18181b'],
+  light: ['#eceef2', '#e2e5eb', '#d8dbe3', '#f2f3f6'],
+  dark: ['#171b28', '#20242f', '#2a2e3a', '#12151e'],
 };
 
 type Dissolve = {
@@ -48,7 +48,7 @@ const hash = (x: number, y: number) => {
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
 function DissolveCanvas({
-  cover = '#fcfcfc',
+  cover = '#fcfcfd',
   delay = 0,
   now = false,
   tone = 'light',
