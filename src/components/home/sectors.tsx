@@ -16,13 +16,13 @@ import { Icon, type IconName } from '../ui/icon';
  */
 const MARKS: Record<string, IconName> = {
   Retail: 'store',
-  Clinics: 'shield',
-  Hospitality: 'calendar',
-  'Real Estate': 'custom',
-  Education: 'bulb',
-  'Professional Services': 'file',
+  Clinics: 'medical',
+  Hospitality: 'dining',
+  'Real Estate': 'home',
+  Education: 'school',
+  'Professional Services': 'briefcase',
   Startups: 'rocket',
-  Manufacturing: 'layers',
+  Manufacturing: 'factory',
 };
 const TINTS = ['#eceefb', '#e6f7ee', '#e5f3fb', '#fff5d6', '#fdecee'];
 const SIGNALS = ['#6e78ff', '#1fb866', '#1e9be0', '#f0a500', '#f0506e'];

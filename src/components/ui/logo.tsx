@@ -18,7 +18,7 @@ import { BrandLockup } from './brand';
 export function Logo({
   tone = 'ink',
   turnKey,
-  className = 'h-4 w-auto lg:h-[1.0625rem]',
+  className = 'h-[1.3rem] w-auto',
 }: {
   /** `inherit` takes the colour of whatever it sits in — the header sets it by day or night. */
   tone?: 'ink' | 'white' | 'inherit';

@@ -161,7 +161,7 @@ export function DevelopmentScene() {
       />
       <Joint at={[220, 20]} />
       <Joint at={[290, 110]} />
-      <GlyphBlock x={268} y={-70} s={44} h={24} icon="code" tone="black" />
+      <GlyphBlock x={268} y={-70} s={44} h={24} icon="device" tone="black" />
       <Route
         points={[
           [290, -26],
@@ -169,7 +169,7 @@ export function DevelopmentScene() {
         ]}
         dashed
       />
-      <GlyphBlock x={268} y={110} s={44} h={16} icon="layers" tone="violet" />
+      <GlyphBlock x={268} y={110} s={44} h={16} icon="cart" tone="violet" />
       <Route
         points={[
           [110, 48],
@@ -214,7 +214,7 @@ export function HostingScene() {
             </g>
           ) : null}
           {i === 2 ? (
-            <TopGlyph x={0} y={0} z={98} w={120} d={90} icon="server" color="#fff" scale={0.4} />
+            <TopGlyph x={0} y={0} z={98} w={120} d={90} icon="dashboard" color="#fff" scale={0.4} />
           ) : null}
         </Box>
       ))}
@@ -227,7 +227,7 @@ export function HostingScene() {
       />
       <Joint at={[120, 45]} />
       <Joint at={[200, -60]} />
-      <GlyphBlock x={180} y={-110} s={46} h={18} icon="globe" tone="sky" />
+      <GlyphBlock x={180} y={-110} s={46} h={18} icon="people" tone="sky" />
       <Route
         points={[
           [60, 90],
@@ -236,8 +236,8 @@ export function HostingScene() {
         ]}
         dashed
       />
-      <GlyphBlock x={150} y={150} s={40} h={14} icon="lock" tone="white" />
-      <GlyphBlock x={210} y={150} s={40} h={14} icon="mail" tone="white" />
+      <GlyphBlock x={150} y={150} s={40} h={14} icon="code" tone="white" />
+      <GlyphBlock x={210} y={150} s={40} h={14} icon="database" tone="white" />
       <Chip x={-120} y={30} w={90} color={SIGNAL.green} />
     </Scene>
   );
@@ -246,13 +246,13 @@ export function HostingScene() {
 export function CareScene() {
   const orbit: {
     at: [number, number];
-    icon: 'spark' | 'database' | 'lock' | 'gauge';
+    icon: 'chat' | 'calendar' | 'plug' | 'bell';
     tone: 'white' | 'mint' | 'butter' | 'blush';
   }[] = [
-    { at: [-110, -40], icon: 'spark', tone: 'butter' },
-    { at: [150, -40], icon: 'database', tone: 'white' },
-    { at: [-110, 150], icon: 'lock', tone: 'white' },
-    { at: [150, 150], icon: 'gauge', tone: 'mint' },
+    { at: [-110, -40], icon: 'chat', tone: 'butter' },
+    { at: [150, -40], icon: 'calendar', tone: 'white' },
+    { at: [-110, 150], icon: 'plug', tone: 'white' },
+    { at: [150, 150], icon: 'bell', tone: 'mint' },
   ];
   return (
     <Scene box={[-274, -105, 488, 309]}>
@@ -267,7 +267,7 @@ export function CareScene() {
         />
       ))}
       <Box x={-20} y={30} w={120} d={90} h={8} tone="fill" />
-      <GlyphBlock x={10} y={45} z={8} s={60} h={36} icon="shield" tone="black" />
+      <GlyphBlock x={10} y={45} z={8} s={60} h={36} icon="spark" tone="black" />
       {orbit.map(({ at, icon, tone }) => (
         <GlyphBlock key={icon} x={at[0]} y={at[1]} s={40} h={16} icon={icon} tone={tone} />
       ))}
@@ -277,9 +277,10 @@ export function CareScene() {
 }
 
 /**
- * Keyed by service group. The art is unchanged from the first three services and reads the same
- * way: the laptop and its site for Digital Experiences, the linked stack for Business Systems, the
- * cube and its connected nodes for Automation & AI.
+ * Keyed by service group. The art is the first three services', its marks chosen for the groups:
+ * the laptop and its site, with the phone and the cart, for Digital Experiences; the stack under
+ * its dashboard, with people, code and data, for Business Systems; the AI spark and what it runs —
+ * chat, bookings, integrations and reminders — for Automation & AI.
  */
 export const SERVICE_SCENES = {
   'digital-experiences': DevelopmentScene,
@@ -290,7 +291,8 @@ export const SERVICE_SCENES = {
 // --- the four solutions ---------------------------------------------------------------------
 
 function GetOnlineScene() {
-  // Domain → site → email and SSL: wires run centre to centre along the ground, under the blocks.
+  // The web → the site → a reply on chat and the lead passed on: wires run centre to centre along
+  // the ground, under the blocks.
   return (
     <Scene box={[-274, -164, 559, 380]}>
       <Route
@@ -336,8 +338,8 @@ function GetOnlineScene() {
         )}
       />
       <Joint at={[181, 4]} />
-      <GlyphBlock x={160} y={-110} s={42} h={16} icon="mail" tone="sky" />
-      <GlyphBlock x={160} y={160} s={42} h={16} icon="lock" tone="white" />
+      <GlyphBlock x={160} y={-110} s={42} h={16} icon="chat" tone="sky" />
+      <GlyphBlock x={160} y={160} s={42} h={16} icon="userShare" tone="white" />
       <Chip x={-25} y={170} w={100} color={SIGNAL.green} />
     </Scene>
   );
@@ -390,7 +392,7 @@ function SellBookScene() {
 }
 
 function FixImproveScene() {
-  // Before → the fix → after, on one line.
+  // Before → connected → after, reporting to its dashboard, on one line.
   return (
     <Scene box={[-234, -219, 470, 416]}>
       <Route
@@ -420,7 +422,7 @@ function FixImproveScene() {
           </g>
         )}
       />
-      <GlyphBlock x={-40} y={90} s={40} h={16} icon="refresh" tone="butter" />
+      <GlyphBlock x={-40} y={90} s={40} h={16} icon="plug" tone="butter" />
       <Joint at={[-140, 110]} />
       <Screen
         x={10}
@@ -442,7 +444,7 @@ function FixImproveScene() {
         ]}
         dashed
       />
-      <GlyphBlock x={218} y={60} s={44} h={18} icon="gauge" tone="mint" />
+      <GlyphBlock x={218} y={60} s={44} h={18} icon="dashboard" tone="mint" />
     </Scene>
   );
 }

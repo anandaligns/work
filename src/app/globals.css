@@ -336,6 +336,54 @@ html.lenis body {
   .btn-paper:hover {
     transform: translateY(-2px);
   }
+  /* Kinetic Blue, for the one action a page leads with. White on it is 6.6:1. */
+  .btn-kinetic {
+    border-radius: var(--radius-pill);
+    background: var(--color-kinetic);
+    color: #fff;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      0 10px 28px -12px rgb(46 59 255 / 0.55);
+  }
+  .btn-kinetic:hover {
+    background: #2531e6;
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.2),
+      0 18px 36px -14px rgb(46 59 255 / 0.6);
+  }
+  /* WhatsApp's own green, #25D366, with its white label. */
+  .btn-whatsapp {
+    border-radius: var(--radius-pill);
+    background: #25d366;
+    color: #fff;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.3),
+      0 10px 28px -12px rgb(18 140 70 / 0.55);
+  }
+  .btn-whatsapp:hover {
+    background: #21c35d;
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.32),
+      0 18px 36px -14px rgb(18 140 70 / 0.6);
+  }
+  /* A button's leading glyph: a full turn on hover. The shake — Call Now's ring, every 2.4s — is
+     on the outer span and the spin on the inner, so the two never fight. */
+  .roll__icon {
+    display: inline-flex;
+  }
+  .roll__icon > span {
+    display: inline-flex;
+    transition: transform 420ms var(--ease-premium);
+  }
+  .roll:is(:hover, :focus-visible) .roll__icon > span {
+    transform: rotate(360deg) scale(1.06);
+  }
+  .roll__icon--shake {
+    transform-origin: 50% 60%;
+    animation: ring-shake 2.4s ease-in-out infinite;
+  }
 
   /* The pulsing dot on the header CTA. */
   .signal {
@@ -370,35 +418,14 @@ html.lenis body {
 
   /* ==========================================================================================
      The global bar — Apple's, in this site's type. One frosted strip across the top, 44px on a
-     desktop and 48px on a phone, the lockup and every item spread evenly along one line. By day
-     it is Apple's light bar; by night, the brand's glassy ink — the visitor's own clock decides
-     (`lib/daypart.ts`, on `<html data-daypart>`). Its flyouts and the phone sheet take the same
-     light. It never changes shape; after the first screen a hairline settles under it. Every
-     colour below comes from the `--nav-*` set, so day and night differ in one place.
+     desktop and 48px on a phone, the lockup and every item spread evenly along one line, in
+     Apple's own light (`--globalnav-background: rgba(245, 245, 247, .8)`). Its flyouts and the
+     phone sheet take the same light. It never changes shape; after the first screen a hairline
+     settles under it. Every colour below comes from the `--nav-*` set, so a dark mode is one
+     more set of values.
      ========================================================================================== */
   .gnav {
     --gnav-h: 3rem;
-    /* Night: the closing section's black, what shows through blurred and dimmed first. */
-    --nav-bg: rgb(11 13 18 / 0.82);
-    --nav-filter: blur(20px) saturate(180%) brightness(0.18);
-    --nav-solid: rgb(11 13 18);
-    --nav-fg: #fff;
-    --nav-fg-2: rgb(255 255 255 / 0.78);
-    --nav-fg-3: #8a8fa3;
-    --nav-rule: rgb(255 255 255 / 0.1);
-    --nav-hover: rgb(255 255 255 / 0.07);
-    --nav-pill: rgb(255 255 255 / 0.12);
-    --nav-btn-bg: #fff;
-    --nav-btn-fg: var(--color-ink);
-    --nav-scrim: rgb(11 13 18 / 0.32);
-    --nav-shadow: rgb(0 0 0 / 0.55);
-    position: fixed;
-    inset: 0 0 auto;
-    z-index: 50;
-    height: var(--gnav-h);
-  }
-  /* Day: Apple's own bar, `--globalnav-background: rgba(245, 245, 247, .8)`. */
-  :root[data-daypart='day'] .gnav {
     --nav-bg: rgb(245 245 247 / 0.8);
     --nav-filter: saturate(180%) blur(20px);
     --nav-solid: rgb(245 245 247);
@@ -412,11 +439,22 @@ html.lenis body {
     --nav-btn-fg: #fff;
     --nav-scrim: rgb(232 232 237 / 0.4);
     --nav-shadow: rgb(0 0 0 / 0.14);
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    height: var(--gnav-h);
   }
   @media (min-width: 1024px) {
     .gnav {
       --gnav-h: 2.75rem;
     }
+  }
+
+  /* The footer, in the bar's light: Apple's #f5f5f7 under a hairline. */
+  .site-foot {
+    border-top: 1px solid var(--color-line);
+    background: rgb(245 245 247);
+    color: var(--color-ink);
   }
   .gnav__bar {
     position: absolute;
@@ -918,7 +956,8 @@ html.lenis body {
     --open: 0;
     --shut: calc((1 - var(--open)) * 322.5px);
   }
-  .hero-tile-centre {
+  /* The screen is clipped, not the tile, so its notification can hang over the lower edge. */
+  .hero-tile-centre__screen {
     clip-path: inset(0 var(--shut) round 14px);
   }
   .hero-tile-before {
@@ -928,12 +967,12 @@ html.lenis body {
     transform: translateX(calc(var(--shut) * -1));
   }
 
-  /* The system behind each tile: a notification. On the phones it drops in under the site's bar,
-     where a phone shows one; on the desktop tile it rests mid-way along the lower edge, so it
-     shows while the tile is still clipped to its closed width. */
+  /* The system behind each tile: a notification, floating over the tile's lower edge — clear of
+     the site's own button above it. On the phones it spans the width; on the desktop tile it sits
+     mid-way, so it shows while the tile is still clipped to its closed width. */
   .hero-toast {
     position: absolute;
-    top: 2.625rem;
+    bottom: -0.625rem;
     left: 0.625rem;
     right: 0.625rem;
     z-index: 1;
@@ -941,20 +980,24 @@ html.lenis body {
     align-items: flex-start;
     gap: 0.5rem;
     padding: 0.5rem 0.75rem 0.5625rem 0.625rem;
-    border: 1px solid var(--color-line);
+    /* Black glass: the card shows through, blurred and dimmed to the brand's ink, under a faint
+       light rim. */
+    border: 1px solid rgb(255 255 255 / 0.12);
     border-radius: 0.75rem;
-    background: var(--color-surface);
-    box-shadow: 0 12px 28px -16px rgb(11 13 18 / 0.45);
+    background: rgb(11 13 18 / 0.62);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    backdrop-filter: saturate(180%) blur(16px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.1),
+      0 12px 28px -16px rgb(11 13 18 / 0.55);
     font-family: var(--font-tech);
     font-size: 0.75rem;
     line-height: 1.3;
     text-align: left;
-    color: var(--color-ink);
+    color: #fff;
   }
   .hero-toast--centre {
-    top: auto;
     right: auto;
-    bottom: 0.75rem;
     left: 50%;
     translate: -50% 0;
     max-width: 18rem;
@@ -973,7 +1016,12 @@ html.lenis body {
   }
   .hero-toast__detail {
     display: block;
-    color: var(--color-ink-2);
+    color: rgb(255 255 255 / 0.72);
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .hero-toast {
+      background: var(--color-graphite);
+    }
   }
 
   /* The work gallery: one tilted plane that straightens as it arrives (codify). */
@@ -1569,21 +1617,139 @@ html.lenis body {
 }
 
 @layer components {
-  /* ---- The identity's closing view: the symbol's pixel turning, as the identity's page has it */
-  .pk-loop .pk-px {
-    animation: pk-art-turn 5.5s cubic-bezier(0.7, 0, 0.2, 1) infinite;
+  /* ---- The assistant — its launcher in the lower right, and the panel it opens -------------
+     A graphite pill, the face and "Ask" with the name, lit like Call Now was, with the brand's
+     pixel at the face's corner. Desktops only. */
+  .assist-launcher {
+    position: fixed;
+    z-index: 45;
+    right: 1.5rem;
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    height: 3rem;
+    padding: 0.25rem 1.25rem 0.25rem 0.25rem;
+    border-radius: 9999px;
+    background: var(--color-graphite);
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.14),
+      0 0 0 1px rgb(255 255 255 / 0.14),
+      0 18px 48px rgb(11 13 18 / 0.24);
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform 0.3s var(--ease-premium),
+      box-shadow 0.3s ease,
+      background-color 0.3s ease;
   }
-  [data-paused] .pk-loop .pk-px {
-    animation-play-state: paused;
+  .assist-launcher:hover {
+    background: var(--color-graphite-2);
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      0 0 0 1px rgb(255 255 255 / 0.18),
+      0 24px 60px rgb(11 13 18 / 0.34);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .pk-loop .pk-px {
-      animation: none;
+  .assist-launcher:active {
+    transform: scale(0.97);
+    transition-duration: 90ms;
+  }
+  .assist-launcher__face {
+    position: relative;
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+  }
+  .assist-launcher__face img {
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px;
+  }
+  .assist-launcher__px {
+    position: absolute;
+    right: -0.0625rem;
+    bottom: -0.0625rem;
+    width: 0.6875rem;
+    height: 0.6875rem;
+    background: var(--color-kinetic);
+    box-shadow: 0 0 0 2px var(--color-graphite);
+  }
+  /* Desktops only: not on phones or tablets, by width or by touch. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .assist-launcher,
+    .assist-panel {
+      display: none;
     }
   }
-}
 
-@layer components {
+  .assist-panel {
+    position: fixed;
+    z-index: 46;
+    right: 1.5rem;
+    bottom: calc(max(1.5rem, env(safe-area-inset-bottom)) + 3.75rem);
+    width: min(22.5rem, calc(100vw - 2rem));
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background: #fff;
+    color: var(--color-ink);
+    box-shadow:
+      0 0 0 1px rgb(11 13 18 / 0.06),
+      0 30px 80px -20px rgb(11 13 18 / 0.38);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.5rem) scale(0.96);
+    transform-origin: 100% 100%;
+    transition:
+      opacity 0.25s ease,
+      transform 0.35s var(--ease-premium),
+      visibility 0s linear 0.35s;
+  }
+  .assist-panel[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      opacity 0.25s ease,
+      transform 0.35s var(--ease-premium),
+      visibility 0s;
+  }
+  .assist-panel:focus {
+    outline: none;
+  }
+  .assist-bubble {
+    align-self: flex-start;
+    max-width: 92%;
+    padding: 0.625rem 0.875rem;
+    border-radius: 1.125rem 1.125rem 1.125rem 0.375rem;
+    background: var(--color-fill);
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--color-ink);
+  }
+  .assist-reach {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.75rem 0.25rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.875rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    transition:
+      border-color 0.2s ease,
+      transform 0.3s var(--ease-premium);
+  }
+  .assist-reach:hover {
+    border-color: var(--color-ink);
+    transform: translateY(-2px);
+  }
+
   /* ---- Quick contact — pk-static's floats, rail and phone bar ----------------------------- */
   @keyframes ring-shake {
     0%,
@@ -1778,11 +1944,11 @@ html.lenis body {
   .mobile-bar {
     display: none;
   }
-  /* The page with the phone bar keeps room under its footer — the closing's own ink, carried
+  /* The page with the phone bar keeps room under its footer — the footer's own ground, carried
      on — so the bar never covers the copyright. */
   @media (max-width: 767px) {
     body:has(.mobile-bar) > footer {
-      border-bottom: 5rem solid var(--color-night);
+      border-bottom: 5rem solid rgb(245 245 247);
     }
   }
 

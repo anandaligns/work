@@ -296,12 +296,14 @@ export const shownReviews = reviews.filter(
  * for the locality rather than a pin — no street address or Business Profile has been verified —
  * and should become the Business Profile's short link the day there is one.
  */
+/** The business number, in the international form `tel:` and `wa.me` links take. */
+const NUMBER = '918074211007';
+
 export const contact = {
-  phone: '+91 63099 66099',
-  phoneHref: 'tel:+916309966099',
+  phone: '+91 80742 11007',
+  phoneHref: `tel:+${NUMBER}`,
   email: 'contact@pixelkinetix.com',
-  whatsappHref:
-    'https://wa.me/916309966099?text=Hi%20Pixel%20Kinetix%2C%20I%27d%20like%20to%20talk%20about%20my%20business.',
+  whatsappHref: `https://wa.me/${NUMBER}?text=Hi%20Pixel%20Kinetix%2C%20I%27d%20like%20to%20talk%20about%20my%20business.`,
   instagram: '@pixelkinetix',
   instagramHref: 'https://www.instagram.com/pixelkinetix/',
   mapsHref: 'https://www.google.com/maps/search/?api=1&query=Pixel+Kinetix+Kalyan+Nagar+Bangalore',
@@ -318,10 +320,10 @@ export const contact = {
 
 /** A WhatsApp link that opens with a message about one topic — a service, a solution, a plan. */
 export const whatsappAbout = (topic: string) =>
-  `https://wa.me/916309966099?text=${encodeURIComponent(`Hi Pixel Kinetix, I'd like to know about ${topic}.`)}`;
+  `https://wa.me/${NUMBER}?text=${encodeURIComponent(`Hi Pixel Kinetix, I'd like to know about ${topic}.`)}`;
 
 /**
- * Social profiles, in the footer's last column. Instagram is the business's real address; LinkedIn
+ * Social profiles, the footer's last column. Instagram is the business's real address; LinkedIn
  * is a placeholder (`href: null`) — its name is shown, but it is not a link until its address is
  * added here.
  */
@@ -330,6 +332,17 @@ export const socials: { id: SocialId; label: string; href: string | null }[] = [
   { id: 'instagram', label: 'Instagram', href: contact.instagramHref },
   { id: 'linkedin', label: 'LinkedIn', href: null },
 ];
+
+/**
+ * The AI assistant's launcher, in the lower right of every page. The assistant itself is not built
+ * yet: the launcher opens a short note from it and the three ways to reach the team today. Rename
+ * it here and the button, the panel and every label follow.
+ */
+export const assistant = {
+  name: 'Kix',
+  role: 'Pixel Kinetix AI assistant',
+  avatar: '/brand/assistant.webp',
+};
 
 /**
  * The twelve questions, sorted into three shelves for the FAQ's category rail — each with a
@@ -342,7 +355,7 @@ const SHELVES = [
     id: 'project',
     label: 'Your project',
     short: 'Project',
-    icon: 'device' as const,
+    icon: 'clipboard' as const,
     asks: [
       'Do you only build websites?',
       'What does every build include?',
@@ -355,7 +368,7 @@ const SHELVES = [
     id: 'evolve',
     label: 'Evolve and support',
     short: 'Evolve',
-    icon: 'server' as const,
+    icon: 'shield' as const,
     asks: [
       'Is hosting included in a package?',
       'What counts as one content change?',

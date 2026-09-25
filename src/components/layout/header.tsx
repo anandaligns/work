@@ -6,7 +6,6 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
 import { categories, evolve, nav, solutions, START } from '@/content/site';
 import { announceAnchor, useAnchor } from '@/lib/anchor';
-import { daypart } from '@/lib/daypart';
 
 import { Icon, iconFor } from '../ui/icon';
 import { Logo } from '../ui/logo';
@@ -38,12 +37,11 @@ const serviceHref = (slug: string) => `/services/${slug}`;
  * The header — Apple's global bar, in this site's type.
  *
  * One frosted strip, 44px on a desktop and 48px on a phone: the lockup, the seven items and the
- * call to action spread evenly along one line. By day it is Apple's light bar, by night the brand's
- * glassy ink — by the visitor's own clock (`lib/daypart.ts`), its sheets and menus with it. It
- * never changes shape; a hairline settles beneath it once the page has moved. The lockup's pixel
+ * call to action spread evenly along one line, in Apple's light bar, its sheets and menus with
+ * it. It never changes shape; a hairline settles beneath it once the page has moved. The lockup's pixel
  * turns a quarter each time the reader enters a new section.
  *
- * Services and Solutions open flyouts: full-width sheets of the bar's own ink, drawn down from
+ * Services and Solutions open flyouts: full-width sheets of the bar's own light, drawn down from
  * under it while the page behind dims and softens out of focus. Inside is the earlier mega menu's
  * pattern, straight on the sheet and in line with the lockup: a column per service group or
  * solution — its title linking to its page — every item with its icon, a one-line summary and a
@@ -121,15 +119,6 @@ export function Header() {
     measure();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Day or night by the visitor's clock: the head script set it before the first paint; this keeps
-  // it true while the page stays open, so the bar turns at dusk and dawn.
-  useEffect(() => {
-    const apply = () => document.documentElement.setAttribute('data-daypart', daypart());
-    apply();
-    const timer = window.setInterval(apply, 60_000);
-    return () => window.clearInterval(timer);
   }, []);
 
   const show = useCallback((key: MenuKey | null) => {
@@ -561,18 +550,7 @@ function MenuItem({
   current: 'page' | 'location';
   onPick: () => void;
 }) {
-  const arrow = (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
+  const arrow = <Icon name="arrow" strokeWidth={1.8} />;
   return (
     <li>
       <Link

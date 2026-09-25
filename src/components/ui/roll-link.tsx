@@ -1,16 +1,23 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { Icon } from './icon';
+
 /**
  * pk-static's rolling action. The label is written twice — the second copy `aria-hidden` — and
  * hover rolls the pair up one line; the arrow is tilted 45° and rolls out to the upper right as its
  * twin rolls in from the lower left. CSS only (`.roll` in globals.css), so it works before the
  * page hydrates.
+ *
+ * An `icon` leads the label and spins a full turn on hover; `shake` rings it every 2.4s, the way
+ * Call Now's phone does. `mailto:` and `tel:` links are plain links, opened in place.
  */
 const VARIANTS = {
   ink: 'btn-ink',
   line: 'btn-line',
   paper: 'btn-paper',
+  kinetic: 'btn-kinetic',
+  whatsapp: 'btn-whatsapp',
 } as const;
 
 const SIZES = {
@@ -21,18 +28,7 @@ const SIZES = {
 } as const;
 
 function Arrow() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
+  return <Icon name="arrow" strokeWidth={1.8} />;
 }
 
 export function RollLabel({ children, arrow = true }: { children: string; arrow?: boolean }) {
@@ -63,6 +59,8 @@ export function RollLink({
   signal = false,
   className = '',
   external = false,
+  icon,
+  shake = false,
   onClick,
 }: {
   href: string;
@@ -73,15 +71,29 @@ export function RollLink({
   signal?: boolean;
   className?: string;
   external?: boolean;
+  icon?: ReactNode;
+  shake?: boolean;
   onClick?: () => void;
 }) {
   const classes = `roll ${VARIANTS[variant]} ${SIZES[size]} justify-center ${className}`;
   const inner: ReactNode = (
     <>
       {signal ? <span className="signal" aria-hidden="true" /> : null}
+      {icon ? (
+        <span className={`roll__icon ${shake ? 'roll__icon--shake' : ''}`} aria-hidden="true">
+          <span>{icon}</span>
+        </span>
+      ) : null}
       <RollLabel arrow={arrow}>{children}</RollLabel>
     </>
   );
+  if (/^(mailto|tel):/.test(href)) {
+    return (
+      <a href={href} className={classes} onClick={onClick}>
+        {inner}
+      </a>
+    );
+  }
   return external ? (
     <a href={href} className={classes} target="_blank" rel="noreferrer" onClick={onClick}>
       {inner}

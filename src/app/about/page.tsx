@@ -40,7 +40,7 @@ const PRINCIPLES: { icon: IconName; name: string; line: string }[] = [
     line: 'The replies, reminders and follow-ups nobody should have to type.',
   },
   {
-    icon: 'spark',
+    icon: 'trend',
     name: 'Keep improving',
     line: 'Launch is the start. Evolve keeps the system getting better as the business grows.',
   },

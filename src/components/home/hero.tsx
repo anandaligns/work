@@ -104,27 +104,26 @@ export function Hero() {
       </div>
 
       {/* Below 768px the codify row would show a slice of one tile; a phone gets the four phone
-          designs drifting past at full size instead. */}
+          designs drifting past at full size instead, each with its notification. */}
       <div
         aria-hidden="true"
-        className="rise-in marquee mt-12 pb-4 md:hidden"
+        className="rise-in marquee mt-12 pb-10 md:hidden"
         style={{ ['--d' as string]: 950, ['--marquee-duration' as string]: '36s' }}
       >
         <div className="marquee__track gap-4 pr-4">
           {[...PHONES, ...PHONES].map((b, i) => (
-            <Scaled
-              key={`${b.id}-${i}`}
-              k="0.5359"
-              className="h-[360px] w-[209px] shrink-0 rounded-[14px] ring-1 ring-black/5"
-            >
-              <MobileSite b={b} />
-            </Scaled>
+            <div key={`${b.id}-${i}`} className="relative h-[360px] w-[209px] shrink-0">
+              <Scaled k="0.5359" className="h-full w-full rounded-[14px] ring-1 ring-black/5">
+                <MobileSite b={b} />
+              </Scaled>
+              <Toast id={b.id} />
+            </div>
           ))}
         </div>
       </div>
       <div
         aria-hidden="true"
-        className="rise-in relative mt-12 hidden justify-center overflow-hidden pb-4 sm:mt-14 md:flex"
+        className="rise-in relative mt-12 hidden justify-center overflow-hidden pb-10 sm:mt-14 md:flex"
         style={{ ['--d' as string]: 950 }}
       >
         <ul id="hero-row" className="hero-row flex shrink-0 items-stretch gap-4">
@@ -140,7 +139,10 @@ export function Hero() {
             </li>
           ))}
           <li className="hero-tile-centre relative h-[360px] w-[960px] shrink-0">
-            <Scaled k="0.75" className="h-full w-full rounded-[14px] ring-1 ring-black/5">
+            <Scaled
+              k="0.75"
+              className="hero-tile-centre__screen h-full w-full rounded-[14px] ring-1 ring-black/5"
+            >
               <DesktopSite b={BRANDS.northfield!} height={480} variant="poster" />
             </Scaled>
             <Toast id="northfield" centre />

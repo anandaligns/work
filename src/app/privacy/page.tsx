@@ -5,7 +5,7 @@ import { contact } from '@/content/site';
 
 /** `/privacy` — what this site collects (very little) and what happens to a message you send us. */
 export const metadata: Metadata = {
-  title: 'Privacy',
+  title: 'Privacy Policy',
   description: 'How Pixel Kinetix handles your information when you visit this site or contact us.',
   alternates: { canonical: '/privacy' },
 };
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Privacy() {
   return (
     <LegalPage
-      eyebrow="Privacy"
+      eyebrow="Privacy Policy"
       title="Your information, plainly."
       intro="What this website collects, what happens when you contact us, and what you can ask us to do with it."
       updated="25 September 2026"

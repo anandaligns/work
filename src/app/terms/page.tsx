@@ -5,7 +5,7 @@ import { contact } from '@/content/site';
 
 /** `/terms` — the terms of using this website. Project terms live in each client's agreement. */
 export const metadata: Metadata = {
-  title: 'Terms',
+  title: 'Terms and Conditions',
   description: 'The terms of using the Pixel Kinetix website.',
   alternates: { canonical: '/terms' },
 };
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Terms() {
   return (
     <LegalPage
-      eyebrow="Terms"
+      eyebrow="Terms and Conditions"
       title="Using this website."
       intro="The terms of using this site. The terms of a project are the ones in its written proposal and agreement."
       updated="25 September 2026"

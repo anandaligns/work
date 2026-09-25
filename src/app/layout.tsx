@@ -6,7 +6,6 @@ import { Header } from '@/components/layout/header';
 import { ScrollEffects } from '@/components/motion/scroll-effects';
 import { SmoothScroll } from '@/components/motion/smooth-scroll';
 import { SITE_URL } from '@/content/site';
-import { DAYPART_SCRIPT } from '@/lib/daypart';
 
 import './globals.css';
 
@@ -36,11 +35,8 @@ export const viewport: Viewport = { themeColor: '#fcfcfc' };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    // The first line of the body marks day or night before anything is painted, so the root
-    // differs from the server's HTML by that one attribute.
-    <html lang="en-IN" suppressHydrationWarning>
+    <html lang="en-IN">
       <body>
-        <script dangerouslySetInnerHTML={{ __html: DAYPART_SCRIPT }} />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-white"

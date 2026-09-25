@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 
 import { Band } from '@/components/layout/band';
-import { FloatingActions } from '@/components/layout/floating-actions';
 import { Card, CardBand } from '@/components/pages/cards';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
 import { Icon } from '@/components/ui/icon';
@@ -11,14 +10,13 @@ import { contact } from '@/content/site';
 /**
  * `/contact` — where every "Get Started" leads. Every way to reach us, and what to put in the
  * first message so the reply can be a real next step. The enquiry form joins this page when its
- * automation is built; until then WhatsApp, a call and email do its job.
- *
- * The quick-contact controls live here and nowhere else.
+ * automation is built; until then email, WhatsApp and a call do its job — the three buttons
+ * under the headline, email first in Kinetic Blue, WhatsApp in its own green and Call Now with its
+ * phone ringing.
  */
 export const metadata: Metadata = {
   title: 'Contact',
-  description:
-    'Tell Pixel Kinetix what’s slowing your business down. Message us on WhatsApp, call +91 63099 66099 or email contact@pixelkinetix.com. Kalyan Nagar, Bangalore.',
+  description: `Tell Pixel Kinetix what’s slowing your business down. Message us on WhatsApp, call ${contact.phone} or email ${contact.email}. Kalyan Nagar, Bangalore.`,
   alternates: { canonical: '/contact' },
 };
 
@@ -35,21 +33,46 @@ export default function Contact() {
       <PageIntro
         eyebrow="Contact"
         title={'Tell us what’s slowing\nyour business down.'}
-        intro="Message us on WhatsApp, call or email. We’ll reply with a clear next step, and tell you honestly if we’re the right fit."
+        intro="Mail us, message us on WhatsApp or call. We’ll reply with a clear next step, and tell you honestly if we’re the right fit."
       >
         <Actions>
-          <RollLink href={contact.whatsappHref} size="lg" external>
+          <RollLink
+            href={`mailto:${contact.email}`}
+            variant="kinetic"
+            size="lg"
+            arrow={false}
+            className="max-sm:w-full max-sm:max-w-[18rem]"
+            icon={<Icon name="mail" size={19} strokeWidth={1.8} />}
+          >
+            Mail us
+          </RollLink>
+          <RollLink
+            href={contact.whatsappHref}
+            variant="whatsapp"
+            size="lg"
+            arrow={false}
+            className="max-sm:w-full max-sm:max-w-[18rem]"
+            external
+            icon={<Icon name="whatsapp" size={19} strokeWidth={1.8} />}
+          >
             Chat on WhatsApp
           </RollLink>
-          <RollLink href={contact.phoneHref} variant="line" size="lg" arrow={false}>
-            {`Call ${contact.phone}`}
+          <RollLink
+            href={contact.phoneHref}
+            size="lg"
+            arrow={false}
+            className="max-sm:w-full max-sm:max-w-[18rem]"
+            shake
+            icon={<Icon name="phone" size={18} strokeWidth={1.8} />}
+          >
+            Call Now
           </RollLink>
         </Actions>
       </PageIntro>
 
       <CardBand id="reach" eyebrow="Reach us" title="Whichever suits you." columns={4}>
         <Card
-          icon="chat"
+          icon="whatsapp"
           name="WhatsApp"
           line="The quickest way to start. Tell us about the business in a message."
           href={contact.whatsappHref}
@@ -65,7 +88,7 @@ export default function Contact() {
           index={2}
         />
         <Card
-          icon="globe"
+          icon="pin"
           name="Visit"
           line={contact.locality.split(' · ').join(', ')}
           href={contact.mapsHref}
@@ -102,8 +125,6 @@ export default function Contact() {
           Not sure what you need? That’s fine. Tell us the problem and we’ll map it with you.
         </p>
       </Band>
-
-      <FloatingActions showStart={false} />
     </>
   );
 }

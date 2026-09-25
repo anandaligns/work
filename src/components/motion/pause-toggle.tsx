@@ -2,6 +2,8 @@
 
 import { type ReactNode, useState } from 'react';
 
+import { Icon } from '../ui/icon';
+
 /**
  * Anything that moves on its own for more than five seconds needs a way to stop it that is not a
  * pointer — WCAG 2.2.2. One button, one name, `aria-pressed` for the state.
@@ -35,18 +37,8 @@ export function Pausable({
         }`}
       >
         <span className="sr-only">Pause {label}</span>
-        <svg viewBox="0 0 24 24" className="size-3.5" aria-hidden="true">
-          {paused ? (
-            <path d="M8 5.5v13l10-6.5z" fill="currentColor" />
-          ) : (
-            <path
-              d="M8 5v14M16 5v14"
-              stroke="currentColor"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-            />
-          )}
-        </svg>
+        {/* Tabler's play and pause, filled in so they read at this size. */}
+        <Icon name={paused ? 'play' : 'pause'} size={14} strokeWidth={2} fill="currentColor" />
       </button>
     </div>
   );

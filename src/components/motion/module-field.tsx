@@ -7,7 +7,7 @@ import { pose, TURN_MS } from './quarter-turn';
 
 /**
  * The living ground: the identity's brand language — "two modules, endless systems" — in its
- * light version behind the hero, and its ink version behind the footer's closing.
+ * light version behind the hero and the pages' intros, and in its ink version for dark grounds.
  *
  * The two modules come from the mark: the pixel (a square) and the quarter-turn (a quarter-disc,
  * the arc a pixel traces when it turns on its corner). They tile the hero's sides tone on tone, as
@@ -19,7 +19,8 @@ import { pose, TURN_MS } from './quarter-turn';
  *   quarter-disc comes to rest facing the next way;
  * - modules leave and arrive, turning as they come, so the pattern is never the same twice;
  * - now and then one module turns Kinetic Blue for a few seconds — only ever one at a time,
- *   because blue marks what moves and nothing else;
+ *   because blue marks what moves and nothing else, and never under words, so it can't cost a
+ *   line its contrast;
  * - every so often the mark itself assembles in the pattern — the P ghosted in, its pixel in
  *   blue making its turn — and dissolves back into modules;
  * - under the pointer, a module turns.
@@ -284,10 +285,31 @@ export function ModuleField({
     };
 
     // ---- the rhythm --------------------------------------------------------------------
-    const pick = (min: number) => {
-      for (let tries = 0; tries < 12; tries++) {
+    // Where the words are, measured when an accent is placed: the blue module and the mark keep
+    // off them.
+    const words = () => {
+      const origin = box.getBoundingClientRect();
+      return [...hero.querySelectorAll('h1, h2, h3, p, li, address, a, button')]
+        .map((el) => el.getBoundingClientRect())
+        .filter((q) => q.width > 0 && q.height > 0)
+        .map((q) => ({
+          l: q.left - origin.left,
+          t: q.top - origin.top,
+          r: q.right - origin.left,
+          b: q.bottom - origin.top,
+        }));
+    };
+    const clearOf = (rects: ReturnType<typeof words>, c: number, r: number, span = 1) => {
+      const x0 = ox + c * cell;
+      const y0 = r * cell;
+      const x1 = x0 + span * cell;
+      const y1 = y0 + span * cell;
+      return !rects.some((w) => w.l < x1 && w.r > x0 && w.t < y1 && w.b > y0);
+    };
+    const pick = (min: number, ok: (m: Module) => boolean = () => true) => {
+      for (let tries = 0; tries < 24; tries++) {
         const m = mods[Math.floor(Math.random() * mods.length)];
-        if (m && m.weight >= min && m.turnAt < 0 && m.to > 0) return m;
+        if (m && m.weight >= min && m.turnAt < 0 && m.to > 0 && ok(m)) return m;
       }
       return null;
     };
@@ -297,7 +319,8 @@ export function ModuleField({
     };
     const blueOne = (now: number) => {
       if (signature || mods.some((m) => m.blueAt >= 0)) return;
-      const m = pick(0.55);
+      const rects = words();
+      const m = pick(0.55, (mod) => clearOf(rects, mod.c, mod.r));
       if (!m) return;
       m.blueAt = now;
       m.blueFor = 3400;
@@ -327,10 +350,12 @@ export function ModuleField({
       });
     };
     const sign = (now: number) => {
+      const rects = words();
       for (let tries = 0; tries < 20; tries++) {
         const c = Math.floor(Math.random() * (cols - 1));
         const r = 1 + Math.floor(Math.random() * Math.max(1, rows - 3));
         if (reach(c, r) < 0.6 || reach(c + 1, r + 1) < 0.6) continue;
+        if (!clearOf(rects, c, r, 2)) continue;
         signature = { c, r, at: now, hold: 2600 };
         return;
       }
@@ -373,6 +398,7 @@ export function ModuleField({
     build();
     draw(performance.now());
     box.setAttribute('data-ready', '');
+
     if (still) {
       const onResize = () => {
         build();
