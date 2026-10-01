@@ -2,13 +2,11 @@ import { portal } from '@/content/site';
 
 import { Band } from '../layout/band';
 import { FillText } from '../motion/fill-text';
-import { PixelReveal } from '../motion/pixel-reveal';
-import { TurnOnView } from '../motion/turn-on-view';
-import { PortalScene } from '../visuals/scenes';
+import { PortalTabs } from './portal-tabs';
 
 /**
- * aoutive's "connect the tools" section as the client portal: the cube with the symbol inside, and
- * the five things the portal really holds wired to it. The title and body are the PORTAL block.
+ * The client portal: its dashboard after Lightfield's, turning through the five things the portal
+ * holds on its own. The title and body are the PORTAL block.
  */
 export function Portal() {
   const [lead, ...rest] = portal.title.split(' ');
@@ -22,30 +20,11 @@ export function Portal() {
         <h2 id="portal-heading" className="mt-5 text-h2 tracking-[var(--tracking-heading)]">
           {lead} <FillText text={rest.join(' ')} />
         </h2>
-        <p data-reveal="" className="mx-auto mt-5 max-w-xl text-lead text-ink-2">
+        <p data-reveal="" className="mx-auto mt-5 max-w-xl text-body text-ink-2">
           {portal.body}
         </p>
       </div>
-      <PixelReveal className="mx-auto mt-10 max-w-4xl" delay={100}>
-        {/* The mark on the cube turns once the dissolve has cleared, and again when pointed at. */}
-        <TurnOnView delay={1900} className="mx-auto">
-          <div data-parallax="-30">
-            <PortalScene />
-          </div>
-        </TurnOnView>
-      </PixelReveal>
-      <ul className="mx-auto mt-6 flex max-w-3xl flex-wrap justify-center gap-2">
-        {['Project stage', 'Files', 'Agreement', 'Invoices', 'Requests'].map((item, i) => (
-          <li
-            key={item}
-            data-reveal=""
-            style={{ ['--i' as string]: i }}
-            className="rounded-full border border-line bg-white px-4 py-2 text-sm font-medium"
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
+      <PortalTabs />
     </Band>
   );
 }

@@ -1,45 +1,27 @@
 'use client';
 
-import { type ReactNode, useState } from 'react';
-
-import { Icon } from '../ui/icon';
+import type { ReactNode } from 'react';
 
 /**
- * Anything that moves on its own for more than five seconds needs a way to stop it that is not a
- * pointer — WCAG 2.2.2. One button, one name, `aria-pressed` for the state.
+ * The wrapper round anything that moves on its own. It used to carry a pause button (WCAG 2.2.2);
+ * at the owner's request the button is gone, and what moves stops only for readers who ask their
+ * system for reduced motion — every animation here honours `prefers-reduced-motion`. The wrapper
+ * and its `data-pausable` mark stay, so the pieces inside keep their hooks.
  */
 export function Pausable({
-  label,
-  tone = 'paper',
   className = '',
-  buttonClassName = 'bottom-5 left-5',
   children,
 }: {
-  label: string;
+  /** What moves, as the old button named it. Kept so callers need not change. */
+  label?: string;
   tone?: 'paper' | 'night';
   className?: string;
-  /** Where the button sits in the wrapper; lower left unless the content needs that corner. */
   buttonClassName?: string;
   children: ReactNode;
 }) {
-  const [paused, setPaused] = useState(false);
   return (
-    <div className={`relative ${className}`} data-pausable="" data-paused={paused || undefined}>
+    <div className={`relative ${className}`} data-pausable="">
       {children}
-      <button
-        type="button"
-        aria-pressed={paused}
-        onClick={() => setPaused((p) => !p)}
-        className={`absolute ${buttonClassName} z-10 grid size-9 place-items-center rounded-full border backdrop-blur transition-colors ${
-          tone === 'night'
-            ? 'border-white/20 bg-white/10 text-white hover:bg-white/20'
-            : 'border-line bg-white text-ink hover:bg-fill'
-        }`}
-      >
-        <span className="sr-only">Pause {label}</span>
-        {/* Tabler's play and pause, filled in so they read at this size. */}
-        <Icon name={paused ? 'play' : 'pause'} size={14} strokeWidth={2} fill="currentColor" />
-      </button>
     </div>
   );
 }

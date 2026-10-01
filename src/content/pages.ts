@@ -291,29 +291,19 @@ export const groupPages: GroupPage[] = [
 
 // --- the fifteen services ---------------------------------------------------------------------
 
+/**
+ * A service's search details, opening line, prices and closing. Everything else on its page — the
+ * product panel, what it does, how it compares, the packages, the questions — is in
+ * `content/products/<slug>.ts`.
+ */
 export type ServicePage = Seo & {
   slug: string;
   group: GroupSlug;
+  /** The line under the H1 in the page's opening. */
   intro: string;
-  problems: Point[];
-  builds: Point[];
-  steps: Step[];
-  goodFor: Sector[] | 'all';
-  prices: PriceCard[];
-  priceNote?: string;
-  faqs: Faq[];
   /** The solution that puts this service to work. */
   solution: string;
   closing: Heading;
-};
-
-const WEBSITE: PriceCard = {
-  name: 'Website',
-  price: '₹12,000',
-  unit: 'one-time',
-  timeline: '10–14 days',
-  lines: ['Up to 6 pages', 'Logo included'],
-  interest: 'website',
 };
 
 export const servicePages: ServicePage[] = [
@@ -327,53 +317,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'website design Bangalore',
     from: 12000,
     intro: 'Fast, search-ready websites designed around your customers.',
-    problems: [
-      {
-        icon: 'phone',
-        text: 'Enquiries arrive by phone, Instagram and email, and some are never answered.',
-      },
-      { icon: 'device', text: 'The site is hard to use on a phone.' },
-      { icon: 'search', text: 'Nobody finds it on Google.' },
-    ],
-    builds: [
-      { icon: 'device', text: 'Mobile-first design' },
-      { icon: 'search', text: 'SEO setup: titles, meta, sitemap, schema' },
-      { icon: 'chat', text: 'Enquiry form, WhatsApp and call buttons' },
-      { icon: 'chart', text: 'Analytics' },
-      { icon: 'file', text: 'Custom 404 page' },
-      {
-        icon: 'link',
-        text: 'With the Connected Website: instant WhatsApp and email replies, online booking or callbacks, and a dashboard of every lead',
-      },
-    ],
-    steps: [
-      { icon: 'search', label: 'Someone finds you on Google' },
-      { icon: 'globe', label: 'Reads and enquires' },
-      {
-        icon: 'mail',
-        label: 'The enquiry reaches you: your inbox, or your dashboard and WhatsApp',
-      },
-      { icon: 'chat', label: 'You reply, or the system replies first' },
-    ],
-    goodFor: 'all',
-    prices: [WEBSITE, CONNECTED(['Three months of Evolve included'])],
-    faqs: [
-      {
-        question: 'Website or Connected Website: which do I need?',
-        answer:
-          'Need to be online quickly, choose the Website: proven layouts, up to 6 pages, in 10–14 days. Need every enquiry answered, choose the Connected Website: designed for your brand, with instant replies, booking and a lead dashboard.',
-      },
-      {
-        question: 'Will my website show up on Google?',
-        answer:
-          'Every build includes SEO setup (titles, meta descriptions, a sitemap and schema), so Google can read and list your pages. Climbing higher for competitive searches takes ongoing SEO campaigns, which are not part of any package.',
-      },
-      {
-        question: 'Do you need my content before you start?',
-        answer:
-          'For the Website, yes: content must be supplied in full before we start. For the Connected Website, we shape the content with you. Content writing is ₹900 a page.',
-      },
-    ],
     solution: 'never-miss-a-lead',
     closing: {
       lead: 'Want a website that answers every enquiry?',
@@ -389,57 +332,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'ecommerce website development Bangalore',
     from: 42000,
     intro: 'Online stores with payments, orders and stock that stay in sync.',
-    problems: [
-      { icon: 'chat', text: 'Orders come in through DMs and get lost.' },
-      { icon: 'database', text: 'Stock online and on the shelf don’t match.' },
-      { icon: 'truck', text: 'Customers keep asking where their order is.' },
-    ],
-    builds: [
-      { icon: 'store', text: 'In the Store package: a product catalogue of up to 50 products' },
-      { icon: 'cart', text: 'Cart, checkout and payment gateway' },
-      { icon: 'truck', text: 'Order and shipping setup' },
-      { icon: 'check', text: 'Everything every build includes' },
-      { icon: 'shield', text: 'A 45-day warranty' },
-      {
-        icon: 'plug',
-        text: 'When you need more, as an E-commerce System (quoted): order updates on WhatsApp, stock synced with your billing software, larger catalogues',
-      },
-    ],
-    steps: [
-      { icon: 'search', label: 'Customer browses' },
-      { icon: 'card', label: 'Pays at checkout' },
-      { icon: 'database', label: 'Order and stock update' },
-      { icon: 'chat', label: 'Customer gets an update' },
-      { icon: 'truck', label: 'You pack and ship' },
-    ],
-    goodFor: ['Retail', 'Hospitality', 'Manufacturing'],
-    prices: [
-      {
-        name: 'Store',
-        price: '₹42,000',
-        unit: 'one-time',
-        timeline: '4–5 weeks',
-        lines: ['Up to 50 products', 'Paid in three stages', 'Product descriptions ₹120 each'],
-        interest: 'store',
-        focal: true,
-      },
-      CUSTOM(['Larger or custom stores']),
-    ],
-    faqs: [
-      {
-        question: 'How many products can the store have?',
-        answer: 'Up to 50 on the Store package. Larger catalogues are quoted as a custom store.',
-      },
-      {
-        question: 'Which payment gateway do you use?',
-        answer:
-          'The one that suits your business, and we set it up. The gateway’s own fees are charged by the gateway.',
-      },
-      {
-        question: 'Can you write the product descriptions?',
-        answer: 'Yes, for ₹120 per product. It’s optional.',
-      },
-    ],
     solution: 'sell-and-book-online',
     closing: { lead: 'Ready to sell online?', fill: 'Tell us what you sell and how you ship.' },
   },
@@ -452,44 +344,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'customer portal development',
     from: 65000,
     intro: 'A private space where customers see orders, bookings and documents.',
-    problems: [
-      { icon: 'phone', text: 'Customers call or message only to ask for an update.' },
-      { icon: 'file', text: 'Documents and invoices are sent again and again on WhatsApp.' },
-      { icon: 'layers', text: 'Nothing is in one place for the customer.' },
-    ],
-    builds: [
-      { icon: 'key', text: 'Secure login' },
-      { icon: 'tasks', text: 'Orders, bookings and their status' },
-      { icon: 'receipt', text: 'Invoices and payments' },
-      { icon: 'file', text: 'Documents and files' },
-      { icon: 'chat', text: 'Requests to your team' },
-      { icon: 'pen', text: 'Your branding throughout' },
-    ],
-    steps: [
-      { icon: 'key', label: 'Customer logs in' },
-      { icon: 'eye', label: 'Sees status, files and invoices' },
-      { icon: 'chat', label: 'Raises a request' },
-      { icon: 'people', label: 'Your team picks it up in the admin' },
-    ],
-    goodFor: ['Professional Services', 'Education', 'Real Estate', 'Manufacturing'],
-    prices: [BLUEPRINT, CUSTOM(['Quoted after a System Blueprint'])],
-    faqs: [
-      {
-        question: 'Is it like your own client portal?',
-        answer:
-          'Yes, the same idea. Every Pixel Kinetix client follows their project in a portal; we build one for your customers, around your business.',
-      },
-      {
-        question: 'How do customers log in?',
-        answer:
-          'By email or phone number, whichever suits them. Email codes cost nothing to send; SMS and WhatsApp codes are charged per message by the provider, paid by you, and we estimate them upfront.',
-      },
-      {
-        question: 'Can it connect to the software we already use?',
-        answer:
-          'Yes, where that software has an API or an export. We check this in the System Blueprint.',
-      },
-    ],
     solution: 'run-it-in-one-place',
     closing: { lead: 'Tired of “any update?” calls?', fill: 'Let’s give your customers a portal.' },
   },
@@ -502,42 +356,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'web app development Bangalore',
     from: 65000,
     intro: 'App-like tools that run in the browser. No app store needed.',
-    problems: [
-      { icon: 'file', text: 'A process lives on paper, in forms or in messages.' },
-      { icon: 'device', text: 'An app-store app would be slow and costly for what you need.' },
-      { icon: 'devices', text: 'Your people use different devices.' },
-    ],
-    builds: [
-      { icon: 'devices', text: 'Works in any browser, phone to desktop' },
-      { icon: 'apps', text: 'Can be added to the home screen and opens full screen' },
-      { icon: 'key', text: 'Logins and roles' },
-      { icon: 'plug', text: 'Connected to your data and tools' },
-      { icon: 'shield', text: 'Hosted, backed up and monitored on Evolve' },
-    ],
-    steps: [
-      { icon: 'bulb', label: 'Your idea' },
-      { icon: 'clipboard', label: 'System Blueprint' },
-      { icon: 'rocket', label: 'First version' },
-      { icon: 'trend', label: 'Used, measured, improved' },
-    ],
-    goodFor: ['Startups', 'Education', 'Professional Services', 'Manufacturing'],
-    prices: [BLUEPRINT, CUSTOM(['Quoted after a System Blueprint'])],
-    faqs: [
-      {
-        question: 'Web app or mobile app?',
-        answer:
-          'If people use it now and then, or on many kinds of device, a web app is quicker to build and costs less. If it needs deep use of the phone or notifications all day, a mobile app may suit better. We’ll tell you which.',
-      },
-      {
-        question: 'Can it work like an app on a phone?',
-        answer: 'Yes. It can be added to the home screen and opens full screen, like an app.',
-      },
-      {
-        question: 'Can we start with a small first version?',
-        answer:
-          'Yes. The System Blueprint decides what the first version must do and what can wait.',
-      },
-    ],
     solution: 'run-it-in-one-place',
     closing: {
       lead: 'Got a process that should be an app?',
@@ -553,47 +371,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'mobile app development Bangalore',
     from: 65000,
     intro: 'iOS and Android apps for your customers or your team.',
-    problems: [
-      {
-        icon: 'device',
-        text: 'Customers want to order or book from their phone, again and again.',
-      },
-      { icon: 'pin', text: 'Your team works in the field, away from a desk.' },
-      { icon: 'bell', text: 'You want to reach people with notifications on their phone.' },
-    ],
-    builds: [
-      { icon: 'device', text: 'iOS and Android apps' },
-      { icon: 'bell', text: 'Login, profiles and notifications' },
-      { icon: 'calendar', text: 'Orders, bookings or field work, as your business needs' },
-      { icon: 'plug', text: 'Connected to your website and data' },
-      { icon: 'upload', text: 'Published on the App Store and Google Play' },
-    ],
-    steps: [
-      { icon: 'clipboard', label: 'System Blueprint' },
-      { icon: 'pen', label: 'Screens designed' },
-      { icon: 'code', label: 'Built and tested' },
-      { icon: 'upload', label: 'Published' },
-      { icon: 'shield', label: 'Evolve' },
-    ],
-    goodFor: ['Retail', 'Hospitality', 'Education', 'Startups'],
-    prices: [BLUEPRINT, CUSTOM(['Quoted after a System Blueprint'])],
-    faqs: [
-      {
-        question: 'Do we need both iOS and Android?',
-        answer:
-          'Most businesses do. We usually build both from one codebase, so it costs less than two separate apps.',
-      },
-      {
-        question: 'Whose account is the app published under?',
-        answer:
-          'Yours. It goes out under your own App Store and Google Play accounts, so the app stays yours. The stores’ own fees are paid to Apple and Google.',
-      },
-      {
-        question: 'Do we need a website too?',
-        answer:
-          'Most businesses do: people find you on Google, then download the app. We connect both to the same system.',
-      },
-    ],
     solution: 'sell-and-book-online',
     closing: {
       lead: 'Want your business on their home screen?',
@@ -611,47 +388,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'business dashboard development',
     from: 65000,
     intro: 'Leads, bookings, payments and performance in one live view.',
-    problems: [
-      {
-        icon: 'table',
-        text: 'Numbers live in five places, and someone compiles them by hand.',
-      },
-      { icon: 'clock', text: 'You hear about a problem at month-end.' },
-      { icon: 'people', text: 'Each person works from a different version.' },
-    ],
-    builds: [
-      { icon: 'dashboard', text: 'One live view of leads, bookings and payments' },
-      { icon: 'filter', text: 'Filters by date, branch or person' },
-      { icon: 'key', text: 'Team roles and access' },
-      { icon: 'mail', text: 'Daily summaries on email or WhatsApp' },
-      { icon: 'download', text: 'Exports and reports' },
-    ],
-    steps: [
-      { icon: 'apps', label: 'Your tools' },
-      { icon: 'plug', label: 'Connected' },
-      { icon: 'dashboard', label: 'The dashboard updates on its own' },
-      { icon: 'mail', label: 'A daily summary reaches you' },
-    ],
-    goodFor: ['Clinics', 'Real Estate', 'Education', 'Retail'],
-    prices: [
-      CONNECTED(['A lead dashboard included']),
-      CUSTOM(['A full business dashboard', 'After a System Blueprint']),
-    ],
-    faqs: [
-      {
-        question: 'Where does the data come from?',
-        answer:
-          'From the tools you already use: your website, WhatsApp, payment gateway, spreadsheets, or software with an API. We map them in the System Blueprint.',
-      },
-      {
-        question: 'Can different people see different things?',
-        answer: 'Yes. Team roles decide who sees what.',
-      },
-      {
-        question: 'Can I check it on my phone?',
-        answer: 'Yes. It’s built mobile-first, like everything we make.',
-      },
-    ],
     solution: 'run-it-in-one-place',
     closing: { lead: 'Still adding it up by hand?', fill: 'Let’s put it in one view.' },
   },
@@ -664,42 +400,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'admin panel development',
     from: 65000,
     intro: 'Tools shaped around how your team actually works.',
-    problems: [
-      { icon: 'table', text: 'The team runs on spreadsheets that break.' },
-      { icon: 'chat', text: 'Approvals get stuck in WhatsApp chats.' },
-      { icon: 'person', text: 'Only one person knows how the process works.' },
-    ],
-    builds: [
-      { icon: 'window', text: 'Screens for the tasks your team does every day' },
-      { icon: 'tasks', text: 'Approvals and status tracking' },
-      { icon: 'key', text: 'Roles and access' },
-      { icon: 'search', text: 'Records you can search' },
-      { icon: 'bell', text: 'Alerts when something needs a person' },
-      { icon: 'table', text: 'Your spreadsheet data moved across' },
-    ],
-    steps: [
-      { icon: 'clipboard', label: 'Map the task' },
-      { icon: 'pen', label: 'Design the screens' },
-      { icon: 'code', label: 'Build' },
-      { icon: 'people', label: 'Your team uses it' },
-      { icon: 'trend', label: 'It improves every month on Evolve' },
-    ],
-    goodFor: ['Manufacturing', 'Education', 'Hospitality', 'Professional Services'],
-    prices: [BLUEPRINT, CUSTOM(['Quoted after a System Blueprint'])],
-    faqs: [
-      {
-        question: 'Can you bring our spreadsheet data across?',
-        answer: 'Yes, where it’s in a usable shape. We check it during the System Blueprint.',
-      },
-      {
-        question: 'Will my team find it easy to use?',
-        answer: 'It’s built around the way they already work, so there is less to learn.',
-      },
-      {
-        question: 'Can it grow as we do?',
-        answer: 'Yes. It’s built in phases, and Evolve adds improvements every month.',
-      },
-    ],
     solution: 'run-it-in-one-place',
     closing: {
       lead: 'Is a spreadsheet running your business?',
@@ -715,54 +415,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'CRM integration Bangalore',
     from: 65000,
     intro: 'Your website, WhatsApp and team feeding one customer record.',
-    problems: [
-      { icon: 'chat', text: 'Leads are scattered across WhatsApp, calls and email.' },
-      { icon: 'clock', text: 'Follow-ups depend on someone remembering.' },
-      { icon: 'history', text: 'Nobody knows the full history with a customer.' },
-    ],
-    builds: [
-      { icon: 'database', text: 'Every enquiry into one customer record' },
-      { icon: 'plug', text: 'Connected to your website, WhatsApp and email' },
-      { icon: 'userShare', text: 'Leads routed to the right person' },
-      { icon: 'bell', text: 'Follow-up reminders' },
-      { icon: 'people', text: 'Your existing CRM, or a simple one built for you' },
-      { icon: 'chart', text: 'Reports on where leads come from' },
-    ],
-    steps: [
-      { icon: 'mail', label: 'Enquiry arrives' },
-      { icon: 'database', label: 'Record created' },
-      { icon: 'userShare', label: 'Routed to a person' },
-      { icon: 'bell', label: 'Reminders until it’s closed' },
-      { icon: 'chart', label: 'Reported' },
-    ],
-    goodFor: ['Real Estate', 'Education', 'Clinics', 'Professional Services'],
-    prices: [
-      {
-        name: 'Lead Follow-up Automation',
-        price: 'Quoted',
-        unit: 'in writing',
-        lines: ['Lead routing', 'Follow-up reminders'],
-        interest: 'lead-follow-up',
-        cta: 'Ask for a quote',
-      },
-      CUSTOM(['A CRM build or integration']),
-    ],
-    faqs: [
-      {
-        question: 'Do we need a new CRM?',
-        answer:
-          'Not always. We can connect the one you use, or build a simple one around how you sell.',
-      },
-      {
-        question: 'Which CRMs can you connect?',
-        answer: 'Most CRMs with an API. We confirm yours in the System Blueprint.',
-      },
-      {
-        question: 'Can WhatsApp chats go into the CRM?',
-        answer:
-          'Yes. Messages on the WhatsApp Business Platform can be logged against the customer’s record.',
-      },
-    ],
     solution: 'never-miss-a-lead',
     closing: { lead: 'Losing track of leads?', fill: 'Let’s give every customer one record.' },
   },
@@ -775,43 +427,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'custom software development Bangalore',
     from: 65000,
     intro: 'Software built around your process, not the other way round.',
-    problems: [
-      { icon: 'wrench', text: 'Off-the-shelf software makes you change how you work.' },
-      { icon: 'apps', text: 'You pay for five tools that don’t talk to each other.' },
-      { icon: 'target', text: 'Your process is your edge, and no product fits it.' },
-    ],
-    builds: [
-      { icon: 'clipboard', text: 'A System Blueprint first: your process, mapped' },
-      { icon: 'layers', text: 'Software built in phases, each one usable' },
-      { icon: 'plug', text: 'Connected to the tools you keep' },
-      { icon: 'lock', text: 'Roles, security and daily backups' },
-      { icon: 'shield', text: 'Evolve after launch' },
-    ],
-    steps: [
-      { icon: 'clipboard', label: 'System Blueprint' },
-      { icon: 'rocket', label: 'Phase one live' },
-      { icon: 'chat', label: 'Your feedback' },
-      { icon: 'layers', label: 'The next phase' },
-    ],
-    goodFor: ['Manufacturing', 'Professional Services', 'Education', 'Startups'],
-    prices: [BLUEPRINT, CUSTOM(['A fixed quote per phase', 'A 45-day warranty'])],
-    faqs: [
-      {
-        question: 'How can you fix a price for something new?',
-        answer:
-          'With a System Blueprint. In 1–2 weeks we map how you work and what the software must do, then give you a fixed quote for each phase.',
-      },
-      {
-        question: 'Who owns the code?',
-        answer:
-          'You own the code written for you once it’s paid for in full. Our shared building blocks are licensed to you for good.',
-      },
-      {
-        question: 'What if we need changes after launch?',
-        answer:
-          'Evolve covers a set number of changes every month. Bigger additions are quoted as a new phase.',
-      },
-    ],
     solution: 'run-it-in-one-place',
     closing: { lead: 'Your process is your edge.', fill: 'Let’s build software around it.' },
   },
@@ -824,45 +439,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'SaaS development Bangalore',
     from: 65000,
     intro: 'Multi-team platforms and software products, built to scale.',
-    problems: [
-      { icon: 'bulb', text: 'You have a product idea but no tech team.' },
-      {
-        icon: 'people',
-        text: 'A platform must serve many teams or customers, each with their own data.',
-      },
-      { icon: 'rocket', text: 'The first version has to be real enough to sell.' },
-    ],
-    builds: [
-      { icon: 'clipboard', text: 'A first version, scoped in a System Blueprint' },
-      { icon: 'lock', text: 'Accounts for many teams or customers, each kept separate' },
-      { icon: 'card', text: 'Subscriptions and payments' },
-      { icon: 'dashboard', text: 'An admin for your team' },
-      { icon: 'trend', text: 'Built to grow in phases' },
-    ],
-    steps: [
-      { icon: 'clipboard', label: 'System Blueprint' },
-      { icon: 'rocket', label: 'First version' },
-      { icon: 'people', label: 'First customers' },
-      { icon: 'layers', label: 'The next phases' },
-    ],
-    goodFor: ['Startups'],
-    prices: [BLUEPRINT, CUSTOM(['Starting with a System Blueprint'])],
-    faqs: [
-      {
-        question: 'Can you build our first version (MVP)?',
-        answer:
-          'Yes. The System Blueprint decides what the first version must do, and what can wait.',
-      },
-      {
-        question: 'Can it grow after launch?',
-        answer: 'Yes. It’s built in phases, and Evolve keeps it running and improving.',
-      },
-      {
-        question: 'Can it take subscription payments?',
-        answer:
-          'Yes, through a payment gateway that supports subscriptions. The gateway’s fees are its own.',
-      },
-    ],
     solution: 'run-it-in-one-place',
     closing: { lead: 'Building a product?', fill: 'Let’s plan the first version.' },
   },
@@ -877,52 +453,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'WhatsApp automation for business',
     from: 45000,
     intro: 'Instant replies, reminders and follow-ups without anyone typing them.',
-    problems: [
-      { icon: 'clock', text: 'Enquiries after hours wait until morning.' },
-      { icon: 'bell', text: 'Reminders and follow-ups depend on someone remembering.' },
-      { icon: 'repeat', text: 'The same messages are typed again and again.' },
-    ],
-    builds: [
-      { icon: 'chat', text: 'Instant replies to every enquiry' },
-      { icon: 'bell', text: 'Reminders for bookings and payments' },
-      { icon: 'userCheck', text: 'Follow-ups that stop once the customer replies' },
-      { icon: 'people', text: 'Team alerts for new leads' },
-      {
-        icon: 'whatsapp',
-        text: 'Message templates approved for the WhatsApp Business Platform',
-      },
-      { icon: 'mail', text: 'Email copies for your records' },
-    ],
-    steps: [
-      { icon: 'mail', label: 'Enquiry arrives' },
-      { icon: 'whatsapp', label: 'Reply goes out on WhatsApp and email' },
-      { icon: 'bell', label: 'Your team is alerted' },
-      { icon: 'calendar', label: 'A follow-up is scheduled' },
-    ],
-    goodFor: ['Clinics', 'Real Estate', 'Education', 'Hospitality'],
-    prices: [CONNECTED(['Instant WhatsApp and email replies included'])],
-    priceNote: 'For your existing website or CRM: quoted in writing.',
-    faqs: [
-      {
-        question: 'Is this the official WhatsApp?',
-        answer:
-          'Yes. We use the official WhatsApp Business Platform through an approved provider, and connect it to your website, CRM, payments and email.',
-      },
-      {
-        question: 'Will messages come from our own number?',
-        answer: 'Yes, from your business’s own number, set up on the WhatsApp Business Platform.',
-      },
-      {
-        question: 'What does WhatsApp charge?',
-        answer:
-          'Meta charges for some messages. It’s paid to the provider, not to us, and we estimate it for you upfront.',
-      },
-      {
-        question: 'Can our team still reply by hand?',
-        answer:
-          'Yes. Automation sends the first reply and the reminders; your team takes over whenever a conversation needs a person.',
-      },
-    ],
     solution: 'never-miss-a-lead',
     closing: {
       lead: 'How long does an enquiry wait today?',
@@ -938,54 +468,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'online booking system for business',
     from: 45000,
     intro: 'Customers book and pay themselves; confirmations go out on their own.',
-    problems: [
-      { icon: 'phone', text: 'Booking by phone ties up your front desk.' },
-      { icon: 'calendar', text: 'No-shows cost you the slot.' },
-      { icon: 'rupee', text: 'Payments are chased by hand.' },
-    ],
-    builds: [
-      { icon: 'calendar', text: 'Online booking' },
-      { icon: 'whatsapp', text: 'Confirmations and reminders on WhatsApp' },
-      { icon: 'card', text: 'Optional payment at booking' },
-      { icon: 'refresh', text: 'Calendar integration where required' },
-      { icon: 'bell', text: 'No-show follow-ups' },
-      { icon: 'receipt', text: 'Payment links and payment reminders' },
-    ],
-    steps: [
-      { icon: 'calendar', label: 'Customer picks a slot' },
-      { icon: 'card', label: 'Pays, if you ask them to' },
-      { icon: 'whatsapp', label: 'Confirmation on WhatsApp' },
-      { icon: 'bell', label: 'Reminder before the visit' },
-      { icon: 'repeat', label: 'Follow-up if it’s missed' },
-    ],
-    goodFor: ['Clinics', 'Hospitality', 'Education', 'Professional Services'],
-    prices: [
-      CONNECTED(['Online booking included']),
-      {
-        name: 'Booking & Appointment System',
-        price: 'Quoted',
-        unit: 'in writing',
-        lines: ['With payments'],
-        interest: 'booking-system',
-        cta: 'Ask for a quote',
-      },
-    ],
-    faqs: [
-      {
-        question: 'Can it sync with Google Calendar?',
-        answer:
-          'Yes, where you need it to. Calendar integration is part of the Booking & Appointment System.',
-      },
-      {
-        question: 'Can customers pay when they book?',
-        answer: 'Yes, if you want them to. The payment gateway’s fees are its own.',
-      },
-      {
-        question: 'Can you send payment reminders for invoices too?',
-        answer:
-          'Yes. Payment links and reminders go out on WhatsApp and email until the invoice is paid.',
-      },
-    ],
     solution: 'sell-and-book-online',
     closing: { lead: 'Still booking by phone?', fill: 'Let customers book themselves.' },
   },
@@ -997,51 +479,6 @@ export const servicePages: ServicePage[] = [
       'Payments, CRM, accounting and Google Workspace talking to each other, so data is entered once and reaches every tool that needs it. Monitored on Evolve.',
     keyword: 'API integration services',
     intro: 'Payments, CRM, accounting and Google Workspace, talking to each other.',
-    problems: [
-      { icon: 'repeat', text: 'The same data is typed into three tools.' },
-      { icon: 'question', text: 'Tools disagree, and nobody knows which is right.' },
-      { icon: 'alert', text: 'Small errors slip in when data is copied by hand.' },
-    ],
-    builds: [
-      { icon: 'plug', text: 'Connections between the tools you use' },
-      { icon: 'refresh', text: 'Data entered once, synced everywhere' },
-      { icon: 'bell', text: 'Checks and alerts when a sync fails' },
-      { icon: 'history', text: 'A log of what moved and when' },
-      { icon: 'shield', text: 'Monitored on Evolve' },
-    ],
-    steps: [
-      { icon: 'apps', label: 'Something happens in one tool' },
-      { icon: 'plug', label: 'The connection picks it up' },
-      { icon: 'layers', label: 'It lands in the others' },
-      { icon: 'bell', label: 'You’re alerted if anything fails' },
-    ],
-    goodFor: 'all',
-    prices: [
-      {
-        name: 'Custom',
-        price: 'Quoted',
-        unit: 'in writing',
-        lines: ['Connections between your tools', 'Monitored on Evolve'],
-        interest: 'custom',
-        cta: 'Ask for a quote',
-      },
-    ],
-    priceNote: 'A small one-off connection can be ₹700 an hour.',
-    faqs: [
-      {
-        question: 'Which tools can you connect?',
-        answer:
-          'Most tools with an API: payment gateways, CRMs, accounting software, Google Workspace and more.',
-      },
-      {
-        question: 'What if a tool has no API?',
-        answer: 'We look for exports, webhooks or email. If there’s no reliable way, we tell you.',
-      },
-      {
-        question: 'What happens if a connection breaks?',
-        answer: 'You’re alerted. On an Evolve plan we fix it within your plan’s response time.',
-      },
-    ],
     solution: 'run-it-in-one-place',
     closing: { lead: 'Typing the same thing twice?', fill: 'Let’s connect your tools.' },
   },
@@ -1054,48 +491,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'AI chatbot for business',
     from: 65000,
     intro: 'An assistant that answers customers using your business’s own information.',
-    problems: [
-      {
-        icon: 'question',
-        text: 'The same questions arrive all day: prices, timings, availability.',
-      },
-      { icon: 'clock', text: 'After hours, nobody answers.' },
-      { icon: 'repeat', text: 'Your team loses time on questions a page already answers.' },
-    ],
-    builds: [
-      {
-        icon: 'book',
-        text: 'Answers from your own information: services, prices, timings, policies',
-      },
-      { icon: 'whatsapp', text: 'On your website and WhatsApp' },
-      { icon: 'userCheck', text: 'Hands over to a person when it should' },
-      { icon: 'database', text: 'Saves the lead with the conversation' },
-      { icon: 'eye', text: 'Every conversation visible to you' },
-    ],
-    steps: [
-      { icon: 'chat', label: 'Customer asks' },
-      { icon: 'spark', label: 'The assistant answers from your information' },
-      { icon: 'userCheck', label: 'Hands over if needed' },
-      { icon: 'database', label: 'The lead is saved' },
-    ],
-    goodFor: ['Clinics', 'Education', 'Real Estate', 'Hospitality'],
-    prices: [BLUEPRINT, CUSTOM(['After a System Blueprint'])],
-    faqs: [
-      {
-        question: 'Will it make things up?',
-        answer:
-          'It’s set up to answer only from the information you give it, and to hand over to a person when it isn’t sure. We test it on your real questions before launch.',
-      },
-      {
-        question: 'What does it cost to run?',
-        answer:
-          'AI providers charge per use. It’s paid to the provider, and we estimate it upfront.',
-      },
-      {
-        question: 'Can it book appointments?',
-        answer: 'Yes. Connected to your booking system, it can offer free slots and book them.',
-      },
-    ],
     solution: 'never-miss-a-lead',
     closing: {
       lead: 'Answering the same questions all day?',
@@ -1111,42 +506,6 @@ export const servicePages: ServicePage[] = [
     keyword: 'AI workflow automation',
     from: 65000,
     intro: 'AI that reads documents, enters data and spots what needs attention.',
-    problems: [
-      { icon: 'file', text: 'Invoices, forms and documents are typed in by hand.' },
-      { icon: 'mail', text: 'Important emails get buried.' },
-      { icon: 'eye', text: 'Patterns show only when someone has time to look.' },
-    ],
-    builds: [
-      { icon: 'scan', text: 'Documents read and data entered: invoices, forms, emails' },
-      { icon: 'userCheck', text: 'A person approves before anything is final' },
-      { icon: 'bell', text: 'Alerts when something needs attention' },
-      { icon: 'file', text: 'Summaries of what changed' },
-      { icon: 'plug', text: 'Connected to your tools' },
-    ],
-    steps: [
-      { icon: 'file', label: 'Document arrives' },
-      { icon: 'fileSpark', label: 'AI reads it' },
-      { icon: 'userCheck', label: 'A person checks' },
-      { icon: 'database', label: 'Data lands in your system' },
-      { icon: 'mail', label: 'You get a summary' },
-    ],
-    goodFor: ['Professional Services', 'Manufacturing', 'Real Estate', 'Education'],
-    prices: [BLUEPRINT, CUSTOM(['After a System Blueprint'])],
-    faqs: [
-      {
-        question: 'What kind of work suits AI?',
-        answer: 'Repetitive reading and typing: invoices, forms, emails, documents.',
-      },
-      {
-        question: 'How accurate is it?',
-        answer:
-          'It depends on your documents, so we test it on real samples before your team relies on it, and a person approves the results.',
-      },
-      {
-        question: 'Will it replace my team?',
-        answer: 'No. It takes the typing off them; the decisions stay with people.',
-      },
-    ],
     solution: 'run-it-in-one-place',
     closing: { lead: 'Drowning in paperwork?', fill: 'Let AI do the reading.' },
   },
@@ -1163,49 +522,10 @@ export const evolvePage = {
   monthly: true,
   chip: 'Services',
   intro: 'Hosting, security, backups, monitoring and monthly improvements for everything we build.',
-  why: {
-    heading: 'Launch is where it starts',
-    body: 'A system left alone after launch falls behind the business. Evolve keeps it moving: a set number of changes every month, and someone watching that it stays up and safe.',
-  },
-  includes: [
-    { icon: 'server', text: 'Hosting, SSL and CDN' },
-    { icon: 'database', text: 'Daily backups' },
-    { icon: 'gauge', text: 'Uptime monitoring' },
-    { icon: 'shield', text: 'Security updates' },
-    { icon: 'pen', text: 'Content changes every month' },
-    { icon: 'chat', text: 'Technical support' },
-  ] satisfies Point[],
   terms: {
     heading: 'The terms',
     body: 'Three months minimum, then monthly. Cancel with 30 days’ notice. You own your domain and your content, always, and get a full export within 10 working days if you leave. Hosting is included in all three plans.',
   },
-  faqs: [
-    {
-      question: 'What counts as one content change?',
-      answer:
-        'One content change is one set of edits, sent together, to one page. Five staff photos on one page is one change. Three different pages is three changes. A brand-new page is quoted separately.',
-    },
-    {
-      question: 'Is hosting included?',
-      answer:
-        'Yes, in all three Evolve plans. The Connected Website comes with its first three months of Evolve.',
-    },
-    {
-      question: 'Can you look after a site you didn’t build?',
-      answer:
-        'Yes. Moving an existing site to us costs ₹5,000 to ₹12,000; after that it joins an Evolve plan like any other.',
-    },
-    {
-      question: 'What does Evolve not cover?',
-      answer:
-        'Brand-new pages and new features, which are quoted separately, and third-party fees, which are paid at cost.',
-    },
-    {
-      question: 'What happens if I leave?',
-      answer:
-        'You own your domain and your content. We hand over a full export within 10 working days.',
-    },
-  ] satisfies Faq[],
   closing: {
     lead: 'Launched something that’s standing still?',
     fill: 'Let’s keep it improving.',
@@ -1214,35 +534,15 @@ export const evolvePage = {
 
 // --- the four solutions -------------------------------------------------------------------------
 
-/** One way into a solution: a card listing what it includes. */
-export type Way = {
-  /** Its own heading (an H2), when the section has none. */
-  heading?: string;
-  name: string;
-  intro?: string;
-  lines: string[];
-  price?: string;
-  timeline?: string;
-  note?: string;
-  interest: string;
-  cta?: string;
-  href?: string;
-  focal?: boolean;
-};
-
+/**
+ * A solution's search details, opening line and closing; the rest of its page, its ways in among it, is in
+ * `content/products/<slug>.ts`, as a service's is.
+ */
 export type SolutionPage = Seo & {
   slug: string;
+  /** The line under the H1 in the page's opening. */
   intro: string;
   tint: Tint;
-  problem: { heading: string; points: Point[] };
-  ways: { heading?: string; cards: Way[] };
-  steps: Step[];
-  extras?: { heading: string; body: string }[];
-  prices?: PriceCard[];
-  priceNote?: string;
-  goodFor: Sector[] | 'all';
-  faqs: Faq[];
-  /** The services it is built from, by anchor — each linked from the page. */
   services: string[];
   closing: Heading;
 };
@@ -1258,87 +558,6 @@ export const solutionPages: SolutionPage[] = [
     intro:
       'We catch every enquiry: from your website, your ads and WhatsApp, answered at once and tracked until it’s closed.',
     tint: 'mint',
-    problem: {
-      heading: 'Where leads go missing',
-      points: [
-        { icon: 'phone', text: 'Calls after hours ring out.' },
-        { icon: 'chat', text: 'DMs and WhatsApp messages get buried.' },
-        { icon: 'clock', text: 'Follow-ups depend on someone remembering.' },
-      ],
-    },
-    ways: {
-      cards: [
-        {
-          heading: 'The Connected Website',
-          name: 'Connected Website',
-          lines: [
-            'Designed from scratch for your brand',
-            'Three revision rounds',
-            'Enquiries from your site, ads and WhatsApp in one place',
-            'Instant WhatsApp and email replies',
-            'Online booking or callbacks',
-            'Team alerts',
-            'A dashboard of every lead and its status',
-            'Three months of Evolve',
-          ],
-          price: 'From ₹45,000',
-          timeline: '4–6 weeks',
-          interest: 'connected-website',
-          cta: 'Start with the Connected Website',
-          focal: true,
-        },
-        {
-          heading: 'Already have a website?',
-          name: 'Lead Follow-up Automation',
-          intro: 'Lead Follow-up Automation adds the system to the site you have:',
-          lines: [
-            'Lead routing',
-            'Follow-up reminders',
-            'WhatsApp message templates',
-            'CRM sync',
-            'Conversion tracking',
-          ],
-          price: 'Quoted in writing',
-          interest: 'lead-follow-up',
-          cta: 'Ask for a quote',
-        },
-      ],
-    },
-    steps: [
-      { icon: 'globe', label: 'Enquiry: site, ads, WhatsApp' },
-      { icon: 'chat', label: 'Instant reply: WhatsApp and email' },
-      { icon: 'phone', label: 'Team alert' },
-      { icon: 'dashboard', label: 'Lead on your dashboard' },
-      { icon: 'check', label: 'Reminders until it’s closed' },
-    ],
-    extras: [
-      {
-        heading: 'What your dashboard shows',
-        body: 'Every lead, where it came from, its status and who is on it.',
-      },
-    ],
-    goodFor: ['Clinics', 'Real Estate', 'Education', 'Professional Services'],
-    faqs: [
-      {
-        question: 'How do the Website and the Connected Website differ?',
-        answer:
-          'The Website gets you online quickly: proven layouts, one revision round, 10–14 days. The Connected Website is designed for your brand, with three revision rounds, and adds instant replies, online booking or callbacks and a lead dashboard, in 4–6 weeks, with three months of Evolve.',
-      },
-      {
-        question: 'Can you connect WhatsApp to our website and CRM?',
-        answer:
-          'Yes. We use the official WhatsApp Business Platform through an approved provider, and connect it to your website, CRM, payments and email. Meta charges for some messages; we estimate this for you upfront.',
-      },
-      {
-        question: 'Do you need my content before you start?',
-        answer: 'No. For the Connected Website, we shape the content with you.',
-      },
-      {
-        question: 'What happens after the three months of Evolve?',
-        answer:
-          'You choose an Evolve plan to carry on, from ₹899 a month. If you’d rather not, you get a full export of your site and content within 10 working days.',
-      },
-    ],
     services: [
       'business-websites',
       'whatsapp-automation',
@@ -1361,78 +580,6 @@ export const solutionPages: SolutionPage[] = [
     intro:
       'We help you sell: an online store or a booking system that takes the payment and keeps the customer updated on WhatsApp.',
     tint: 'butter',
-    problem: {
-      heading: 'Where sales slip away',
-      points: [
-        { icon: 'chat', text: 'Orders arrive in DMs and get lost.' },
-        { icon: 'phone', text: 'Bookings tie up the phone.' },
-        { icon: 'calendar', text: 'No-shows cost you the slot.' },
-        { icon: 'rupee', text: 'Payments are chased by hand.' },
-      ],
-    },
-    ways: {
-      heading: 'Two ways in',
-      cards: [
-        {
-          name: 'E-commerce System',
-          lines: [
-            'Online store',
-            'Product catalogue',
-            'Payment gateway',
-            'Order and shipping setup',
-            'Order updates on WhatsApp',
-            'Hosting and security',
-          ],
-          price: '₹42,000',
-          note: 'It starts with the Store package, ₹42,000 for up to 50 products; WhatsApp order updates are quoted.',
-          interest: 'store',
-          cta: 'Start with the Store',
-        },
-        {
-          name: 'Booking & Appointment System',
-          lines: [
-            'Online booking',
-            'Confirmations and reminders on WhatsApp',
-            'Optional payments',
-            'Calendar integration where required',
-            'No-show follow-ups',
-          ],
-          price: 'From ₹45,000',
-          note: 'Online booking comes with the Connected Website, from ₹45,000.',
-          interest: 'booking-system',
-          cta: 'Talk to us about booking',
-        },
-      ],
-    },
-    steps: [
-      { icon: 'cart', label: 'Customer buys or books' },
-      { icon: 'card', label: 'Pays' },
-      { icon: 'whatsapp', label: 'Confirmation on WhatsApp' },
-      { icon: 'bell', label: 'An update or a reminder' },
-      { icon: 'check', label: 'You fulfil' },
-    ],
-    goodFor: ['Retail', 'Hospitality', 'Clinics', 'Education'],
-    faqs: [
-      {
-        question: 'A store or a booking system: which do I need?',
-        answer:
-          'Selling products, the store. Selling time (appointments, tables, classes), the booking system. Some businesses need both, and they share one system.',
-      },
-      {
-        question: 'Which payment gateway do you use?',
-        answer:
-          'The one that suits your business, and we set it up. The gateway’s own fees are charged by the gateway.',
-      },
-      {
-        question: 'Do customers get updates on WhatsApp?',
-        answer:
-          'Yes: order confirmations and updates from the store, confirmations and reminders for bookings.',
-      },
-      {
-        question: 'Can you write the product descriptions?',
-        answer: 'Yes, for ₹120 per product. It’s optional.',
-      },
-    ],
     services: [
       'e-commerce-stores',
       'booking-payment-workflows',
@@ -1454,70 +601,6 @@ export const solutionPages: SolutionPage[] = [
     intro:
       'We connect your operations: one dashboard for the business, and your tools talking to each other.',
     tint: 'sky',
-    problem: {
-      heading: 'Where the time goes',
-      points: [
-        { icon: 'table', text: 'Numbers live in five places.' },
-        { icon: 'alert', text: 'Spreadsheets break.' },
-        { icon: 'plug', text: 'Tools don’t talk to each other.' },
-      ],
-    },
-    ways: {
-      heading: 'Two ways in',
-      cards: [
-        {
-          name: 'Business Dashboard & CRM',
-          lines: [
-            'Leads, bookings and payments in one view',
-            'Team roles and access',
-            'Daily summaries',
-            'Exports and reports',
-          ],
-          interest: 'business-dashboard',
-          cta: 'Talk to us about a dashboard',
-        },
-        {
-          name: 'Modernise & Connect',
-          lines: [
-            'Website redesign',
-            'Connect the tools you already use',
-            'Move off spreadsheets',
-            'Speed improvements',
-            'Security review',
-          ],
-          interest: 'modernise-and-connect',
-          cta: 'Talk to us about connecting',
-        },
-      ],
-    },
-    steps: [
-      { icon: 'clipboard', label: 'System Blueprint' },
-      { icon: 'plug', label: 'Your tools connected' },
-      { icon: 'dashboard', label: 'The dashboard goes live' },
-      { icon: 'trend', label: 'It improves every month' },
-    ],
-    prices: [BLUEPRINT, CUSTOM(['A fixed quote per phase'])],
-    priceNote: 'Speed optimisation of an existing site on its own: ₹5,000.',
-    goodFor: ['Manufacturing', 'Education', 'Real Estate', 'Clinics'],
-    faqs: [
-      {
-        question: 'Do we have to replace our software?',
-        answer: 'No. We connect what works and build only what’s missing.',
-      },
-      {
-        question: 'Can we move off Excel?',
-        answer: 'Yes. Your spreadsheet data comes across where it’s in a usable shape.',
-      },
-      {
-        question: 'Why start with a System Blueprint?',
-        answer:
-          'Because a fixed price needs a clear picture. In 1–2 weeks we map how you work and where it loses time, and hand you a phased plan and a fixed quote.',
-      },
-      {
-        question: 'Can you redesign our current website as well?',
-        answer: 'Yes. A redesign is part of Modernise & Connect, quoted with the rest.',
-      },
-    ],
     services: [
       'dashboards',
       'crm-systems',
@@ -1540,81 +623,6 @@ export const solutionPages: SolutionPage[] = [
     monthly: true,
     intro: 'You run your business. We keep your system fast, safe and getting better.',
     tint: 'blush',
-    problem: {
-      heading: 'Signs your site needs looking after',
-      points: [
-        { icon: 'pen', text: 'Nobody updates it.' },
-        { icon: 'gauge', text: 'It’s slow, or it went down and nobody noticed.' },
-        { icon: 'person', text: 'The person who built it has moved on.' },
-      ],
-    },
-    ways: {
-      heading: 'Two ways in',
-      cards: [
-        {
-          name: 'Move to Better Hosting',
-          lines: [
-            'Managed hosting',
-            'Migration',
-            'Domain and DNS',
-            'SSL',
-            'Backups',
-            'Performance',
-            'CDN',
-            'Monitoring baseline',
-          ],
-          price: '₹5,000–12,000',
-          note: 'Moving an existing site costs ₹5,000 to ₹12,000.',
-          interest: 'move-to-better-hosting',
-          cta: 'Move your site to us',
-        },
-        {
-          name: 'Evolve Plan',
-          lines: [
-            'Hosting, SSL and CDN',
-            'Uptime monitoring',
-            'Daily backups',
-            'Security updates',
-            'Content changes every month',
-            'Technical support',
-          ],
-          price: 'From ₹899',
-          note: 'From ₹899 a month; the full table is on the Evolve page.',
-          interest: 'evolve',
-          cta: 'See the Evolve plans',
-          href: '/services/evolve#evolve-plans',
-        },
-      ],
-    },
-    steps: [
-      { icon: 'search', label: 'We review your site' },
-      { icon: 'move', label: 'Move it, testing before the switch' },
-      { icon: 'shield', label: 'It joins an Evolve plan' },
-      { icon: 'chat', label: 'Changes by message, every month' },
-    ],
-    goodFor: 'all',
-    faqs: [
-      {
-        question: 'Can you look after a site you didn’t build?',
-        answer:
-          'Yes. We move it to us first (₹5,000 to ₹12,000), and then it joins an Evolve plan like any other.',
-      },
-      {
-        question: 'Will my site go offline during the move?',
-        answer:
-          'We move it with a planned cutover and test it before switching, to keep any downtime short.',
-      },
-      {
-        question: 'What counts as one content change?',
-        answer:
-          'One content change is one set of edits, sent together, to one page. A brand-new page is quoted separately.',
-      },
-      {
-        question: 'What are the terms?',
-        answer:
-          'Three months minimum, then monthly, with 30 days’ notice to cancel. You own your domain and your content, always.',
-      },
-    ],
     services: ['evolve'],
     closing: { lead: 'Stuck with a site nobody looks after?', fill: 'Bring it to us.' },
   },

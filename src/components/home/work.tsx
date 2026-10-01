@@ -21,34 +21,37 @@ import { SectionHead } from './section-head';
  * rather than the kind of business, which the site itself already shows.
  */
 const SYSTEMS: Record<string, string> = {
-  kora: 'Booking + WhatsApp reminders',
-  saffron: 'Table bookings + order alerts',
-  loom: 'Store + order updates',
-  brightpath: 'Admissions + fee reminders',
-  northfield: 'Site visits + lead dashboard',
-  ember: 'Online orders + stock sync',
-  meridian: 'Client intake + follow-ups',
-  fieldnote: 'Field-team dashboard',
+  interiordesign: 'Website + enquiry inbox',
+  fashionstore: 'Store + order updates',
+  partsdistributor: 'Customer portal + invoices',
+  logistics: 'Dispatch app + proof of delivery',
+  restaurant: 'Ordering app + table bookings',
+  solarenergy: 'Generation dashboard',
+  school: 'Admissions + approvals',
+  realestate: 'Lead CRM + site visits',
+  construction: 'Projects + purchase approvals',
+  recruitment: 'Hiring platform + client access',
+  dentalclinic: 'Booking + WhatsApp reminders',
+  salon: 'Online booking + deposits',
+  travelagency: 'Bookings + supplier sync',
+  lawfirm: 'AI assistant + consultations',
+  accounting: 'Invoice reading + approvals',
 };
 
+/** The fifteen service pages' example businesses, five to a row, each shown once. */
+const row = (ids: string[]) => ids.map((id) => BRANDS[id]!);
 const ROWS: { brands: Brand[]; duration: string; reverse?: boolean }[] = [
   {
-    brands: [BRANDS.northfield!, BRANDS.ember!, BRANDS.kora!, BRANDS.fieldnote!, BRANDS.loom!],
+    brands: row(['dentalclinic', 'interiordesign', 'logistics', 'solarenergy', 'lawfirm']),
     duration: '70s',
   },
   {
-    brands: [
-      BRANDS.meridian!,
-      BRANDS.saffron!,
-      BRANDS.brightpath!,
-      BRANDS.northfield!,
-      BRANDS.ember!,
-    ],
+    brands: row(['restaurant', 'realestate', 'school', 'travelagency', 'fashionstore']),
     duration: '90s',
     reverse: true,
   },
   {
-    brands: [BRANDS.loom!, BRANDS.fieldnote!, BRANDS.meridian!, BRANDS.kora!, BRANDS.saffron!],
+    brands: row(['salon', 'construction', 'partsdistributor', 'recruitment', 'accounting']),
     duration: '80s',
   },
 ];
@@ -61,7 +64,8 @@ function Card({ b }: { b: Brand }) {
       </Scaled>
       <span className="absolute bottom-3 left-5 inline-flex items-center gap-2 rounded-full bg-black/70 px-3 py-1.5 text-[0.6875rem] font-medium text-white backdrop-blur md:bottom-4 md:left-7">
         <span className="size-1.5 rounded-full bg-white/80" />
-        {b.name} · {SYSTEMS[b.id] ?? b.kind}
+        {b.name}
+        <span className="hidden md:inline">· {SYSTEMS[b.id] ?? b.kind}</span>
       </span>
     </div>
   );
@@ -85,7 +89,7 @@ export function Work() {
             eyebrow="Concept work"
             tone="night"
             heading={headings.work}
-            intro="Concept systems for a clinic, a restaurant, a store and more: the website customers see, and the automation working behind it. Real client projects appear here as they launch."
+            intro="Concept systems for a dental clinic, a restaurant, a logistics company and twelve more: the website customers see, and the automation working behind it. Real client projects appear here as they launch."
           />
           <div data-reveal="">
             <RollLink href={START.href} variant="paper">

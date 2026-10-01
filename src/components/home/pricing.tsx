@@ -88,7 +88,10 @@ export function Pricing({ only }: { only?: Segment } = {}) {
 
   return (
     <div className={only ? '' : 'mt-12'}>
-      <div id="evolve-plans" className="flex flex-wrap items-center justify-between gap-4">
+      <div
+        id="evolve-plans"
+        className="flex flex-wrap items-center justify-center gap-4 sm:justify-between"
+      >
         {only ? null : (
           <Segmented
             label="What to price"
@@ -131,7 +134,7 @@ export function Pricing({ only }: { only?: Segment } = {}) {
       </div>
 
       <Morph id={segment} className="mt-6">
-        <ul className="grid overflow-hidden rounded-[var(--radius-panel)] border border-line bg-white lg:grid-cols-3">
+        <ul className="grid grid-cols-1 overflow-hidden rounded-[var(--radius-panel)] border border-line bg-white lg:grid-cols-3">
           {main.map((offer, i) => {
             const focal = i === 1;
             const headline =
@@ -146,9 +149,9 @@ export function Pricing({ only }: { only?: Segment } = {}) {
             return (
               <li
                 key={offer.slug}
-                className={`relative flex flex-col border-line p-7 max-lg:border-b max-lg:last:border-b-0 lg:border-r lg:last:border-r-0 ${focal ? 'on-night bg-night text-white' : ''}`}
+                className={`relative flex min-w-0 flex-col border-line p-5 max-lg:border-b max-lg:last:border-b-0 sm:p-7 lg:border-r lg:last:border-r-0 ${focal ? 'on-night bg-night text-white' : ''}`}
               >
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <h3 className="font-display text-h4 font-medium">{offer.name}</h3>
                   {offer.notes[0] && segment === 'websites' ? (
                     <span
@@ -163,7 +166,7 @@ export function Pricing({ only }: { only?: Segment } = {}) {
                 >
                   {offer.summary ?? 'Hosting, SSL and a CDN are included in every plan.'}
                 </p>
-                <p className="mt-6 flex items-baseline gap-2">
+                <p className="mt-6 flex flex-wrap items-baseline gap-x-2 gap-y-1">
                   {from ? (
                     <span className={`text-sm ${focal ? 'text-white/60' : 'text-ink-2'}`}>
                       From
@@ -186,12 +189,20 @@ export function Pricing({ only }: { only?: Segment } = {}) {
                     <Icon name="calendar" size={13} /> {offer.timeline}
                   </p>
                 ) : null}
+                {/* A label can't wrap and still roll, so the narrowest phones get a short one. */}
                 <RollLink
                   href={startFor(segment === 'websites' ? offer.slug : 'evolve')}
                   variant={focal ? 'paper' : 'line'}
-                  className="mt-7 w-full"
+                  className="mt-7 w-full max-[359px]:hidden"
                 >
                   {segment === 'websites' ? 'Start with ' + offer.name : 'Choose ' + offer.name}
+                </RollLink>
+                <RollLink
+                  href={startFor(segment === 'websites' ? offer.slug : 'evolve')}
+                  variant={focal ? 'paper' : 'line'}
+                  className="mt-7 w-full min-[360px]:hidden"
+                >
+                  {segment === 'websites' ? 'Get started' : 'Choose'}
                 </RollLink>
                 <ul
                   className={`mt-7 flex flex-col gap-3 border-t pt-6 text-sm ${focal ? 'border-white/15' : 'border-line'}`}
@@ -232,7 +243,7 @@ export function Pricing({ only }: { only?: Segment } = {}) {
         </ul>
 
         {more.length ? (
-          <ul className="mt-8 grid gap-6 xl:grid-cols-2 xl:gap-8">
+          <ul className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2 xl:gap-8">
             {more.map((offer, j) => {
               const detail = largerBuilds[offer.slug];
               // "From ₹65,000" set whole at display size outgrows the card's left column, so the

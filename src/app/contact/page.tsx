@@ -5,7 +5,7 @@ import { NextSteps } from '@/components/contact/next-steps';
 import { Band } from '@/components/layout/band';
 import { Card, CardBand } from '@/components/pages/cards';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
-import { Questions, Section } from '@/components/pages/sections';
+import { FaqBand } from '@/components/pages/sections';
 import { Icon } from '@/components/ui/icon';
 import { RollLink } from '@/components/ui/roll-link';
 import { ConnectScene } from '@/components/visuals/connect-scene';
@@ -14,7 +14,7 @@ import { ENQUIRY_AUTOMATION_LIVE, enquiryLive } from '@/lib/enquiry';
 
 /**
  * `/contact` — where every "Get Started" leads. Under the headline, the three quickest ways in:
- * email first in Kinetic Blue, WhatsApp in its own green and Call Now with its phone ringing.
+ * email first in Kinetic Orange, WhatsApp in its own green and Call Now with its phone ringing.
  * Then the enquiry form, "Tell us about it", with what happens next beside it; the ways to reach
  * us; and three questions.
  *
@@ -175,7 +175,7 @@ export default function Contact() {
             </div>
             <ul data-reveal="" className="flex flex-col divide-y divide-line border-y border-line">
               {ASKS.map((ask, i) => (
-                <li key={ask} className="flex items-center gap-5 py-5 text-lead text-ink">
+                <li key={ask} className="flex items-center gap-5 py-5 text-body text-ink">
                   <span className="font-tech text-xs text-ink-2">0{i + 1}</span>
                   {ask}
                 </li>
@@ -189,9 +189,7 @@ export default function Contact() {
         </Band>
       )}
 
-      <Section id="questions" eyebrow="Contact" title="Questions">
-        <Questions faqs={FAQS} />
-      </Section>
+      <FaqBand eyebrow="Contact" title="Questions" faqs={FAQS} />
     </>
   );
 }

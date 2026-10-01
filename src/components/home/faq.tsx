@@ -20,11 +20,14 @@ import { Segmented } from '../ui/segmented';
  * icon lifting with it.
  *
  * The questions are automatix's, measured off its page and turned light: no card at rest — a large
- * question in a muted grey, a chevron at the far end, 18px by 36px of padding, 14px between rows.
+ * question in a muted grey, a plus at the far end, 18px by 36px of padding, 14px between rows.
  * Pointed at, the row fills and the question darkens; open, it becomes a bordered card on a faint
- * top-to-bottom wash, the chevron turns over, and the answer rises in a beat after the height, on
+ * top-to-bottom wash, the plus turns over into a minus, and the answer rises in a beat after the height, on
  * a short spring that overshoots only a little. The height is set in pixels, not released to
  * `auto`, so that spring has something to run between.
+ *
+ * Under the rail, in the column's empty space, a small card with the ways to ask; on a phone it
+ * follows the questions.
  *
  * Every answer of every shelf is in the server HTML — the shelves not chosen sit `hidden` — so all
  * of them are on the page and in its FAQPage data. Before script runs, CSS closes every card but
@@ -77,9 +80,8 @@ export function FaqList({ items, initial = 0 }: { items: FaqEntry[]; initial?: n
                 className="flex w-full items-center gap-6 px-5 py-[1.125rem] text-left sm:px-9"
               >
                 <span className="faq-item__q">{faq.question}</span>
-                <span aria-hidden="true" className="faq-item__chevron">
-                  <Icon name="chevron" size={22} strokeWidth={1.8} />
-                </span>
+                {/* HBR's toggle: a plus that turns half over into a minus as the answer opens. */}
+                <span aria-hidden="true" className="faq-item__toggle" />
               </button>
             </h3>
             <div
@@ -142,47 +144,51 @@ export function Faq() {
           />
         </div>
 
-        <div
-          ref={rail}
-          role="tablist"
-          aria-label="Question categories"
-          aria-orientation="vertical"
-          data-placed={placed || undefined}
-          className="faq-rail relative hidden flex-col gap-1 lg:flex"
-        >
-          <span ref={marker} aria-hidden="true" className="faq-marker" />
-          {faqGroups.map((g, i) => (
-            <button
-              key={g.id}
-              type="button"
-              role="tab"
-              id={`${ids}-tab-${g.id}`}
-              aria-selected={i === group}
-              aria-controls={`${ids}-panel`}
-              tabIndex={i === group ? 0 : -1}
-              data-active={i === group || undefined}
-              onClick={() => choose(i)}
-              onKeyDown={(event) => {
-                const keys = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'];
-                if (!keys.includes(event.key)) return;
-                event.preventDefault();
-                const step = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
-                const to = (i + step + count) % count;
-                choose(to);
-                document.getElementById(`${ids}-tab-${faqGroups[to]!.id}`)?.focus();
-              }}
-              className="faq-tab shrink-0"
-            >
-              <span className="faq-tab__icon">
-                <Icon name={g.icon} size={20} />
-              </span>
-              {/* The label takes the slack, so every count sits in one column at the right. */}
-              <span className="min-w-0 flex-1 whitespace-nowrap">{g.label}</span>
-              <span className="w-5 shrink-0 text-right font-tech text-xs tabular-nums opacity-60">
-                {String(g.items.length).padStart(2, '0')}
-              </span>
-            </button>
-          ))}
+        {/* From 1024px: the rail, and under it the way to ask — in the column's empty space. */}
+        <div className="hidden flex-col gap-8 lg:flex">
+          <div
+            ref={rail}
+            role="tablist"
+            aria-label="Question categories"
+            aria-orientation="vertical"
+            data-placed={placed || undefined}
+            className="faq-rail relative flex flex-col gap-1"
+          >
+            <span ref={marker} aria-hidden="true" className="faq-marker" />
+            {faqGroups.map((g, i) => (
+              <button
+                key={g.id}
+                type="button"
+                role="tab"
+                id={`${ids}-tab-${g.id}`}
+                aria-selected={i === group}
+                aria-controls={`${ids}-panel`}
+                tabIndex={i === group ? 0 : -1}
+                data-active={i === group || undefined}
+                onClick={() => choose(i)}
+                onKeyDown={(event) => {
+                  const keys = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'];
+                  if (!keys.includes(event.key)) return;
+                  event.preventDefault();
+                  const step = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
+                  const to = (i + step + count) % count;
+                  choose(to);
+                  document.getElementById(`${ids}-tab-${faqGroups[to]!.id}`)?.focus();
+                }}
+                className="faq-tab shrink-0"
+              >
+                <span className="faq-tab__icon">
+                  <Icon name={g.icon} size={20} />
+                </span>
+                {/* The label takes the slack, so every count sits in one column at the right. */}
+                <span className="min-w-0 flex-1 whitespace-nowrap">{g.label}</span>
+                <span className="w-5 shrink-0 text-right font-tech text-xs tabular-nums opacity-60">
+                  {String(g.items.length).padStart(2, '0')}
+                </span>
+              </button>
+            ))}
+          </div>
+          <AskCard />
         </div>
 
         <div role="tabpanel" id={`${ids}-panel`} aria-labelledby={`${ids}-tab-${current.id}`}>
@@ -200,14 +206,36 @@ export function Faq() {
         </div>
       </div>
 
-      <div className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-line pt-10">
-        <p className="max-w-md text-body text-ink-2">Still have a question? Ask us on WhatsApp.</p>
-        <div className="flex flex-wrap gap-3">
-          <RollLink href={contact.whatsappHref} variant="line" external>
-            Ask on WhatsApp
-          </RollLink>
-          <RollLink href={START.href}>{START.label}</RollLink>
-        </div>
+      {/* Phones: the way to ask, after the questions. */}
+      <div className="mt-10 lg:hidden">
+        <AskCard />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Still have a question: a small card with the two ways on — WhatsApp, about the page's topic when
+ * it has one, and Get Started, with the page's interest.
+ */
+export function AskCard({
+  whatsapp = contact.whatsappHref,
+  start = START.href,
+}: {
+  whatsapp?: string;
+  start?: string;
+}) {
+  return (
+    <div className="rounded-[16px] border border-line bg-white p-5">
+      <p className="text-h4 font-medium text-ink">Still have a question?</p>
+      <p className="mt-1 text-sm text-ink-2">Ask us on WhatsApp, or tell us what you need.</p>
+      <div className="mt-4 grid gap-2.5">
+        <RollLink href={whatsapp} variant="line" size="sm" external className="w-full">
+          Ask on WhatsApp
+        </RollLink>
+        <RollLink href={start} size="sm" className="w-full">
+          {START.label}
+        </RollLink>
       </div>
     </div>
   );

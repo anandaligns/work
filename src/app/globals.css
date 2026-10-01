@@ -7,22 +7,101 @@
    every section. The ink is the brand's Graphite Ink and the greys lean the brand's cool way.
    Colour is spent deliberately, in three places only — the concept work (hero tiles and the
    gallery), the soft tints behind the illustrations, and a handful of signal dots inside the
-   line art. Kinetic Blue is rarer still: it marks what moves — the logo's pixel, and the modules
+   line art. Kinetic Orange is rarer still: it marks what moves — the logo's pixel, and the modules
    turning in the hero — and nothing else. Everything else is monochrome, which is what makes
    those places land.
    ============================================================================================ */
 
+/* DM Sans runs everything; IBM Plex carries the labels and technical text. All are Google Fonts'
+   files (OFL-1.1). Each DM Sans weight comes in two parts: Latin, and Latin Extended, which holds
+   the rupee sign and accented letters and is fetched only on a page that shows one. */
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/dm-sans-400.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/dm-sans-400-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
 @font-face {
   font-family: 'DM Sans';
   font-weight: 500;
   font-display: swap;
   src: url('/fonts/dm-sans-500.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/dm-sans-500-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/dm-sans-600.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/dm-sans-600-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
 }
 @font-face {
   font-family: 'DM Sans';
   font-weight: 700;
   font-display: swap;
   src: url('/fonts/dm-sans-700.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'DM Sans';
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/dm-sans-700-ext.woff2') format('woff2');
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-500.woff2') format('woff2');
 }
 @font-face {
   font-family: 'IBM Plex Sans';
@@ -62,16 +141,16 @@
   --color-graphite: #0b0d12;
   --color-graphite-2: #1d2130;
 
-  /* --- The brand's own colours, beyond the ink. Kinetic Blue marks what moves and nothing
-         else; Blue Night is its light partner on dark grounds; Haze is the pale wash. --- */
-  --color-kinetic: #2e3bff;
-  --color-kinetic-night: #6e78ff;
+  /* --- The brand's own colours, beyond the ink. Kinetic Orange marks what moves and nothing
+         else; Orange Night is its light partner on dark grounds; Haze is the pale wash. --- */
+  --color-kinetic: #ff3d00;
+  --color-kinetic-night: #ff7a4d;
   --color-haze: #e8eaf6;
   --color-steel: #6b7080;
 
   /* --- The colour in between. Tints sit behind illustrations and in chips; the signals are
          the small saturated dots inside the line art. One family each, five hues — the violet
-         now the brand's Haze and Blue Night, so nothing sits beside the logo in a near-blue. --- */
+         now the brand's Haze and Orange Night, so nothing sits beside the logo in a near-blue. --- */
   --color-tint-violet: #eceefb;
   --color-tint-mint: #e6f7ee;
   --color-tint-sky: #e5f3fb;
@@ -83,29 +162,37 @@
   --color-signal-amber: #f0a500;
   --color-signal-rose: #f0506e;
 
-  /* --- Type. Apple's scale: 17px body, 48px section headlines, 56px for the page's one
-         headline, 12px for the bar and the fine print. Headings keep the brand's DM Sans; words
-         people read run in the platform's own face — SF on a Mac or an iPhone, as on apple.com. --- */
+  /* --- Type. Large headlines over small, quiet text: 56px for the page's one headline, 40px
+         section headlines, 20px block headings, a 15px body at 1.55, 12px for labels and the
+         fine print (FOUNDATION v2.13, after Lightfield's scale). Paragraphs never go below 15px,
+         and nothing under 18px is lighter than ink-2. Everything runs in the brand's DM Sans,
+         labels and technical text in IBM Plex, each falling back to the system's own faces. --- */
   --font-display: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-sans:
-    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto,
+    'DM Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   --font-tech: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
+  /* After Lightfield's scale (measured at 1440px): section headings 28px at 1.2, larger card
+     titles 21px, card titles and body 15px at 1.5, lead 17px. The home hero keeps the display
+     size; every other page's title takes `title`, a step above a section heading. */
   --text-display: clamp(2.5rem, 1.75rem + 2.4vw, 3.5rem);
   --text-display--line-height: 1.07;
-  --text-h2: clamp(2rem, 1.5rem + 1.6vw, 3rem);
-  --text-h2--line-height: 1.08;
-  --text-h3: clamp(1.375rem, 1.25rem + 0.4vw, 1.75rem);
-  --text-h3--line-height: 1.14;
-  --text-h4: 1.1875rem;
-  --text-h4--line-height: 1.26;
-  --text-lead: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
-  --text-lead--line-height: 1.47;
-  --text-body: 1.0625rem;
-  --text-body--line-height: 1.47;
+  --text-title: clamp(1.875rem, 1.55rem + 0.9vw, 2.25rem);
+  --text-title--line-height: 1.12;
+  --text-h2: clamp(1.5rem, 1.35rem + 0.5vw, 1.75rem);
+  --text-h2--line-height: 1.2;
+  --text-h3: 1.3125rem;
+  --text-h3--line-height: 1.25;
+  --text-h4: 0.9375rem;
+  --text-h4--line-height: 1.5;
+  --text-lead: 1.0625rem;
+  --text-lead--line-height: 1.5;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.5;
   --text-sm: 0.875rem;
-  --text-sm--line-height: 1.43;
+  --text-sm--line-height: 1.5;
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.33;
 
@@ -195,6 +282,257 @@ html.lenis body {
     position: relative;
     border-top: 1px solid var(--color-line);
   }
+  /* A product page's sections alternate white and Apple's off-white, so each reads as its own
+     chapter without a rule between them. */
+  .alt-bands > .band {
+    border-top-color: transparent;
+    background: #ffffff;
+  }
+  .alt-bands > .band:nth-of-type(odd) {
+    background: #f5f5f7;
+  }
+
+  /* The one dark band on a product page: why build it here. */
+  .alt-bands > .band.band-night {
+    background: var(--color-night);
+  }
+  .admin-row-fresh {
+    animation: admin-row-in 900ms var(--ease-out-expo) 1.4s both;
+  }
+  @keyframes admin-row-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+      background-color: color-mix(in srgb, var(--accent) 18%, white);
+    }
+  }
+  .stage-toast {
+    animation: stage-toast-in 700ms var(--ease-out-expo) 0.9s both;
+  }
+  /* A solution's one system (`Engine`): the front window's face swaps with its tab, the work
+     runs along its wires in Kinetic Orange, and the open tab's line fills while it waits. */
+  .engine-swap,
+  .view-swap {
+    animation: engine-swap 600ms var(--ease-out-expo) both;
+  }
+  .engine-flow {
+    stroke-dasharray: 10 240;
+    animation: engine-flow 2.8s linear infinite both;
+  }
+  /* The mockup kit under test (`components/lab`): each piece rises in after the one before, the
+     wires flow, and their dots breathe. */
+  .frag-in {
+    animation: frag-in 700ms var(--ease-out-expo) calc(120ms + var(--i, 0) * 110ms) both;
+  }
+  .wire-flow {
+    animation: wire-flow 1.4s linear infinite;
+  }
+  .iso-float {
+    animation: iso-float 3.6s ease-in-out infinite;
+  }
+  .dot-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: dot-pulse 2.4s ease-in-out infinite;
+  }
+  /* A tab's own progress, under test: fills while the tab waits, holds while paused. */
+  .split-progress {
+    transform-origin: 0 50%;
+    animation: engine-progress var(--dwell, 6s) linear both;
+  }
+  [data-paused] .split-progress {
+    animation-play-state: paused;
+  }
+  .engine-progress {
+    transform-origin: 0 50%;
+    animation: engine-progress var(--dwell, 7s) linear both;
+  }
+  [data-paused] .engine-progress {
+    animation-play-state: paused;
+  }
+  /* The index pages' alternating rows: a quiet dot grid behind them, and HBR's outline button —
+     a pill in the row's colour that fills from the bottom on hover. */
+  .zig-band {
+    background-color: #f7f8fa;
+    background-image: radial-gradient(#dcdfe5 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .zig-button {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    border: 2px solid var(--accent);
+    border-radius: 9999px;
+    padding: 12px 32px;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  .zig-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--accent);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .zig-button:hover,
+  .zig-button:focus-visible {
+    color: #fff;
+    box-shadow: 0 10px 20px -8px color-mix(in srgb, var(--accent) 60%, transparent);
+  }
+  .zig-button:hover::before,
+  .zig-button:focus-visible::before {
+    transform: translateY(0);
+  }
+  /* A comparison, as it's chosen. */
+  .compare-in {
+    animation: compare-in 420ms var(--ease-out-expo) both;
+  }
+  @keyframes compare-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  /* The mockups' states: green for done and amber for waiting on their own, and in a page's
+     panel (`.mock-scope`, which carries its colour as `--mock`) steps of that colour instead —
+     filled for done, outlined for waiting — so a page keeps to one colour. */
+  .mk-tag-ok {
+    background: #e8f6ee;
+    color: #15803d;
+  }
+  .mk-tag-wait {
+    background: #fff3d6;
+    color: #a15c07;
+  }
+  .mock-scope .mk-tag-ok {
+    background: color-mix(in srgb, var(--mock) 13%, white);
+    color: color-mix(in srgb, var(--mock) 82%, #0b0d12);
+  }
+  .mock-scope .mk-tag-wait {
+    background: #fff;
+    color: color-mix(in srgb, var(--mock) 82%, #0b0d12);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mock) 38%, white);
+  }
+  .mk-face {
+    background: var(--face);
+  }
+  .mock-scope .mk-face {
+    background: color-mix(in srgb, var(--mock) 11%, white);
+    color: color-mix(in srgb, var(--mock) 78%, #0b0d12);
+  }
+  .mock-scope .mk-face[data-shade='1'] {
+    background: color-mix(in srgb, var(--mock) 18%, white);
+  }
+  .mock-scope .mk-face[data-shade='2'] {
+    background: color-mix(in srgb, var(--mock) 26%, white);
+  }
+  /* A bento card is quiet grey; on a grey band it turns white, so it never sinks into it. */
+  .bento-card {
+    background: #f2f2f4;
+  }
+  /* How it's built: its panel grey on a white band, white on an off-white one. */
+  .how-panel {
+    background: #f2f2f4;
+  }
+  .alt-bands > .band:nth-of-type(odd) .bento-card,
+  .alt-bands > .band:nth-of-type(odd) .how-panel {
+    background: #ffffff;
+  }
+  /* A WhatsApp message arriving: the chat's last one, a moment after the screen appears. */
+  .wa-arrive {
+    animation: wa-arrive 520ms var(--ease-out-expo) 1.6s both;
+  }
+  @keyframes wa-arrive {
+    from {
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+    }
+  }
+  @keyframes frag-in {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+    }
+  }
+  /* The resting Solutions picture's lifted card, hovering over its slot. */
+  @keyframes iso-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-7px);
+    }
+  }
+  @keyframes wire-flow {
+    to {
+      stroke-dashoffset: -22;
+    }
+  }
+  @keyframes dot-pulse {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0;
+      transform: scale(2);
+    }
+  }
+  @keyframes engine-swap {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes engine-flow {
+    from {
+      stroke-dashoffset: 250;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes engine-progress {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @keyframes stage-toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(-12px) scale(0.98);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .engine-flow {
+      display: none;
+    }
+    .frag-in,
+    .wire-flow,
+    .iso-float,
+    .dot-pulse,
+    .split-progress,
+    .engine-swap,
+    .view-swap,
+    .engine-progress,
+    .admin-row-fresh,
+    .stage-toast,
+    .wa-arrive,
+    .compare-in {
+      animation: none;
+    }
+  }
   .container-fluid {
     --gutter: 1.25rem;
     width: 100%;
@@ -227,11 +565,12 @@ html.lenis body {
     }
   }
 
+  /* Lightfield's label: small capitals in a monospaced face. */
   .eyebrow {
-    font-family: var(--font-tech);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    letter-spacing: var(--tracking-label);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-ink-2);
   }
@@ -293,80 +632,122 @@ html.lenis body {
     transform: translateY(calc(var(--roll-h) * -1));
   }
   .roll:hover .roll__arrow svg:first-child,
-  .roll:focus-visible .roll__arrow svg:first-child {
+  .roll:focus-visible .roll__arrow svg:first-child,
+  .flat-link:is(:hover, :focus-visible) .roll__arrow svg:first-child {
     transform: translate(18px, -18px) rotate(-45deg);
   }
   .roll:hover .roll__arrow svg + svg,
-  .roll:focus-visible .roll__arrow svg + svg {
+  .roll:focus-visible .roll__arrow svg + svg,
+  .flat-link:is(:hover, :focus-visible) .roll__arrow svg + svg {
     transform: translate(0, 0) rotate(-45deg);
   }
 
-  /* Graphite Ink. At rest it is the brand's ink with a hairline of light along its top edge;
-     pointed at, it lifts into the raised ink and a longer shadow. */
+  /* Buttons, after Console's: a soft 8–10px corner rather than a pill, a 1px ring, a small contact
+     shadow and a half-pixel of light along the inside top edge. The ink button is Console's own
+     black, gradient and all; every other button keeps its colour and takes only the pattern.
+     Pointed at, each lifts 2px as before under a longer shadow; the label and the arrow roll as
+     they always have. */
+  .btn-ink,
+  .btn-line,
+  .btn-paper,
+  .btn-ghost,
+  .btn-kinetic,
+  .btn-whatsapp {
+    border-radius: var(--radius-btn, 8px);
+  }
   .btn-ink {
-    border-radius: var(--radius-pill);
-    background: var(--color-graphite);
+    background: linear-gradient(rgb(40 40 40) 0%, rgb(23 23 22) 67%);
     color: #fff;
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.12),
-      0 10px 28px -12px rgb(11 13 18 / 0.5);
+      rgb(36 38 40) 0 0 0 1px,
+      rgb(27 28 29 / 0.48) 0 1px 2px 0,
+      rgb(255 255 255 / 0.12) 0 0.5px 0 1px inset;
   }
   .btn-ink:hover {
-    background: var(--color-graphite-2);
+    background: linear-gradient(rgb(52 52 52) 0%, rgb(30 30 29) 67%);
     transform: translateY(-2px);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.14),
-      0 18px 36px -14px rgb(11 13 18 / 0.55);
+      rgb(36 38 40) 0 0 0 1px,
+      rgb(27 28 29 / 0.4) 0 12px 24px -12px,
+      rgb(255 255 255 / 0.14) 0 0.5px 0 1px inset;
   }
   .btn-line {
-    border: 1px solid var(--color-line-2);
-    border-radius: var(--radius-pill);
     background: var(--color-surface);
     color: var(--color-ink);
+    box-shadow:
+      var(--color-line-2) 0 0 0 1px,
+      rgb(11 13 18 / 0.08) 0 1px 2px 0,
+      rgb(255 255 255 / 0.9) 0 0.5px 0 1px inset;
   }
   .btn-line:hover {
-    border-color: var(--color-ink);
+    background: #fafbfc;
     transform: translateY(-2px);
+    box-shadow:
+      #cdd1d9 0 0 0 1px,
+      rgb(11 13 18 / 0.14) 0 12px 24px -12px,
+      rgb(255 255 255 / 0.9) 0 0.5px 0 1px inset;
   }
   .btn-paper {
-    border-radius: var(--radius-pill);
     background: #fff;
     color: var(--color-ink);
+    box-shadow:
+      rgb(11 13 18 / 0.08) 0 0 0 1px,
+      rgb(11 13 18 / 0.08) 0 1px 2px 0,
+      rgb(255 255 255 / 0.9) 0 0.5px 0 1px inset;
   }
   .btn-paper:hover {
     transform: translateY(-2px);
   }
-  /* Kinetic Blue, for the one action a page leads with. White on it is 6.6:1. */
+  /* An outline on a dark ground. */
+  .btn-ghost {
+    background: rgb(255 255 255 / 0.06);
+    color: #fff;
+    box-shadow:
+      rgb(255 255 255 / 0.28) 0 0 0 1px,
+      rgb(0 0 0 / 0.3) 0 1px 2px 0,
+      rgb(255 255 255 / 0.1) 0 0.5px 0 1px inset;
+  }
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      rgb(255 255 255 / 0.7) 0 0 0 1px,
+      rgb(0 0 0 / 0.3) 0 1px 2px 0,
+      rgb(255 255 255 / 0.12) 0 0.5px 0 1px inset;
+  }
+  /* Kinetic Orange, for the one action a page leads with. White on it is 3.5:1 — enough for its
+     label only at large sizes. */
   .btn-kinetic {
-    border-radius: var(--radius-pill);
     background: var(--color-kinetic);
     color: #fff;
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.18),
-      0 10px 28px -12px rgb(46 59 255 / 0.55);
+      #e63700 0 0 0 1px,
+      rgb(120 30 0 / 0.4) 0 1px 2px 0,
+      rgb(255 255 255 / 0.18) 0 0.5px 0 1px inset;
   }
   .btn-kinetic:hover {
-    background: #2531e6;
+    background: #e63700;
     transform: translateY(-2px);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.2),
-      0 18px 36px -14px rgb(46 59 255 / 0.6);
+      #e63700 0 0 0 1px,
+      rgb(255 61 0 / 0.55) 0 12px 24px -12px,
+      rgb(255 255 255 / 0.2) 0 0.5px 0 1px inset;
   }
   /* WhatsApp's own green, #25D366, with its white label. */
   .btn-whatsapp {
-    border-radius: var(--radius-pill);
     background: #25d366;
     color: #fff;
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.3),
-      0 10px 28px -12px rgb(18 140 70 / 0.55);
+      #21c35d 0 0 0 1px,
+      rgb(10 80 40 / 0.35) 0 1px 2px 0,
+      rgb(255 255 255 / 0.3) 0 0.5px 0 1px inset;
   }
   .btn-whatsapp:hover {
     background: #21c35d;
     transform: translateY(-2px);
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.32),
-      0 18px 36px -14px rgb(18 140 70 / 0.6);
+      #21c35d 0 0 0 1px,
+      rgb(18 140 70 / 0.55) 0 12px 24px -12px,
+      rgb(255 255 255 / 0.32) 0 0.5px 0 1px inset;
   }
   /* A button's leading glyph: a full turn on hover. The shake — Call Now's ring, every 2.4s — is
      on the outer span and the spin on the inner, so the two never fight. */
@@ -417,16 +798,16 @@ html.lenis body {
   }
 
   /* ==========================================================================================
-     The global bar — Apple's, in this site's type. One frosted strip across the top, 44px on a
-     desktop and 48px on a phone, the lockup and every item spread evenly along one line, in
-     Apple's own light (`--globalnav-background: rgba(245, 245, 247, .8)`). Its flyouts and the
-     phone sheet take the same light. It never changes shape; after the first screen a hairline
-     settles under it. Every colour below comes from the `--nav-*` set, so a dark mode is one
-     more set of values.
+     The global bar — Apple's, in this site's type. One frosted strip across the top, 70px
+     tall, the lockup on the left, the items centred on the page and the call to action on the
+     right, in Apple's own light (`--globalnav-background: rgba(245, 245, 247, .8)`). Its flyouts
+     and the phone sheet take the same light. It never changes shape and draws no line under
+     itself. Every colour below comes from the `--nav-*` set, so a dark mode is one more set of
+     values.
      ========================================================================================== */
   .gnav {
-    --gnav-h: 3rem;
-    --nav-bg: rgb(245 245 247 / 0.8);
+    --gnav-h: 3.4375rem;
+    --nav-bg: rgb(255 255 255 / 0.72);
     --nav-filter: saturate(180%) blur(20px);
     --nav-solid: rgb(245 245 247);
     --nav-fg: var(--color-ink);
@@ -435,8 +816,6 @@ html.lenis body {
     --nav-rule: rgb(11 13 18 / 0.1);
     --nav-hover: #fff;
     --nav-pill: rgb(11 13 18 / 0.06);
-    --nav-btn-bg: var(--color-graphite);
-    --nav-btn-fg: #fff;
     --nav-scrim: rgb(232 232 237 / 0.4);
     --nav-shadow: rgb(0 0 0 / 0.14);
     position: fixed;
@@ -444,36 +823,37 @@ html.lenis body {
     z-index: 50;
     height: var(--gnav-h);
   }
-  @media (min-width: 1024px) {
-    .gnav {
-      --gnav-h: 2.75rem;
-    }
-  }
-
-  /* The footer, in the bar's light: Apple's #f5f5f7 under a hairline. */
+  /* The footer: white, under a hairline. */
   .site-foot {
     border-top: 1px solid var(--color-line);
-    background: rgb(245 245 247);
+    background: #ffffff;
     color: var(--color-ink);
   }
+  /* At the top of the page the bar is clear — the page shows through it. Once the page has moved
+     it turns to glass: white, frosted, the page softened behind it. */
   .gnav__bar {
     position: absolute;
     inset: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: 0 1px 0 transparent;
+    transition:
+      background-color 0.5s ease,
+      backdrop-filter 0.5s ease,
+      -webkit-backdrop-filter 0.5s ease,
+      box-shadow 0.5s ease;
+  }
+  .gnav[data-scrolled] .gnav__bar {
     background: var(--nav-bg);
     -webkit-backdrop-filter: var(--nav-filter);
     backdrop-filter: var(--nav-filter);
-    box-shadow: 0 1px 0 transparent;
-    transition:
-      background-color 0.6s ease,
-      box-shadow 0.5s ease;
+    box-shadow: 0 10px 30px -24px rgb(11 13 18 / 0.18);
   }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-    .gnav__bar {
+    .gnav[data-scrolled] .gnav__bar {
       background: var(--nav-solid);
     }
-  }
-  .gnav[data-scrolled] .gnav__bar {
-    box-shadow: 0 1px 0 var(--nav-rule);
   }
   /* Open, the bar and its flyout are one sheet. */
   .gnav:is([data-flyout], [data-sheet]) .gnav__bar {
@@ -488,15 +868,6 @@ html.lenis body {
     outline-color: var(--nav-fg);
   }
   /* The call to action in the bar, the flyouts and the phone sheet: white by night, ink by day. */
-  .gnav .nav-btn {
-    background: var(--nav-btn-bg);
-    color: var(--nav-btn-fg);
-    box-shadow: none;
-  }
-  .gnav .nav-btn:hover {
-    background: var(--nav-btn-bg);
-    opacity: 0.88;
-  }
   /* The bar's row sits in the page's one container, so the lockup lines up with every section. */
   .gnav__content {
     display: flex;
@@ -512,49 +883,13 @@ html.lenis body {
     height: var(--gnav-h);
     align-items: center;
     padding-inline: 0.75rem;
-    color: var(--nav-fg-2);
-    font-size: 0.75rem;
-    font-weight: 400;
+    color: var(--nav-fg);
+    font-size: var(--text-body);
+    font-weight: 500;
     transition: color 0.32s cubic-bezier(0.4, 0, 0.6, 1);
   }
-  /* The earlier pill: it grows in under the item the pointer is on, is held under Services or
-     Solutions while its menu is open, and lets go when the pointer moves away. */
-  .gnav-link::before {
-    content: '';
-    position: absolute;
-    inset: 0.4375rem 0;
-    z-index: -1;
-    border-radius: 9999px;
-    background: var(--nav-pill);
-    opacity: 0;
-    transform: scale(0.9);
-    transition:
-      opacity 0.25s ease,
-      transform 0.35s var(--ease-premium);
-  }
-  .gnav-link:is(:hover, [aria-expanded='true'])::before {
-    opacity: 1;
-    transform: none;
-  }
-  .gnav-link:hover,
-  .gnav-link[aria-expanded='true'] {
-    color: var(--nav-fg);
-  }
-  /* Where the visitor is: the full colour and a pixel beneath the pill, centred — the brand's
-     square. */
-  .gnav-link[data-active] {
-    color: var(--nav-fg);
-  }
-  .gnav-link[data-active]::after {
-    content: '';
-    position: absolute;
-    bottom: 0.1875rem;
-    left: 50%;
-    width: 3px;
-    height: 3px;
-    background: currentColor;
-    transform: translateX(-50%);
-  }
+  /* No pill under the pointer and no mark under the current item: the words roll instead
+     (`RollLabel`). */
   .gnav-link:focus-visible {
     outline-offset: -4px;
   }
@@ -720,7 +1055,8 @@ html.lenis body {
     color: var(--nav-fg-3);
     transition: color 0.3s ease;
   }
-  .mega-link:is(:hover, [aria-current]) :is(.mega-link__icon, .mega-link__arrow) {
+  .mega-link:is(:hover, [aria-current]) :is(.mega-link__icon, .mega-link__arrow),
+  .flat-link:is(:hover, [aria-current]) .mega-link__arrow {
     color: var(--nav-fg);
   }
   /* The foot: under a hairline, a line of words and the button to everything. */
@@ -733,7 +1069,7 @@ html.lenis body {
     padding: 1.25rem 0.625rem 0;
     border-top: 1px solid var(--nav-rule);
     color: var(--nav-fg-2);
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
   }
   .mega-foot__link {
     color: var(--nav-fg);
@@ -878,8 +1214,12 @@ html.lenis body {
     animation-play-state: paused;
   }
   /* ---- The kinetic rows (sector strip) ----------------------------------------------------- */
+  /* Room above and below, taken back by the margins, so a chip that lifts when pointed at — and
+     its shadow — isn't clipped by the row. */
   .kinetic {
     overflow: hidden;
+    margin-block: -0.5rem -1.75rem;
+    padding-block: 0.5rem 1.75rem;
     -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
     mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
   }
@@ -933,6 +1273,17 @@ html.lenis body {
   .sector-chip:hover .sector-chip__mark {
     background: var(--color-graphite);
     color: #fff;
+  }
+  /* A tool on a service page: its own logo, in its own colours, with nothing behind it. */
+  .sector-chip--tool {
+    gap: 0.625rem;
+    padding-left: 1.15rem;
+  }
+  .sector-chip--tool .sector-chip__mark,
+  .sector-chip--tool:hover .sector-chip__mark {
+    width: auto;
+    background: none;
+    color: var(--color-ink);
   }
   /* What we build for it: a quieter pill, a dot of colour, plain words. */
   .sector-need {
@@ -990,6 +1341,9 @@ html.lenis body {
   .hero-row {
     --open: 0;
     --shut: calc((1 - var(--open)) * 322.5px);
+    /* The centre's phone becomes a MacBook on a faster track than the row opens: whole by 60% of
+       the way, so the Mac is complete well before the hero's words leave the screen. */
+    --mac: min(1, calc(var(--open) / 0.6));
   }
   /* The screen is clipped, not the tile, so its notification can hang over the lower edge. */
   .hero-tile-centre__screen {
@@ -1000,6 +1354,36 @@ html.lenis body {
   }
   .hero-tile-after {
     transform: translateX(calc(var(--shut) * -1));
+  }
+  /* The pictures move with the row: the phones rise as it opens, and in the centre one device
+     changes shape — the phone (158.7 × 335, corners 25.3px) fades onto a frame of its exact
+     outline, which widens into a MacBook's screen (522 × 335, 18px above and 6px below) about
+     the same centre, uncovering the dashboard fixed in place; then the base rises under it. */
+  .hero-phone {
+    transform: translateY(calc((1 - var(--open)) * 22px));
+  }
+  .hero-device {
+    width: calc(158.7px + 363.3px * var(--mac));
+    transform: translateX(-50%);
+    border-radius: calc(25.3px - 7.3px * var(--mac)) calc(25.3px - 7.3px * var(--mac))
+      calc(25.3px - 19.3px * var(--mac)) calc(25.3px - 19.3px * var(--mac));
+  }
+  .hero-device__camera {
+    opacity: clamp(0, calc(var(--mac) * 2 - 1), 1);
+  }
+  .hero-dash {
+    clip-path: inset(
+      0 calc(175.35px * (1 - var(--mac))) 0 calc(175.35px * (1 - var(--mac))) round
+        calc(20.6px - 14.6px * var(--mac)) calc(20.6px - 14.6px * var(--mac)) 0 0
+    );
+    opacity: clamp(0, calc(var(--mac) * 2.4 - 0.25), 1);
+  }
+  .hero-mobile {
+    opacity: clamp(0, calc(1 - var(--mac) * 2.6), 1);
+  }
+  .hero-mac-base {
+    opacity: clamp(0, calc(var(--mac) * 2.2 - 1.1), 1);
+    transform: translateY(calc((1 - var(--mac)) * 18px)) scaleX(calc(0.9 + var(--mac) * 0.1));
   }
 
   /* The system behind each tile: a notification, floating over the tile's lower edge — clear of
@@ -1382,6 +1766,229 @@ html.lenis body {
     cursor: progress;
   }
 
+  /* ---- Industry cards: HBR Analytics' layout in our theme — a white card on a hairline, the
+     industry's mark in its own light tint (the tint it wears on the home strip), a name and a
+     line. Pointed at, the card lifts and the mark turns ink. ------------------------------- */
+  .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: 1rem;
+  }
+  .industry-card {
+    padding: 1.5rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.75rem;
+    background: #fff;
+    transition:
+      transform 0.4s var(--ease-premium),
+      box-shadow 0.4s ease;
+  }
+  .industry-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -24px rgb(11 13 18 / 0.3);
+  }
+  .industry-card__icon {
+    display: grid;
+    width: 3.125rem;
+    height: 3.125rem;
+    place-items: center;
+    border-radius: 9999px;
+    background: var(--tint);
+    color: var(--color-ink);
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+  .industry-card:hover .industry-card__icon {
+    background: var(--color-graphite);
+    color: #fff;
+  }
+  /* On a service page: the mark raised off its card, as HBR's are, on a light
+     shadow in a deeper step of its own tint. */
+  .industry-grid--raised .industry-card__icon {
+    box-shadow:
+      0 8px 16px -6px color-mix(in srgb, var(--tint) 55%, rgb(11 13 18 / 0.14)),
+      inset 0 1px 0 rgb(255 255 255 / 0.85);
+  }
+  .industry-grid--raised .industry-card:hover .industry-card__icon {
+    box-shadow: 0 8px 16px -6px rgb(11 13 18 / 0.25);
+  }
+  .industry-card__name {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+  .industry-card__text {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-ink-2);
+  }
+
+  /* ---- Why build it here, on a service page: Console's grid of boxes, on the dark band -----------
+     Boxes sharing their hairlines (the grid's gap shows the line colour through), with a line
+     round the whole grid: three to a row from 768px, square from 1024px, one on a phone. */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    background: rgb(255 255 255 / 0.14);
+  }
+  @media (min-width: 768px) {
+    .why-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .why-grid__cell {
+    position: relative;
+    display: flex;
+    min-height: 15rem;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    overflow: hidden;
+    padding: 1.75rem;
+    background: var(--color-night);
+    transition: background-color 0.4s ease;
+  }
+  @media (min-width: 768px) {
+    .why-grid__cell {
+      min-height: 17rem;
+      padding: 1.75rem 1.5rem;
+    }
+  }
+  /* Squares from 1024px: the full width to 1279px, then beside the heading, about 265–295px. */
+  @media (min-width: 1024px) {
+    .why-grid__cell {
+      aspect-ratio: 1;
+      min-height: 0;
+      padding: 2rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .why-grid__cell {
+      gap: 1rem;
+      padding: 1.75rem;
+    }
+  }
+  /* The light from the corner, while pointed at. */
+  .why-grid__cell::before {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    inset: 0;
+    background: radial-gradient(28rem circle at 0% 0%, rgb(255 255 255 / 0.07), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .why-grid__cell:hover {
+    background: #0f1117;
+  }
+  .why-grid__cell:hover::before {
+    opacity: 1;
+  }
+  .why-grid__mark {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: 0.75rem;
+    background: rgb(255 255 255 / 0.04);
+    color: #fff;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+    transition:
+      transform 0.5s var(--ease-premium),
+      border-color 0.4s ease,
+      background-color 0.4s ease;
+  }
+  .why-grid__cell:hover .why-grid__mark {
+    border-color: rgb(255 255 255 / 0.3);
+    background: rgb(255 255 255 / 0.09);
+    transform: translateY(-3px);
+  }
+  .why-grid__index {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: rgb(255 255 255 / 0.35);
+    transition: color 0.4s ease;
+  }
+  .why-grid__cell:hover .why-grid__index {
+    color: rgb(255 255 255 / 0.75);
+  }
+  .why-grid__body {
+    color: rgb(255 255 255 / 0.6);
+    transition: color 0.4s ease;
+  }
+  .why-grid__cell:hover .why-grid__body {
+    color: rgb(255 255 255 / 0.8);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .why-grid__mark {
+      transition: none;
+    }
+  }
+
+  /* ---- The build track: the Process track laid on its side ------------------------------- */
+  .build-track {
+    position: relative;
+    display: grid;
+    gap: 1.75rem;
+  }
+  .build-track__step {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+  }
+  .build-track__dot {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    place-items: center;
+    border: 1px solid var(--color-ink);
+    border-radius: 9999px;
+    background: var(--color-paper);
+    font-family: var(--font-tech);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+  /* The line, from each dot to the next: down on a phone, across from 1024px. */
+  .build-track__step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 2.25rem;
+    bottom: -1.75rem;
+    left: 1.125rem;
+    width: 1px;
+    background: var(--color-line-2);
+  }
+  @media (min-width: 1024px) {
+    .build-track {
+      grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+    .build-track__step {
+      flex-direction: column;
+    }
+    .build-track__step:not(:last-child)::before {
+      top: 1.125rem;
+      right: -1.5rem;
+      bottom: auto;
+      left: 2.25rem;
+      width: auto;
+      height: 1px;
+    }
+  }
+
   /* ---- The Connect scene: routes that draw in, then a signal that pings once --------------- */
   .connect[data-armed] .connect__route {
     stroke-dasharray: 1;
@@ -1478,7 +2085,7 @@ html.lenis body {
     margin: -0.3125rem 0 0 -0.3125rem;
     border-radius: 9999px;
     background: var(--color-kinetic);
-    box-shadow: 0 0 0 4px rgb(46 59 255 / 0.15);
+    box-shadow: 0 0 0 4px rgb(255 61 0 / 0.15);
     opacity: 0;
   }
   .flow[data-play] .flow__dot {
@@ -1597,8 +2204,8 @@ html.lenis body {
     align-items: center;
     gap: 0.75rem;
     font-family: var(--font-display);
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: var(--text-h2);
+    font-weight: 500;
     letter-spacing: -0.03em;
     line-height: 1.2;
   }
@@ -1614,7 +2221,7 @@ html.lenis body {
     gap: 0.6rem;
     padding-block: 0.4rem;
     color: var(--nav-fg-2);
-    font-size: 1.0625rem;
+    font-size: var(--text-h4);
     font-weight: 500;
     transition: color 0.2s ease;
   }
@@ -1669,8 +2276,7 @@ html.lenis body {
   /* ---- Pricing's segmented control — the thumb that slides ---------------------------------- */
   .seg-thumb {
     position: absolute;
-    top: 0.25rem;
-    bottom: 0.25rem;
+    top: 0;
     left: 0;
     border-radius: 9999px;
     background: var(--color-graphite);
@@ -1682,7 +2288,8 @@ html.lenis body {
     opacity: 1;
     transition:
       transform 0.6s var(--ease-premium),
-      width 0.6s var(--ease-premium);
+      width 0.6s var(--ease-premium),
+      height 0.6s var(--ease-premium);
   }
   @media (prefers-reduced-motion: reduce) {
     .seg-thumb--placed {
@@ -1804,9 +2411,9 @@ html.lenis body {
     /* automatix's #919191 on black, as a grey that still reads at 4.9:1 on this paper. */
     color: #6f6f6f;
     font-family: var(--font-display);
-    font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.3125rem);
+    font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
     font-weight: 500;
-    line-height: 1.24;
+    line-height: 1.4;
     letter-spacing: -0.025em;
     transition: color 0.35s ease;
   }
@@ -1814,20 +2421,50 @@ html.lenis body {
   .faq-item[data-open] .faq-item__q {
     color: var(--color-ink);
   }
-  .faq-item__chevron {
-    display: inline-flex;
+  /* HBR's +/−: two thin bars that turn half over together as the answer opens, the upright one
+     folding flat on the way, so the plus lands as a minus. */
+  .faq-item__toggle,
+  .auto-row__toggle {
+    position: relative;
     flex: none;
+    width: 1.375rem;
+    height: 1.375rem;
     color: var(--color-ink-2);
     transition:
       transform 0.5s var(--ease-premium),
       color 0.35s ease;
   }
-  .faq-item:hover .faq-item__chevron {
+  .faq-item__toggle::before,
+  .faq-item__toggle::after,
+  .auto-row__toggle::before,
+  .auto-row__toggle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    height: 1.5px;
+    margin: -0.75px 0 0 -0.5rem;
+    border-radius: 1px;
+    background: currentColor;
+    transition: transform 0.5s var(--ease-premium);
+  }
+  .faq-item__toggle::after,
+  .auto-row__toggle::after {
+    transform: rotate(90deg);
+  }
+  .faq-item:hover .faq-item__toggle,
+  .auto-row:hover .auto-row__toggle {
     color: var(--color-ink);
   }
-  .faq-item[data-open] .faq-item__chevron {
+  .faq-item[data-open] .faq-item__toggle,
+  .auto-row[data-active] .auto-row__toggle {
     color: var(--color-ink);
-    transform: rotate(-180deg);
+    transform: rotate(180deg);
+  }
+  .faq-item[data-open] .faq-item__toggle::after,
+  .auto-row[data-active] .auto-row__toggle::after {
+    transform: rotate(0deg);
   }
   .faq-item__panel {
     overflow: hidden;
@@ -2216,10 +2853,10 @@ html.lenis body {
       width: 2.5rem;
       min-height: 8.5rem;
       padding: 0.85rem 0.5rem;
-      border: 1px solid rgb(255 255 255 / 0.16);
-      border-right: 0;
-      border-radius: 0 16px 16px 0;
-      background: var(--color-graphite);
+      border-radius: 0 var(--radius-btn, 10px) var(--radius-btn, 10px) 0;
+      /* The site's ink button: its gradient (drawn upward here, as the tab is turned 180°, so it
+         still reads light at the top), its ring, its highlight, and a shadow to float on. */
+      background: linear-gradient(0deg, rgb(40 40 40) 0%, rgb(23 23 22) 67%);
       color: #fff;
       font-size: 0.75rem;
       font-weight: 600;
@@ -2228,8 +2865,13 @@ html.lenis body {
       writing-mode: vertical-rl;
       transform: rotate(180deg);
       box-shadow:
-        -0.75rem 0.75rem 2.25rem rgb(11 13 18 / 0.3),
-        inset 0 1px rgb(255 255 255 / 0.14);
+        rgb(36 38 40) 0 0 0 1px,
+        rgb(255 255 255 / 0.12) 0 0.5px 0 1px inset,
+        -0.75rem 0.75rem 2.25rem rgb(11 13 18 / 0.3);
+      transition: background 0.3s ease;
+    }
+    .side-rail__start:is(:hover, :focus-visible) {
+      background: linear-gradient(0deg, rgb(52 52 52) 0%, rgb(30 30 29) 67%);
     }
     /* pk-static's rail arrow, exactly: a right arrow turned 45°, which inside the tab's 180° turn
        points up and back along the label, ↖. On hover it rolls out along its own line while its
@@ -2311,10 +2953,14 @@ html.lenis body {
 
 @layer components {
   /* ---- Solutions — automatix's list, in light --------------------------------------------- */
+  /* The title's size, shared with the row's toggle so the circle centres on the title's line. */
+  .auto-row {
+    --row-title: clamp(1.3125rem, 1.15rem + 0.5vw, 1.625rem);
+  }
   .auto-row__title {
     color: var(--color-ink-2);
     font-family: var(--font-display);
-    font-size: clamp(1.3125rem, 1.15rem + 0.5vw, 1.625rem);
+    font-size: var(--row-title);
     font-weight: 500;
     letter-spacing: -0.03em;
     line-height: 1.15;
@@ -2336,23 +2982,9 @@ html.lenis body {
   .auto-row:last-child .auto-row__rule {
     display: none;
   }
-  /* The accent beside the open row doubles as the clock: it fills downward over the dwell. */
-  .auto-rail {
-    transform-origin: 50% 0;
-    animation-name: rail-fill;
-    animation-duration: var(--dwell, 9s);
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-  }
-  [data-paused] .auto-rail {
-    animation-play-state: paused;
-  }
-  @keyframes rail-fill {
-    from {
-      transform: scaleY(0);
-    }
-    to {
-      transform: scaleY(1);
-    }
+  /* The FAQ's plus at the row's end (drawn with the FAQ's, above), centred on the title's line:
+     it tells the reader each row opens, and turns half over into a minus for the open one. */
+  .auto-row__toggle {
+    margin-top: calc((var(--row-title) * 1.15 - 1.375rem) / 2);
   }
 }

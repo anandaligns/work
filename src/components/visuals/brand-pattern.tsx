@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 /**
  * The identity's cover, as a still ground for a Graphite Ink band: the pixel (a square) and the
  * quarter-turn (a quarter-disc), tiled tone on tone on the ink.
@@ -66,17 +68,24 @@ export function BrandPattern({
   cell = 96,
   density = 0.55,
   className = '',
+  tone = TONE,
+  style,
 }: {
   seed?: number;
   cell?: number;
   density?: number;
   className?: string;
+  /** The modules' colour: a shade just off the ground they sit on. */
+  tone?: string;
+  /** For a mask, when the pattern should only show at the edges. */
+  style?: CSSProperties;
 }) {
   const id = `pk-pattern-${seed}`;
   return (
     <div
       aria-hidden="true"
       className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+      style={style}
     >
       <svg className="absolute inset-0 h-full w-full">
         <defs>
@@ -87,7 +96,7 @@ export function BrandPattern({
             height={TILE_ROWS * cell}
             patternUnits="userSpaceOnUse"
           >
-            <path d={tile(seed, cell, density)} fill={TONE} />
+            <path d={tile(seed, cell, density)} style={{ fill: tone }} />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill={`url(#${id})`} />

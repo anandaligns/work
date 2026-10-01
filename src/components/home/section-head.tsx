@@ -43,7 +43,7 @@ export function SectionHead({
         <p
           data-reveal=""
           style={{ ['--i' as string]: 1 }}
-          className={`mt-5 text-lead ${centred ? 'mx-auto max-w-xl' : 'max-w-lg'} ${tone === 'night' ? 'text-white/70' : 'text-ink-2'}`}
+          className={`mt-5 text-body ${centred ? 'mx-auto max-w-xl' : 'max-w-lg'} ${tone === 'night' ? 'text-white/70' : 'text-ink-2'}`}
         >
           {intro}
         </p>

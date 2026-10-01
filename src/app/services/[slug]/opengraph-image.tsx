@@ -4,7 +4,6 @@ import {
   ServiceHeroScene,
 } from '@/components/visuals/page-scenes';
 import {
-  evolvePage,
   GROUP_TINT,
   groupPageFor,
   groupPages,
@@ -12,6 +11,7 @@ import {
   servicePages,
 } from '@/content/pages';
 import { categories, evolve } from '@/content/site';
+import { productFor } from '@/content/products';
 import { SHARE_SIZE, shareImage } from '@/lib/share-image';
 
 /** A service group's, a service's or Evolve's share image: its hero scene on its tint. */
@@ -29,7 +29,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     return shareImage({
       eyebrow: 'Services',
       title: evolve.name,
-      line: evolvePage.intro,
+      line: productFor(evolve.slug)!.sub,
       tint: 'butter',
       scene: <EvolveHeroScene />,
     });
@@ -51,7 +51,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   return shareImage({
     eyebrow: category.name,
     title: service.name,
-    line: page.intro,
+    line: productFor(slug)!.sub,
     tint,
     scene: <ServiceHeroScene slug={slug} tint={tint} bare />,
   });

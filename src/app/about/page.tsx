@@ -69,7 +69,7 @@ export default function About() {
               More technology is rarely the answer.
             </h2>
           </div>
-          <div data-reveal="" className="flex flex-col gap-5 text-lead text-ink-2">
+          <div data-reveal="" className="flex flex-col gap-5 text-body text-ink-2">
             <p>
               Most businesses don’t need more technology. They need the technology they have to work
               together. A website that fills the calendar. A payment that updates the books. An
@@ -97,7 +97,7 @@ export default function About() {
               Founder-led, from first message to launch.
             </h2>
           </div>
-          <div data-reveal="" className="flex flex-col gap-5 text-lead text-ink-2">
+          <div data-reveal="" className="flex flex-col gap-5 text-body text-ink-2">
             <p>
               You work directly with the engineer who designs your system:{' '}
               <span className="font-medium text-ink">

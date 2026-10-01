@@ -41,11 +41,14 @@ export function Corners() {
 
 export function ScenePanel({
   tint = 'white',
+  surface,
   className = '',
   innerClassName = 'h-[19rem] p-10 sm:h-[26rem] sm:p-14',
   children,
 }: {
   tint?: Tint | 'white';
+  /** A background of the page's own in place of the tint: a service page's soft surface. */
+  surface?: string;
   className?: string;
   innerClassName?: string;
   children: ReactNode;
@@ -56,7 +59,8 @@ export function ScenePanel({
       className={`rounded-[2rem] border border-line bg-fill p-3 sm:p-5 ${className}`}
     >
       <div
-        className={`relative overflow-hidden rounded-[1.4rem] border border-line ${TINT_BG[tint]}`}
+        className={`relative overflow-hidden rounded-[1.4rem] border border-line ${surface ? '' : TINT_BG[tint]}`}
+        style={surface ? { background: surface } : undefined}
       >
         <Corners />
         <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.08)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />

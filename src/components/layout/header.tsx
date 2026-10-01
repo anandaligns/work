@@ -2,14 +2,15 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import { type CSSProperties, useCallback, useEffect, useId, useRef, useState } from 'react';
 
 import { categories, evolve, nav, solutions, START, startFor } from '@/content/site';
 import { announceAnchor, useAnchor } from '@/lib/anchor';
 
-import { Icon, iconFor, SOLUTION_ICONS } from '../ui/icon';
+import { Icon } from '../ui/icon';
+import { Lucide, type LucideName, MENU_ICONS } from '../ui/lucide';
 import { Logo } from '../ui/logo';
-import { RollLink } from '../ui/roll-link';
+import { RollLabel, RollLink } from '../ui/roll-link';
 
 type MenuKey = 'services' | 'solutions';
 
@@ -36,17 +37,15 @@ const serviceHref = (slug: string) => `/services/${slug}`;
 /**
  * The header — Apple's global bar, in this site's type.
  *
- * One frosted strip, 44px on a desktop and 48px on a phone: the lockup, the seven items and the
- * call to action spread evenly along one line, in Apple's light bar, its sheets and menus with
- * it. It never changes shape; a hairline settles beneath it once the page has moved. The lockup's pixel
- * turns a quarter each time the reader enters a new section.
+ * One frosted strip, 70px tall: the lockup — the symbol and the name typed in one lowercase word —
+ * on the left, the seven items centred on the page, each in full ink with its words rolling under
+ * the pointer, and the call to action on the right. It never changes shape and draws no line
+ * under itself. The lockup's pixel turns a quarter each time the reader enters a new section.
  *
  * Services and Solutions open flyouts: full-width sheets of the bar's own light, drawn down from
- * under it while the page behind dims and softens out of focus. Inside is the earlier mega menu's
- * pattern, straight on the sheet and in line with the lockup: a column per service group or
- * solution — its title linking to its page — every item with its icon, a one-line summary and a
- * tilted arrow, and a foot with the way to everything (Evolve under the services). Services open their own pages; solutions' bundles open
- * their row on the home page.
+ * under it while the page behind dims and softens out of focus. Inside is Alia's flat menu: every
+ * item a glyph, a name, a line and a tilted arrow that rolls, four to a row, a soft grey behind the
+ * one under the pointer, and a foot with the way to everything.
  * They open on hover and on focus, close on Escape with focus handed back to the trigger, and
  * only one is ever open; moving from one to the other swaps the contents in place.
  */
@@ -193,79 +192,49 @@ export function Header() {
         onMouseEnter={() => openNow(key)}
         className="gnav-flyout max-lg:hidden"
       >
-        {/* Inside the sheet, the earlier mega menu's pattern, straight on the sheet: a column per
-            group or solution under its title — linking to its page — and its line, every item an
-            icon, a name, a one-line summary and a tilted arrow, and a foot with the way to
-            everything. It starts at the page's edge, in line with the lockup. */}
-        <div className="container-fluid pt-14 pb-12">
-          <div className={`grid gap-x-6 ${key === 'services' ? 'grid-cols-3' : 'grid-cols-4'}`}>
-            {key === 'services'
-              ? categories.map((category) => (
-                  <div key={category.slug} className="gnav-flyout__item min-w-0" style={next()}>
-                    <p className="mega-title">
-                      <Link
-                        href={serviceHref(category.slug)}
-                        className="mega-title__name"
-                        aria-current={pathname === serviceHref(category.slug) ? 'page' : undefined}
-                        onClick={() => close(false)}
-                      >
-                        {category.name}
-                      </Link>
-                      <span className="mega-title__line">{category.line}</span>
-                    </p>
-                    <ul className="flex flex-col gap-0.5">
-                      {category.services.map((service) => {
-                        const href = serviceHref(service.anchor);
-                        return (
-                          <MenuItem
-                            key={service.anchor}
-                            href={href}
-                            icon={iconFor(service.anchor)}
-                            name={service.name}
-                            summary={service.summary}
-                            active={pathname === href}
-                            current="page"
-                            onPick={() => close(false)}
-                          />
-                        );
-                      })}
-                    </ul>
-                  </div>
-                ))
-              : solutions.map((solution) => {
-                  const href = `/solutions/${solution.slug}`;
-                  return (
-                    <ul key={solution.slug} className="gnav-flyout__item min-w-0" style={next()}>
-                      <MenuItem
-                        href={href}
-                        icon={SOLUTION_ICONS[solution.slug] ?? 'layers'}
-                        name={solution.name}
-                        summary={solution.line}
-                        points={solution.bundles.map((bundle) => ({
-                          name: bundle.name,
-                          detail: bundle.includes.join(' · '),
-                        }))}
-                        active={pathname === href}
-                        current="page"
-                        onPick={() => close(false)}
-                      />
-                    </ul>
-                  );
-                })}
-          </div>
+        {/* Inside the sheet, Alia's flat menu, in line with the lockup: every item its glyph and
+            name on one line, its summary under it and a tilted arrow, four to a row — the fifteen
+            services and Evolve make four full rows — and a foot with the way to everything. */}
+        <div className="container-fluid pt-10 pb-10">
+          <ul className="-mx-3 grid grid-cols-4 gap-6">
+            {(key === 'services'
+              ? [
+                  ...categories
+                    .flatMap((category) => category.services)
+                    .map((service) => ({
+                      href: serviceHref(service.anchor),
+                      icon: MENU_ICONS[service.anchor] ?? ('sparkles' as const),
+                      name: service.name,
+                      summary: service.summary,
+                    })),
+                  {
+                    href: serviceHref(evolve.slug),
+                    icon: 'refreshCw' as const,
+                    name: evolve.name,
+                    summary: evolve.summary,
+                  },
+                ]
+              : solutions.map((solution) => ({
+                  href: `/solutions/${solution.slug}`,
+                  icon: MENU_ICONS[solution.slug] ?? ('layers' as const),
+                  name: solution.name,
+                  summary: `${solution.line} With ${solution.bundles.map((bundle) => bundle.name).join(' or ')}.`,
+                }))
+            ).map((item) => (
+              <FlatItem
+                key={item.href}
+                {...item}
+                active={pathname === item.href}
+                style={next()}
+                onPick={() => close(false)}
+              />
+            ))}
+          </ul>
           {/* The foot, under a hairline: the way to everything. */}
-          <div className="gnav-flyout__item mega-foot" style={next()}>
+          <div className="gnav-flyout__item mega-foot mt-8 px-0" style={next()}>
             {key === 'services' ? (
               <p>
-                Underneath all three:{' '}
-                <Link
-                  href={serviceHref(evolve.slug)}
-                  className="mega-foot__link"
-                  onClick={() => close(false)}
-                >
-                  {evolve.name}
-                </Link>{' '}
-                — {evolve.summary.charAt(0).toLowerCase() + evolve.summary.slice(1)}
+                Every service connects with the others, and all of it is looked after on Evolve.
               </p>
             ) : (
               <p>Tell us the problem. We’ll map the right system and quote it in writing.</p>
@@ -297,11 +266,11 @@ export function Header() {
       <span aria-hidden="true" className="gnav__bar -z-[1]" />
       <span aria-hidden="true" className="gnav-scrim -z-[2]" />
 
-      <div className="gnav__content container-fluid">
+      <div className="gnav__content container-fluid lg:grid lg:grid-cols-[1fr_auto_1fr] lg:justify-items-start">
         <Logo turnKey={section} tone="inherit" />
 
-        <nav aria-label="Primary" className="hidden h-full flex-1 lg:block">
-          <ul className="flex h-full items-center justify-evenly">
+        <nav aria-label="Primary" className="hidden h-full flex-1 lg:block lg:justify-self-center">
+          <ul className="flex h-full items-center justify-center gap-1 xl:gap-6">
             {nav.map((item) =>
               item.menu ? (
                 <li
@@ -323,13 +292,13 @@ export function Header() {
                     ref={(node) => {
                       triggers.current.set(item.menu, node);
                     }}
-                    className="gnav-link"
+                    className="gnav-link roll"
                     data-active={isCurrent(item.label) || undefined}
                     aria-expanded={open === item.menu}
                     aria-controls={`${ids}-${item.menu}`}
                     onClick={() => show(open === item.menu ? null : item.menu)}
                   >
-                    {item.label}
+                    <RollLabel arrow={false}>{item.label}</RollLabel>
                   </button>
                   {flyout(item.menu)}
                 </li>
@@ -337,11 +306,11 @@ export function Header() {
                 <li key={item.label} onMouseEnter={closeSoon}>
                   <Link
                     href={item.href!}
-                    className="gnav-link"
+                    className="gnav-link roll"
                     data-active={isCurrent(item.label) || undefined}
                     aria-current={isCurrent(item.label) ? (home ? 'location' : 'page') : undefined}
                   >
-                    {item.label}
+                    <RollLabel arrow={false}>{item.label}</RollLabel>
                   </Link>
                 </li>
               ),
@@ -349,7 +318,7 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-1.5" onMouseEnter={closeSoon}>
+        <div className="flex items-center gap-1.5 lg:justify-self-end" onMouseEnter={closeSoon}>
           <RollLink href={start} size="xs" className="nav-btn max-md:hidden">
             {START.label}
           </RollLink>
@@ -389,7 +358,7 @@ export function Header() {
         className="m-menu fixed inset-0 -z-10 overflow-y-auto overscroll-contain lg:hidden"
         data-lenis-prevent=""
       >
-        <nav aria-label="Mobile" className="container-fluid pt-[4.75rem] pb-12">
+        <nav aria-label="Mobile" className="container-fluid pt-[5.3125rem] pb-12">
           <ul className="flex flex-col">
             {nav.map((item, index) => {
               const current = isCurrent(item.label);
@@ -527,57 +496,47 @@ export function Header() {
  * solution also lists its two ways in as points under a hairline — each bundle's name and what it
  * includes — inside the one link to the solution's page.
  */
-function MenuItem({
+/**
+ * An item of the flat menu under test, to Alia's measure: a 12px box, the 18px glyph and the name
+ * (16/20) on one line 8px apart, the summary (15/20) 6px under it; the box fills its row, so the
+ * soft grey behind it under the pointer — or where the visitor is — is one height across a row.
+ * The grid is pulled out by the box's padding, so the words line up with the lockup.
+ */
+function FlatItem({
   href,
   icon,
   name,
   summary,
-  points,
-  active = false,
-  current,
+  active,
+  style,
   onPick,
 }: {
   href: string;
-  icon: Parameters<typeof Icon>[0]['name'];
+  icon: LucideName;
   name: string;
   summary: string;
-  points?: { name: string; detail: string }[];
-  active?: boolean;
-  /** How the item marks where the visitor is: a page, or a place on the home page. */
-  current: 'page' | 'location';
+  active: boolean;
+  style: CSSProperties;
   onPick: () => void;
 }) {
-  const arrow = <Icon name="arrow" strokeWidth={1.8} />;
   return (
-    <li>
+    <li className="gnav-flyout__item flex min-w-0" style={style}>
       <Link
         href={href}
         onClick={onPick}
-        aria-current={active ? current : undefined}
-        className="mega-link roll"
+        aria-current={active ? 'page' : undefined}
+        className="flat-link flex w-full flex-col gap-1.5 rounded-[6px] p-3 transition-colors duration-200 hover:bg-[rgb(11_13_18/0.05)] aria-[current=page]:bg-[rgb(11_13_18/0.05)]"
       >
-        <span className="mega-link__icon">
-          <Icon name={icon} size={18} />
+        <span className="flex items-center gap-2 text-[var(--nav-fg)]">
+          <Lucide name={icon} size={17} />
+          <span className="text-h4 font-medium">{name}</span>
+          {/* The tilted arrow is there at rest; pointing at the item rolls it out and its twin in. */}
+          <span aria-hidden="true" className="roll__arrow mega-link__arrow mt-0 ml-auto">
+            <Lucide name="arrowRight" />
+            <Lucide name="arrowRight" />
+          </span>
         </span>
-        <span className="min-w-0 flex-1">
-          <span className="mega-link__name">{name}</span>
-          <span className="mega-link__summary">{summary}</span>
-          {points?.length ? (
-            <span className="mega-link__points">
-              {points.map((point) => (
-                <span key={point.name} className="mega-link__point">
-                  <span className="mega-link__point-name">{point.name}</span>
-                  <span className="mega-link__summary">{point.detail}</span>
-                </span>
-              ))}
-            </span>
-          ) : null}
-        </span>
-        {/* The tilted arrow is there at rest; pointing at the row rolls it out and its twin in. */}
-        <span aria-hidden="true" className="roll__arrow mega-link__arrow">
-          {arrow}
-          {arrow}
-        </span>
+        <span className="text-sm text-[var(--nav-fg-2)]">{summary}</span>
       </Link>
     </li>
   );

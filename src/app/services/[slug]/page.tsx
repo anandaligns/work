@@ -2,28 +2,21 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Closing } from '@/components/home/closing';
+import { MockPanel, MockStage } from '@/components/lab/mock-parts';
+import { SERVICE_MOCKS } from '@/components/lab/service-mocks';
 import { Pricing } from '@/components/home/pricing';
 import { Card, CardBand } from '@/components/pages/cards';
 import { FlowStrip } from '@/components/pages/flow-strip';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
-import {
-  BuildCards,
-  GoodFor,
-  HeroWell,
-  Prices,
-  ProblemCards,
-  Questions,
-  Section,
-} from '@/components/pages/sections';
+import { BuildCards, FaqBand, HeroWell, Prices, Section } from '@/components/pages/sections';
+import { ProductBody, ProductOpening, RelatedIndex } from '@/components/pages/product';
+import { ServiceOpening } from '@/components/pages/service-stage';
+import { businessColour, stageFor } from '@/components/pages/service-stages';
 import { PageStructuredData } from '@/components/seo/page-structured-data';
-import { type IconName, iconFor, SOLUTION_ICONS } from '@/components/ui/icon';
+import { type IconName, iconFor } from '@/components/ui/icon';
 import { RollLink } from '@/components/ui/roll-link';
 import { ConnectScene } from '@/components/visuals/connect-scene';
-import {
-  EvolveHeroScene,
-  GroupHeroScene,
-  ServiceHeroScene,
-} from '@/components/visuals/page-scenes';
+import { GroupHeroScene } from '@/components/visuals/page-scenes';
 import {
   evolvePage,
   GROUP_TINT,
@@ -37,18 +30,43 @@ import {
   solutionPageFor,
 } from '@/content/pages';
 import { categories, evolve, solutions, startFor, whatsappAbout } from '@/content/site';
+import { productFor } from '@/content/products';
 
 /**
- * `/services/[slug]` — the three service groups, their fifteen services, and Evolve. Every page is
- * written out in `content/pages.ts`; this puts each one together from the sections the home page
- * already has: the intro, the page's scene in a tinted well, then its bands, its questions and
- * its closing, ending on its Connect scene.
+ * `/services/[slug]` — the three service groups, their fifteen services, and Evolve. A group page
+ * is put together from the home page's sections: the intro, its scene in a tinted well, its
+ * services, prices and questions. A service and Evolve are presented as products
+ * (`content/products/`): the page's opening with the product at work, then the product's sections,
+ * the related index and the closing on its Connect scene.
  */
 const GROUP_GLYPH: Record<string, IconName> = {
   'digital-experiences': 'device',
   'business-systems': 'database',
   'automation-ai': 'spark',
 };
+
+/**
+ * A service page's own mockups, on its tint, when it has them (`SERVICE_MOCKS`): the panel in the
+ * page's accent, the business's screens inside it in the business's colour.
+ */
+function mocksFor(slug: string, accent: string) {
+  const set = SERVICE_MOCKS[slug];
+  if (!set) return {};
+  const How = set.how;
+  const business = businessColour(slug);
+  return {
+    features: set.features.map((Mock, i) => (
+      <MockPanel key={i} accent={accent} business={business}>
+        <Mock />
+      </MockPanel>
+    )),
+    how: (
+      <MockStage accent={accent} business={business} className="h-[20rem] max-w-4xl sm:h-[24rem]">
+        <How />
+      </MockStage>
+    ),
+  };
+}
 
 export const dynamicParams = false;
 
@@ -171,9 +189,13 @@ function GroupView({ page }: { page: GroupPage }) {
         <Prices cards={page.prices} note={page.priceNote} compact />
       </Section>
 
-      <Section id="questions" eyebrow={category.name} title="Questions">
-        <Questions faqs={page.faqs} />
-      </Section>
+      <FaqBand
+        eyebrow={category.name}
+        title={`${category.name} questions`}
+        faqs={page.faqs}
+        interest={page.slug}
+        topic={category.name}
+      />
 
       <Closing
         heading={page.closing}
@@ -190,11 +212,14 @@ function GroupView({ page }: { page: GroupPage }) {
 function ServiceView({ page }: { page: ServicePage }) {
   const category = categories.find((c) => c.slug === page.group)!;
   const service = category.services.find((s) => s.anchor === page.slug)!;
+  const product = productFor(page.slug)!;
   const tint = GROUP_TINT[page.group];
   const path = `/services/${page.slug}`;
+  const groupPath = `/services/${category.slug}`;
   const solution = solutions.find((s) => s.slug === page.solution);
   const solutionPage = solutionPageFor(page.solution);
   const related = category.services.filter((s) => s.anchor !== page.slug);
+  const stage = stageFor(page.slug);
 
   return (
     <>
@@ -202,80 +227,73 @@ function ServiceView({ page }: { page: ServicePage }) {
         name={service.name}
         description={page.description}
         path={path}
-        crumbs={[{ name: category.name, path: `/services/${category.slug}` }]}
-        faqs={page.faqs}
+        crumbs={[
+          { name: 'Services', path: '/#services' },
+          { name: category.name, path: groupPath },
+        ]}
+        faqs={product.faqs.items}
         from={page.from}
         serviceType={page.keyword}
       />
-      <Intro
-        eyebrow={category.name}
-        title={service.name}
-        intro={page.intro}
-        interest={page.slug}
-        topic={service.name}
-      />
-      <HeroWell tint={tint}>
-        <ServiceHeroScene slug={page.slug} tint={tint} />
-      </HeroWell>
-
-      <Section id="problem" eyebrow={service.name} title="What gets in the way">
-        <ProblemCards points={page.problems} />
-      </Section>
-
-      <Section id="build" eyebrow={service.name} title="What we build">
-        <BuildCards points={page.builds} />
-      </Section>
-
-      <Section id="how" eyebrow={service.name} title="How it works">
-        <FlowStrip steps={page.steps} tint={tint} />
-      </Section>
-
-      <Section id="good-for" eyebrow={service.name} title="Good for">
-        <GoodFor sectors={page.goodFor} />
-      </Section>
-
-      <Section id="price" eyebrow={service.name} title="Price">
-        <Prices cards={page.prices} note={page.priceNote} />
-      </Section>
-
-      <Section id="questions" eyebrow={service.name} title="Questions">
-        <Questions faqs={page.faqs} />
-      </Section>
-
-      <CardBand id="related" eyebrow={category.name} title={`More in ${category.name}`}>
-        {related.map((s, i) => (
-          <Card
-            key={s.anchor}
-            icon={iconFor(s.anchor)}
-            name={s.name}
-            line={s.summary}
-            href={`/services/${s.anchor}`}
-            index={i}
-          />
-        ))}
-        {solution && solutionPage ? (
-          <Card
-            icon={SOLUTION_ICONS[solutionPage.slug] ?? 'layers'}
-            name={`Solution: ${solution.name}`}
-            line={solution.line}
-            href={`/solutions/${solution.slug}`}
-            index={related.length}
-          />
-        ) : null}
-        <Card
-          icon={GROUP_GLYPH[category.slug] ?? 'layers'}
-          name={`All of ${category.name}`}
-          line={category.line}
-          href={`/services/${category.slug}`}
-          index={related.length + 1}
+      {stage ? (
+        <ServiceOpening
+          eyebrow={category.name}
+          title={service.name}
+          intro={page.intro}
+          interest={page.slug}
+          topic={service.name}
+          stage={stage}
         />
-      </CardBand>
+      ) : (
+        <ProductOpening
+          page={product}
+          eyebrow={category.name}
+          title={service.name}
+          intro={page.intro}
+          interest={page.slug}
+          topic={service.name}
+        />
+      )}
+
+      <ProductBody
+        page={product}
+        interest={page.slug}
+        eyebrow={service.name}
+        tint={tint}
+        next={mocksFor(page.slug, product.accent)}
+      />
+
+      <RelatedIndex
+        eyebrow={category.name}
+        heading={`More in ${category.name}`}
+        off
+        links={[
+          ...related.map((s) => ({ name: s.name, line: s.summary, href: `/services/${s.anchor}` })),
+          ...(solution && solutionPage
+            ? [
+                {
+                  name: `Solution: ${solution.name}`,
+                  line: solution.line,
+                  href: `/solutions/${solution.slug}`,
+                },
+              ]
+            : []),
+          { name: `All of ${category.name}`, line: category.line, href: groupPath },
+        ]}
+      />
 
       <Closing
         heading={page.closing}
         interest={page.slug}
         topic={service.name}
-        visual={<ConnectScene icon={iconFor(page.slug)} tint={tint} />}
+        visual={
+          <ConnectScene
+            icon={iconFor(page.slug)}
+            tint={tint}
+            accent={product.accent}
+            accentDark={product.accentDark}
+          />
+        }
       />
     </>
   );
@@ -285,6 +303,7 @@ function ServiceView({ page }: { page: ServicePage }) {
 
 function EvolveView() {
   const page = evolvePage;
+  const product = productFor(evolve.slug)!;
   const path = `/services/${evolve.slug}`;
   return (
     <>
@@ -292,43 +311,36 @@ function EvolveView() {
         name={evolve.name}
         description={page.description}
         path={path}
-        crumbs={[]}
-        faqs={page.faqs}
+        crumbs={[{ name: 'Services', path: '/#services' }]}
+        faqs={product.faqs.items}
         from={page.from}
         monthly={page.monthly}
         serviceType={page.keyword}
       />
-      <Intro
+      <ProductOpening
+        page={product}
         eyebrow={page.chip}
         title={evolve.name}
         intro={page.intro}
         interest={evolve.slug}
         topic={evolve.name}
       />
-      <HeroWell tint="butter">
-        <EvolveHeroScene />
-      </HeroWell>
 
-      <Section id="why" eyebrow={evolve.name} title={page.why.heading} intro={page.why.body} />
-
-      <Section id="includes" eyebrow={evolve.name} title="What every plan includes">
-        <BuildCards points={page.includes} />
-      </Section>
-
-      <Section id="plans" eyebrow={evolve.name} title="Evolve plans">
-        <Pricing only="care" />
-      </Section>
-
-      <Section
-        id="terms"
+      <ProductBody
+        page={product}
+        interest={evolve.slug}
         eyebrow={evolve.name}
-        title={page.terms.heading}
-        intro={page.terms.body}
+        tint="butter"
+        priceExtra={<Pricing only="care" />}
+        after={
+          <Section
+            id="terms"
+            eyebrow={evolve.name}
+            title={page.terms.heading}
+            intro={page.terms.body}
+          />
+        }
       />
-
-      <Section id="questions" eyebrow={evolve.name} title="Questions">
-        <Questions faqs={page.faqs} />
-      </Section>
 
       <Closing
         heading={page.closing}

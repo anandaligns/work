@@ -61,7 +61,7 @@ const WORDMARK: [string, boolean][] = [
   ['M437.16 -45.62L451.56 -45.62L489.88 0L475.48 0Z', false],
 ];
 
-export const KINETIC = '#2E3BFF';
+export const KINETIC = '#FF3D00';
 
 function Glyphs({ fill }: { fill: string }) {
   return (

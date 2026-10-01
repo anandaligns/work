@@ -22,7 +22,7 @@ export function ThanksHeading() {
   }, []);
 
   return (
-    <h1 id="page-heading" className="mt-6 text-display tracking-[var(--tracking-display)] text-ink">
+    <h1 id="page-heading" className="mt-6 text-title tracking-[var(--tracking-heading)] text-ink">
       {name ? `Thanks, ${name}.` : 'Thanks.'}
     </h1>
   );

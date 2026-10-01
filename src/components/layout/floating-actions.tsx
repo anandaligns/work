@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { contact, START } from '@/content/site';
@@ -28,6 +29,9 @@ import { Icon } from '../ui/icon';
  *
  * `showStart={false}` leaves the phone's Get Started tab off — for the contact page, which is where
  * Get Started leads.
+ *
+ * The phone's Get Started tab also stands on its own, site-wide (`MobileStart`, in the layout),
+ * while the rest stays parked.
  */
 /** The glyphs are the site's own Tabler marks, a touch heavier here to hold on the solid buttons. */
 function WhatsAppGlyph({ className = 'size-[1.1rem]' }: { className?: string }) {
@@ -155,5 +159,28 @@ export function FloatingActions({ showStart = true }: { showStart?: boolean }) {
         </a>
       </div>
     </aside>
+  );
+}
+
+/**
+ * Get Started on a phone, on every page: the rail's slim tab on the right edge, halfway down,
+ * tucked 0.5rem off-screen and sliding in when touched — in the site's ink button, its gradient,
+ * ring and highlight. From 768px the header carries Get Started, so the tab is phones only; on the
+ * page Get Started leads to, it would only lead back, so it stays off there.
+ */
+export function MobileStart() {
+  const path = usePathname();
+  if (path === START.href) return null;
+  return (
+    <div className="side-rail md:hidden">
+      <Link href={START.href} className="side-rail__start">
+        <span className="signal" aria-hidden="true" />
+        <span>{START.label}</span>
+        <span className="side-rail__arrow" aria-hidden="true">
+          <RailArrow />
+          <RailArrow />
+        </span>
+      </Link>
+    </div>
   );
 }

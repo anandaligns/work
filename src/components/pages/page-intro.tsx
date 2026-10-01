@@ -25,11 +25,11 @@ export function PageIntro({
       aria-labelledby="page-heading"
       className="relative overflow-hidden pt-28 pb-16 sm:pt-32 lg:pb-24"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-[36rem] md:block">
+      <div className="pointer-events-none absolute inset-x-0 top-[3.4375rem] hidden h-[36rem] md:block">
         <Pausable
           label="the moving pattern"
           className="module-field h-full"
-          buttonClassName="pointer-events-auto top-[4.25rem] left-5"
+          buttonClassName="pointer-events-auto top-4 left-5"
         >
           <ModuleField bottom={520} />
         </Pausable>
@@ -45,7 +45,7 @@ export function PageIntro({
           </p>
           <h1
             id="page-heading"
-            className="mt-6 text-display tracking-[var(--tracking-display)] text-ink"
+            className="mt-6 text-title tracking-[var(--tracking-heading)] text-ink"
           >
             <BlurText text={title} delay={120} />
           </h1>

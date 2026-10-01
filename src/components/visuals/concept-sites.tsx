@@ -1,5 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 
+import { FamilyArt, type FamilyArtKind } from './concept-art';
+
 /**
  * Concept websites — the colour on a monochrome page.
  *
@@ -10,7 +12,17 @@ import type { CSSProperties, ReactNode } from 'react';
  * picture in them is drawn, so the page makes no request to anyone else's server.
  */
 
-export type ArtKind = 'smile' | 'bowl' | 'house' | 'garment' | 'book' | 'cup' | 'scales' | 'chart';
+export type ArtKind =
+  | 'smile'
+  | 'bowl'
+  | 'house'
+  | 'garment'
+  | 'book'
+  | 'cup'
+  | 'scales'
+  | 'chart'
+  | 'bracket'
+  | FamilyArtKind;
 
 export type Brand = {
   id: string;
@@ -26,6 +38,8 @@ export type Brand = {
   accent: string;
   soft: string;
   art: ArtKind;
+  /** Text on the accent, where white would be too faint (a light accent). */
+  on?: string;
   serif?: boolean;
   cards: [string, string, string];
 };
@@ -162,6 +176,324 @@ export const BRANDS: Record<string, Brand> = {
     soft: '#e2dcff',
     art: 'chart',
     cards: ['Routes', 'Notes', 'Reports'],
+  },
+  tessel: {
+    id: 'tessel',
+    name: 'Tessel Components',
+    kind: 'Manufacturing',
+    headline: 'Precision sheet metal, on time.',
+    sub: 'Brackets, enclosures and panels made in Peenya, and shipped to dealers across India.',
+    cta: 'Request a quote',
+    nav: ['Parts', 'Capabilities', 'Dealers', 'Contact'],
+    bg: '#f2f5f8',
+    ink: '#16232e',
+    muted: '#526577',
+    accent: '#4a6a85',
+    soft: '#d6e0e9',
+    art: 'bracket',
+    cards: ['Brackets', 'Enclosures', 'Panels'],
+  },
+  // The reader's own business, on the service pages: a site for any business, and a store.
+  yours: {
+    id: 'yours',
+    name: 'Your Business',
+    kind: 'Your business',
+    headline: 'Found, chosen and booked.',
+    sub: 'What you do, why you, and one clear next step, on every phone and every search.',
+    cta: 'Book a consultation',
+    nav: ['Services', 'About', 'Reviews', 'Contact'],
+    bg: '#f7f7fc',
+    ink: '#11142b',
+    muted: '#5b6070',
+    accent: '#4b55d6',
+    soft: '#e3e6fb',
+    art: 'chart',
+    cards: ['Services', 'How it works', 'Book a visit'],
+  },
+  yoursalon: {
+    id: 'yoursalon',
+    name: 'Your Salon',
+    kind: 'Salon & spa · Koramangala',
+    headline: 'Your chair is ready.',
+    sub: 'Book a stylist, pay a small deposit and get a reminder the day before.',
+    cta: 'Book now',
+    nav: ['Services', 'Stylists', 'Offers', 'Visit'],
+    bg: '#fdf6f9',
+    ink: '#2a1020',
+    muted: '#7a5a6a',
+    accent: '#be185d',
+    soft: '#f9dcea',
+    art: 'garment',
+    cards: ['Haircut & styling', 'Colour', 'Spa'],
+  },
+  yourstudio: {
+    id: 'yourstudio',
+    name: 'Your Studio',
+    kind: 'Pottery studio · HSR Layout',
+    headline: 'Handmade pieces, and a seat at the wheel.',
+    sub: 'Shop this week’s pieces, or book a weekend workshop and pay online.',
+    cta: 'Book a workshop',
+    nav: ['Shop', 'Workshops', 'Gift cards', 'Visit'],
+    bg: '#f7f5ef',
+    ink: '#23241b',
+    muted: '#63665a',
+    accent: '#4d7c0f',
+    soft: '#e4ecd3',
+    art: 'cup',
+    cards: ['This week’s pieces', 'Weekend workshops', 'Gift cards'],
+  },
+  // The service pages' example businesses: one kind of business per page, each in its own colour
+  // (the page's business colour), used only in its own website and screens.
+  interiordesign: {
+    id: 'interiordesign',
+    name: 'Interior Design Studio',
+    kind: 'Interior design · Indiranagar',
+    headline: 'Rooms that feel like you.',
+    sub: 'Homes, cafés and offices designed end to end, from the first sketch to the last cushion.',
+    cta: 'Book a consultation',
+    nav: ['Projects', 'Services', 'Process', 'Contact'],
+    bg: '#f6fdfe',
+    ink: '#103641',
+    muted: '#4b7d92',
+    accent: '#22c7e8',
+    soft: '#d7f5fb',
+    on: '#0b0d12',
+    art: 'sofa',
+    cards: ['Living rooms', 'Kitchens', 'Offices'],
+  },
+  fashionstore: {
+    id: 'fashionstore',
+    name: 'Fashion / Clothing Store',
+    kind: 'Hand-block clothing · Online',
+    headline: 'Block prints, new this week.',
+    sub: 'Kurtas, dresses and sarees printed by hand. Pay online, track on WhatsApp, return in seven days.',
+    cta: 'Shop new in',
+    nav: ['New in', 'Kurtas', 'Dresses', 'Track order'],
+    bg: '#fcf8ff',
+    ink: '#2e1d44',
+    muted: '#715d96',
+    accent: '#a855f7',
+    soft: '#efe0fe',
+    art: 'hanger',
+    cards: ['New in', 'Kurtas', 'Sale'],
+  },
+  partsdistributor: {
+    id: 'partsdistributor',
+    name: 'Industrial Parts Distributor',
+    kind: 'Bearings and fasteners · Peenya',
+    headline: 'Parts on the shelf, prices on account.',
+    sub: 'Bearings, belts and fasteners for factories across Karnataka, with your prices, invoices and orders in one portal.',
+    cta: 'Open a trade account',
+    nav: ['Products', 'Brands', 'Trade accounts', 'Contact'],
+    bg: '#fffbf5',
+    ink: '#3e2d10',
+    muted: '#867154',
+    accent: '#f59e0b',
+    soft: '#fdeed3',
+    on: '#0b0d12',
+    art: 'parts',
+    cards: ['Bearings', 'Fasteners', 'Transmission'],
+  },
+  logistics: {
+    id: 'logistics',
+    name: 'Logistics & Fleet Company',
+    kind: 'Deliveries · South India',
+    headline: 'Loads moved on time, every time.',
+    sub: 'Same-day and scheduled deliveries across South India, with live tracking and proof of delivery.',
+    cta: 'Get a quote',
+    nav: ['Services', 'Fleet', 'Tracking', 'Contact'],
+    bg: '#f7faff',
+    ink: '#162744',
+    muted: '#526a96',
+    accent: '#3b82f6',
+    soft: '#dce9fd',
+    art: 'van',
+    cards: ['Same-day', 'Full truckload', 'Track a load'],
+  },
+  restaurant: {
+    id: 'restaurant',
+    name: 'Restaurant / Food Ordering Brand',
+    kind: 'South Indian kitchen · Indiranagar',
+    headline: 'South Indian classics, made fresh.',
+    sub: 'Order ahead on the app and pick up in minutes, or book a table for tonight.',
+    cta: 'Order now',
+    nav: ['Menu', 'Order', 'Book', 'Visit'],
+    bg: '#fff9fa',
+    ink: '#40232b',
+    muted: '#886576',
+    accent: '#fb7185',
+    soft: '#fee5e9',
+    on: '#0b0d12',
+    art: 'plate',
+    cards: ['Dosas', 'Meals', 'Order ahead'],
+  },
+  solarenergy: {
+    id: 'solarenergy',
+    name: 'Solar Energy Company',
+    kind: 'Rooftop solar · 38 sites',
+    headline: 'Power from your own roof.',
+    sub: 'Rooftop solar for homes, schools and offices, watched every day from the first switch-on.',
+    cta: 'Book a survey',
+    nav: ['Homes', 'Business', 'Monitoring', 'Contact'],
+    bg: '#fffdf6',
+    ink: '#403713',
+    muted: '#887e57',
+    accent: '#facc15',
+    soft: '#fef6d5',
+    on: '#0b0d12',
+    art: 'solar',
+    cards: ['Homes', 'Schools', 'Offices'],
+  },
+  school: {
+    id: 'school',
+    name: 'School / Education Institute',
+    kind: 'CBSE · Classes 1 to 12',
+    headline: 'Where every child is known.',
+    sub: 'Small sections, teachers who know every name, and parents who always know how the term is going.',
+    cta: 'Apply for admission',
+    nav: ['Admissions', 'Academics', 'Campus', 'Contact'],
+    bg: '#f6fcfb',
+    ink: '#0d3333',
+    muted: '#47797f',
+    accent: '#14b8a6',
+    soft: '#d5f2ef',
+    on: '#0b0d12',
+    art: 'books',
+    cards: ['Admissions', 'Academics', 'Sports'],
+  },
+  realestate: {
+    id: 'realestate',
+    name: 'Real Estate Agency',
+    kind: 'Homes and plots · Bangalore',
+    headline: 'Find the home that fits.',
+    sub: 'Apartments, villas and plots across Bangalore, with site visits every weekend.',
+    cta: 'Book a site visit',
+    nav: ['Buy', 'Rent', 'Projects', 'Contact'],
+    bg: '#fafaff',
+    ink: '#252945',
+    muted: '#666c96',
+    accent: '#818cf8',
+    soft: '#e8eafe',
+    on: '#0b0d12',
+    art: 'towers',
+    cards: ['Apartments', 'Villas', 'Plots'],
+  },
+  construction: {
+    id: 'construction',
+    name: 'Construction Company',
+    kind: 'Builders · Bangalore',
+    headline: 'Built right, handed over on time.',
+    sub: 'Homes, schools and commercial buildings, with every site’s progress shared each week.',
+    cta: 'Request a quote',
+    nav: ['Projects', 'Services', 'Safety', 'Contact'],
+    bg: '#fff9f6',
+    ink: '#3f2313',
+    muted: '#876557',
+    accent: '#f97316',
+    soft: '#fee6d5',
+    on: '#0b0d12',
+    art: 'crane',
+    cards: ['Residential', 'Commercial', 'Renovation'],
+  },
+  recruitment: {
+    id: 'recruitment',
+    name: 'Recruitment Agency Network',
+    kind: 'Hiring platform · 12 agencies',
+    headline: 'The right people, placed faster.',
+    sub: 'Job posts, candidate pipelines and client access for every agency in the network, on one platform.',
+    cta: 'Start a free trial',
+    nav: ['Platform', 'Pricing', 'Agencies', 'Sign in'],
+    bg: '#fcfaff',
+    ink: '#332745',
+    muted: '#776a97',
+    accent: '#c084fc',
+    soft: '#f4e9fe',
+    on: '#0b0d12',
+    art: 'people',
+    cards: ['Job posts', 'Pipelines', 'Client access'],
+  },
+  dentalclinic: {
+    id: 'dentalclinic',
+    name: 'Dental Clinic',
+    kind: 'Dental care · Indiranagar',
+    headline: 'Gentle dental care, booked in a minute.',
+    sub: 'Check-ups, cleaning and aligners, with evening and Sunday slots, and answers on WhatsApp at any hour.',
+    cta: 'Book a visit',
+    nav: ['Treatments', 'Doctors', 'Prices', 'Contact'],
+    bg: '#f5fcfc',
+    ink: '#0b3335',
+    muted: '#447982',
+    accent: '#09bbaf',
+    soft: '#d3f3f1',
+    on: '#0b0d12',
+    art: 'tooth',
+    cards: ['Check-up & cleaning', 'Clear aligners', 'Chat on WhatsApp'],
+  },
+  salon: {
+    id: 'salon',
+    name: 'Salon & Beauty Studio',
+    kind: 'Hair and beauty · Koramangala',
+    headline: 'Walk in tired. Walk out new.',
+    sub: 'Cuts, colour and skin care by senior stylists. Book a slot, pay a small deposit, get a reminder.',
+    cta: 'Book a slot',
+    nav: ['Services', 'Stylists', 'Prices', 'Visit'],
+    bg: '#fff9fc',
+    ink: '#3e2336',
+    muted: '#866584',
+    accent: '#f472b6',
+    soft: '#fde6f2',
+    on: '#0b0d12',
+    art: 'scissors',
+    cards: ['Haircut & styling', 'Colour', 'Facials'],
+  },
+  travelagency: {
+    id: 'travelagency',
+    name: 'Online Travel Agency',
+    kind: 'Holidays and flights · Online',
+    headline: 'Trips planned, booked and sorted.',
+    sub: 'Flights, hotels and holidays in one booking, with every ticket and voucher on WhatsApp.',
+    cta: 'Plan a trip',
+    nav: ['Holidays', 'Flights', 'Hotels', 'Contact'],
+    bg: '#f5fcfd',
+    ink: '#0a323d',
+    muted: '#43788c',
+    accent: '#06b6d4',
+    soft: '#d2f2f7',
+    on: '#0b0d12',
+    art: 'plane',
+    cards: ['Holidays', 'Flights', 'Hotels'],
+  },
+  lawfirm: {
+    id: 'lawfirm',
+    name: 'Law Firm',
+    kind: 'Advocates · Bangalore',
+    headline: 'Clear advice, early.',
+    sub: 'Property, family and business law, explained plainly, with a consultation booked in a minute.',
+    cta: 'Book a consultation',
+    nav: ['Practice areas', 'Lawyers', 'Fees', 'Contact'],
+    bg: '#fdf8fe',
+    ink: '#381a43',
+    muted: '#7e5994',
+    accent: '#d946ef',
+    soft: '#f8defc',
+    art: 'gavel',
+    cards: ['Property', 'Family', 'Business'],
+  },
+  accounting: {
+    id: 'accounting',
+    name: 'Accounting & Tax Firm',
+    kind: 'Chartered accountants · Bangalore',
+    headline: 'Books, GST and tax, done on time.',
+    sub: 'Bookkeeping, GST returns and audits for small businesses, with every document read the day it arrives.',
+    cta: 'Talk to us',
+    nav: ['Services', 'Clients', 'Team', 'Contact'],
+    bg: '#fef6f8',
+    ink: '#3a111e',
+    muted: '#814d65',
+    accent: '#e11d48',
+    soft: '#fad6de',
+    art: 'ledger',
+    cards: ['Bookkeeping', 'GST', 'Audit'],
   },
 };
 
@@ -424,12 +756,51 @@ function Art({ kind, b }: { kind: ArtKind; b: Brand }) {
           <circle cx="320" cy="110" r="7" fill="#1fb866" />
         </svg>
       );
+    case 'bracket':
+      // A sheet-metal L-bracket with its holes, on the grid of a drawing board.
+      return (
+        <svg viewBox="0 0 400 300" {...common}>
+          <rect width="400" height="300" fill={b.soft} />
+          {Array.from({ length: 9 }, (_, i) => (
+            <path
+              key={`v${i}`}
+              d={`M${i * 50} 0V300`}
+              stroke="#fff"
+              strokeWidth="1"
+              opacity="0.6"
+            />
+          ))}
+          {Array.from({ length: 7 }, (_, i) => (
+            <path
+              key={`h${i}`}
+              d={`M0 ${i * 50}H400`}
+              stroke="#fff"
+              strokeWidth="1"
+              opacity="0.6"
+            />
+          ))}
+          <path d="M110 90h70v110h110v50H110z" fill="#e9eef3" stroke={b.ink} strokeWidth="3" />
+          <path d="M180 200l20-20h110l-20 20z" fill="#cfd9e2" stroke={b.ink} strokeWidth="3" />
+          <path d="M180 90l20-20v110l-20 20z" fill="#bccad6" stroke={b.ink} strokeWidth="3" />
+          <path d="M110 90l20-20h70l-20 20z" fill="#dde5ec" stroke={b.ink} strokeWidth="3" />
+          {[125, 160].map((y) => (
+            <circle key={y} cx="145" cy={y} r="9" fill={b.soft} stroke={b.ink} strokeWidth="3" />
+          ))}
+          {[225, 265].map((x) => (
+            <circle key={x} cx={x} cy="225" r="9" fill={b.soft} stroke={b.ink} strokeWidth="3" />
+          ))}
+          <rect x="300" y="60" width="60" height="18" rx="9" fill={b.accent} />
+          <circle cx="330" cy="110" r="7" fill="#1fb866" />
+        </svg>
+      );
+    default:
+      return <FamilyArt kind={kind} b={b} />;
   }
 }
 
 // --- the layouts -------------------------------------------------------------------------------
 
-function Wordmark({ b, size = 20 }: { b: Brand; size?: number }) {
+export function Wordmark({ b, size = 20 }: { b: Brand; size?: number }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: size * 0.45 }}>
       <span
@@ -476,7 +847,9 @@ function Pill({
         fontSize: size,
         fontWeight: 600,
         background: ghost ? 'transparent' : b.accent,
-        color: ghost ? b.ink : b.bg === '#1b1310' || b.bg === '#0f1b2d' ? '#1b1310' : '#fff',
+        color: ghost
+          ? b.ink
+          : (b.on ?? (b.bg === '#1b1310' || b.bg === '#0f1b2d' ? '#1b1310' : '#fff')),
         border: ghost ? `1.5px solid ${b.ink}33` : 'none',
       }}
     >
@@ -587,7 +960,7 @@ export function DesktopSite({
                 padding: '14px 20px',
                 borderRadius: 16,
                 background: i === 0 ? b.accent : 'rgba(255,255,255,0.9)',
-                color: i === 0 ? '#fff' : b.ink,
+                color: i === 0 ? (b.on ?? '#fff') : b.ink,
                 fontSize: 16,
                 fontWeight: 700,
                 fontFamily: display,
@@ -703,7 +1076,9 @@ export function DesktopSite({
               borderRadius: 20,
               background: i === 0 ? b.accent : b.soft,
               color:
-                i === 0 ? (b.bg === '#1b1310' || b.bg === '#0f1b2d' ? '#1b1310' : '#fff') : b.ink,
+                i === 0
+                  ? (b.on ?? (b.bg === '#1b1310' || b.bg === '#0f1b2d' ? '#1b1310' : '#fff'))
+                  : b.ink,
               padding: 26,
               fontSize: 22,
               fontWeight: 700,
@@ -739,7 +1114,7 @@ export function MobileSite({ b }: { b: Brand }) {
           padding: '22px 22px 16px',
         }}
       >
-        <Wordmark b={b} size={17} />
+        <Wordmark b={b} size={b.name.length > 22 ? 14 : 17} />
         <span style={{ display: 'grid', gap: 5 }}>
           <span style={{ width: 22, height: 2, background: b.ink, display: 'block' }} />
           <span style={{ width: 22, height: 2, background: b.ink, display: 'block' }} />

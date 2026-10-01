@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { categories, contact, evolve, socials, solutions } from '@/content/site';
 
-import { BrandLockup } from '../ui/brand';
+import { Logo } from '../ui/logo';
 import { BackToTop } from './back-to-top';
 
 /**
@@ -65,15 +65,13 @@ export function Footer() {
       <div className="container-fluid">
         <div className="grid gap-14 pt-16 pb-16 lg:pt-20 xl:grid-cols-[15rem_minmax(0,1fr)] xl:gap-x-16">
           <div>
-            <Link href="/" aria-label="Pixel Kinetix home" className="inline-flex">
-              <BrandLockup className="h-6 w-auto lg:h-7" />
-            </Link>
+            <Logo />
             <p className="mt-5 max-w-[14em] font-display text-h3 tracking-[var(--tracking-heading)] text-balance xl:max-w-[11em]">
               Engineered to move you forward.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-10 text-sm sm:grid-cols-3 lg:grid-cols-[repeat(6,max-content)] lg:justify-between">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-10 text-sm min-[360px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-[repeat(6,max-content)] lg:justify-between">
             {COLUMNS.map((column) => (
               <nav key={column.heading} aria-label={column.heading}>
                 <h2 className="eyebrow text-ink">{column.heading}</h2>
@@ -88,7 +86,7 @@ export function Footer() {
                 </ul>
               </nav>
             ))}
-            <section aria-labelledby="footer-business" className="max-sm:col-span-2">
+            <section aria-labelledby="footer-business" className="min-[360px]:max-sm:col-span-2">
               <h2 id="footer-business" className="eyebrow text-ink">
                 Business info
               </h2>

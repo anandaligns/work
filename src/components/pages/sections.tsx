@@ -1,16 +1,14 @@
 import type { CSSProperties, ReactNode } from 'react';
 
-import type { Faq, Point, PriceCard, Sector, Step, Tint } from '@/content/pages';
-import { sectors } from '@/content/site';
+import type { Faq, Point, PriceCard, Tint } from '@/content/pages';
+import { startFor, whatsappAbout } from '@/content/site';
 
-import { FaqList } from '../home/faq';
-import { MARKS, TINTS } from '../home/sectors';
+import { AskCard, FaqList } from '../home/faq';
 import { Band } from '../layout/band';
 import { PixelReveal } from '../motion/pixel-reveal';
 import { Icon } from '../ui/icon';
 import { TINT_BG, TINT_HEX } from '../visuals/scene-panel';
 import { Card } from './cards';
-import { FlowStrip } from './flow-strip';
 import { PriceCards } from './price-cards';
 
 /**
@@ -49,7 +47,7 @@ export function Section({
         <p
           data-reveal=""
           style={{ '--i': 1 } as CSSProperties}
-          className="mt-5 max-w-2xl text-lead text-ink-2"
+          className="mt-5 max-w-2xl text-body text-ink-2"
         >
           {intro}
         </p>
@@ -95,7 +93,7 @@ export function ProblemCards({ points }: { points: Point[] }) {
           <span className="text-ink-3">
             <Icon name={point.icon} size={22} />
           </span>
-          <p className="text-lead text-ink-2">{point.text}</p>
+          <p className="text-body text-ink-2">{point.text}</p>
         </li>
       ))}
     </ul>
@@ -108,31 +106,6 @@ export function BuildCards({ points }: { points: Point[] }) {
     <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {points.map((point, i) => (
         <Card key={point.text} icon={point.icon} name={point.text} index={i} />
-      ))}
-    </ul>
-  );
-}
-
-export function Flow({ steps, tint }: { steps: Step[]; tint: Tint }) {
-  return <FlowStrip steps={steps} tint={tint} />;
-}
-
-/** Good for: home's sector chips, standing still. */
-export function GoodFor({ sectors: chosen }: { sectors: Sector[] | 'all' }) {
-  const list = chosen === 'all' ? sectors : sectors.filter((s) => chosen.includes(s as Sector));
-  return (
-    <ul className="flex flex-wrap gap-3">
-      {list.map((sector) => (
-        <li
-          key={sector}
-          className="sector-chip"
-          style={{ '--tint': TINTS[sectors.indexOf(sector) % TINTS.length] } as CSSProperties}
-        >
-          <span className="sector-chip__mark">
-            <Icon name={MARKS[sector] ?? 'spark'} size={18} />
-          </span>
-          {sector}
-        </li>
       ))}
     </ul>
   );
@@ -161,5 +134,64 @@ export function Questions({ faqs }: { faqs: Faq[] }) {
     <div className="max-w-4xl">
       <FaqList items={faqs} />
     </div>
+  );
+}
+
+/**
+ * A page's questions in two columns, as Lightfield sets its FAQ: the heading, a line and the way
+ * to ask something else on the left — held in view on a wide screen while the answers scroll —
+ * and the accordion on the right. One column on a phone.
+ */
+export function FaqBand({
+  id = 'questions',
+  eyebrow,
+  title,
+  intro,
+  faqs,
+  interest,
+  topic,
+  after,
+}: {
+  id?: string;
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  faqs: Faq[];
+  /** Where "tell us" sends the reader: the page's `?interest=`. */
+  interest?: string;
+  /** What the WhatsApp message is about. */
+  topic?: string;
+  /** The page's small print, in its own box: under the intro on a wide screen, else last. */
+  after?: ReactNode;
+}) {
+  return (
+    <Band id={id} labelledBy={`${id}-heading`} className="py-24 lg:py-32">
+      {/* Side by side from 1024px, the card to ask and the small print under the intro; stacked
+          below that, both after the questions. */}
+      <div className="flex flex-col gap-10 lg:grid lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-16">
+        <div className="contents lg:sticky lg:top-28 lg:block lg:self-start">
+          <div>
+            <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
+              <span className="size-1.5 bg-ink" />
+              {eyebrow}
+            </p>
+            <h2
+              id={`${id}-heading`}
+              className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-balance text-ink"
+            >
+              {title}
+            </h2>
+            <p data-reveal="" className="mt-5 max-w-sm text-body text-ink-2">
+              {intro ?? 'Straight answers to the questions we’re asked most.'}
+            </p>
+          </div>
+          <div className="max-w-sm max-lg:order-last lg:mt-8">
+            <AskCard whatsapp={whatsappAbout(topic ?? eyebrow)} start={startFor(interest)} />
+          </div>
+          {after ? <div className="max-lg:order-last lg:mt-10">{after}</div> : null}
+        </div>
+        <FaqList items={faqs} />
+      </div>
+    </Band>
   );
 }

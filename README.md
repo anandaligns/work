@@ -23,29 +23,44 @@ docker compose down                           # stop
 
 ## What is where
 
-| Path                                           | What it is                                                                                                                                                          |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/app/globals.css`                          | Tokens (the brand's Graphite Ink and cool greys, the tints, the type scale) and every CSS-driven motion                                                             |
-| `src/content/catalogue.json`                   | Catalogue v2 (25 Sep 2026): service groups, services, solutions, offers, FAQs, home copy. Ahead of the platform's seed until the seed takes the same text           |
-| `src/content/site.ts`                          | Typed reads of the catalogue, plus this page's own headings and figures                                                                                             |
-| `src/content/pages.ts`                         | Every page beyond home, word for word: the three groups, fifteen services, Evolve and four solutions                                                                |
-| `src/content/cases.ts`                         | Case studies for `/work/<slug>` — empty until a client agrees to one                                                                                                |
-| `src/components/motion/`                       | Lenis, the blur-in headline, scroll-filled headings, the pixel dissolve, count-ups, the one scroll controller, the logo's quarter-turn and the living brand pattern |
-| `src/components/visuals/iso.tsx`               | The isometric drawing kit                                                                                                                                           |
-| `src/components/visuals/scenes.tsx`            | Every illustration, composed from the kit                                                                                                                           |
-| `src/components/visuals/page-scenes.tsx`       | Each page's hero scene, planned from the kit (bounds worked out, no hand-set viewBox)                                                                               |
-| `src/components/visuals/connect-scene.tsx`     | The closing picture on every page but About: subject → the P cube → result                                                                                          |
-| `src/components/visuals/concept-sites.tsx`     | The concept websites in the hero and the gallery                                                                                                                    |
-| `src/components/ui/brand.tsx`                  | The mark from the identity's own geometry: symbol, lockup, wordmark                                                                                                 |
-| `src/components/layout/`                       | Header (Apple-style bar and flyouts), footer, framed band                                                                                                           |
-| `src/components/home/`                         | The home page's sections                                                                                                                                            |
-| `src/components/pages/`                        | What the other pages are built from: the page intro, card bands, sections, price cards, the flow strip, the policy page                                             |
-| `src/components/contact/`                      | The enquiry form, what happens next, and the thanks heading                                                                                                         |
-| `src/components/seo/`                          | JSON-LD: home (business, website, all 31 answers) and every service and solution page (Service, BreadcrumbList, FAQPage)                                            |
-| `src/app/services/[slug]`, `solutions/[slug]`  | Every service group, service, Evolve and solution, live and indexed, each with its own share image                                                                  |
-| `src/app/api/enquiry`, `contact/thanks`        | Where the form sends (checked again, honeypot, rate limit, passed to `LEAD_WEBHOOK_URL`) and where it lands (`noindex`)                                             |
-| `src/app/about`, `contact`, `privacy`, `terms` | The company pages; `not-found.tsx` is the 404                                                                                                                       |
-| `src/app/sitemap.ts`, `robots.ts`              | The sitemap (live pages only) and robots rules (`/lab` kept out)                                                                                                    |
+| Path                                           | What it is                                                                                                                                                                                                        |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/app/globals.css`                          | Tokens (the brand's Graphite Ink and cool greys, the tints, the type scale) and every CSS-driven motion                                                                                                           |
+| `src/content/catalogue.json`                   | Catalogue v2 (25 Sep 2026): service groups, services, solutions, offers, FAQs, home copy. Ahead of the platform's seed until the seed takes the same text                                                         |
+| `src/content/site.ts`                          | Typed reads of the catalogue, plus this page's own headings and figures                                                                                                                                           |
+| `src/content/pages.ts`                         | The three group pages in full; for the services, Evolve and the solutions, their titles, descriptions, opening lines and closings                                                                                 |
+| `src/content/products/`                        | One file per service, solution and Evolve: the product page's words, accent, example business and screens, and its FAQPage answers (`kit.ts` holds the shorthands)                                                |
+| `src/content/cases.ts`                         | Case studies for `/work/<slug>` — empty until a client agrees to one                                                                                                                                              |
+| `src/components/motion/`                       | Lenis, the blur-in headline, scroll-filled headings, the pixel dissolve, count-ups, the one scroll controller, the logo's quarter-turn and the living brand pattern                                               |
+| `src/components/visuals/iso.tsx`               | The isometric drawing kit                                                                                                                                                                                         |
+| `src/components/visuals/scenes.tsx`            | Every illustration, composed from the kit                                                                                                                                                                         |
+| `src/components/visuals/page-scenes.tsx`       | Each page's hero scene, planned from the kit (bounds worked out, no hand-set viewBox)                                                                                                                             |
+| `src/components/visuals/connect-scene.tsx`     | The closing picture on every page but About: subject → the P cube → result                                                                                                                                        |
+| `src/components/visuals/concept-sites.tsx`     | The concept websites in the hero and the gallery                                                                                                                                                                  |
+| `src/components/screens/`                      | The product screens, drawn in HTML and CSS from data: iPhones and MacBooks, desktop software built from blocks (`desk-blocks.tsx`), phone apps built from blocks (`phone-screen.tsx`), WhatsApp, product pictures |
+| `src/components/pages/product.tsx`             | The product page: its opening and product panel, highlights, feature bento, spec sheet, packages, why band, notes; shared parts in `product-parts.tsx`                                                            |
+| `src/components/ui/brand.tsx`                  | The mark from the identity's own geometry: symbol, lockup, wordmark                                                                                                                                               |
+| `src/components/layout/`                       | Header (Apple-style bar and flyouts), footer, framed band                                                                                                                                                         |
+| `src/components/home/`                         | The home page's sections                                                                                                                                                                                          |
+| `src/components/pages/`                        | What the other pages are built from: the page intro, card bands, sections, price cards, the flow strip, the policy page                                                                                           |
+| `src/components/contact/`                      | The enquiry form, what happens next, and the thanks heading                                                                                                                                                       |
+| `src/components/seo/`                          | JSON-LD: home (business, website, all 31 answers) and every service and solution page (Service, BreadcrumbList, FAQPage)                                                                                          |
+| `src/app/services/[slug]`, `solutions/[slug]`  | Every service group, service, Evolve and solution, live and indexed, each with its own share image                                                                                                                |
+| `src/app/api/enquiry`, `contact/thanks`        | Where the form sends (checked again, honeypot, rate limit, passed to `LEAD_WEBHOOK_URL`) and where it lands (`noindex`)                                                                                           |
+| `src/app/about`, `contact`, `privacy`, `terms` | The company pages; `not-found.tsx` is the 404                                                                                                                                                                     |
+| `src/app/sitemap.ts`, `robots.ts`              | The sitemap (live pages only) and robots rules (`/lab` kept out)                                                                                                                                                  |
+
+## Photos and statements
+
+The service and solution pages each wait for two photographs: a dark background for the product
+panel and a point-of-view photo. [IMAGE-PROMPTS.md](IMAGE-PROMPTS.md) lists all forty: file names,
+alt text and a prompt for each, in each page's own colour. They go in `public/photos/` as
+`<name>-800` and `<name>-1600`, in AVIF and WebP; until one is there, the panel shows its dark
+gradient and the point of view a tinted placeholder.
+
+[STATEMENTS.md](STATEMENTS.md) gathers every line written for the twenty pages — search titles,
+openings, taglines, statements, figures, feature titles, headings and closings — with the file
+each lives in, for review.
 
 ## 25 Sep 2026 — the repositioning
 

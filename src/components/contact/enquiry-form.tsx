@@ -296,7 +296,7 @@ export function EnquiryForm() {
         <button
           type="submit"
           disabled={sending}
-          className="roll btn-ink h-12 px-7 text-[0.9375rem] font-semibold"
+          className="roll btn-ink h-11 px-5 text-[0.9375rem] font-medium [--radius-btn:10px]"
         >
           {sending ? 'Sending…' : 'Send'}
           {sending ? null : <Icon name="arrow" size={16} strokeWidth={1.8} />}

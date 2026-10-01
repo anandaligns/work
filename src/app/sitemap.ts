@@ -10,9 +10,11 @@ import { evolve, SITE_URL } from '@/content/site';
  */
 const PAGES = [
   '',
+  '/services',
   ...groupPages.filter((page) => isLive(page.slug)).map((page) => `/services/${page.slug}`),
   ...servicePages.filter((page) => isLive(page.slug)).map((page) => `/services/${page.slug}`),
   `/services/${evolve.slug}`,
+  '/solutions',
   ...solutionPages.filter((page) => isLive(page.slug)).map((page) => `/solutions/${page.slug}`),
   '/about',
   '/contact',

@@ -18,13 +18,17 @@ const VARIANTS = {
   paper: 'btn-paper',
   kinetic: 'btn-kinetic',
   whatsapp: 'btn-whatsapp',
+  /** An outline on a dark ground. */
+  ghost: 'btn-ghost',
 } as const;
 
+/** Console's sizes: 32px in a bar, 40px for a page's actions, the corner growing a little with
+ *  the height. */
 const SIZES = {
-  xs: 'h-[1.875rem] gap-2 px-3.5 text-xs font-semibold',
-  sm: 'h-9 px-4 text-[0.8125rem] font-semibold',
-  md: 'h-11 px-5 text-sm font-semibold',
-  lg: 'h-12 px-6 text-[0.9375rem] font-semibold',
+  xs: 'h-8 gap-2 px-3 text-[0.875rem] font-medium [--radius-btn:8px]',
+  sm: 'h-9 gap-2 px-3.5 text-[0.875rem] font-medium [--radius-btn:8px]',
+  md: 'h-10 px-4 text-[0.9375rem] font-medium [--radius-btn:9px]',
+  lg: 'h-11 px-5 text-[0.9375rem] font-medium [--radius-btn:10px]',
 } as const;
 
 function Arrow() {

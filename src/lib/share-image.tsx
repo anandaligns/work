@@ -4,14 +4,14 @@ import { join } from 'node:path';
 import { ImageResponse } from 'next/og';
 import type { ReactElement } from 'react';
 
-import { BrandLockup } from '@/components/ui/brand';
+import { BrandSymbol } from '@/components/ui/brand';
 import type { Tint } from '@/content/pages';
 
 import { svgMarkup } from './svg-markup';
 
 /**
  * Every page's share image, 1200 × 630: the page's own scene on its tint, with its label, its name
- * and its line beside it, and the lockup above. The scene is the page's hero art as an SVG — the
+ * and its line beside it, and the lockup above — the header's: the symbol and the name typed. The scene is the page's hero art as an SVG — the
  * same drawing, not a copy of it — so the two can never drift apart.
  */
 export const SHARE_SIZE = { width: 1200, height: 630 };
@@ -53,7 +53,7 @@ export async function shareImage({
   tint: Tint | 'paper';
   scene: ReactElement;
 }) {
-  const lockup = asImage(<BrandLockup ink="#0b0d12" className="" />);
+  const symbol = asImage(<BrandSymbol ink="#0b0d12" />);
   return new ImageResponse(
     <div
       style={{
@@ -74,8 +74,21 @@ export async function shareImage({
           paddingRight: 24,
         }}
       >
-        {/* The lockup's viewBox is 1256 wide to 142 tall. */}
-        <img src={lockup} width={283} height={32} alt="" />
+        {/* The header's lockup at 32px: the name 1.06× the symbol's height, 0.38× of it apart. */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <img src={symbol} width={32} height={32} alt="" />
+          <div
+            style={{
+              fontSize: 34,
+              fontWeight: 700,
+              lineHeight: 1,
+              letterSpacing: -1,
+              color: '#0b0d12',
+            }}
+          >
+            pixelkinetix
+          </div>
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div
             style={{

@@ -6,7 +6,7 @@ import { Icon } from '../ui/icon';
 
 import { Band } from '../layout/band';
 import { PixelReveal } from '../motion/pixel-reveal';
-import { PromiseScene } from '../visuals/scenes';
+import { PROMISE_MOCKS } from './native-mocks';
 import { SectionHead } from './section-head';
 
 /**
@@ -59,13 +59,16 @@ export function Promises() {
                 <PixelReveal
                   cover={COVERS[index % 4]}
                   delay={index * 120}
-                  className="grid h-60 place-items-center px-8 py-6 transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-[1.03] [&_svg]:max-h-48 [&_svg]:w-auto"
+                  className="h-60 transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-[1.03]"
                 >
-                  <PromiseScene index={index} />
+                  {(() => {
+                    const Mock = PROMISE_MOCKS[index];
+                    return Mock ? <Mock /> : null;
+                  })()}
                 </PixelReveal>
               </div>
               <div className="px-7 pt-3 pb-8">
-                <h3 className="text-h3 tracking-[var(--tracking-heading)]">{card.title}</h3>
+                <h3 className="text-h4 font-medium tracking-[-0.02em]">{card.title}</h3>
                 <p className="mt-3 max-w-md text-body text-ink-2">{card.body}</p>
               </div>
             </li>

@@ -42,7 +42,7 @@ export function Closing({
     <Band id="start" labelledBy="start-heading" className="overflow-hidden py-24 lg:py-32">
       <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
         <div>
-          <h2 id="start-heading" className="text-display tracking-[var(--tracking-display)]">
+          <h2 id="start-heading" className="text-title tracking-[var(--tracking-heading)]">
             {heading.lead} <FillText text={heading.fill} />
           </h2>
           <p data-reveal="" className="mt-6 max-w-md text-lead text-ink-2">

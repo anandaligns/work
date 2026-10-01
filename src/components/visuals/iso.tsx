@@ -20,7 +20,7 @@ export const INK = '#0b0d12';
 const STROKE = 1.25;
 
 export type Tone =
-  'white' | 'black' | 'fill' | 'violet' | 'mint' | 'sky' | 'butter' | 'blush' | 'glass';
+  'white' | 'black' | 'fill' | 'violet' | 'mint' | 'sky' | 'butter' | 'blush' | 'glass' | 'frame';
 
 /** top, left (the +y face), right (the +x face) */
 const FACES: Record<Tone, [string, string, string]> = {
@@ -33,6 +33,8 @@ const FACES: Record<Tone, [string, string, string]> = {
   butter: ['#fff5d6', '#ffe9a8', '#fbdc82'],
   blush: ['#fdecee', '#f9d6db', '#f4bdc6'],
   glass: ['rgba(255,255,255,0.25)', 'rgba(240,240,240,0.28)', 'rgba(228,228,228,0.32)'],
+  /** A window seen from the front: its face white, its top a light rim, its side solid ink. */
+  frame: ['#ececec', '#ffffff', '#12151c'],
 };
 
 export const SIGNAL = {
@@ -104,6 +106,123 @@ export function Box({
         {...common}
       />
       {children}
+    </g>
+  );
+}
+
+/**
+ * A rounded slab — the home mockups' tile, in isometric: a rounded top, one soft side colour and
+ * hairline edges, on a soft shadow when given a blur filter. The side is the top swept down: the
+ * base drawn first, then the band between the outline's two outermost points, then the top.
+ * Children are drawn last, on the top face, as with `Box`.
+ */
+export function Slab({
+  x,
+  y,
+  z = 0,
+  w,
+  d,
+  h,
+  r = 8,
+  top = '#ffffff',
+  side = '#e8eaef',
+  stroke = '#d6d9e0',
+  shadow,
+  children,
+}: {
+  x: number;
+  y: number;
+  z?: number;
+  w: number;
+  d: number;
+  h: number;
+  r?: number;
+  top?: string;
+  side?: string;
+  stroke?: string;
+  /** A blur filter's `url(#…)`, for a soft shadow on the ground beneath. */
+  shadow?: string;
+  children?: ReactNode;
+}) {
+  const k = r / Math.SQRT2;
+  const [lx0, ly0] = p(x + r - k, y + d - r + k, z);
+  const [lx1, ly1] = p(x + r - k, y + d - r + k, z + h);
+  const [rx0, ry0] = p(x + w - r + k, y + r - k, z);
+  const [rx1, ry1] = p(x + w - r + k, y + r - k, z + h);
+  const face = (at: number, fill: string) => (
+    <rect
+      width={w}
+      height={d}
+      rx={r}
+      transform={topMatrix(x, y, at)}
+      fill={fill}
+      stroke={stroke}
+      strokeWidth={1}
+      vectorEffect="non-scaling-stroke"
+    />
+  );
+  const f = (v: number) => v.toFixed(2);
+  return (
+    <g>
+      {shadow ? (
+        <rect
+          width={w}
+          height={d}
+          rx={r}
+          transform={topMatrix(x + 5, y + 5, z - 4)}
+          fill={INK}
+          opacity={0.2}
+          filter={shadow}
+        />
+      ) : null}
+      {face(z, side)}
+      <polygon
+        points={`${f(lx1)},${f(ly1)} ${f(rx1)},${f(ry1)} ${f(rx0)},${f(ry0)} ${f(lx0)},${f(ly0)}`}
+        fill={side}
+      />
+      <line x1={lx1} y1={ly1} x2={lx0} y2={ly0} stroke={stroke} strokeWidth={1} />
+      <line x1={rx1} y1={ry1} x2={rx0} y2={ry0} stroke={stroke} strokeWidth={1} />
+      {face(z + h, top)}
+      {children}
+    </g>
+  );
+}
+
+/**
+ * A glyph on a tinted chip, lying flat on a top face — the mockups' card mark, in isometric: the
+ * chip in a pale tint, the glyph in the tint's own colour.
+ */
+export function TopChip({
+  x,
+  y,
+  z,
+  w,
+  d,
+  icon,
+  tint,
+  color,
+  scale = 0.7,
+}: {
+  x: number;
+  y: number;
+  z: number;
+  w: number;
+  d: number;
+  icon: IconName;
+  tint: string;
+  color: string;
+  scale?: number;
+}) {
+  const size = Math.min(w, d) * scale;
+  const glyph = size * 0.62;
+  return (
+    <g transform={topMatrix(x + (w - size) / 2, y + (d - size) / 2, z)} color={color}>
+      <rect width={size} height={size} rx={size * 0.28} fill={tint} />
+      <g
+        transform={`translate(${((size - glyph) / 2).toFixed(2)} ${((size - glyph) / 2).toFixed(2)})`}
+      >
+        <Icon name={icon} size={glyph} strokeWidth={2.1 * (24 / glyph)} />
+      </g>
     </g>
   );
 }
@@ -181,7 +300,7 @@ export function GlyphBlock({
 }
 
 /**
- * The Pixel Kinetix symbol lying on a top face — the P in white, the pixel in Kinetic Blue, as
+ * The Pixel Kinetix symbol lying on a top face — the P in white, the pixel in Kinetic Orange, as
  * the reversed mark is — centred on a block of side `s` at just over half its width. The pixel
  * carries `data-turn`, so a `TurnOnView` around the scene turns it in the face's own plane.
  */
