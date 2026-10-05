@@ -22,6 +22,7 @@ import { CompareTable } from './compare-table';
 import { BlurText } from '../motion/blur-text';
 import { AppStage, type StageTask } from './app-stage';
 import { Actions, PageIntro } from './page-intro';
+import { type Crumb, PageTrail } from './page-trail';
 import { FaqBand } from './sections';
 import {
   BuildFoot,
@@ -689,6 +690,7 @@ export function ProductOpening({
   intro,
   interest,
   topic,
+  trail,
 }: {
   page: ProductPage;
   eyebrow: string;
@@ -696,10 +698,11 @@ export function ProductOpening({
   intro: string;
   interest: string;
   topic: string;
+  trail?: Crumb[];
 }) {
   return (
     <>
-      <PageIntro eyebrow={eyebrow} title={title} intro={intro}>
+      <PageIntro eyebrow={eyebrow} title={title} intro={intro} trail={trail}>
         <Actions>
           <RollLink href={startFor(interest)} size="lg">
             Get Started
@@ -734,6 +737,7 @@ export function ProductOpeningFull({
   tasks,
   note,
   ground = 'grey',
+  trail,
 }: {
   title: string;
   intro: string;
@@ -748,6 +752,8 @@ export function ProductOpeningFull({
    * product lifted off either by a soft shadow.
    */
   ground?: 'grey' | 'white' | 'off';
+  /** The steps after Home, this page last: beUI's breadcrumb above the headline. */
+  trail?: Crumb[];
 }) {
   return (
     <section
@@ -756,6 +762,7 @@ export function ProductOpeningFull({
     >
       <div className="container-fluid relative pt-28 sm:pt-32 lg:flex lg:h-full lg:items-center lg:pt-0">
         <div className="max-w-md lg:max-w-[min(25rem,31vw)] lg:pb-[4vh]">
+          {trail ? <PageTrail trail={trail} align="start" className="rise-in -ml-2 mb-5" /> : null}
           <h1
             id="page-heading"
             className="font-display text-[clamp(1.75rem,1.45rem+0.8vw,2.125rem)] leading-[1.18] font-normal tracking-[-0.03em] text-ink"

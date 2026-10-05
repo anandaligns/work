@@ -7,9 +7,17 @@
    every section. The ink is the brand's Graphite Ink and the greys lean the brand's cool way.
    Colour is spent deliberately, in three places only — the concept work (hero tiles and the
    gallery), the soft tints behind the illustrations, and a handful of signal dots inside the
-   line art. Kinetic Orange is rarer still: it marks what moves — the logo's pixel, and the modules
-   turning in the hero — and nothing else. Everything else is monochrome, which is what makes
-   those places land.
+   line art. Kinetic Blue is rarer still: it marks what moves — the logo's pixel, the modules
+   turning in the hero, and the one action a page leads with, on the brand's lit surface — and
+   nothing else. Everything else is monochrome, which is what makes those places land.
+
+   Brand identity 2026: Graphite Ink #0B0D12, Kinetic Blue #055BD3 (flat, for marks and type),
+   the 128° lit surface (the blue for backgrounds), Blue Night #5CA6FF, Haze #E7F0FC, Signal
+   White and Steel #6B7080. DM Sans for everything people read, IBM Plex Mono for specs.
+
+   The components come from beUI (beui.dev), installed as source through the shadcn registry.
+   beUI speaks shadcn's token names — background, foreground, muted, border, ring, primary — so
+   those are defined below, each pointing at the brand's own colour.
    ============================================================================================ */
 
 /* DM Sans runs everything; IBM Plex carries the labels and technical text. All are Google Fonts'
@@ -141,16 +149,18 @@
   --color-graphite: #0b0d12;
   --color-graphite-2: #1d2130;
 
-  /* --- The brand's own colours, beyond the ink. Kinetic Orange marks what moves and nothing
-         else; Orange Night is its light partner on dark grounds; Haze is the pale wash. --- */
-  --color-kinetic: #ff3d00;
-  --color-kinetic-night: #ff7a4d;
-  --color-haze: #e8eaf6;
+  /* --- The brand's own colours, beyond the ink. Kinetic Blue marks what moves and nothing
+         else — flat for marks and type, the lit surface (`--surface-kinetic`) behind white type;
+         Blue Night is its light partner on dark grounds; Haze is the pale wash. --- */
+  --color-kinetic: #055bd3;
+  --color-kinetic-deep: #0449ab;
+  --color-kinetic-night: #5ca6ff;
+  --color-haze: #e7f0fc;
   --color-steel: #6b7080;
 
   /* --- The colour in between. Tints sit behind illustrations and in chips; the signals are
-         the small saturated dots inside the line art. One family each, five hues — the violet
-         now the brand's Haze and Orange Night, so nothing sits beside the logo in a near-blue. --- */
+         the small saturated dots inside the line art. One family each, five hues; the blue of
+         the brand stays out of them, so only what moves is ever Kinetic Blue. --- */
   --color-tint-violet: #eceefb;
   --color-tint-mint: #e6f7ee;
   --color-tint-sky: #e5f3fb;
@@ -207,6 +217,42 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-roll: cubic-bezier(0.645, 0.045, 0.355, 1);
   --ease-premium: cubic-bezier(0.2, 0.78, 0.2, 1);
+}
+
+/* The brand's lit surface: Kinetic Blue as a 128° gradient with a soft central glow, the colour
+   of a lit display. Backgrounds only — marks and type use the flat #055BD3. */
+:root {
+  --surface-kinetic-glow: radial-gradient(
+    circle at 50% 46%,
+    rgb(0 119 255 / 0.48) 0%,
+    rgb(0 102 235 / 0.28) 35%,
+    rgb(0 73 183 / 0.15) 72%,
+    rgb(0 58 150 / 0.06) 100%
+  );
+  --surface-kinetic-base: linear-gradient(128deg, #0753bf 0%, #0069e9 48%, #0755c4 100%);
+  --surface-kinetic: var(--surface-kinetic-glow), var(--surface-kinetic-base);
+}
+
+/* shadcn's token names, which beUI's components are written in, mapped onto the brand. */
+@theme inline {
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-graphite);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--color-fill);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-fill);
+  --color-muted-foreground: var(--color-ink-2);
+  --color-accent: var(--color-haze);
+  --color-accent-foreground: var(--color-kinetic);
+  --color-destructive: #d92d4a;
+  --color-border: var(--color-line);
+  --color-input: var(--color-line-2);
+  --color-ring: var(--color-kinetic);
 }
 
 /* ============================================================================================
@@ -318,7 +364,7 @@ html.lenis body {
     animation: stage-toast-in 700ms var(--ease-out-expo) 0.9s both;
   }
   /* A solution's one system (`Engine`): the front window's face swaps with its tab, the work
-     runs along its wires in Kinetic Orange, and the open tab's line fills while it waits. */
+     runs along its wires in Kinetic Blue, and the open tab's line fills while it waits. */
   .engine-swap,
   .view-swap {
     animation: engine-swap 600ms var(--ease-out-expo) both;
@@ -752,23 +798,25 @@ html.lenis body {
       rgb(0 0 0 / 0.3) 0 1px 2px 0,
       rgb(255 255 255 / 0.12) 0 0.5px 0 1px inset;
   }
-  /* Kinetic Orange, for the one action a page leads with. White on it is 3.5:1 — enough for its
-     label only at large sizes. */
+  /* Kinetic Blue, for the one action a page leads with, on the brand's lit surface: the 128°
+     gradient with its soft central glow. White on it is about 4.5:1 at its lightest point, the
+     glow; 5:1 and more everywhere else. */
   .btn-kinetic {
-    background: var(--color-kinetic);
+    background: var(--surface-kinetic);
     color: #fff;
     box-shadow:
-      #e63700 0 0 0 1px,
-      rgb(120 30 0 / 0.4) 0 1px 2px 0,
-      rgb(255 255 255 / 0.18) 0 0.5px 0 1px inset;
+      #0449ab 0 0 0 1px,
+      rgb(4 40 100 / 0.4) 0 1px 2px 0,
+      rgb(255 255 255 / 0.2) 0 0.5px 0 1px inset;
   }
   .btn-kinetic:hover {
-    background: #e63700;
+    background:
+      var(--surface-kinetic-glow), linear-gradient(128deg, #064aab 0%, #005fd6 48%, #064bb0 100%);
     transform: translateY(-2px);
     box-shadow:
-      #e63700 0 0 0 1px,
-      rgb(255 61 0 / 0.55) 0 12px 24px -12px,
-      rgb(255 255 255 / 0.2) 0 0.5px 0 1px inset;
+      #0449ab 0 0 0 1px,
+      rgb(5 91 211 / 0.55) 0 12px 24px -12px,
+      rgb(255 255 255 / 0.22) 0 0.5px 0 1px inset;
   }
   /* WhatsApp's own green, #25D366, with its white label. */
   .btn-whatsapp {
@@ -2141,7 +2189,7 @@ html.lenis body {
     margin: -0.3125rem 0 0 -0.3125rem;
     border-radius: 9999px;
     background: var(--color-kinetic);
-    box-shadow: 0 0 0 4px rgb(255 61 0 / 0.15);
+    box-shadow: 0 0 0 4px rgb(5 91 211 / 0.15);
     opacity: 0;
   }
   .flow[data-play] .flow__dot {
@@ -2514,14 +2562,6 @@ html.lenis body {
   }
   .faq-item[data-open] .faq-item__toggle::after {
     transform: rotate(0deg);
-  }
-  .faq-item__panel {
-    overflow: hidden;
-    transition: height 0.5s cubic-bezier(0.34, 1.18, 0.64, 1);
-  }
-  /* Closed until script pins a height — so the first paint is right with or without it. */
-  .faq-item:not([data-open]) .faq-item__panel {
-    height: 0;
   }
   .faq-item__a {
     max-width: 46rem;

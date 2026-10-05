@@ -8,6 +8,7 @@ import { Pricing } from '@/components/home/pricing';
 import { Card, CardBand } from '@/components/pages/cards';
 import { FlowStrip } from '@/components/pages/flow-strip';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
+import type { Crumb } from '@/components/pages/page-trail';
 import { BuildCards, FaqBand, HeroWell, Prices, Section } from '@/components/pages/sections';
 import { ProductBody, ProductOpening, RelatedIndex } from '@/components/pages/product';
 import { ServiceOpening } from '@/components/pages/service-stage';
@@ -133,15 +134,17 @@ function Intro({
   intro,
   interest,
   topic,
+  trail,
 }: {
   eyebrow: string;
   title: string;
   intro: string;
   interest: string;
   topic: string;
+  trail: Crumb[];
 }) {
   return (
-    <PageIntro eyebrow={eyebrow} title={title} intro={intro}>
+    <PageIntro eyebrow={eyebrow} title={title} intro={intro} trail={trail}>
       <Actions>
         <RollLink href={startFor(interest)} size="lg">
           Get Started
@@ -177,6 +180,10 @@ function GroupView({ page }: { page: GroupPage }) {
         intro={page.intro}
         interest={page.slug}
         topic={category.name}
+        trail={[
+          { name: 'Services', path: '/services' },
+          { name: category.name, path },
+        ]}
       />
       <HeroWell tint={tint}>
         <GroupHeroScene slug={page.slug} />
@@ -238,6 +245,11 @@ function ServiceView({ page }: { page: ServicePage }) {
   const tint = GROUP_TINT[page.group];
   const path = `/services/${page.slug}`;
   const groupPath = `/services/${category.slug}`;
+  const trail = [
+    { name: 'Services', path: '/services' },
+    { name: category.name, path: groupPath },
+    { name: service.name, path },
+  ];
   const solution = solutions.find((s) => s.slug === page.solution);
   const solutionPage = solutionPageFor(page.solution);
   const related = category.services.filter((s) => s.anchor !== page.slug);
@@ -265,6 +277,7 @@ function ServiceView({ page }: { page: ServicePage }) {
           interest={page.slug}
           topic={service.name}
           stage={stage}
+          trail={trail}
         />
       ) : (
         <ProductOpening
@@ -274,6 +287,7 @@ function ServiceView({ page }: { page: ServicePage }) {
           intro={page.intro}
           interest={page.slug}
           topic={service.name}
+          trail={trail}
         />
       )}
 
@@ -353,6 +367,10 @@ function EvolveView() {
         intro={page.intro}
         interest={evolve.slug}
         topic={evolve.name}
+        trail={[
+          { name: 'Services', path: '/services' },
+          { name: evolve.name, path },
+        ]}
       />
 
       <ProductBody

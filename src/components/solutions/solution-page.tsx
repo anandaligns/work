@@ -92,6 +92,10 @@ export function SolutionPageView({ slug }: { slug: string }) {
         tasks={c.tasks}
         note={c.note}
         ground="off"
+        trail={[
+          { name: 'Solutions', path: '/solutions' },
+          { name: solution.name, path: `/solutions/${slug}` },
+        ]}
       />
 
       {/* Off-white opening, white figures, then off-white and white in turn down the page. */}

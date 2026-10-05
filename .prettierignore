@@ -1,3 +1,16 @@
 node_modules
 .next
 package-lock.json
+
+# beUI sources, kept exactly as the registry ships them so `npx shadcn add @beui/<name>` can
+# update them in place. See README, "beUI".
+src/lib/utils.ts
+src/lib/ease.ts
+src/lib/hooks/use-hover-capable.ts
+src/components/motion/breadcrumb.tsx
+src/components/motion/expandable-control.tsx
+src/components/motion/popover-morph.tsx
+src/components/motion/popover-position.ts
+src/components/motion/collapsible.tsx
+src/components/motion/magnetic.tsx
+src/components/motion/button/

@@ -61,7 +61,9 @@ const WORDMARK: [string, boolean][] = [
   ['M437.16 -45.62L451.56 -45.62L489.88 0L475.48 0Z', false],
 ];
 
-export const KINETIC = '#FF3D00';
+/** Kinetic Blue, flat — the pixel's colour on ink and on light. On the lit blue surface the pixel
+ *  turns ink, so it is always the contrasting part. */
+export const KINETIC = '#055BD3';
 
 function Glyphs({ fill }: { fill: string }) {
   return (

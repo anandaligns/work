@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { CopyChips } from '@/components/contact/copy-chips';
 import { EnquiryForm } from '@/components/contact/enquiry-form';
 import { NextSteps } from '@/components/contact/next-steps';
 import { Band } from '@/components/layout/band';
@@ -15,7 +16,8 @@ import { ENQUIRY_AUTOMATION_LIVE, enquiryLive } from '@/lib/enquiry';
 
 /**
  * `/contact` — where every "Get Started" leads. Under the headline, the three quickest ways in:
- * email first in Kinetic Orange, WhatsApp in its own green and Call Now with its phone ringing.
+ * email first in Kinetic Blue, WhatsApp in its own green and Call Now with its phone ringing; under
+ * them the address and the number as beUI's expandable chips, each opening onto a copy action.
  * Then the enquiry form, "Tell us about it", with what happens next beside it; the ways to reach
  * us; and three questions.
  *
@@ -69,6 +71,7 @@ export default function Contact() {
       />
       <PageIntro
         eyebrow="Contact"
+        trail={[{ name: 'Contact', path: '/contact' }]}
         title={'Tell us what’s slowing\nyour business down.'}
         intro="Mail us, message us on WhatsApp or call. We’ll reply with a clear next step, and tell you honestly if we’re the right fit."
       >
@@ -105,6 +108,12 @@ export default function Contact() {
             Call Now
           </RollLink>
         </Actions>
+        <CopyChips
+          items={[
+            { label: contact.email, value: contact.email, name: 'email address' },
+            { label: contact.phone, value: contact.phone, name: 'phone number' },
+          ]}
+        />
       </PageIntro>
 
       <div className="alt-bands">

@@ -13,7 +13,7 @@ import { Box, INK, leftMatrix, Scene } from '../visuals/iso';
  * aoutive's "One AI engine" section, as a solution's one system: the heading and its line, four
  * tabs in two rows of two, and beside them a stack of windows drawn in the isometric kit. The
  * front window shows the open tab's work — where it comes from down the left, our mark in the
- * middle, where it goes down the right, the work running along the wires in Kinetic Orange — and
+ * middle, where it goes down the right, the work running along the wires in Kinetic Blue — and
  * the windows behind it stand for everything else the system keeps running.
  *
  * The tabs take turns on their own, a line under the open one filling as it waits; a pointer

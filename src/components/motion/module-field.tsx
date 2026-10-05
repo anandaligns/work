@@ -18,7 +18,7 @@ import { pose, TURN_MS } from './quarter-turn';
  *   `cubic-bezier(.7, 0, .2, 1)`, shrinking just enough to stay inside its cell — and a
  *   quarter-disc comes to rest facing the next way;
  * - modules leave and arrive, turning as they come, so the pattern is never the same twice;
- * - now and then one module turns Kinetic Orange for a few seconds — only ever one at a time,
+ * - now and then one module turns Kinetic Blue for a few seconds — only ever one at a time,
  *   because blue marks what moves and nothing else, and never under words, so it can't cost a
  *   line its contrast;
  * - every so often the mark itself assembles in the pattern — the P ghosted in, its pixel in
@@ -34,7 +34,7 @@ const TONES = {
   light: { palette: ['#eef0f4', '#e9ebf1', '#f1f2f6', '#e8eaf6'], ghost: '#d9dce4' },
   dark: { palette: ['#131722', '#161a26', '#10131c', '#1a1f2e'], ghost: '#2a3042' },
 } as const;
-const KINETIC = '#ff3d00';
+const KINETIC = '#055bd3';
 const P_PATH = SYMBOL.p;
 
 type Module = {

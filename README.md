@@ -25,7 +25,7 @@ docker compose down                           # stop
 
 | Path                                           | What it is                                                                                                                                                                                                        |
 | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/app/globals.css`                          | Tokens (the brand's Graphite Ink and cool greys, the tints, the type scale) and every CSS-driven motion                                                                                                           |
+| `src/app/globals.css`                          | Tokens (the brand's Graphite Ink, Kinetic Blue and its lit surface, the cool greys, the tints, the type scale, beUI's shadcn names) and every CSS-driven motion                                                    |
 | `src/content/catalogue.json`                   | Catalogue v2 (25 Sep 2026): service groups, services, solutions, offers, FAQs, home copy. Ahead of the platform's seed until the seed takes the same text                                                         |
 | `src/content/site.ts`                          | Typed reads of the catalogue, plus this page's own headings and figures                                                                                                                                           |
 | `src/content/pages.ts`                         | The three group pages in full; for the services, Evolve and the solutions, their titles, descriptions, opening lines and closings                                                                                 |
@@ -84,6 +84,33 @@ Before it goes live:
    incorporated.
 4. Have `/privacy` and `/terms` read by a lawyer, and update `/privacy` before an enquiry form or
    analytics is added.
+
+## beUI
+
+The components come from [beUI](https://beui.dev), copied in as source through the shadcn
+registry. `components.json` registers the `@beui` namespace, so on a machine that can reach
+beui.dev:
+
+```sh
+npx shadcn@latest add @beui/breadcrumb
+pnpm dlx shadcn@latest add @beui/expandable-control
+```
+
+The files are kept exactly as beUI ships them (and out of Prettier, see `.prettierignore`), so
+running the same command again updates them in place.
+
+| beUI component       | Files                                                              | Where the site uses it                                     |
+| -------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------- |
+| `breadcrumb`         | `components/motion/breadcrumb.tsx`, `popover-morph.tsx`, `popover-position.ts` | Every inner page's opening (`pages/page-trail.tsx`)        |
+| `expandable-control` | `components/motion/expandable-control.tsx`                         | The contact page's copy chips (`contact/copy-chips.tsx`)   |
+| `collapsible`        | `components/motion/collapsible.tsx`                                | Every FAQ (`home/faq.tsx`, `FaqList`)                      |
+| `button`             | `components/motion/button/`, `magnetic.tsx`                        | The enquiry form's Send (`StatefulButton`)                 |
+| shared               | `lib/utils.ts` (`cn`), `lib/ease.ts`, `lib/hooks/use-hover-capable.ts` | Every beUI component                                       |
+
+beUI is written in shadcn's token names (`background`, `foreground`, `muted`, `border`, `ring`,
+`primary` …). `globals.css` maps each onto the brand's own token, so a newly added component
+takes the brand's colours without editing it. beUI's AI-agent guide is at
+<https://beui.dev/docs/ai-agents>; its MCP server is `https://mcp.beui.dev/mcp`.
 
 ## The enquiry form
 

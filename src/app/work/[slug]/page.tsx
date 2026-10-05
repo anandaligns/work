@@ -74,7 +74,12 @@ export default async function CaseStudyPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, '\\u003c') }}
       />
-      <PageIntro eyebrow="Case study" title={study.h1} intro={study.summary}>
+      <PageIntro
+        eyebrow="Case study"
+        title={study.h1}
+        intro={study.summary}
+        trail={[{ name: study.h1, path: `/work/${study.slug}` }]}
+      >
         <dl className="grid gap-x-10 gap-y-3 text-left text-sm sm:grid-cols-3">
           {[
             ['Industry', study.facts.industry],

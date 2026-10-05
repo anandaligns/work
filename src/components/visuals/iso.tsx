@@ -300,7 +300,7 @@ export function GlyphBlock({
 }
 
 /**
- * The Pixel Kinetix symbol lying on a top face — the P in white, the pixel in Kinetic Orange, as
+ * The Pixel Kinetix symbol lying on a top face — the P in white, the pixel in Kinetic Blue, as
  * the reversed mark is — centred on a block of side `s` at just over half its width. The pixel
  * carries `data-turn`, so a `TurnOnView` around the scene turns it in the face's own plane.
  */

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { startFor, whatsappAbout } from '@/content/site';
 
 import { Fit } from '../lab/fit';
+import { type Crumb, PageTrail } from './page-trail';
 import { Icon } from '../ui/icon';
 import { RollLink } from '../ui/roll-link';
 import { BRANDS, DesktopSite, MobileSite, Scaled } from '../visuals/concept-sites';
@@ -220,6 +221,7 @@ export function ServiceOpening({
   interest,
   topic,
   stage,
+  trail,
 }: {
   eyebrow: string;
   title: string;
@@ -227,6 +229,8 @@ export function ServiceOpening({
   interest: string;
   topic: string;
   stage: ServiceStageProps;
+  /** The steps after Home, this page last: beUI's breadcrumb above the chip. */
+  trail?: Crumb[];
 }) {
   return (
     <section
@@ -235,6 +239,7 @@ export function ServiceOpening({
     >
       <div className="container-fluid relative pt-28 sm:pt-32 lg:flex lg:h-full lg:items-center lg:pt-0">
         <div className="max-w-md lg:max-w-[min(27rem,32vw)] lg:pb-[4vh]">
+          {trail ? <PageTrail trail={trail} align="start" className="-ml-2 mb-5" /> : null}
           <p className="eyebrow inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5">
             <span className="size-1.5 rounded-full bg-signal-green" />
             {eyebrow}

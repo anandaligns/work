@@ -585,7 +585,7 @@ const DECK: [string, string, string, string][] = [
 /**
  * The Solutions picture while every row is closed: the four solutions as a deck of cards on a
  * platform, each in its tint, and one lifted over the empty slot beside it — hovering, ready to
- * drop in. The lifted card is the one thing that moves, so it carries the Kinetic Orange.
+ * drop in. The lifted card is the one thing that moves, so it carries the Kinetic Blue.
  */
 export function SolutionsRestMock() {
   const Z = 16;
@@ -633,8 +633,8 @@ export function SolutionsRestMock() {
           height={slot.d}
           rx={12}
           transform={topMatrix(slot.x, slot.y, Z)}
-          fill="rgb(255 61 0 / 0.08)"
-          stroke="rgb(255 61 0 / 0.45)"
+          fill="rgb(5 91 211 / 0.08)"
+          stroke="rgb(5 91 211 / 0.45)"
           strokeWidth={1.25}
           strokeDasharray="4 4"
           vectorEffect="non-scaling-stroke"
@@ -1274,7 +1274,7 @@ export const PORTAL_VIEWS: { view: PortalView; label: string }[] = [
  * the invoices or the requests.
  */
 export function PortalMock({ view = 'stage' }: { view?: PortalView }) {
-  const A = '#ff3d00';
+  const A = '#055bd3';
   const table = tableFor(view);
   const nav: { view?: PortalView; icon: IconName; label: string }[] = [
     { icon: 'clock', label: 'Up next' },

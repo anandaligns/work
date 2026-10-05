@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { type FormEvent, type ReactNode, useEffect, useId, useRef, useState } from 'react';
 
+import { StatefulButton } from '@/components/motion/button';
 import { contact, INTERESTS, interestFor } from '@/content/site';
 import {
   BUDGETS,
@@ -63,6 +64,7 @@ export function EnquiryForm() {
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [sending, setSending] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [sent, setSent] = useState(false);
   const hidden = useRef({ source: '', page: '', referrer: '', utm: {} as Record<string, string> });
 
   // Where the visitor came from: the Get Started's `?interest=`, the page and any campaign tags.
@@ -118,6 +120,8 @@ export function EnquiryForm() {
       } catch {
         // Storage may be off; the thanks page then thanks without a name.
       }
+      setSent(true);
+      setSending(false);
       router.push('/contact/thanks');
     } catch {
       setFailed(true);
@@ -293,14 +297,20 @@ export function EnquiryForm() {
       ) : null}
 
       <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-        <button
+        {/* beUI's stateful button (`@beui/button`): its label rolls from Send to Sending to Sent, or
+            to Try again, on the brand's lit Kinetic Blue. */}
+        <StatefulButton
           type="submit"
-          disabled={sending}
-          className="roll btn-ink h-11 px-5 text-[0.9375rem] font-medium [--radius-btn:10px]"
+          state={sending ? 'loading' : sent ? 'success' : failed ? 'error' : 'idle'}
+          disabled={sent}
+          loadingText="Sending"
+          successText="Sent"
+          errorText="Try again"
+          icon={<Icon name="arrow" size={16} strokeWidth={1.8} />}
+          className="h-11 gap-2 rounded-[10px] bg-[image:var(--surface-kinetic)] px-5 text-[0.9375rem] text-white shadow-[#0449ab_0_0_0_1px,rgb(4_40_100/0.4)_0_1px_2px_0,rgb(255_255_255/0.2)_0_0.5px_0_1px_inset] disabled:opacity-100"
         >
-          {sending ? 'Sending…' : 'Send'}
-          {sending ? null : <Icon name="arrow" size={16} strokeWidth={1.8} />}
-        </button>
+          Send
+        </StatefulButton>
         <p className="text-sm text-ink-2">
           Prefer WhatsApp?{' '}
           <a

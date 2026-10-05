@@ -3,21 +3,26 @@ import type { CSSProperties, ReactNode } from 'react';
 import { BlurText } from '../motion/blur-text';
 import { ModuleField } from '../motion/module-field';
 import { Pausable } from '../motion/pause-toggle';
+import { type Crumb, PageTrail } from './page-trail';
 
 /**
  * The opening of every page but home: the hero's chip, its blur-in headline and its moving
  * pattern, at a page's scale. A newline in `title` is where the headline breaks on a wide screen.
- * The page's one `h1` is here; every heading after it is an `h2`.
+ * The page's one `h1` is here; every heading after it is an `h2`. Given a `trail`, the page's
+ * place in the site sits above the chip as beUI's breadcrumb.
  */
 export function PageIntro({
   eyebrow,
   title,
   intro,
+  trail,
   children,
 }: {
   eyebrow: string;
   title: string;
   intro?: string;
+  /** The steps after Home, this page last. */
+  trail?: Crumb[];
   children?: ReactNode;
 }) {
   return (
@@ -36,6 +41,7 @@ export function PageIntro({
       </div>
       <div className="container-fluid relative">
         <div className="mx-auto max-w-4xl text-center">
+          {trail ? <PageTrail trail={trail} className="rise-in mb-6" /> : null}
           <p
             className="eyebrow blur-char inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5"
             style={{ '--d': 0 } as CSSProperties}

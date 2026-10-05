@@ -1,7 +1,7 @@
 /**
  * The identity's website hero art, as the identity draws it (`pixel-kinetix-brand-identity.html`,
  * the website application): a square of Graphite Ink laid out in modules, six of them turning a
- * quarter at a time on an 8s rhythm a beat apart — two in Kinetic Orange — and the symbol in white
+ * quarter at a time on an 8s rhythm a beat apart — two in Kinetic Blue — and the symbol in white
  * at the centre, its pixel making the quarter-turn.
  *
  * CSS does the moving (`.pk-art` in globals.css), so it runs before script and stops under reduced
@@ -9,7 +9,7 @@
  */
 const INK = '#0B0D12';
 const MODULE = '#171B28';
-const KINETIC = '#FF3D00';
+const KINETIC = '#055BD3';
 
 type Piece = { d: string; fill: string; delay?: number };
 

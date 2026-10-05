@@ -1,10 +1,23 @@
-# UI foundation — v2.14
+# UI foundation — v3.0
 
 Locked 23 Sep 2026, after the owner's review of the home page; brought onto the new brand identity
 25 Sep 2026. Every page of the public site is built from what is below — and when this build moves
 into `apps/web`, this is the spec it moves with. Change it on purpose: bump the version, say what
 changed and why.
 
+- **v3.0** — 5 Oct 2026: the 2026 brand identity and the beUI component framework.
+  Kinetic Orange becomes **Kinetic Blue** `#055BD3` (flat, for marks and type) with its **lit
+  surface** — a 128° gradient `#0753BF → #0069E9 → #0755C4` under a soft central glow — for
+  anything blue that sits behind white type; Blue Night `#5CA6FF` and Haze `#E7F0FC` follow it.
+  The mark's geometry is unchanged; on ink the pixel stays Kinetic Blue, and on the lit blue it turns
+  ink. The one action a page leads with (the hero's Start a Project, contact's Mail us, the enquiry
+  form's Send) stands on the lit surface. Components now come from **beUI** (beui.dev), copied
+  in through the shadcn registry (`components.json`, the `@beui` namespace) and kept as shipped:
+  `breadcrumb` (every inner page's opening, `pages/page-trail.tsx`), `expandable-control`
+  (contact's copy chips), `collapsible` (every FAQ) and `button` (the form's stateful Send).
+  beUI's shadcn token names (`background`, `foreground`, `muted`, `border`, `ring`, `primary`, …)
+  map onto the brand's tokens in `globals.css`; its motion runs on `motion` v11 with the springs
+  in `lib/ease.ts`.
 - **v2.14** — the service, solution and Evolve pages become product pages (after Apple's
   product pages and Lightfield's, principles only), approved on WhatsApp Automation on 26 Sep 2026. One template (`pages/product.tsx`, `content/products/<slug>.ts`): the page intro on the
   moving pattern, then a wide dark panel with the product at work — software at the back, iPhones
@@ -66,7 +79,7 @@ changed and why.
   label is white.
 - **v2.8** — at the owner's request: the business number is +91 80742 11007, for calls and
   WhatsApp. The floating contact controls leave the contact page (parked in
-  `floating-actions.tsx`); its headline carries them instead — Mail us in Kinetic Orange first,
+  `floating-actions.tsx`); its headline carries them instead — Mail us in Kinetic Blue first,
   WhatsApp in its own green (#25D366, ink label for contrast), Call Now with its phone ringing.
   The lower right of every page holds the AI assistant's launcher, Kix: a graphite pill with its
   face and "Ask Kix", the face alone in a circle on phones; it opens a note and the three ways to
@@ -146,7 +159,8 @@ changed and why.
 
 1. **A monochrome ground, colour in between, graphite for action, blue for motion.** Paper, ink
    and hairlines carry the page; soft tints sit behind pictures; Graphite Ink marks everything you
-   can press; Kinetic Orange marks only what moves — the logo's pixel, a turning module.
+   can press; Kinetic Blue marks only what moves — the logo's pixel, a turning module — and the
+   one action a page leads with, on the brand's lit surface.
 2. **Motion earns attention and never blocks reading.** Every effect is readable before it runs,
    without script, and under reduced motion. Anything that moves on its own can be paused.
 3. **One way to do each thing.** One button, one section head, one scroll controller, one way to
@@ -164,15 +178,18 @@ changed and why.
 | Text                   | `ink` · `ink-2` · `ink-3`            | `#0b0d12` · `#5b6070` · `#868a9a`     |
 | Dark bands, focal card | `night`, `night-2`                   | `#0b0d12`, `#171b28`                  |
 | Action                 | `graphite`, `graphite-2` (hover)     | `#0b0d12`, `#1d2130`                  |
-| Motion                 | `kinetic`, `kinetic-night`           | `#ff3d00`, `#ff7a4d`                  |
-| Brand wash             | `haze`, `steel`                      | `#e8eaf6`, `#6b7080`                  |
+| Motion                 | `kinetic`, `kinetic-deep`, `kinetic-night` | `#055bd3`, `#0449ab`, `#5ca6ff` |
+| Lit surface            | `--surface-kinetic`                  | 128° `#0753bf → #0069e9 → #0755c4` + glow |
+| Brand wash             | `haze`, `steel`                      | `#e7f0fc`, `#6b7080`                  |
+| beUI (shadcn names)    | `background`, `foreground`, `muted`, `border`, `ring`, `primary`… | the brand tokens above |
 | Tints (behind art)     | `tint-violet/mint/sky/butter/blush`  | five pastels (violet is Haze-cool)    |
-| Signals (dots in art)  | `signal-violet/green/sky/amber/rose` | five saturates (violet is Orange Night) |
+| Signals (dots in art)  | `signal-violet/green/sky/amber/rose` | five saturates                        |
 | WhatsApp               | gradient                             | `#15803d → #116530` (5:1)             |
 | Stars                  | —                                    | `#d97706` (3.2:1)                     |
 
 `ink` is the identity's Graphite Ink; `ink-3` is 3.3:1 on paper — large type and marks only,
-never body copy. Kinetic Orange is never a fill for a control, a heading or a card.
+never body copy. Kinetic Blue is never a heading or a card; as a fill it is only ever the lit
+surface, under the one action a page leads with.
 
 **Type.** DM Sans (the brand's face) for display and headings; body and controls in the
 platform's own face — SF on a Mac or an iPhone, Segoe UI or Roboto elsewhere, as apple.com does
@@ -205,7 +222,7 @@ request leaves the site.
 
 | Component               | Rules                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Button** (`RollLink`) | `ink` (graphite fill), `line` (outline), `paper` (white, for dark grounds), `kinetic` (Kinetic Orange, for the one action a page leads with), `whatsapp` (#25D366, ink label); an optional leading `icon` spins on hover, `shake` rings it. 48px / 40px / 30px (the bar). The label rolls and the tilted arrow ↗ rolls out as its twin rolls in, 550ms.                                                                                                                                                                                                                                                                                     |
+| **Button** (`RollLink`) | `ink` (graphite fill), `line` (outline), `paper` (white, for dark grounds), `kinetic` (the lit Kinetic Blue surface, for the one action a page leads with), `whatsapp` (#25D366, ink label); an optional leading `icon` spins on hover, `shake` rings it. 48px / 40px / 30px (the bar). The label rolls and the tilted arrow ↗ rolls out as its twin rolls in, 550ms.                                                                                                                                                                                                                                                                                     |
 | **Logo**                | The symbol, and beside it the name typed as one lowercase word — “pixelkinetix”, DM Sans Bold — inline and one colour but the pixel; the same in the header, the footer and the share images. The pixel makes the quarter-turn 0.8s after load, on hover and focus, and each time the reader enters a new section. Never a loop.                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | **Header**              | Apple's global bar: 44px (48px on phones), one frosted strip, the lockup, seven items and a 30px Get Started spread evenly on one line. Apple's light bar, `rgba(245, 245, 247, .8)`, ink type and an ink button. A hairline once the page moves. Pointed at, an item takes the earlier pill — it grows in, and lets go when the pointer leaves; Services and Solutions hold it while their menu is open. Where you are: full colour and a 3px pixel beneath. Never changes shape.                                                                                                                                                        |
 | **Flyouts**             | Full width, the bar's own light made solid, drawn down in 0.36s (Apple's curve), the page behind dimmed and softened (18px blur). Inside, the earlier mega menu's pattern on the sheet itself, starting in line with the lockup: a column per group or solution under its title (linking to its page) and line, over a hairline; 3.5rem clear of the bar; every item an icon, a name, its summary in full (wrapping, never cut off) and a tilted arrow that rolls; a soft pill when pointed at, held with a hairline where you are. A foot under a hairline carries Evolve (services) or the ask (solutions) and a button to all of them. |
@@ -217,7 +234,7 @@ request leaves the site.
 | **Cards**               | White on paper, 1px `line`, panel radius. One dark focal card per row at most (`night`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | **Footer**              | Still, on Apple's #f5f5f7 under a hairline. The header's logo and "Engineered to move you forward." — on the left edge, across the width on phones and tablets and the first column from 1280px. Then six columns of plain links: Explore, Services, Solutions, Legal, Business info (phone, email, address with PIN) and Social (a profile without an address is its name alone). Under a hairline: "Copyright © year Pixel Kinetix. All rights reserved." left, Back to top right.                                                                                                                                                        |
 | **Assistant**           | Parked — rendered by no page until the assistant works. When shown: lower right, every page, on desktops only — not under 1280px, nor on a touch screen (`assistant.tsx`; name, role and face in `site.ts`). A 48px graphite pill — the face, then "Ask Kix". The brand pixel at the face's corner turns once on load and on hover. Opens a non-modal panel: the note, Mail us / WhatsApp / Call now, a composer marked Coming soon. Escape or a click outside closes it.                                                                                                                                                                 |
-| **Flow strip**          | One glyph block per step on a route — across from 768px, down on a phone, measured block centre to block centre. A Kinetic Orange dot runs it once at 45% in view; none under reduced motion. First and last blocks take the page's tint.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Flow strip**          | One glyph block per step on a route — across from 768px, down on a phone, measured block centre to block centre. A Kinetic Blue dot runs it once at 45% in view; none under reduced motion. First and last blocks take the page's tint.                                                                                                                                                                                                                                                                                                                                                                                                   |
 | **Connect scene**       | The closing picture: subject block (page tint) → the black P cube → a white check with a green signal, in the Solutions frame. Routes draw in (0.9s), a blue dot travels (1.4s), the pixel turns at the cube, the signal pings; hovering replays the dot. Drawn complete and still under reduced motion. Home's converges three blocks into Evolve's shield.                                                                                                                                                                                                                                                                              |
 | **Enquiry form**        | White panel, 16px fields, labels above, "(optional)" in grey, errors in words under the field with a mark, the first taking focus. Consent never pre-ticked. Honeypot, no puzzle. Shown only once `LEAD_WEBHOOK_URL` is set (always on the dev server).                                                                                                                                                                                                                                                                                                                                                                                   |
 | **Product screens**     | `ScreenView` (`components/screens/`): iPhones with the Dynamic Island and MacBooks with Chrome, holding real-looking software — desktop apps from blocks at 1280 × 800 (`desk-blocks.tsx`), phone apps from blocks (`phone-screen.tsx`), WhatsApp as WhatsApp draws it, concept sites. Real type sizes, scaled like a screenshot; sample data only; one accent per page, no two pages alike; no screen repeated on another page. Decorative (`aria-hidden`), each with a one-line caption.                                                                                                                                                |

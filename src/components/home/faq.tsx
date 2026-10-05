@@ -2,6 +2,11 @@
 
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/motion/collapsible';
 import { contact, faqGroups, START } from '@/content/site';
 
 import { Morph } from '../motion/morph';
@@ -22,17 +27,14 @@ import { Segmented } from '../ui/segmented';
  * The questions are automatix's, measured off its page and turned light: no card at rest — a large
  * question in a muted grey, a plus at the far end, 18px by 36px of padding, 14px between rows.
  * Pointed at, the row fills and the question darkens; open, it becomes a bordered card on a faint
- * top-to-bottom wash, the plus turns over into a minus, and the answer rises in a beat after the height, on
- * a short spring that overshoots only a little. The height is set in pixels, not released to
- * `auto`, so that spring has something to run between.
+ * top-to-bottom wash, the plus turns over into a minus, and the answer rises in a beat after the
+ * height. The opening itself is beUI's Collapsible (see `FaqList`).
  *
  * Under the rail, in the column's empty space, a small card with the ways to ask; on a phone it
  * follows the questions.
  *
  * Every answer of every shelf is in the server HTML — the shelves not chosen sit `hidden` — so all
- * of them are on the page and in its FAQPage data. Before script runs, CSS closes every card but
- * the open one; after, the heights are set in pixels here and nowhere else — React is never handed
- * a `style` for a panel, because re-rendering one would wipe the pixel height mid-flight.
+ * of them are on the page and in its FAQPage data.
  */
 const useIsoLayout = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
@@ -41,62 +43,46 @@ export type FaqEntry = { question: string; answer: string };
 /**
  * The accordion alone: one shelf of questions, the `initial` one open (−1 for none). The home FAQ
  * shows one per shelf; an inner page shows one with no rail.
+ *
+ * Each question is beUI's Collapsible (`@beui/collapsible`): the card springs open on beUI's
+ * layout spring while the rows under it glide down to make room, and the answer fades in once the
+ * height has started to move. One open at a time, so the shelf drives every row's `open`. The
+ * answers are always in the HTML — a closed one is a clipped, inert region — so every one is on
+ * the page and in its FAQPage data.
  */
 export function FaqList({ items, initial = 0 }: { items: FaqEntry[]; initial?: number }) {
-  const ids = useId();
   const [open, setOpen] = useState(initial);
-  const panels = useRef(new Map<number, HTMLDivElement | null>());
-
-  // Pin every panel's height to its content: the open one to its scrollHeight, the rest to 0.
-  useIsoLayout(() => {
-    items.forEach((_, i) => {
-      const el = panels.current.get(i);
-      if (el) el.style.height = i === open ? `${el.scrollHeight}px` : '0px';
-    });
-  }, [open, items]);
-
-  useEffect(() => {
-    const onResize = () => {
-      const el = panels.current.get(open);
-      if (el) el.style.height = `${el.scrollHeight}px`;
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [open]);
 
   return (
     <div className="morph-stagger flex flex-col gap-3.5">
       {items.map((faq, i) => {
         const expanded = open === i;
         return (
-          <div key={faq.question} className="faq-item" data-open={expanded || undefined}>
+          <Collapsible
+            key={faq.question}
+            open={expanded}
+            onOpenChange={(next) => setOpen(next ? i : -1)}
+            className="faq-item"
+            data-open={expanded || undefined}
+          >
             <h3>
-              <button
-                type="button"
-                id={`${ids}-q-${i}`}
-                aria-expanded={expanded}
-                aria-controls={`${ids}-a-${i}`}
-                onClick={() => setOpen(expanded ? -1 : i)}
-                className="flex w-full items-center gap-6 px-5 py-[1.125rem] text-left sm:px-9"
+              <CollapsibleTrigger
+                render={
+                  <button
+                    type="button"
+                    className="flex w-full items-center gap-6 px-5 py-[1.125rem] text-left sm:px-9"
+                  />
+                }
               >
                 <span className="faq-item__q">{faq.question}</span>
                 {/* HBR's toggle: a plus that turns half over into a minus as the answer opens. */}
                 <span aria-hidden="true" className="faq-item__toggle" />
-              </button>
+              </CollapsibleTrigger>
             </h3>
-            <div
-              id={`${ids}-a-${i}`}
-              role="region"
-              aria-labelledby={`${ids}-q-${i}`}
-              inert={!expanded}
-              ref={(node) => {
-                panels.current.set(i, node);
-              }}
-              className="faq-item__panel"
-            >
+            <CollapsibleContent>
               <p className="faq-item__a">{faq.answer}</p>
-            </div>
-          </div>
+            </CollapsibleContent>
+          </Collapsible>
         );
       })}
     </div>

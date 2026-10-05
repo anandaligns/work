@@ -9,7 +9,7 @@ import { TINT_BG } from '../visuals/scene-panel';
 
 /**
  * How something works, as the Process track laid on its side: one glyph block per step on a route,
- * left to right — top to bottom on a phone. When the strip is well into view, a Kinetic Orange dot
+ * left to right — top to bottom on a phone. When the strip is well into view, a Kinetic Blue dot
  * runs along the route once, the one thing on it that moves; nothing loops, so it needs no pause.
  * Under reduced motion the dot never shows.
  *

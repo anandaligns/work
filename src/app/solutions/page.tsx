@@ -89,6 +89,7 @@ export default function SolutionsPage() {
       />
       <PageIntro
         eyebrow="Solutions"
+        trail={[{ name: 'Solutions', path: '/solutions' }]}
         title={'Tell us the problem.\nWe’ll build the system.'}
         intro="Start from the goal. Each solution puts the right services together for it, priced in writing before we begin."
       >

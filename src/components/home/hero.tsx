@@ -143,8 +143,9 @@ export function Hero() {
             className="rise-in mt-8 flex flex-wrap items-center justify-center gap-3"
             style={{ ['--d' as string]: 820 }}
           >
-            {/* The hero keeps "Start a Project"; everywhere else the same link reads "Get Started". */}
-            <RollLink href={START.href} size="lg">
+            {/* The hero keeps "Start a Project"; everywhere else the same link reads "Get Started".
+                It is the one action the site leads with, so it stands on the lit Kinetic Blue. */}
+            <RollLink href={START.href} variant="kinetic" size="lg">
               Start a Project
             </RollLink>
             <RollLink href="/#pricing" variant="line" size="lg">

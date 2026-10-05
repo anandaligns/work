@@ -28,7 +28,12 @@ export function LegalPage({
   return (
     <>
       {path ? <WebPageStructuredData name={eyebrow} description={intro} path={path} /> : null}
-      <PageIntro eyebrow={eyebrow} title={title} intro={intro} />
+      <PageIntro
+        eyebrow={eyebrow}
+        title={title}
+        intro={intro}
+        trail={path ? [{ name: eyebrow, path }] : undefined}
+      />
       <div className="alt-bands">
         <Band className="py-20 lg:py-28">
           <div className="mx-auto flex max-w-2xl flex-col gap-12">

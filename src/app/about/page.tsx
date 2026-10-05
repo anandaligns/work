@@ -60,6 +60,7 @@ export default function About() {
       />
       <PageIntro
         eyebrow="About"
+        trail={[{ name: 'About', path: '/about' }]}
         title={'Technology should fit the business.\nNot the other way around.'}
         intro="Pixel Kinetix is a digital systems company. We design and engineer websites, business software and automation as one connected system."
       />

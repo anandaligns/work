@@ -90,6 +90,7 @@ export default function ServicesPage() {
       />
       <PageIntro
         eyebrow="Services"
+        trail={[{ name: 'Services', path: '/services' }]}
         title={'Fifteen services,\none connected system.'}
         intro="Three groups: what your customers use, what your team runs on, and the work that moves on its own. Each is priced upfront, and everything we build can be hosted and looked after on an Evolve care plan."
       >
