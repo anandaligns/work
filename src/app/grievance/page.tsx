@@ -8,14 +8,16 @@ import { contact } from '@/content/site';
  * what to put in it. No response times are promised here until the business sets them.
  */
 export const metadata: Metadata = {
-  title: 'Grievance',
-  description: 'How to raise a grievance with Pixel Kinetix, and what happens next.',
+  title: 'Grievance Redressal: Raise a Concern',
+  description:
+    'How to raise a concern with Pixel Kinetix about our work, this website or your information, what to include, and what happens next.',
   alternates: { canonical: '/grievance' },
 };
 
 export default function Grievance() {
   return (
     <LegalPage
+      path="/grievance"
       eyebrow="Grievance"
       title="Raise a concern."
       intro="If something about our work, this website or how we handled your information has gone wrong, tell us and it reaches the people who can put it right."

@@ -257,26 +257,32 @@ const page: ProductPage = {
     heading: 'How a web app is built',
     blocks: [
       {
+        icon: 'globe',
         title: 'Runs in the browser',
         body: 'One codebase for phone, tablet and desktop.',
       },
       {
+        icon: 'download',
         title: 'Installable',
         body: 'It can be added to the home screen and opens full screen, like an app.',
       },
       {
+        icon: 'lock',
         title: 'Logins and roles',
         body: 'Each customer or team member sees what’s theirs.',
       },
       {
+        icon: 'plug',
         title: 'Connected',
         body: 'To your stock, invoices and tools through their [APIs](/services/api-integrations).',
       },
       {
+        icon: 'refresh',
         title: 'One version',
         body: 'Changes go live for everyone at once, with nothing to download.',
       },
       {
+        icon: 'server',
         title: 'Hosted and watched',
         body: 'Hosting, backups, monitoring and security updates on [Evolve](/services/evolve).',
       },

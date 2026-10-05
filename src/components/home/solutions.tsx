@@ -1,31 +1,47 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useId, useRef, useState } from 'react';
+import { type CSSProperties, useEffect, useId, useRef, useState } from 'react';
 
 import { headings, solutions } from '@/content/site';
 import { useAnchor } from '@/lib/anchor';
 
 import { Icon, iconFor } from '../ui/icon';
+import { Lucide, MENU_ICONS } from '../ui/lucide';
 import { RollLabel } from '../ui/roll-link';
-import { Corners } from '../visuals/scene-panel';
 import { SOLUTION_MOCKS, SolutionsRestMock } from './native-mocks';
 
 import { SectionHead } from './section-head';
 
 /**
- * aoutive's "infrastructure" section, as the four solutions.
+ * Codify's "Our Excellence" section, as the four solutions.
  *
- * A list on the left, one item open at a time, each ending in the FAQ's plus — a minus for the
- * open one — and a large framed scene on the right that changes with it. The reader opens an
- * item, or closes it again; with every item closed, the frame rests on the four solutions as a
- * deck, one card lifted over its slot. Nothing turns on its own.
+ * A list on the left and a large panel on the right. The open solution is a white card — its
+ * glyph, its name, then everything it says: its line, its two ways in and the way to its page;
+ * the others are a glyph and a name. The colour is the glyphs' alone, each on its solution's
+ * tint. The picture sits on a white panel and changes with the solution. The reader opens a
+ * solution, or closes the open one again; with every one closed, the frame rests on the four
+ * solutions as a deck, one card lifted over its slot. Nothing turns on its own.
  *
  * It is an accordion in the ARIA sense — each item's button expands its own region, which holds
  * everything the item says. The picture on the right repeats it visually and is hidden from
- * assistive tech. Below 1024px there is no right: each item carries its own picture inside its
- * region, under its words, as Apple's "Significant others" does on a phone.
+ * assistive tech. Below 1024px there is no right: the open card carries its own picture, under
+ * its words.
  */
+
+/** Each solution's glyph colours — the tint and colour its own page is drawn in. */
+const TONES: Record<string, { tint: string; accent: string }> = {
+  'lead-automation': { tint: 'var(--color-tint-mint)', accent: '#166534' },
+  'online-store-and-bookings': { tint: 'var(--color-tint-sky)', accent: 'var(--color-signal-sky)' },
+  'business-dashboard-crm': {
+    tint: 'var(--color-tint-violet)',
+    accent: 'var(--color-signal-violet)',
+  },
+  'website-care-hosting': { tint: 'var(--color-tint-blush)', accent: 'var(--color-signal-rose)' },
+};
+const toneOf = (slug?: string) =>
+  (slug ? TONES[slug] : undefined) ?? { tint: 'var(--color-fill)', accent: 'var(--color-ink)' };
+
 export function Solutions() {
   const ids = useId();
   // The open row, or -1 once the reader closes it.
@@ -66,18 +82,17 @@ export function Solutions() {
   const current = solutions[active];
 
   return (
-    <div className="mt-14 grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
-      {/* automatix's list: one rail down the left, the open row tall with its paragraph, the others
-          a title and a line on one row, hairlines fading out to the right. */}
-      <div className="relative">
-        <span aria-hidden="true" className="absolute top-0 bottom-0 left-0 w-px bg-line" />
+    <div className="mt-14 grid items-start gap-10 lg:mt-16 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:gap-16">
+      <div className="flex flex-col gap-1.5">
         {solutions.map((solution, i) => {
           const selected = i === active;
+          const tone = toneOf(solution.slug);
           return (
             <div
               key={solution.slug}
-              className="auto-row relative"
+              className="sol-item"
               data-active={selected || undefined}
+              style={{ '--tint': tone.tint, '--accent': tone.accent } as CSSProperties}
             >
               <button
                 type="button"
@@ -94,18 +109,12 @@ export function Solutions() {
                   setActive(next);
                   document.getElementById(`${ids}-tab-${next}`)?.focus();
                 }}
-                className={`flex w-full items-start gap-4 pt-7 pr-4 pl-8 text-left transition-[padding] duration-500 sm:pl-12 ${selected ? 'pb-3' : 'pb-7'}`}
+                className={`flex w-full items-center gap-4 px-5 pt-5 text-left transition-[padding] duration-500 sm:px-6 sm:pt-6 ${selected ? 'pb-4' : 'pb-5 sm:pb-6'}`}
               >
-                <span className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-6 gap-y-1">
-                  <span className="auto-row__title">{solution.name}</span>
-                  <span
-                    aria-hidden={selected || undefined}
-                    className={`text-body text-ink-2 transition-opacity duration-500 ${selected ? 'opacity-0 max-sm:hidden' : ''}`}
-                  >
-                    {solution.line}
-                  </span>
+                <span aria-hidden="true" className="sol-item__mark">
+                  <Lucide name={MENU_ICONS[solution.slug] ?? 'layers'} size={18} />
                 </span>
-                <span aria-hidden="true" className="auto-row__toggle" />
+                <span className="sol-item__title">{solution.name}</span>
               </button>
               <div
                 id={`${ids}-region-${i}`}
@@ -117,7 +126,7 @@ export function Solutions() {
                 }`}
               >
                 <div className="overflow-hidden">
-                  <div className="pr-4 pb-8 pl-8 sm:pl-12">
+                  <div className="px-5 pb-6 sm:pr-6 sm:pl-[4.75rem]">
                     <p className="max-w-lg text-body text-ink-2">
                       {solution.line} {solution.positioning ?? ''}
                     </p>
@@ -152,41 +161,37 @@ export function Solutions() {
                   </div>
                 </div>
               </div>
-              <span aria-hidden="true" className="auto-row__rule" />
             </div>
           );
         })}
       </div>
 
-      <SceneFrame key={current?.slug ?? 'rest'} slug={current?.slug} />
+      <SceneFrame slug={current?.slug} />
     </div>
   );
 }
 
 /**
- * automatix's frame: a padded outer card, the picture in a rounded panel inside it, framed by four
- * corner marks and centred between them. The picture repeats what its row says, so it is hidden
- * from assistive tech. Beside the list from 1024px; `inline`, inside a row's region below that.
+ * The picture's panel: white on a hairline, a dot grid fading out from its centre, the picture
+ * on it — as before, without the grey card around it or the corner marks. The picture repeats
+ * what its row says, so it is hidden from assistive tech. Beside the list from 1024px; `inline`,
+ * inside the open card below that.
  */
 function SceneFrame({ slug, inline = false }: { slug?: string; inline?: boolean }) {
   const Mock = slug ? SOLUTION_MOCKS[slug] : SolutionsRestMock;
   return (
     <div
       aria-hidden="true"
-      className={
-        inline
-          ? 'mt-7 rounded-[1.5rem] border border-line bg-fill p-2.5 sm:p-4 lg:hidden'
-          : 'hidden rounded-[2rem] border border-line bg-fill p-3 sm:p-5 lg:sticky lg:top-24 lg:block'
-      }
+      className={`relative overflow-hidden border border-white/10 bg-night ${
+        inline ? 'mt-6 rounded-2xl lg:hidden' : 'hidden rounded-[1.25rem] lg:sticky lg:top-24 lg:block'
+      }`}
     >
-      <div className="relative overflow-hidden rounded-[1.2rem] border border-line bg-white sm:rounded-[1.4rem]">
-        <Corners />
-        <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.08)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
-        <div
-          className={`scene-swap relative ${inline ? 'h-[15rem] sm:h-[21rem]' : 'h-[19rem] sm:h-[26rem]'}`}
-        >
-          {Mock ? <Mock /> : null}
-        </div>
+      <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(255_255_255/0.12)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
+      <div
+        key={slug ?? 'rest'}
+        className={`scene-swap relative ${inline ? 'h-[15rem] sm:h-[21rem]' : 'h-[19rem] sm:h-[26rem] lg:h-[32rem]'}`}
+      >
+        {Mock ? <Mock /> : null}
       </div>
     </div>
   );
@@ -199,6 +204,7 @@ export function SolutionsHead() {
       eyebrow="Solutions"
       heading={headings.solutions}
       intro="Each solution puts the right services together for one goal, so you don’t have to pick them one by one."
+      align="center"
     />
   );
 }

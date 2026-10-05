@@ -193,48 +193,77 @@ export function Header() {
         className="gnav-flyout max-lg:hidden"
       >
         {/* Inside the sheet, Alia's flat menu, in line with the lockup: every item its glyph and
-            name on one line, its summary under it and a tilted arrow, four to a row — the fifteen
-            services and Evolve make four full rows — and a foot with the way to everything. */}
+            name on one line, its summary under it and a tilted arrow. The services stand in their
+            three groups of five, a column each under the group's name and line; the solutions
+            four to a row. Evolve isn't a service but the care plan for all of them, so it is a
+            line in the foot, beside the way to everything. */}
         <div className="container-fluid pt-10 pb-10">
-          <ul className="-mx-3 grid grid-cols-4 gap-6">
-            {(key === 'services'
-              ? [
-                  ...categories
-                    .flatMap((category) => category.services)
-                    .map((service) => ({
-                      href: serviceHref(service.anchor),
-                      icon: MENU_ICONS[service.anchor] ?? ('sparkles' as const),
-                      name: service.name,
-                      summary: service.summary,
-                    })),
-                  {
-                    href: serviceHref(evolve.slug),
-                    icon: 'refreshCw' as const,
-                    name: evolve.name,
-                    summary: evolve.summary,
-                  },
-                ]
-              : solutions.map((solution) => ({
-                  href: `/solutions/${solution.slug}`,
-                  icon: MENU_ICONS[solution.slug] ?? ('layers' as const),
-                  name: solution.name,
-                  summary: `${solution.line} With ${solution.bundles.map((bundle) => bundle.name).join(' or ')}.`,
-                }))
-            ).map((item) => (
-              <FlatItem
-                key={item.href}
-                {...item}
-                active={pathname === item.href}
-                style={next()}
-                onPick={() => close(false)}
-              />
-            ))}
-          </ul>
+          {key === 'services' ? (
+            /* One grid for the three columns, each a subgrid of its rows, so a row stands at one
+               height across the menu and the three groups end level, however a line wraps. */
+            <div className="-mx-3 grid grid-cols-3 grid-rows-[auto_repeat(5,auto)] gap-x-6 gap-y-1">
+              {categories.map((category, c) => (
+                <div key={category.slug} className="row-span-6 grid min-w-0 grid-rows-subgrid">
+                  <p className="gnav-flyout__item mega-title" style={{ ['--i' as string]: c }}>
+                    <Link
+                      href={serviceHref(category.slug)}
+                      onClick={() => close(false)}
+                      className="mega-title__name"
+                    >
+                      {category.name}
+                    </Link>
+                    <span className="mega-title__line">{category.line}</span>
+                  </p>
+                  <ul className="row-span-5 grid grid-rows-subgrid">
+                    {category.services.map((service, r) => (
+                      <FlatItem
+                        key={service.anchor}
+                        href={serviceHref(service.anchor)}
+                        icon={MENU_ICONS[service.anchor] ?? 'sparkles'}
+                        name={service.name}
+                        summary={service.summary}
+                        active={pathname === serviceHref(service.anchor)}
+                        // Row by row across the three columns, as the flat grid staggered.
+                        style={{ ['--i' as string]: categories.length + r * categories.length + c }}
+                        onPick={() => close(false)}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <ul className="-mx-3 grid grid-cols-4 gap-6">
+              {solutions.map((solution) => (
+                <FlatItem
+                  key={solution.slug}
+                  href={`/solutions/${solution.slug}`}
+                  icon={MENU_ICONS[solution.slug] ?? 'layers'}
+                  name={solution.name}
+                  summary={`${solution.line} With ${solution.bundles.map((bundle) => bundle.name).join(' or ')}.`}
+                  active={pathname === `/solutions/${solution.slug}`}
+                  style={next()}
+                  onPick={() => close(false)}
+                />
+              ))}
+            </ul>
+          )}
           {/* The foot, under a hairline: the way to everything. */}
-          <div className="gnav-flyout__item mega-foot mt-8 px-0" style={next()}>
+          <div
+            className="gnav-flyout__item mega-foot mt-8 px-0"
+            style={key === 'services' ? { ['--i' as string]: 18 } : next()}
+          >
             {key === 'services' ? (
               <p>
-                Every service connects with the others, and all of it is looked after on Evolve.
+                Need it hosted and looked after?{' '}
+                <Link
+                  href={serviceHref(evolve.slug)}
+                  onClick={() => close(false)}
+                  className="mega-foot__link"
+                >
+                  Evolve care plans
+                </Link>{' '}
+                keep everything we build fast, safe and improving.
               </p>
             ) : (
               <p>Tell us the problem. We’ll map the right system and quote it in writing.</p>
@@ -407,13 +436,14 @@ export function Header() {
                                       href: serviceHref(service.anchor),
                                     })),
                                   })),
+                                  // Evolve is the care plan for all of it, not a service.
                                   {
                                     key: evolve.slug,
-                                    name: evolve.name,
+                                    name: 'Hosting & care',
                                     items: [
                                       {
                                         key: evolve.slug,
-                                        name: 'Hosting, care and improvements',
+                                        name: 'Evolve care plans',
                                         href: serviceHref(evolve.slug),
                                       },
                                     ],

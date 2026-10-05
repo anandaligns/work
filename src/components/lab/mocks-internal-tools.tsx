@@ -2,7 +2,7 @@ import product from '@/content/products/internal-tools';
 
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, Face, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Chip, Dot, Field, RoleGrid, Steps } from './mock-parts';
 
 /**
@@ -287,65 +287,96 @@ export function ScheduleMock() {
 export const INTERNAL_TOOLS_MOCKS = [TasksMock, ApproveMock, HistoryMock, RolesMock, ScheduleMock];
 
 /** How it's built: the template the office sets once, and a teacher's class on her phone. */
-export function InternalToolsHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function InternalToolsHowScene({ box = false }: { box?: boolean }) {
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={24} w={320} i={0}>
-        <div className="p-3.5">
-          <Head
-            icon="layers"
-            accent={P}
-            title="New admission"
-            meta="Template · 12 steps · 4 roles"
-          />
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <Field label="For classes" value="1 to 12" accent={A} />
-            <Field label="Head approval over" value="₹10,000" accent={A} />
-          </div>
-          <div className="mt-2">
-            <Field label="Notes for the office" value="TC before the first day." accent={A} />
-          </div>
-          <div className="mt-2.5 flex flex-wrap gap-1.5">
-            <Chip on accent={A}>
-              Documents required
-            </Chip>
-          </div>
-        </div>
-      </Card>
-      <Card x={426} y={40} w={300} i={2}>
-        <div className="p-3.5">
-          <Head icon="school" accent={P} title="Today · Class 6B" meta="Room 12 · 8:30 am" />
-          <div className="mt-3">
-            <Steps
-              accent={A}
-              steps={[
-                { title: 'Attendance · 38 of 40', done: true },
-                { title: 'Homework posted', done: true },
-                { title: 'Notes to parents', icon: 'mail' },
-              ]}
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={24} w={320} i={0}>
+          <div className="p-3.5">
+            <Head
+              icon="layers"
+              accent={P}
+              title="New admission"
+              meta="Template · 12 steps · 4 roles"
             />
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <Field label="For classes" value="1 to 12" accent={A} />
+              <Field label="Head approval over" value="₹10,000" accent={A} />
+            </div>
+            <div className="mt-2">
+              <Field label="Notes for the office" value="TC before the first day." accent={A} />
+            </div>
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              <Chip on accent={A}>
+                Documents required
+              </Chip>
+            </div>
           </div>
-          <span
-            className="mt-3 flex items-center justify-center rounded-[8px] py-1.5 text-[11px] font-semibold"
-            style={{ background: A, color: onColour(A) }}
-          >
-            Mark step done
-          </span>
-        </div>
-      </Card>
-      <Pill x={60} y={262} i={4} accent={P}>
-        Set once in the office, followed in every class
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M344 110 C 386 110, 384 100, 426 100']}
-        dots={[
-          [344, 110],
-          [426, 100],
-        ]}
-      />
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={426} y={40} w={300} i={2}>
+          <div className="p-3.5">
+            <Head icon="school" accent={P} title="Today · Class 6B" meta="Room 12 · 8:30 am" />
+            <div className="mt-3">
+              <Steps
+                accent={A}
+                steps={[
+                  { title: 'Attendance · 38 of 40', done: true },
+                  { title: 'Homework posted', done: true },
+                  { title: 'Notes to parents', icon: 'mail' },
+                ]}
+              />
+            </div>
+            <span
+              className="mt-3 flex items-center justify-center rounded-[8px] py-1.5 text-[11px] font-semibold"
+              style={{ background: A, color: onColour(A) }}
+            >
+              Mark step done
+            </span>
+          </div>
+        </Card>
+      </Group>
+      <Group at={box ? { x: -4, y: 238 } : HOME}>
+        <Pill x={60} y={262} i={4} accent={P}>
+          Set once in the office, followed in every class
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M376 126 H 430 V 256']}
+          dots={[
+            [376, 126],
+            [430, 256],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M344 110 C 386 110, 384 100, 426 100']}
+          dots={[
+            [344, 110],
+            [426, 100],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function InternalToolsHow() {
+  return <InternalToolsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function InternalToolsHowBox() {
+  return <InternalToolsHowScene box />;
 }

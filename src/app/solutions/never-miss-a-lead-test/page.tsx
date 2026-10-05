@@ -17,15 +17,15 @@ import { categories, solutions } from '@/content/site';
 
 /**
  * `/solutions/never-miss-a-lead-test` — a trial of a page pattern of the solutions' own, on Never
- * Miss a Lead: told as a goal, not a product. The live `/solutions/never-miss-a-lead` is left as
+ * Miss a Lead: told as a goal, not a product. The live `/solutions/lead-automation` is left as
  * it is. Kept out of search and the sitemap until the pattern is approved.
  */
 export const metadata: Metadata = {
-  title: 'Never Miss a Lead (test)',
+  title: 'Lead Automation (test)',
   robots: { index: false, follow: false },
 };
 
-const SLUG = 'never-miss-a-lead';
+const SLUG = 'lead-automation';
 const services = categories.flatMap((category) => category.services);
 
 export default function NeverMissALeadTest() {

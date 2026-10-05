@@ -37,7 +37,7 @@ const page: ProductPage = {
     statement: 'Your website is the first meeting, and it happens before anyone calls.',
     body: [
       '**A business website** is where people decide whether to call you. They look you up on their phone, between other things, often after hours — and in a minute or two the site has to answer their first questions, show why you’re the right choice and make the next step obvious.',
-      '**There are two ways to get one.** The Website is quick and proven: up to six pages on our tested layouts, live in 10–14 days. The [Connected Website](/solutions/never-miss-a-lead) is designed from scratch for your brand and answers every enquiry the moment it arrives, with [instant WhatsApp replies](/services/whatsapp-automation), booking and a lead dashboard.',
+      '**There are two ways to get one.** The Website is quick and proven: up to six pages on our tested layouts, live in 10–14 days. The [Connected Website](/solutions/lead-automation) is designed from scratch for your brand and answers every enquiry the moment it arrives, with [instant WhatsApp replies](/services/whatsapp-automation), booking and a lead dashboard.',
       'Both are set up for search from the first day and looked after on [Evolve](/services/evolve) after launch.',
     ],
     photo: {
@@ -265,26 +265,31 @@ const page: ProductPage = {
     heading: 'How a business website is built',
     blocks: [
       {
+        icon: 'gauge',
         title: 'Fast by default',
         body: 'Lean pages and optimised images; on Evolve, served over a CDN.',
       },
       {
+        icon: 'search',
         title: 'Set up for search',
         body: 'Titles, meta descriptions, a sitemap and schema on every page.',
       },
       {
+        icon: 'chart',
         title: 'Measured',
         body: 'Analytics from launch, so you see where visitors come from and what they do.',
       },
       {
+        icon: 'lock',
         title: 'Secure',
         body: 'SSL on every page from launch, with backups and updates on Evolve.',
       },
       {
+        icon: 'pen',
         title: 'Easy to change',
         body: 'Changes to existing pages are part of your Evolve plan: send them by message.',
       },
-      { title: 'Yours', body: 'Your domain and your content, always.' },
+      { icon: 'key', title: 'Yours', body: 'Your domain and your content, always.' },
     ],
   },
 

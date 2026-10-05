@@ -324,12 +324,20 @@ export const MOBILE_APPS_MOCKS = [
 ];
 
 /** How it's built: one codebase for both apps, on the same system as the website. */
-export function MobileAppsHow() {
+/**
+ * How it's built: the website and both apps from one codebase. Drawn wide (760 × 330), or for a
+ * box beside its blocks (760 × 470), the same columns spread down the taller frame.
+ */
+function MobileAppsHowScene({ box = false }: { box?: boolean }) {
+  const at = box
+    ? { site: 216, hub: 186, apps: [96, 336], pill: [228, 432], h: 470 }
+    : { site: 120, hub: 96, apps: [40, 200], pill: [250, 262], h: 330 };
+  const mid = at.hub + 44;
   return (
-    <Fit w={760} h={330}>
+    <Fit w={760} h={at.h} max={box ? 1.25 : 1.15}>
       <Card
         x={278}
-        y={96}
+        y={at.hub}
         w={204}
         i={0}
         className="shadow-[0_1px_2px_rgb(11_13_18/0.04),0_24px_48px_-20px_rgb(11_13_18/0.3)]"
@@ -345,8 +353,8 @@ export function MobileAppsHow() {
         </div>
       </Card>
       {[
-        { tool: 'App Store', title: 'iPhone app', meta: 'Home · Orders · Book', y: 40 },
-        { tool: 'Google Play', title: 'Android app', meta: 'Same app, same day', y: 200 },
+        { tool: 'App Store', title: 'iPhone app', meta: 'Home · Orders · Book', y: at.apps[0]! },
+        { tool: 'Google Play', title: 'Android app', meta: 'Same app, same day', y: at.apps[1]! },
       ].map((s, i) => (
         <Card key={s.title} x={548} y={s.y} w={188} i={i + 2}>
           <div className="p-2.5">
@@ -354,28 +362,37 @@ export function MobileAppsHow() {
           </div>
         </Card>
       ))}
-      <Card x={24} y={120} w={196} i={1}>
+      <Card x={24} y={at.site} w={196} i={1}>
         <div className="p-2.5">
           <Head icon="globe" accent={P} title="The website" meta="Same menu as the app" />
         </div>
       </Card>
-      <Pill x={250} y={262} i={4} accent={P}>
+      <Pill x={at.pill[0]!} y={at.pill[1]!} i={4} accent={P}>
         Built once, on the system you already run
       </Pill>
       <Wires
         w={760}
-        h={330}
+        h={at.h}
         accent={P}
         d={[
-          'M220 150 C 250 150, 248 140, 278 140',
-          'M482 130 C 516 130, 514 64, 548 64',
-          'M482 150 C 516 150, 514 224, 548 224',
+          `M220 ${at.site + 30} C 250 ${at.site + 30}, 248 ${mid}, 278 ${mid}`,
+          `M482 ${mid - 10} C 516 ${mid - 10}, 514 ${at.apps[0]! + 24}, 548 ${at.apps[0]! + 24}`,
+          `M482 ${mid + 10} C 516 ${mid + 10}, 514 ${at.apps[1]! + 24}, 548 ${at.apps[1]! + 24}`,
         ]}
         dots={[
-          [278, 140],
-          [482, 140],
+          [278, mid],
+          [482, mid],
         ]}
       />
     </Fit>
   );
+}
+
+export function MobileAppsHow() {
+  return <MobileAppsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function MobileAppsHowBox() {
+  return <MobileAppsHowScene box />;
 }

@@ -7,7 +7,8 @@ import { enquiryLive } from '@/lib/enquiry';
 /** `/privacy` — what this site collects (very little) and what happens to a message you send us. */
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'How Pixel Kinetix handles your information when you visit this site or contact us.',
+  description:
+    'What the Pixel Kinetix website collects, what happens to your details when you contact us, and what you can ask us to do with them.',
   alternates: { canonical: '/privacy' },
 };
 
@@ -20,6 +21,7 @@ const form = enquiryLive();
 export default function Privacy() {
   return (
     <LegalPage
+      path="/privacy"
       eyebrow="Privacy Policy"
       title="Your information, plainly."
       intro="What this website collects, what happens when you contact us, and what you can ask us to do with it."

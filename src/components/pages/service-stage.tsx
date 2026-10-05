@@ -8,7 +8,7 @@ import { RollLink } from '../ui/roll-link';
 import { BRANDS, DesktopSite, MobileSite, Scaled } from '../visuals/concept-sites';
 
 /**
- * A service page's opening under trial, laid out as the Never Miss a Lead v2 page opens: one
+ * A service page's opening under trial, laid out as the Lead Automation v2 page opens: one
  * screen tall on white, the words on the left — the service's group on a green dot, its name, a
  * line and two actions — and the picture on the right,
  * from just past a third of the way across to the screen's edge. The picture is Coderhouse's live

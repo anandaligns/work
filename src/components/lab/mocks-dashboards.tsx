@@ -2,7 +2,7 @@ import product from '@/content/products/dashboards';
 
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Chip, Dot, RoleGrid, Stat } from './mock-parts';
 
 /**
@@ -333,61 +333,84 @@ export function TargetsMock() {
 export const DASHBOARDS_MOCKS = [DigestMock, SourcesMock, FiltersMock, FlagsMock, TargetsMock];
 
 /** How it's built: what each role sees, and the owner's morning on her phone. */
-export function DashboardsHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function DashboardsHowScene({ box = false }: { box?: boolean }) {
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={28} w={380} i={0}>
-        <div className="p-3.5">
-          <Head
-            icon="lock"
-            accent={P}
-            title="Roles and access"
-            meta="dashboard.solarenergycompany.in"
-          />
-          <div className="mt-3">
-            <RoleGrid
-              accent={A}
-              heads={['Owner', 'Ops', 'Sales', 'Accts']}
-              rows={[
-                { label: 'Generation and savings', values: [true, true, false, true] },
-                { label: 'Payments and invoices', values: [true, false, false, true] },
-                { label: 'Leads and surveys', values: [true, true, true, false] },
-                { label: 'Every region', values: [true, true, false, true] },
-              ]}
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={28} w={380} i={0}>
+          <div className="p-3.5">
+            <Head
+              icon="lock"
+              accent={P}
+              title="Roles and access"
+              meta="dashboard.solarenergycompany.in"
             />
+            <div className="mt-3">
+              <RoleGrid
+                accent={A}
+                heads={['Owner', 'Ops', 'Sales', 'Accts']}
+                rows={[
+                  { label: 'Generation and savings', values: [true, true, false, true] },
+                  { label: 'Payments and invoices', values: [true, false, false, true] },
+                  { label: 'Leads and surveys', values: [true, true, true, false] },
+                  { label: 'Every region', values: [true, true, false, true] },
+                ]}
+              />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={462} y={40} w={272} i={2}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head icon="devices" accent={P} title="Good morning, Kavya" meta="On her phone" />
-          <div className="mt-2.5 grid grid-cols-3 gap-2">
-            <Stat label="kWh made" value="4,120" accent={A} size={15} />
-            <Stat label="Sites up" value="37/38" accent={A} size={15} />
-            <Stat label="Leads" value="9" accent={A} size={15} />
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={462} y={40} w={272} i={2}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head icon="devices" accent={P} title="Good morning, Kavya" meta="On her phone" />
+            <div className="mt-2.5 grid grid-cols-3 gap-2">
+              <Stat label="kWh made" value="4,120" accent={A} size={15} />
+              <Stat label="Sites up" value="37/38" accent={A} size={15} />
+              <Stat label="Leads" value="9" accent={A} size={15} />
+            </div>
+            <div className="mt-2 divide-y divide-[#f0f0f3]">
+              <Row
+                lead={<Dot icon="alert" tone={P} />}
+                title="Inverter offline"
+                meta="Site 14 · since 6:10 am"
+              />
+            </div>
           </div>
-          <div className="mt-2 divide-y divide-[#f0f0f3]">
-            <Row
-              lead={<Dot icon="alert" tone={P} />}
-              title="Inverter offline"
-              meta="Site 14 · since 6:10 am"
-            />
-          </div>
-        </div>
-      </Card>
-      <Pill x={60} y={250} i={4} accent={P}>
-        Everyone sees their numbers, no more
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M404 110 C 434 110, 432 100, 462 100']}
-        dots={[
-          [404, 110],
-          [462, 100],
-        ]}
-      />
+        </Card>
+        <Wires w={760} h={330} accent={P} d={['M404 110 C 434 110, 432 100, 462 100']} />
+      </Group>
+      <Group at={box ? { x: -4, y: 250 } : HOME}>
+        <Pill x={60} y={250} i={4} accent={P}>
+          Everyone sees their numbers, no more
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires w={760} h={560} accent={P} d={[]} dots={[]} />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M404 110 C 434 110, 432 100, 462 100']}
+          dots={[
+            [404, 110],
+            [462, 100],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function DashboardsHow() {
+  return <DashboardsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function DashboardsHowBox() {
+  return <DashboardsHowScene box />;
 }

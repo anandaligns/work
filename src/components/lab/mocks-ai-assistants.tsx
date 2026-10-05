@@ -4,7 +4,7 @@ import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, Face, Head, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, Face, Head, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Bubble, Chip, Dot, Stat } from './mock-parts';
 
 /**
@@ -295,7 +295,10 @@ export function InsightsMock() {
 export const AI_ASSISTANTS_MOCKS = [WidgetMock, TrustMock, LeadMock, KnowledgeMock, InsightsMock];
 
 /** How it's built: where it answers and what it connects to, and what reaches a lawyer. */
-export function AiAssistantsHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function AiAssistantsHowScene({ box = false }: { box?: boolean }) {
   const channels = [
     { tool: 'WhatsApp', m: 'Your business number' },
     { tool: 'Zoho CRM', m: 'Saves every lead' },
@@ -303,66 +306,92 @@ export function AiAssistantsHow() {
     { tool: 'Gmail', m: 'Morning summary' },
   ];
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={24} w={320} i={0}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head icon="plug" accent={P} title="Where it answers" meta="assistant.lawfirm.in" />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            {channels.map((c) => (
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={24} w={320} i={0}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head icon="plug" accent={P} title="Where it answers" meta="assistant.lawfirm.in" />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              {channels.map((c) => (
+                <Row
+                  key={c.tool}
+                  lead={
+                    <span className="grid size-[26px] shrink-0 place-items-center rounded-full bg-[#f4f5f7]">
+                      <ToolMark tool={c.tool} size={13} />
+                    </span>
+                  }
+                  title={c.tool}
+                  meta={c.m}
+                  right={<Tag tone="ok">On</Tag>}
+                />
+              ))}
+            </div>
+          </div>
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={434} y={40} w={300} i={2}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head icon="userShare" accent={P} title="Needs you" meta="Adv. Ravi Menon · Partner" />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
               <Row
-                key={c.tool}
-                lead={
-                  <span className="grid size-[26px] shrink-0 place-items-center rounded-full bg-[#f4f5f7]">
-                    <ToolMark tool={c.tool} size={13} />
-                  </span>
+                lead={<Face name="Farhan Q" />}
+                title="Farhan Q"
+                meta="Wants a lawyer to call"
+                right={
+                  <Tag tone="accent" accent={A}>
+                    New
+                  </Tag>
                 }
-                title={c.tool}
-                meta={c.m}
-                right={<Tag tone="ok">On</Tag>}
               />
-            ))}
+              <Row
+                lead={<Face name="Lakshmi N" />}
+                title="Lakshmi N"
+                meta="Notice from a tenant"
+                right={<Tag tone="wait">1 h</Tag>}
+              />
+            </div>
+            <div className="mt-2 flex flex-wrap gap-1.5 pb-1.5">
+              <Chip accent={A}>With the whole conversation</Chip>
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={434} y={40} w={300} i={2}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head icon="userShare" accent={P} title="Needs you" meta="Adv. Ravi Menon · Partner" />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            <Row
-              lead={<Face name="Farhan Q" />}
-              title="Farhan Q"
-              meta="Wants a lawyer to call"
-              right={
-                <Tag tone="accent" accent={A}>
-                  New
-                </Tag>
-              }
-            />
-            <Row
-              lead={<Face name="Lakshmi N" />}
-              title="Lakshmi N"
-              meta="Notice from a tenant"
-              right={<Tag tone="wait">1 h</Tag>}
-            />
-          </div>
-          <div className="mt-2 flex flex-wrap gap-1.5 pb-1.5">
-            <Chip accent={A}>With the whole conversation</Chip>
-          </div>
-        </div>
-      </Card>
-      <Pill x={434} y={250} i={4} accent={P}>
-        The assistant answers; people decide
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M344 110 C 389 110, 389 100, 434 100']}
-        dots={[
-          [344, 110],
-          [434, 100],
-        ]}
-      />
+        </Card>
+        <Pill x={434} y={250} i={4} accent={P}>
+          The assistant answers; people decide
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M376 126 H 438 V 256']}
+          dots={[
+            [376, 126],
+            [438, 256],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M344 110 C 389 110, 389 100, 434 100']}
+          dots={[
+            [344, 110],
+            [434, 100],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function AiAssistantsHow() {
+  return <AiAssistantsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function AiAssistantsHowBox() {
+  return <AiAssistantsHowScene box />;
 }

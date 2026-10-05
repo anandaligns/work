@@ -32,48 +32,50 @@ export default function Home() {
     <>
       <HomeStructuredData />
       <Hero />
-      <Sectors />
-      <Services />
-      <Band id="solutions" labelledBy="solutions-heading" className="py-24 lg:py-32">
-        <SolutionsHead />
-        <Solutions />
-      </Band>
-      <Work />
-      <Promises />
-      <Numbers />
-      <Process />
-      <Portal />
-      <Band id="pricing" labelledBy="pricing-heading" className="py-24 lg:py-32">
-        <SectionHead
-          id="pricing"
-          eyebrow="Pricing"
-          heading={headings.pricing}
-          intro="Every package has a published price. Bigger systems get a fixed quote after a System Blueprint. We start once the advance is paid."
-        />
-        <Pricing />
-      </Band>
-      <Reviews />
-      <Band id="faq" labelledBy="faq-heading" className="py-24 lg:py-32">
-        <SectionHead
-          id="faq"
-          eyebrow="FAQ"
-          heading={headings.faq}
-          intro="Straight answers about systems, prices, Evolve and more."
-        />
-        <Faq />
-      </Band>
-      <Closing
-        visual={
-          <ConnectScene
-            converge={[
-              { icon: 'device', tone: 'violet' },
-              { icon: 'database', tone: 'sky' },
-              { icon: 'spark', tone: 'mint' },
-            ]}
-            result={{ icon: 'shield', tone: 'butter' }}
+      <div className="alt-bands">
+        <Sectors />
+        <Services />
+        <Band id="solutions" labelledBy="solutions-heading" className="py-24 lg:py-32">
+          <SolutionsHead />
+          <Solutions />
+        </Band>
+        <Work />
+        <Promises />
+        <Numbers />
+        <Process />
+        <Portal />
+        <Band id="pricing" labelledBy="pricing-heading" className="py-24 lg:py-32">
+          <SectionHead
+            id="pricing"
+            eyebrow="Pricing"
+            heading={headings.pricing}
+            intro="Every package has a published price. Bigger systems get a fixed quote after a System Blueprint. We start once the advance is paid."
           />
-        }
-      />
+          <Pricing />
+        </Band>
+        <Reviews />
+        <Band id="faq" labelledBy="faq-heading" className="py-24 lg:py-32">
+          <SectionHead
+            id="faq"
+            eyebrow="FAQ"
+            heading={headings.faq}
+            intro="Straight answers about systems, prices, Evolve and more."
+          />
+          <Faq />
+        </Band>
+        <Closing
+          visual={
+            <ConnectScene
+              converge={[
+                { icon: 'device', tone: 'violet' },
+                { icon: 'database', tone: 'sky' },
+                { icon: 'spark', tone: 'mint' },
+              ]}
+              result={{ icon: 'shield', tone: 'butter' }}
+            />
+          }
+        />
+      </div>
     </>
   );
 }

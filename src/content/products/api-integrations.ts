@@ -36,7 +36,7 @@ const page: ProductPage = {
     body: [
       '**API integrations** connect the tools you already use, so a booking on the website, a payment at the gateway or a new customer in the CRM flows on its own to every other tool that needs it — invoice, voucher, supplier, sheet.',
       '**Nothing is changed for its own sake.** We keep the tools that work, connect them through their official APIs and webhooks, and tell you honestly when one can’t be connected reliably.',
-      'Every connection is logged and watched on [Evolve](/services/evolve), and it often becomes the first step to [running the business in one place](/solutions/run-it-in-one-place).',
+      'Every connection is logged and watched on [Evolve](/services/evolve), and it often becomes the first step to [running the business in one place](/solutions/business-dashboard-crm).',
     ],
     photo: {
       file: 'api-integrations-travel-desk',
@@ -232,26 +232,32 @@ const page: ProductPage = {
     heading: 'How API integrations work',
     blocks: [
       {
+        icon: 'plug',
         title: 'APIs and webhooks',
         body: 'Each tool’s own connection points, used with keys only your system holds.',
       },
       {
+        icon: 'table',
         title: 'Mapping',
         body: 'Fields matched between tools, so a “customer” means the same thing everywhere.',
       },
       {
+        icon: 'check',
         title: 'Idempotent by design',
         body: 'A webhook that arrives twice is handled once, never doubled.',
       },
       {
+        icon: 'refresh',
         title: 'Retries and alerts',
         body: 'Temporary failures retried; lasting ones sent to a person.',
       },
       {
+        icon: 'history',
         title: 'Logged',
         body: 'Every run and request kept, so any number can be traced to where it came from.',
       },
       {
+        icon: 'eye',
         title: 'Monitored on Evolve',
         body: 'Connections watched, and fixed within [your plan’s response time](/services/evolve).',
       },

@@ -3,7 +3,7 @@ import product from '@/content/products/crm-systems';
 import { ToolMark } from '../ui/brand-logos';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, Face, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bubble, Dot } from './mock-parts';
 
 /**
@@ -354,7 +354,10 @@ export function ReportsMock() {
 export const CRM_MOCKS = [RecordMock, RoutingMock, FollowUpsMock, ChatMock, ReportsMock];
 
 /** How it's built: the weekend's site visits in the office, the new lead on Ravi's phone. */
-export function CrmHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function CrmHowScene({ box = false }: { box?: boolean }) {
   const visits = [
     ['Nikhil & Priya', 'Sat, 11 am · Lakeside · Sameer'],
     ['Arvind Kulkarni', 'Sat, 2 pm · Lakeside · Ravi'],
@@ -362,63 +365,91 @@ export function CrmHow() {
     ['Rao family', 'Sun, 3 pm · Palm Grove · Sameer'],
   ];
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={24} w={330} i={0}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head
-            icon="calendar"
-            accent={P}
-            title="Site visits"
-            meta="crm.realestateagency.in · this weekend"
-          />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            {visits.map(([who, m]) => (
-              <Row key={who} lead={<Face name={who!} />} title={who!} meta={m} />
-            ))}
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={24} w={330} i={0}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head
+              icon="calendar"
+              accent={P}
+              title="Site visits"
+              meta="crm.realestateagency.in · this weekend"
+            />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              {visits.map(([who, m]) => (
+                <Row key={who} lead={<Face name={who!} />} title={who!} meta={m} />
+              ))}
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={434} y={40} w={300} i={2}>
-        <div className="p-3.5">
-          <Head
-            icon="bell"
-            accent={P}
-            title="Rohit Verma"
-            meta="New lead assigned to you · 9:42 pm"
-          />
-          <div className="mt-2 divide-y divide-[#f0f0f3]">
-            <Row
-              lead={<Dot icon="globe" tone={P} />}
-              title="Website form"
-              meta="From a Google search ad"
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={434} y={40} w={300} i={2}>
+          <div className="p-3.5">
+            <Head
+              icon="bell"
+              accent={P}
+              title="Rohit Verma"
+              meta="New lead assigned to you · 9:42 pm"
             />
-            <Row
-              lead={<Dot icon="rupee" tone={P} />}
-              title="₹1.3–1.5 Cr"
-              meta="Home loan · within 6 months"
-            />
-            <Row
-              lead={<Dot icon="phone" tone={P} />}
-              title="Call back"
-              meta="Today, before 10 am"
-              right={<Tag tone="wait">Next</Tag>}
-            />
+            <div className="mt-2 divide-y divide-[#f0f0f3]">
+              <Row
+                lead={<Dot icon="globe" tone={P} />}
+                title="Website form"
+                meta="From a Google search ad"
+              />
+              <Row
+                lead={<Dot icon="rupee" tone={P} />}
+                title="₹1.3–1.5 Cr"
+                meta="Home loan · within 6 months"
+              />
+              <Row
+                lead={<Dot icon="phone" tone={P} />}
+                title="Call back"
+                meta="Today, before 10 am"
+                right={<Tag tone="wait">Next</Tag>}
+              />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Pill x={60} y={268} i={4} accent={P}>
-        The office and the phone see the same lead
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M354 110 C 394 110, 394 100, 434 100']}
-        dots={[
-          [354, 110],
-          [434, 100],
-        ]}
-      />
+        </Card>
+      </Group>
+      <Group at={box ? { x: -4, y: 232 } : HOME}>
+        <Pill x={60} y={268} i={4} accent={P}>
+          The office and the phone see the same lead
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M386 126 H 438 V 256']}
+          dots={[
+            [386, 126],
+            [438, 256],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M354 110 C 394 110, 394 100, 434 100']}
+          dots={[
+            [354, 110],
+            [434, 100],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function CrmHow() {
+  return <CrmHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function CrmHowBox() {
+  return <CrmHowScene box />;
 }

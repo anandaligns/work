@@ -45,8 +45,8 @@ const ofKind = (kind: HomeBlock['kind']) => blocks.filter((block) => block.kind 
 const heroBlock = ofKind('HERO')[0]!;
 export const hero = {
   ...heroBlock,
-  body: `${heroBlock.body} For businesses in Bangalore and across India.`,
-  lines: 'Technology built\naround your business.',
+  body: 'You run the business. We build the system behind it: the website that brings customers in, the bookings, payments and WhatsApp replies that run on their own, and one dashboard for all of it. For businesses in Bangalore and across India.',
+  lines: 'Websites, apps and automation,\nbuilt around your business.',
 };
 
 export const portal = ofKind('PORTAL')[0]!;
@@ -90,8 +90,15 @@ export const groupIntros: Record<string, string> = {
     'WhatsApp and email automation, booking and payment workflows, integrations and AI: the work that should happen without anyone doing it.',
 };
 
-/** The site's own address, for canonical links, the sitemap and structured data. */
-export const SITE_URL = 'https://pixelkinetix.com';
+/**
+ * The site's own address, for canonical links, the sitemap and structured data. A build for
+ * another host — the liquidglass staging copy — sets `NEXT_PUBLIC_SITE_URL` when it is built, so
+ * its canonicals, sitemap and share links point at itself; every other build is pixelkinetix.com.
+ */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://pixelkinetix.com').replace(
+  /\/+$/,
+  '',
+);
 
 export const solutions = catalogue.solutions;
 export type Solution = (typeof solutions)[number];
@@ -399,17 +406,17 @@ const INTEREST_OF: Record<string, Interest> = {
   website: 'Website',
   'business-websites': 'Website',
   'connected-website': 'Connected Website',
-  'never-miss-a-lead': 'Connected Website',
+  'lead-automation': 'Connected Website',
   'whatsapp-automation': 'Connected Website',
   'booking-payment-workflows': 'Connected Website',
   'booking-system': 'Connected Website',
   store: 'Store',
   'e-commerce-stores': 'Store',
   'e-commerce-system': 'Store',
-  'sell-and-book-online': 'Store',
+  'online-store-and-bookings': 'Store',
   blueprint: 'System Blueprint',
   'business-systems': 'System Blueprint',
-  'run-it-in-one-place': 'System Blueprint',
+  'business-dashboard-crm': 'System Blueprint',
   custom: 'Custom system',
   'customer-portals': 'Custom system',
   'web-apps': 'Custom system',
@@ -430,7 +437,7 @@ const INTEREST_OF: Record<string, Interest> = {
   essential: 'Evolve',
   standard: 'Evolve',
   complete: 'Evolve',
-  'keep-it-improving': 'Evolve',
+  'website-care-hosting': 'Evolve',
   'move-to-better-hosting': 'Evolve',
 };
 

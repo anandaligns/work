@@ -27,11 +27,11 @@ import { solutions } from '@/content/site';
  * (`components/lab`). The live page is left as it is. Out of search and the sitemap.
  */
 export const metadata: Metadata = {
-  title: 'Sell & Book Online (test)',
+  title: 'Online Store & Bookings (test)',
   robots: { index: false, follow: false },
 };
 
-const SLUG = 'sell-and-book-online';
+const SLUG = 'online-store-and-bookings';
 const A = studio.accent;
 
 const feature = (label: string) => product.features.items.find((i) => i.label === label)!;

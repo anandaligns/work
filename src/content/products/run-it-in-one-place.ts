@@ -3,7 +3,7 @@ import { blueprintAndCustom, SAMPLE_NOTE, WHY_CUSTOM } from './shared';
 import type { ProductPage } from './types';
 
 /**
- * Run It in One Place, presented as a product: a bakery with three outlets and online orders —
+ * Business Dashboard & CRM, presented as a product: a bakery with three outlets and online orders —
  * sales, stock, cash and staff in one view, the tools it keeps connected, and the spreadsheets
  * retired one job at a time. The bakery and its sample data are invented.
  */

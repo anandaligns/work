@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Closing } from '@/components/home/closing';
-import { MockPanel, MockStage } from '@/components/lab/mock-parts';
+import { FadePanel, MockPanel, MockStage } from '@/components/lab/mock-parts';
 import { SERVICE_MOCKS } from '@/components/lab/service-mocks';
 import { Pricing } from '@/components/home/pricing';
 import { Card, CardBand } from '@/components/pages/cards';
@@ -13,10 +13,12 @@ import { ProductBody, ProductOpening, RelatedIndex } from '@/components/pages/pr
 import { ServiceOpening } from '@/components/pages/service-stage';
 import { businessColour, stageFor } from '@/components/pages/service-stages';
 import { PageStructuredData } from '@/components/seo/page-structured-data';
+import { ShowcasePanel } from '@/components/solutions/showcase';
 import { type IconName, iconFor } from '@/components/ui/icon';
 import { RollLink } from '@/components/ui/roll-link';
 import { ConnectScene } from '@/components/visuals/connect-scene';
 import { GroupHeroScene } from '@/components/visuals/page-scenes';
+import { IsoView } from '@/components/visuals/iso-views';
 import {
   evolvePage,
   GROUP_TINT,
@@ -53,18 +55,36 @@ function mocksFor(slug: string, accent: string) {
   const set = SERVICE_MOCKS[slug];
   if (!set) return {};
   const How = set.how;
+  const HowBox = set.howBox;
+  const Included = set.included;
   const business = businessColour(slug);
+  /** The split sections' panels start as strong as the solutions' (their home-page tints). */
+  const light = `color-mix(in srgb, ${accent} 12%, white)`;
   return {
+    included: Included ? (
+      <ShowcasePanel className="lg:aspect-[900/780]">
+        <FadePanel accent={accent} business={business} light={light}>
+          <Included />
+        </FadePanel>
+      </ShowcasePanel>
+    ) : undefined,
     features: set.features.map((Mock, i) => (
       <MockPanel key={i} accent={accent} business={business}>
         <Mock />
       </MockPanel>
     )),
-    how: (
+    how: HowBox ? (
+      <ShowcasePanel className="lg:aspect-[4/3]">
+        <FadePanel accent={accent} business={business} light={light}>
+          <HowBox />
+        </FadePanel>
+      </ShowcasePanel>
+    ) : (
       <MockStage accent={accent} business={business} className="h-[20rem] max-w-4xl sm:h-[24rem]">
         <How />
       </MockStage>
     ),
+    howSplit: Boolean(HowBox),
   };
 }
 
@@ -146,7 +166,7 @@ function GroupView({ page }: { page: GroupPage }) {
         name={category.name}
         description={page.description}
         path={path}
-        crumbs={[]}
+        crumbs={[{ name: 'Services', path: '/services' }]}
         faqs={page.faqs}
         from={page.from}
         serviceType={page.keyword}
@@ -162,47 +182,49 @@ function GroupView({ page }: { page: GroupPage }) {
         <GroupHeroScene slug={page.slug} />
       </HeroWell>
 
-      <CardBand id="services" eyebrow={category.name} title={page.servicesHeading}>
-        {category.services.map((service, i) => (
-          <Card
-            key={service.anchor}
-            icon={iconFor(service.anchor)}
-            name={service.name}
-            line={service.summary}
-            href={`/services/${service.anchor}`}
-            index={i}
-          />
-        ))}
-      </CardBand>
+      <div className="alt-bands">
+        <CardBand id="services" eyebrow={category.name} title={page.servicesHeading}>
+          {category.services.map((service, i) => (
+            <Card
+              key={service.anchor}
+              icon={iconFor(service.anchor)}
+              name={service.name}
+              line={service.summary}
+              href={`/services/${service.anchor}`}
+              index={i}
+            />
+          ))}
+        </CardBand>
 
-      <Section
-        id="built"
-        eyebrow={category.name}
-        title={page.built.heading}
-        intro={page.built.body}
-      >
-        {page.built.steps ? <FlowStrip steps={page.built.steps} tint={tint} /> : null}
-        {page.built.points ? <BuildCards points={page.built.points} /> : null}
-      </Section>
+        <Section
+          id="built"
+          eyebrow={category.name}
+          title={page.built.heading}
+          intro={page.built.body}
+        >
+          {page.built.steps ? <FlowStrip steps={page.built.steps} tint={tint} /> : null}
+          {page.built.points ? <BuildCards points={page.built.points} /> : null}
+        </Section>
 
-      <Section id="prices" eyebrow={category.name} title="Prices">
-        <Prices cards={page.prices} note={page.priceNote} compact />
-      </Section>
+        <Section id="prices" eyebrow={category.name} title="Prices">
+          <Prices cards={page.prices} note={page.priceNote} compact />
+        </Section>
 
-      <FaqBand
-        eyebrow={category.name}
-        title={`${category.name} questions`}
-        faqs={page.faqs}
-        interest={page.slug}
-        topic={category.name}
-      />
+        <FaqBand
+          eyebrow={category.name}
+          title={`${category.name} questions`}
+          faqs={page.faqs}
+          interest={page.slug}
+          topic={category.name}
+        />
 
-      <Closing
-        heading={page.closing}
-        interest={page.slug}
-        topic={category.name}
-        visual={<ConnectScene icon={GROUP_GLYPH[page.slug]} tint={tint} />}
-      />
+        <Closing
+          heading={page.closing}
+          interest={page.slug}
+          topic={category.name}
+          visual={<ConnectScene icon={GROUP_GLYPH[page.slug]} tint={tint} />}
+        />
+      </div>
     </>
   );
 }
@@ -228,7 +250,7 @@ function ServiceView({ page }: { page: ServicePage }) {
         description={page.description}
         path={path}
         crumbs={[
-          { name: 'Services', path: '/#services' },
+          { name: 'Services', path: '/services' },
           { name: category.name, path: groupPath },
         ]}
         faqs={product.faqs.items}
@@ -261,38 +283,45 @@ function ServiceView({ page }: { page: ServicePage }) {
         eyebrow={service.name}
         tint={tint}
         next={mocksFor(page.slug, product.accent)}
-      />
+        view={<IsoView slug={page.slug} accent={product.accent} />}
+        tail={
+          <>
+            <RelatedIndex
+              eyebrow={category.name}
+              heading={`More in ${category.name}`}
+              links={[
+                ...related.map((s) => ({
+                  name: s.name,
+                  line: s.summary,
+                  href: `/services/${s.anchor}`,
+                })),
+                ...(solution && solutionPage
+                  ? [
+                      {
+                        name: `Solution: ${solution.name}`,
+                        line: solution.line,
+                        href: `/solutions/${solution.slug}`,
+                      },
+                    ]
+                  : []),
+                { name: `All of ${category.name}`, line: category.line, href: groupPath },
+              ]}
+            />
 
-      <RelatedIndex
-        eyebrow={category.name}
-        heading={`More in ${category.name}`}
-        off
-        links={[
-          ...related.map((s) => ({ name: s.name, line: s.summary, href: `/services/${s.anchor}` })),
-          ...(solution && solutionPage
-            ? [
-                {
-                  name: `Solution: ${solution.name}`,
-                  line: solution.line,
-                  href: `/solutions/${solution.slug}`,
-                },
-              ]
-            : []),
-          { name: `All of ${category.name}`, line: category.line, href: groupPath },
-        ]}
-      />
-
-      <Closing
-        heading={page.closing}
-        interest={page.slug}
-        topic={service.name}
-        visual={
-          <ConnectScene
-            icon={iconFor(page.slug)}
-            tint={tint}
-            accent={product.accent}
-            accentDark={product.accentDark}
-          />
+            <Closing
+              heading={page.closing}
+              interest={page.slug}
+              topic={service.name}
+              visual={
+                <ConnectScene
+                  icon={iconFor(page.slug)}
+                  tint={tint}
+                  accent={product.accent}
+                  accentDark={product.accentDark}
+                />
+              }
+            />
+          </>
         }
       />
     </>
@@ -311,7 +340,7 @@ function EvolveView() {
         name={evolve.name}
         description={page.description}
         path={path}
-        crumbs={[{ name: 'Services', path: '/#services' }]}
+        crumbs={[{ name: 'Services', path: '/services' }]}
         faqs={product.faqs.items}
         from={page.from}
         monthly={page.monthly}
@@ -331,6 +360,7 @@ function EvolveView() {
         interest={evolve.slug}
         eyebrow={evolve.name}
         tint="butter"
+        view={<IsoView slug={evolve.slug} accent={product.accent} />}
         priceExtra={<Pricing only="care" />}
         after={
           <Section
@@ -340,13 +370,14 @@ function EvolveView() {
             intro={page.terms.body}
           />
         }
-      />
-
-      <Closing
-        heading={page.closing}
-        interest={evolve.slug}
-        topic={evolve.name}
-        visual={<ConnectScene icon="shield" tint="butter" />}
+        tail={
+          <Closing
+            heading={page.closing}
+            interest={evolve.slug}
+            topic={evolve.name}
+            visual={<ConnectScene icon="shield" tint="butter" />}
+          />
+        }
       />
     </>
   );

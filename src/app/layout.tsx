@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { preload } from 'react-dom';
 
 import { MobileStart } from '@/components/layout/floating-actions';
 import { Footer } from '@/components/layout/footer';
@@ -11,7 +12,7 @@ import { SITE_URL } from '@/content/site';
 import './globals.css';
 
 const DESCRIPTION =
-  'Pixel Kinetix designs and engineers websites, business software and automation as one connected system, for businesses in Bangalore and across India.';
+  'Websites, online stores, bookings, WhatsApp automation and dashboards for businesses in Bangalore and across India, built as one system and priced upfront.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -34,7 +35,16 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: '#fcfcfc' };
 
+/**
+ * The three faces the first screen is set in — the body, the headings and buttons, and the
+ * lockup — fetched with the page rather than once the stylesheet asks for them, so the opening
+ * paints in its own type without a late swap. Latin only; the extended ranges load if needed.
+ */
+const FIRST_FONTS = ['dm-sans-400', 'dm-sans-500', 'dm-sans-700'];
+
 export default function RootLayout({ children }: { children: ReactNode }) {
+  for (const font of FIRST_FONTS)
+    preload(`/fonts/${font}.woff2`, { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
   return (
     <html lang="en-IN">
       <body>

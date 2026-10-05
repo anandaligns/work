@@ -3,7 +3,7 @@ import { SAMPLE_NOTE } from './shared';
 import type { ProductPage } from './types';
 
 /**
- * Keep It Improving, presented as a product: a precision-parts maker's old website, moved to our
+ * Website Care & Hosting, presented as a product: a precision-parts maker's old website, moved to our
  * hosting — access recovered, the move tested before the switch, speed fixed — then looked after
  * on Evolve with changes by message. The company and its sample data are invented.
  */
@@ -348,7 +348,7 @@ const page: ProductPage = {
     body: [
       '**Sites get stuck.** The developer who built it can’t be reached, the logins are with someone who left, it loads slowly and still shows last year’s products. Nobody is watching it, and nobody is backing it up.',
       '**We move it and look after it.** We check what you have, recover the access, move the site to our hosting and test it there before switching the domain — then it joins an [Evolve](/services/evolve) plan like anything we built.',
-      'After that, changes are a message away, and a redesign can follow whenever you’re ready, on its own or as part of [running it in one place](/solutions/run-it-in-one-place).',
+      'After that, changes are a message away, and a redesign can follow whenever you’re ready, on its own or as part of [running it in one place](/solutions/business-dashboard-crm).',
     ],
     photo: {
       file: 'keep-it-improving-factory-office',

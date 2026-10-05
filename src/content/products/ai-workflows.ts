@@ -30,7 +30,7 @@ const page: ProductPage = {
     body: [
       '**Invoices, purchase orders, delivery notes and forms** arrive all day, and someone types them into the system. An AI workflow does the reading and the typing, then checks the result against what you expected.',
       '**People still make the call.** Anything that doesn’t match a purchase order, a price list or a past record is flagged, and nothing is posted until someone on your team approves it.',
-      'Approved data goes straight into [your accounting software](/services/api-integrations) or ERP, as part of [one system for the business](/solutions/run-it-in-one-place).',
+      'Approved data goes straight into [your accounting software](/services/api-integrations) or ERP, as part of [one system for the business](/solutions/business-dashboard-crm).',
     ],
     photo: {
       file: 'ai-workflows-accounting-firm',
@@ -234,20 +234,32 @@ const page: ProductPage = {
     heading: 'How AI workflows work',
     blocks: [
       {
+        icon: 'scan',
         title: 'Reading',
         body: 'AI extracts the fields you need from PDFs, scans, photos and emails.',
       },
-      { title: 'Checks', body: 'Rules compare them with your POs, price lists and records.' },
-      { title: 'Approval', body: 'Nothing is final until someone on your team says so.' },
       {
+        icon: 'check',
+        title: 'Checks',
+        body: 'Rules compare them with your POs, price lists and records.',
+      },
+      {
+        icon: 'userCheck',
+        title: 'Approval',
+        body: 'Nothing is final until someone on your team says so.',
+      },
+      {
+        icon: 'upload',
         title: 'Posting',
         body: 'Approved data goes into your [accounting software](/services/api-integrations) or ERP.',
       },
       {
+        icon: 'clipboard',
         title: 'Tested on your samples',
         body: 'We measure where it reads reliably before your team relies on it.',
       },
       {
+        icon: 'shield',
         title: 'Data handling',
         body: 'The AI provider and how data is stored, agreed in the System Blueprint.',
       },

@@ -317,7 +317,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'website design Bangalore',
     from: 12000,
     intro: 'Fast, search-ready websites designed around your customers.',
-    solution: 'never-miss-a-lead',
+    solution: 'lead-automation',
     closing: {
       lead: 'Want a website that answers every enquiry?',
       fill: 'Tell us about your business.',
@@ -332,7 +332,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'ecommerce website development Bangalore',
     from: 42000,
     intro: 'Online stores with payments, orders and stock that stay in sync.',
-    solution: 'sell-and-book-online',
+    solution: 'online-store-and-bookings',
     closing: { lead: 'Ready to sell online?', fill: 'Tell us what you sell and how you ship.' },
   },
   {
@@ -344,7 +344,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'customer portal development',
     from: 65000,
     intro: 'A private space where customers see orders, bookings and documents.',
-    solution: 'run-it-in-one-place',
+    solution: 'business-dashboard-crm',
     closing: { lead: 'Tired of “any update?” calls?', fill: 'Let’s give your customers a portal.' },
   },
   {
@@ -356,7 +356,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'web app development Bangalore',
     from: 65000,
     intro: 'App-like tools that run in the browser. No app store needed.',
-    solution: 'run-it-in-one-place',
+    solution: 'business-dashboard-crm',
     closing: {
       lead: 'Got a process that should be an app?',
       fill: 'Tell us how it works today.',
@@ -371,7 +371,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'mobile app development Bangalore',
     from: 65000,
     intro: 'iOS and Android apps for your customers or your team.',
-    solution: 'sell-and-book-online',
+    solution: 'online-store-and-bookings',
     closing: {
       lead: 'Want your business on their home screen?',
       fill: 'Tell us who the app is for.',
@@ -388,7 +388,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'business dashboard development',
     from: 65000,
     intro: 'Leads, bookings, payments and performance in one live view.',
-    solution: 'run-it-in-one-place',
+    solution: 'business-dashboard-crm',
     closing: { lead: 'Still adding it up by hand?', fill: 'Let’s put it in one view.' },
   },
   {
@@ -400,7 +400,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'admin panel development',
     from: 65000,
     intro: 'Tools shaped around how your team actually works.',
-    solution: 'run-it-in-one-place',
+    solution: 'business-dashboard-crm',
     closing: {
       lead: 'Is a spreadsheet running your business?',
       fill: 'Let’s build the tool it should be.',
@@ -415,7 +415,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'CRM integration Bangalore',
     from: 65000,
     intro: 'Your website, WhatsApp and team feeding one customer record.',
-    solution: 'never-miss-a-lead',
+    solution: 'lead-automation',
     closing: { lead: 'Losing track of leads?', fill: 'Let’s give every customer one record.' },
   },
   {
@@ -427,7 +427,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'custom software development Bangalore',
     from: 65000,
     intro: 'Software built around your process, not the other way round.',
-    solution: 'run-it-in-one-place',
+    solution: 'business-dashboard-crm',
     closing: { lead: 'Your process is your edge.', fill: 'Let’s build software around it.' },
   },
   {
@@ -439,7 +439,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'SaaS development Bangalore',
     from: 65000,
     intro: 'Multi-team platforms and software products, built to scale.',
-    solution: 'run-it-in-one-place',
+    solution: 'business-dashboard-crm',
     closing: { lead: 'Building a product?', fill: 'Let’s plan the first version.' },
   },
 
@@ -453,7 +453,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'WhatsApp automation for business',
     from: 45000,
     intro: 'Instant replies, reminders and follow-ups without anyone typing them.',
-    solution: 'never-miss-a-lead',
+    solution: 'lead-automation',
     closing: {
       lead: 'How long does an enquiry wait today?',
       fill: 'Let’s make the reply instant.',
@@ -468,7 +468,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'online booking system for business',
     from: 45000,
     intro: 'Customers book and pay themselves; confirmations go out on their own.',
-    solution: 'sell-and-book-online',
+    solution: 'online-store-and-bookings',
     closing: { lead: 'Still booking by phone?', fill: 'Let customers book themselves.' },
   },
   {
@@ -479,7 +479,7 @@ export const servicePages: ServicePage[] = [
       'Payments, CRM, accounting and Google Workspace talking to each other, so data is entered once and reaches every tool that needs it. Monitored on Evolve.',
     keyword: 'API integration services',
     intro: 'Payments, CRM, accounting and Google Workspace, talking to each other.',
-    solution: 'run-it-in-one-place',
+    solution: 'business-dashboard-crm',
     closing: { lead: 'Typing the same thing twice?', fill: 'Let’s connect your tools.' },
   },
   {
@@ -491,7 +491,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'AI chatbot for business',
     from: 65000,
     intro: 'An assistant that answers customers using your business’s own information.',
-    solution: 'never-miss-a-lead',
+    solution: 'lead-automation',
     closing: {
       lead: 'Answering the same questions all day?',
       fill: 'Let an assistant take the first reply.',
@@ -506,7 +506,7 @@ export const servicePages: ServicePage[] = [
     keyword: 'AI workflow automation',
     from: 65000,
     intro: 'AI that reads documents, enters data and spots what needs attention.',
-    solution: 'run-it-in-one-place',
+    solution: 'business-dashboard-crm',
     closing: { lead: 'Drowning in paperwork?', fill: 'Let AI do the reading.' },
   },
 ];
@@ -514,10 +514,10 @@ export const servicePages: ServicePage[] = [
 // --- Evolve -------------------------------------------------------------------------------------
 
 export const evolvePage = {
-  title: 'Evolve: Hosting & Maintenance Plans',
+  title: 'Evolve Care Plans: Prices & What’s Included',
   description:
     'Hosting, SSL, backups, monitoring, security updates and monthly changes for everything we build. Evolve plans from ₹899 a month; two months free yearly.',
-  keyword: 'website maintenance plans Bangalore',
+  keyword: 'website care plans',
   from: 899,
   monthly: true,
   chip: 'Services',
@@ -549,8 +549,8 @@ export type SolutionPage = Seo & {
 
 export const solutionPages: SolutionPage[] = [
   {
-    slug: 'never-miss-a-lead',
-    title: 'Connected Website: Never Miss a Lead',
+    slug: 'lead-automation',
+    title: 'Lead Automation: Catch Every Enquiry',
     description:
       'The Connected Website catches every enquiry from your site, ads and WhatsApp, replies instantly and tracks every lead on one dashboard. From ₹45,000.',
     keyword: 'website with WhatsApp integration',
@@ -571,15 +571,15 @@ export const solutionPages: SolutionPage[] = [
     },
   },
   {
-    slug: 'sell-and-book-online',
-    title: 'Sell & Take Bookings Online, Bangalore',
+    slug: 'online-store-and-bookings',
+    title: 'Online Store & Booking System, Bangalore',
     description:
       'An online store or a booking system that takes the payment and keeps every customer updated on WhatsApp. Store from ₹42,000; booking from ₹45,000.',
     keyword: 'online store and booking system',
     from: 42000,
     intro:
       'We help you sell: an online store or a booking system that takes the payment and keeps the customer updated on WhatsApp.',
-    tint: 'butter',
+    tint: 'sky',
     services: [
       'e-commerce-stores',
       'booking-payment-workflows',
@@ -592,7 +592,7 @@ export const solutionPages: SolutionPage[] = [
     },
   },
   {
-    slug: 'run-it-in-one-place',
+    slug: 'business-dashboard-crm',
     title: 'Business Dashboard & CRM, Bangalore',
     description:
       'One view of your leads, bookings and payments, with the tools you already use connected and the spreadsheets retired. Starts with a ₹10,000 Blueprint.',
@@ -600,7 +600,7 @@ export const solutionPages: SolutionPage[] = [
     from: 10000,
     intro:
       'We connect your operations: one dashboard for the business, and your tools talking to each other.',
-    tint: 'sky',
+    tint: 'violet',
     services: [
       'dashboards',
       'crm-systems',
@@ -614,8 +614,8 @@ export const solutionPages: SolutionPage[] = [
     },
   },
   {
-    slug: 'keep-it-improving',
-    title: 'Website Maintenance & Migration, Bangalore',
+    slug: 'website-care-hosting',
+    title: 'Website Hosting & Maintenance, Bangalore',
     description:
       'Move your website to us and keep it fast, safe and improving: managed hosting, migration, backups, monitoring and monthly changes. Plans from ₹899 a month.',
     keyword: 'website maintenance and migration',

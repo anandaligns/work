@@ -286,3 +286,15 @@ export function Wires({
     </svg>
   );
 }
+
+/**
+ * Pieces moved as one, keeping their own places inside — so a mockup drawn for one frame can be
+ * laid out again for another (a split section's box) without redrawing it.
+ */
+export function Group({ at, children }: { at: { x: number; y: number }; children: ReactNode }) {
+  return (
+    <div className="absolute" style={{ left: at.x, top: at.y }}>
+      {children}
+    </div>
+  );
+}

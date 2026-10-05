@@ -4,7 +4,7 @@ import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, deep, Face, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, deep, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Chip, Dot, Field, Share, Stat } from './mock-parts';
 
 /**
@@ -356,71 +356,100 @@ export function SalesMock() {
 export const E_COMMERCE_MOCKS = [CheckoutMock, StockMock, ShippedMock, OrdersMock, SalesMock];
 
 /** How it's built: the product as you edit it in the admin, and the bag it lands in. */
-export function ECommerceHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function ECommerceHowScene({ box = false }: { box?: boolean }) {
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={26} w={300} i={0}>
-        <div className="p-3.5">
-          <Head
-            icon="pen"
-            accent={P}
-            title="Indigo block-print kurta"
-            meta="Kurtas"
-            right={<Tag tone="ok">On the store</Tag>}
-          />
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <Field label="Price" value="₹1,890" accent={A} />
-            <Field label="Was" value="₹2,290" accent={A} />
-          </div>
-          <div className="mt-2">
-            <Field label="Sizes" value="S 6 · M 2 · L 9 · XL 4" accent={A} />
-          </div>
-          <div className="mt-2.5 flex flex-wrap gap-1.5">
-            <Chip on accent={A}>
-              Cash on delivery
-            </Chip>
-            <Chip accent={A}>Free delivery over ₹999</Chip>
-          </div>
-        </div>
-      </Card>
-      <Card x={392} y={56} w={340} i={2}>
-        <div className="px-3.5 pt-3.5 pb-2">
-          <Head icon="cart" accent={P} title="Your bag" meta="fashionclothingstore.in" />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            <Row
-              lead={<Dot icon="store" tone={P} />}
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={26} w={300} i={0}>
+          <div className="p-3.5">
+            <Head
+              icon="pen"
+              accent={P}
               title="Indigo block-print kurta"
-              meta="Size M · Qty 1"
-              right={<span className="text-[11px] font-semibold">₹1,890</span>}
+              meta="Kurtas"
+              right={<Tag tone="ok">On the store</Tag>}
             />
-            <Row
-              lead={<Dot icon="store" tone={P} />}
-              title="Kalamkari cotton stole"
-              meta="Qty 1"
-              right={<span className="text-[11px] font-semibold">₹590</span>}
-            />
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <Field label="Price" value="₹1,890" accent={A} />
+              <Field label="Was" value="₹2,290" accent={A} />
+            </div>
+            <div className="mt-2">
+              <Field label="Sizes" value="S 6 · M 2 · L 9 · XL 4" accent={A} />
+            </div>
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              <Chip on accent={A}>
+                Cash on delivery
+              </Chip>
+              <Chip accent={A}>Free delivery over ₹999</Chip>
+            </div>
           </div>
-          <span
-            className="mt-2 flex items-center justify-center rounded-[8px] py-1.5 text-[11px] font-semibold"
-            style={{ background: A, color: onColour(A) }}
-          >
-            Checkout
-          </span>
-        </div>
-      </Card>
-      <Pill x={420} y={236} i={4} accent={P}>
-        Changed in the admin, live on the store
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M324 110 C 358 110, 358 120, 392 120']}
-        dots={[
-          [324, 110],
-          [392, 120],
-        ]}
-      />
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={392} y={56} w={340} i={2}>
+          <div className="px-3.5 pt-3.5 pb-2">
+            <Head icon="cart" accent={P} title="Your bag" meta="fashionclothingstore.in" />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              <Row
+                lead={<Dot icon="store" tone={P} />}
+                title="Indigo block-print kurta"
+                meta="Size M · Qty 1"
+                right={<span className="text-[11px] font-semibold">₹1,890</span>}
+              />
+              <Row
+                lead={<Dot icon="store" tone={P} />}
+                title="Kalamkari cotton stole"
+                meta="Qty 1"
+                right={<span className="text-[11px] font-semibold">₹590</span>}
+              />
+            </div>
+            <span
+              className="mt-2 flex items-center justify-center rounded-[8px] py-1.5 text-[11px] font-semibold"
+              style={{ background: A, color: onColour(A) }}
+            >
+              Checkout
+            </span>
+          </div>
+        </Card>
+        <Pill x={420} y={236} i={4} accent={P}>
+          Changed in the admin, live on the store
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M356 126 H 396 V 272']}
+          dots={[
+            [356, 126],
+            [396, 272],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M324 110 C 358 110, 358 120, 392 120']}
+          dots={[
+            [324, 110],
+            [392, 120],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function ECommerceHow() {
+  return <ECommerceHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function ECommerceHowBox() {
+  return <ECommerceHowScene box />;
 }

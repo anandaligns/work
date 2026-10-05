@@ -30,7 +30,7 @@ const page: ProductPage = {
     body: [
       '**Custom business software** is a system built around how your business actually runs: how orders come in, how work moves between people, who approves what, and the reports you need at the end of the day. Instead of five tools and a spreadsheet holding them together, there’s one place where the work happens.',
       '**It starts with a System Blueprint.** In one to two weeks we map how you work today, where time is lost and what the software must do, then give you a fixed quote for each phase — so you know the price before anything is built.',
-      'It’s built in phases you can use, connects to the [accounting software and tools](/services/api-integrations) you keep, and is looked after on [Evolve](/services/evolve) once it’s live. If you mostly need one view of your numbers, see [Run It in One Place](/solutions/run-it-in-one-place).',
+      'It’s built in phases you can use, connects to the [accounting software and tools](/services/api-integrations) you keep, and is looked after on [Evolve](/services/evolve) once it’s live. If you mostly need one view of your numbers, see [Business Dashboard & CRM](/solutions/business-dashboard-crm).',
     ],
     photo: {
       file: 'custom-software-construction-site',
@@ -262,26 +262,32 @@ const page: ProductPage = {
     heading: 'How custom software is built',
     blocks: [
       {
+        icon: 'clipboard',
         title: 'System Blueprint',
         body: 'How the business works today, where it loses time, and the system it needs, in phases.',
       },
       {
+        icon: 'layers',
         title: 'Phases',
         body: 'Each one usable on its own, each with its own fixed quote.',
       },
       {
+        icon: 'globe',
         title: 'Built for the web',
         body: 'Runs in the browser on any device, so there’s nothing to install and nothing to update by hand.',
       },
       {
+        icon: 'database',
         title: 'Your data, structured',
         body: 'A database designed around your projects, vendors and steps, backed up every night on Evolve.',
       },
       {
+        icon: 'plug',
         title: 'Connected to what stays',
         body: 'Your [accounting software](/services/api-integrations) and the tools you keep, through their APIs.',
       },
       {
+        icon: 'shield',
         title: 'Built to last',
         body: 'Roles, security, daily backups and monitoring on [Evolve](/services/evolve).',
       },

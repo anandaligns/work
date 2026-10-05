@@ -217,17 +217,38 @@ export function UnderTheHood({
         <div aria-hidden="true" className="grid grid-cols-1 place-items-center">
           {scene}
         </div>
-        <div
-          className={`mt-16 border-t border-black/[0.08] pt-12 lg:mt-20 lg:pt-14 ${bare ? '' : 'lg:px-4'}`}
-        >
-          <h3 id="build-heading" className="text-h3 font-medium text-balance text-ink">
-            {build.heading}
-          </h3>
-          <BuildTrack steps={build.steps} nested />
-        </div>
-        {after}
+        <BuildFoot build={build} after={after} inset={!bare} />
       </div>
     </Band>
+  );
+}
+
+/**
+ * How we build it, under a hairline — the heading and the numbered track — and whatever follows it
+ * (the tools it works with). Under the picture in how it's built, or under a split section.
+ */
+export function BuildFoot({
+  build,
+  after,
+  inset = false,
+}: {
+  build: { heading: string; steps: { title: string; body: string }[] };
+  after?: ReactNode;
+  /** Inside the grey panel: a little room at the sides. */
+  inset?: boolean;
+}) {
+  return (
+    <>
+      <div
+        className={`mt-16 border-t border-black/[0.08] pt-12 lg:mt-20 lg:pt-14 ${inset ? 'lg:px-4' : ''}`}
+      >
+        <h3 id="build-heading" className="text-h3 font-medium text-balance text-ink">
+          {build.heading}
+        </h3>
+        <BuildTrack steps={build.steps} nested />
+      </div>
+      {after}
+    </>
   );
 }
 

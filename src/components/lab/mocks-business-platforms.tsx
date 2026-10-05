@@ -2,7 +2,7 @@ import product from '@/content/products/business-platforms';
 
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, Face, Head, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, Face, Head, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Chip, Field, Stat, Steps } from './mock-parts';
 
 /**
@@ -300,7 +300,10 @@ export const BUSINESS_PLATFORMS_MOCKS = [
 ];
 
 /** How it's built: the founder's admin, and the product at work in a client's pipeline. */
-export function BusinessPlatformsHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function BusinessPlatformsHowScene({ box = false }: { box?: boolean }) {
   const pipeline = [
     { who: 'Aarav Sharma', m: 'Shortlisted · 9 yrs Java', tag: <Tag tone="ok">Shortlisted</Tag> },
     { who: 'Ananya Bhat', m: 'Interview · Thu 11 am', tag: <Tag tone="ok">Interview</Tag> },
@@ -316,55 +319,83 @@ export function BusinessPlatformsHow() {
     { who: 'Isha Nair', m: 'Offer sent · Mon', tag: <Tag tone="wait">Offer</Tag> },
   ];
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={36} w={320} i={0}>
-        <div className="p-3.5">
-          <Head
-            icon="dashboard"
-            accent={P}
-            title="Admin · the network"
-            meta="admin.recruitmentagencynetwork.in"
-          />
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            <Stat label="Monthly revenue" value="₹4.62 L" accent={A} />
-            <Stat label="Paying agencies" value="159" delta="11" accent={A} />
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={36} w={320} i={0}>
+          <div className="p-3.5">
+            <Head
+              icon="dashboard"
+              accent={P}
+              title="Admin · the network"
+              meta="admin.recruitmentagencynetwork.in"
+            />
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <Stat label="Monthly revenue" value="₹4.62 L" accent={A} />
+              <Stat label="Paying agencies" value="159" delta="11" accent={A} />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={434} y={26} w={300} i={2}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head
-            icon="briefcase"
-            accent={P}
-            title="Senior Java developer"
-            meta="Client view · 4 of 38 candidates"
-          />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            {pipeline.map((r) => (
-              <Row
-                key={r.who}
-                lead={<Face name={r.who} />}
-                title={r.who}
-                meta={r.m}
-                right={r.tag}
-              />
-            ))}
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={434} y={26} w={300} i={2}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head
+              icon="briefcase"
+              accent={P}
+              title="Senior Java developer"
+              meta="Client view · 4 of 38 candidates"
+            />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              {pipeline.map((r) => (
+                <Row
+                  key={r.who}
+                  lead={<Face name={r.who} />}
+                  title={r.who}
+                  meta={r.m}
+                  right={r.tag}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </Card>
-      <Pill x={60} y={200} i={4} accent={P}>
-        One platform, every agency on it
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M344 100 C 389 100, 389 110, 434 110']}
-        dots={[
-          [344, 100],
-          [434, 110],
-        ]}
-      />
+        </Card>
+      </Group>
+      <Group at={box ? { x: -4, y: 300 } : HOME}>
+        <Pill x={60} y={200} i={4} accent={P}>
+          One platform, every agency on it
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M376 116 H 438 V 242']}
+          dots={[
+            [376, 116],
+            [438, 242],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M344 100 C 389 100, 389 110, 434 110']}
+          dots={[
+            [344, 100],
+            [434, 110],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function BusinessPlatformsHow() {
+  return <BusinessPlatformsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function BusinessPlatformsHowBox() {
+  return <BusinessPlatformsHowScene box />;
 }

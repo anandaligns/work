@@ -588,8 +588,8 @@ export const iconFor = (anchor: string): IconName => SERVICE_ICONS[anchor] ?? 's
  * solution page's closing scene.
  */
 export const SOLUTION_ICONS: Record<string, IconName> = {
-  'never-miss-a-lead': 'chat',
-  'sell-and-book-online': 'store',
-  'run-it-in-one-place': 'layers',
-  'keep-it-improving': 'move',
+  'lead-automation': 'chat',
+  'online-store-and-bookings': 'store',
+  'business-dashboard-crm': 'layers',
+  'website-care-hosting': 'move',
 };

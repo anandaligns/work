@@ -4,6 +4,7 @@ import { Closing } from '@/components/home/closing';
 import { Band } from '@/components/layout/band';
 import { Card, CardBand } from '@/components/pages/cards';
 import { PageIntro } from '@/components/pages/page-intro';
+import { WebPageStructuredData } from '@/components/seo/web-page-data';
 import type { IconName } from '@/components/ui/icon';
 
 /**
@@ -11,10 +12,12 @@ import type { IconName } from '@/components/ui/icon';
  * photo, and the company's registration details, join this page when they are ready; nothing
  * stands in for them meanwhile.
  */
+const ABOUT_DESCRIPTION =
+  'Pixel Kinetix is a founder-led digital systems company in Bangalore. We design and engineer websites, business software and automation as one connected system.';
+
 export const metadata: Metadata = {
-  title: 'About',
-  description:
-    'Pixel Kinetix is a founder-led digital systems company in Bangalore. We design and engineer websites, business software and automation as one connected system.',
+  title: 'About: Digital Systems Company in Bangalore',
+  description: ABOUT_DESCRIPTION,
   alternates: { canonical: '/about' },
 };
 
@@ -49,82 +52,90 @@ const PRINCIPLES: { icon: IconName; name: string; line: string }[] = [
 export default function About() {
   return (
     <>
+      <WebPageStructuredData
+        type="AboutPage"
+        name="About Pixel Kinetix"
+        description={ABOUT_DESCRIPTION}
+        path="/about"
+      />
       <PageIntro
         eyebrow="About"
         title={'Technology should fit the business.\nNot the other way around.'}
         intro="Pixel Kinetix is a digital systems company. We design and engineer websites, business software and automation as one connected system."
       />
 
-      <Band id="manifesto" labelledBy="manifesto-heading" className="py-20 lg:py-28">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-          <div>
-            <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
-              <span className="size-1.5 bg-ink" />
-              What we believe
-            </p>
-            <h2
-              id="manifesto-heading"
-              className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
-            >
-              More technology is rarely the answer.
-            </h2>
+      <div className="alt-bands">
+        <Band id="manifesto" labelledBy="manifesto-heading" className="py-20 lg:py-28">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+            <div>
+              <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
+                <span className="size-1.5 bg-ink" />
+                What we believe
+              </p>
+              <h2
+                id="manifesto-heading"
+                className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
+              >
+                More technology is rarely the answer.
+              </h2>
+            </div>
+            <div data-reveal="" className="flex flex-col gap-5 text-body text-ink-2">
+              <p>
+                Most businesses don’t need more technology. They need the technology they have to
+                work together. A website that fills the calendar. A payment that updates the books.
+                An enquiry that never waits for a reply.
+              </p>
+              <p>
+                So we start by learning how a business actually runs. Then we engineer the system
+                around it, and keep improving it as the business grows.
+              </p>
+            </div>
           </div>
-          <div data-reveal="" className="flex flex-col gap-5 text-body text-ink-2">
-            <p>
-              Most businesses don’t need more technology. They need the technology they have to work
-              together. A website that fills the calendar. A payment that updates the books. An
-              enquiry that never waits for a reply.
-            </p>
-            <p>
-              So we start by learning how a business actually runs. Then we engineer the system
-              around it, and keep improving it as the business grows.
-            </p>
-          </div>
-        </div>
-      </Band>
+        </Band>
 
-      <Band id="founder" labelledBy="founder-heading" className="py-20 lg:py-28">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-          <div>
-            <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
-              <span className="size-1.5 bg-ink" />
-              Who you work with
-            </p>
-            <h2
-              id="founder-heading"
-              className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
-            >
-              Founder-led, from first message to launch.
-            </h2>
+        <Band id="founder" labelledBy="founder-heading" className="py-20 lg:py-28">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
+            <div>
+              <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
+                <span className="size-1.5 bg-ink" />
+                Who you work with
+              </p>
+              <h2
+                id="founder-heading"
+                className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
+              >
+                Founder-led, from first message to launch.
+              </h2>
+            </div>
+            <div data-reveal="" className="flex flex-col gap-5 text-body text-ink-2">
+              <p>
+                You work directly with the engineer who designs your system:{' '}
+                <span className="font-medium text-ink">
+                  Anand M, Founder &amp; Principal Engineer.
+                </span>
+              </p>
+              <p>
+                When a project needs extra hands, trusted specialists join, working to our
+                standards, with one point of responsibility: us.
+              </p>
+            </div>
           </div>
-          <div data-reveal="" className="flex flex-col gap-5 text-body text-ink-2">
-            <p>
-              You work directly with the engineer who designs your system:{' '}
-              <span className="font-medium text-ink">
-                Anand M, Founder &amp; Principal Engineer.
-              </span>
-            </p>
-            <p>
-              When a project needs extra hands, trusted specialists join, working to our standards,
-              with one point of responsibility: us.
-            </p>
-          </div>
-        </div>
-      </Band>
+        </Band>
 
-      <CardBand id="principles" eyebrow="How we work" title="Five principles behind every build.">
-        {PRINCIPLES.map((principle, i) => (
-          <Card
-            key={principle.name}
-            icon={principle.icon}
-            name={principle.name}
-            line={principle.line}
-            index={i}
-          />
-        ))}
-      </CardBand>
+        <CardBand id="principles" eyebrow="How we work" title="Five principles behind every build.">
+          {PRINCIPLES.map((principle, i) => (
+            <Card
+              key={principle.name}
+              icon={principle.icon}
+              name={principle.name}
+              line={principle.line}
+              index={i}
+            />
+          ))}
+        </CardBand>
 
-      <Closing />
+        <Closing />
+      </div>
     </>
   );
 }

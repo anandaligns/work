@@ -3,7 +3,7 @@ import product from '@/content/products/customer-portals';
 import { ToolMark } from '../ui/brand-logos';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, Face, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Chip, Dot, Field, Stat } from './mock-parts';
 
 /**
@@ -418,60 +418,92 @@ export const CUSTOMER_PORTALS_MOCKS = [
 ];
 
 /** How it's built: the team posts an update; the customer signs in with a code and sees it. */
-export function CustomerPortalsHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function CustomerPortalsHowScene({ box = false }: { box?: boolean }) {
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={24} w={300} i={0}>
-        <div className="p-3.5">
-          <Head
-            icon="pen"
-            accent={P}
-            title="Post an update"
-            meta="portal.industrialpartsdistributor.in"
-          />
-          <div className="mt-3 flex flex-col gap-2">
-            <Field label="Customer" value="Sri Lakshmi Engg. · SO-4821" accent={A} />
-            <Field label="What happened" value="Packed in 3 cartons, ships today." accent={A} />
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={24} w={300} i={0}>
+          <div className="p-3.5">
+            <Head
+              icon="pen"
+              accent={P}
+              title="Post an update"
+              meta="portal.industrialpartsdistributor.in"
+            />
+            <div className="mt-3 flex flex-col gap-2">
+              <Field label="Customer" value="Sri Lakshmi Engg. · SO-4821" accent={A} />
+              <Field label="What happened" value="Packed in 3 cartons, ships today." accent={A} />
+            </div>
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              <Chip accent={A}>3 photos</Chip>
+              <Chip on accent={A}>
+                Tell them on WhatsApp
+              </Chip>
+            </div>
           </div>
-          <div className="mt-2.5 flex flex-wrap gap-1.5">
-            <Chip accent={A}>3 photos</Chip>
-            <Chip on accent={A}>
-              Tell them on WhatsApp
-            </Chip>
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={400} y={44} w={260} i={2}>
+          <div className="p-3.5">
+            <Head icon="lock" accent={P} title="Sign in" meta="No password to remember" />
+            <div className="mt-3 flex flex-col gap-2">
+              <Field label="Phone number" value="+91 98450 44412" accent={A} />
+              <Field label="One-time code" value="4  8  2  6  1  9" focus accent={A} />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={400} y={44} w={260} i={2}>
-        <div className="p-3.5">
-          <Head icon="lock" accent={P} title="Sign in" meta="No password to remember" />
-          <div className="mt-3 flex flex-col gap-2">
-            <Field label="Phone number" value="+91 98450 44412" accent={A} />
-            <Field label="One-time code" value="4  8  2  6  1  9" focus accent={A} />
+        </Card>
+        <Card x={496} y={236} w={236} i={3}>
+          <div className="flex items-center gap-2.5 p-2.5">
+            <ToolMark tool="WhatsApp" size={18} />
+            <span className="min-w-0">
+              <span className="block truncate text-[11px] font-semibold">SO-4821 packed</span>
+              <span className="block truncate text-[9.5px] text-ink-3">Ships today · 3 photos</span>
+            </span>
           </div>
-        </div>
-      </Card>
-      <Card x={496} y={236} w={236} i={3}>
-        <div className="flex items-center gap-2.5 p-2.5">
-          <ToolMark tool="WhatsApp" size={18} />
-          <span className="min-w-0">
-            <span className="block truncate text-[11px] font-semibold">SO-4821 packed</span>
-            <span className="block truncate text-[9.5px] text-ink-3">Ships today · 3 photos</span>
-          </span>
-        </div>
-      </Card>
-      <Pill x={60} y={262} i={4} accent={P}>
-        Posted once, seen by the right customer
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M324 110 C 362 110, 362 120, 400 120', 'M530 206 C 530 220, 560 220, 560 236']}
-        dots={[
-          [324, 110],
-          [400, 120],
-        ]}
-      />
+        </Card>
+        <Wires w={760} h={330} accent={P} d={['M530 206 C 530 220, 560 220, 560 236']} />
+      </Group>
+      <Group at={box ? { x: -4, y: 238 } : HOME}>
+        <Pill x={60} y={262} i={4} accent={P}>
+          Posted once, seen by the right customer
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M356 126 H 404 V 260']}
+          dots={[
+            [356, 126],
+            [404, 260],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M324 110 C 362 110, 362 120, 400 120', 'M530 206 C 530 220, 560 220, 560 236']}
+          dots={[
+            [324, 110],
+            [400, 120],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function CustomerPortalsHow() {
+  return <CustomerPortalsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function CustomerPortalsHowBox() {
+  return <CustomerPortalsHowScene box />;
 }

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Runs a command in the SEO tools image, with this project mounted at the same path.
+#   .claude/seo-tools/run --build      build or rebuild the image
+#   .claude/seo-tools/run pandoc ...   run any command in the image
+set -euo pipefail
+
+tools="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+project="$(cd "$tools/../.." && pwd -P)"
+image=pixel-kinetix-seo-tools
+
+build() {
+  docker build -t "$image" -f "$tools/Dockerfile" \
+    --build-context geo="$project/.claude/skills/geo" "$project/.claude/skills/seo" >&2
+}
+
+if [[ "${1:-}" == --build ]]; then
+  build
+  exit
+fi
+docker image inspect "$image" >/dev/null 2>&1 || build
+
+# Work in the caller's directory when it is inside the project, otherwise at the project root.
+workdir="$project"
+case "$PWD/" in "$project"/*) workdir="$PWD" ;; esac
+
+flags=(--rm -i)
+[[ -t 0 && -t 1 ]] && flags+=(-t)
+
+# Keys and settings the scripts read: from .env (gitignored), then from the caller's environment.
+[[ -f "$tools/.env" ]] && flags+=(--env-file "$tools/.env")
+for name in CLAUDE_SEO_LOCAL_TARGETS CLAUDE_SEO_GOOGLE_AUTH GOOGLE_API_KEY GSC_PROPERTY \
+  BING_WEBMASTER_API_KEY MOZ_API_KEY KEYWORDSEVERYWHERE_API_KEY DATAFORSEO_USERNAME DATAFORSEO_PASSWORD \
+  INDEXNOW_KEY INDEXNOW_KEY_LOCATION MATOMO_URL MATOMO_SITE_ID MATOMO_IDSITE MATOMO_TOKEN MATOMO_API_TOKEN; do
+  [[ -n "${!name:-}" ]] && flags+=(-e "$name")
+done
+
+# API keys and drift baselines that the claude-seo scripts keep under ~/.config and ~/.cache.
+exec docker run "${flags[@]}" \
+  -v "$project:$project" -w "$workdir" \
+  -v pixel-kinetix-seo-config:/root/.config/claude-seo \
+  -v pixel-kinetix-seo-cache:/root/.cache/claude-seo \
+  "$image" "$@"

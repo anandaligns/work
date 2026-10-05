@@ -1213,7 +1213,7 @@ function Stages(block: Extract<DeskBlock, { type: 'stages' }>) {
               />
             ) : null}
             <span
-              className={`relative grid size-[28px] place-items-center rounded-full text-[12px] font-semibold ${item.state === 'next' ? 'border-2 border-[#e6e6ea] bg-white text-[#9a9ea8]' : 'text-white'}`}
+              className={`relative z-10 grid size-[28px] place-items-center rounded-full text-[12px] font-semibold ${item.state === 'next' ? 'border-2 border-[#e6e6ea] bg-white text-[#9a9ea8]' : 'text-white'}`}
               style={
                 item.state === 'next'
                   ? undefined

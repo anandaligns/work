@@ -230,15 +230,29 @@ const page: ProductPage = {
   how: {
     heading: 'How a SaaS platform works',
     blocks: [
-      { title: 'Workspaces', body: 'Each customer’s users and data kept apart.' },
-      { title: 'Roles and access', body: 'Owners, managers and members within each workspace.' },
-      { title: 'Subscriptions', body: 'Through a payment gateway that supports them.' },
+      { icon: 'layers', title: 'Workspaces', body: 'Each customer’s users and data kept apart.' },
       {
+        icon: 'lock',
+        title: 'Roles and access',
+        body: 'Owners, managers and members within each workspace.',
+      },
+      {
+        icon: 'card',
+        title: 'Subscriptions',
+        body: 'Through a payment gateway that supports them.',
+      },
+      {
+        icon: 'trend',
         title: 'Built to grow',
         body: 'APIs, an admin for your team, monitoring and backups on [Evolve](/services/evolve).',
       },
-      { title: 'Phases', body: 'Each one usable on its own, each with its own fixed quote.' },
       {
+        icon: 'clipboard',
+        title: 'Phases',
+        body: 'Each one usable on its own, each with its own fixed quote.',
+      },
+      {
+        icon: 'devices',
         title: 'Web and mobile',
         body: 'The [mobile app](/services/mobile-apps), when it comes, runs on the same system.',
       },

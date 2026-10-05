@@ -20,6 +20,9 @@ import { useEffect } from 'react';
  *     viewport to a fifth of the way down it (aoutive's use cases). Wide screens only, where the
  *     rows are rows.
  *
+ *   - Every section is marked `data-offscreen` while it is out of view (a quarter-viewport
+ *     early), and globals.css holds its looping motion still meanwhile.
+ *
  * All reads happen before any write, so the browser lays out once per frame. Reduced motion
  * turns off everything except the fills, which are colour, not movement.
  *
@@ -53,6 +56,22 @@ export function ScrollEffects() {
         io.observe(el);
       }
       cleanup.push(() => io.disconnect());
+    }
+
+    if ('IntersectionObserver' in window) {
+      const blocks = [...document.querySelectorAll<HTMLElement>('main section, footer')];
+      const idle = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries)
+            entry.target.toggleAttribute('data-offscreen', !entry.isIntersecting);
+        },
+        { rootMargin: '25% 0px' },
+      );
+      for (const el of blocks) idle.observe(el);
+      cleanup.push(() => {
+        idle.disconnect();
+        for (const el of blocks) el.removeAttribute('data-offscreen');
+      });
     }
 
     const fills = [...document.querySelectorAll<HTMLElement>('[data-fill]')];

@@ -252,17 +252,28 @@ const page: ProductPage = {
     heading: 'How a mobile app is built',
     blocks: [
       {
+        icon: 'code',
         title: 'One codebase, two apps',
         body: 'iOS and Android built together, so they stay in step.',
       },
-      { title: 'Notifications', body: 'Sent at the right moment, with the customer’s permission.' },
-      { title: 'Connected', body: 'The same system as your website and admin.' },
-      { title: 'Yours', body: 'Published under your own App Store and Google Play accounts.' },
       {
+        icon: 'bell',
+        title: 'Notifications',
+        body: 'Sent at the right moment, with the customer’s permission.',
+      },
+      { icon: 'plug', title: 'Connected', body: 'The same system as your website and admin.' },
+      {
+        icon: 'key',
+        title: 'Yours',
+        body: 'Published under your own App Store and Google Play accounts.',
+      },
+      {
+        icon: 'check',
         title: 'Store review',
         body: 'Apple and Google review every app before it goes live; the launch date is planned around it.',
       },
       {
+        icon: 'refresh',
         title: 'Kept current',
         body: 'Updates for new phone versions, and your changes each month, on [Evolve](/services/evolve).',
       },

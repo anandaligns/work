@@ -30,13 +30,13 @@
       "categorySlug": "digital-experiences",
       "anchor": "e-commerce-stores",
       "name": "E-commerce Stores",
-      "summary": "Online stores with payments, orders and stock that stay in sync."
+      "summary": "Online stores with payments, orders and stock in sync."
     },
     {
       "categorySlug": "digital-experiences",
       "anchor": "customer-portals",
       "name": "Customer Portals",
-      "summary": "A private space where customers see orders, bookings and documents."
+      "summary": "Where customers see their orders, bookings and documents."
     },
     {
       "categorySlug": "digital-experiences",
@@ -66,7 +66,7 @@
       "categorySlug": "business-systems",
       "anchor": "crm-systems",
       "name": "CRM-Connected Systems",
-      "summary": "Your website, WhatsApp and team feeding one customer record."
+      "summary": "Website, WhatsApp and team feeding one customer record."
     },
     {
       "categorySlug": "business-systems",
@@ -84,37 +84,37 @@
       "categorySlug": "automation-ai",
       "anchor": "whatsapp-automation",
       "name": "WhatsApp & Email Automation",
-      "summary": "Instant replies, reminders and follow-ups without anyone typing them."
+      "summary": "Instant replies, reminders and follow-ups, sent for you."
     },
     {
       "categorySlug": "automation-ai",
       "anchor": "booking-payment-workflows",
       "name": "Booking & Payment Workflows",
-      "summary": "Customers book and pay themselves; confirmations go out on their own."
+      "summary": "Customers book and pay; confirmations go out on their own."
     },
     {
       "categorySlug": "automation-ai",
       "anchor": "api-integrations",
       "name": "API Integrations",
-      "summary": "Payments, CRM, accounting and Google Workspace, talking to each other."
+      "summary": "Payments, CRM and accounting tools that talk to each other."
     },
     {
       "categorySlug": "automation-ai",
       "anchor": "ai-assistants",
       "name": "AI Assistants",
-      "summary": "An assistant that answers customers using your business’s own information."
+      "summary": "Answers customers from your business’s own information."
     },
     {
       "categorySlug": "automation-ai",
       "anchor": "ai-workflows",
       "name": "AI Workflows & Insights",
-      "summary": "AI that reads documents, enters data and spots what needs attention."
+      "summary": "AI that reads documents, enters data and flags what matters."
     }
   ],
   "solutions": [
     {
-      "slug": "never-miss-a-lead",
-      "name": "Never Miss a Lead",
+      "slug": "lead-automation",
+      "name": "Lead Automation",
       "line": "We catch every enquiry.",
       "positioning": null,
       "bundles": [
@@ -144,8 +144,8 @@
       ]
     },
     {
-      "slug": "sell-and-book-online",
-      "name": "Sell & Book Online",
+      "slug": "online-store-and-bookings",
+      "name": "Online Store & Bookings",
       "line": "We help you sell.",
       "positioning": null,
       "bundles": [
@@ -175,8 +175,8 @@
       ]
     },
     {
-      "slug": "run-it-in-one-place",
-      "name": "Run It in One Place",
+      "slug": "business-dashboard-crm",
+      "name": "Business Dashboard & CRM",
       "line": "We connect your operations.",
       "positioning": null,
       "bundles": [
@@ -204,8 +204,8 @@
       ]
     },
     {
-      "slug": "keep-it-improving",
-      "name": "Keep It Improving",
+      "slug": "website-care-hosting",
+      "name": "Website Care & Hosting",
       "line": "We keep it running and improving.",
       "positioning": "You run your business. We keep your system fast, safe and getting better.",
       "bundles": [

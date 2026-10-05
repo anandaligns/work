@@ -1,6 +1,6 @@
 'use client';
 
-import { type CSSProperties, useEffect, useState } from 'react';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 
 import { type Desk, DeskView } from '../screens/desk-views';
 import { Icon, type IconName } from '../ui/icon';
@@ -19,27 +19,52 @@ export type StageTask = { icon: IconName; title: string; line: string; screen: D
 export function AppStage({
   tasks,
   accent,
+  lifted = false,
   className = '',
 }: {
   tasks: StageTask[];
   accent: string;
+  /** On a white ground: the chip and the window lifted off it by a soft shadow. */
+  lifted?: boolean;
   className?: string;
 }) {
+  const lift = lifted
+    ? 'shadow-[0_1px_2px_rgb(11_13_18/0.04),0_24px_60px_-28px_rgb(11_13_18/0.22)]'
+    : '';
   const [at, setAt] = useState(0);
+  const root = useRef<HTMLDivElement>(null);
 
+  // The tasks turn over only while the stage is on screen.
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = window.setInterval(() => setAt((i) => (i + 1) % tasks.length), DWELL);
-    return () => window.clearInterval(timer);
+    let timer = 0;
+    const run = (on: boolean) => {
+      window.clearInterval(timer);
+      if (on) timer = window.setInterval(() => setAt((i) => (i + 1) % tasks.length), DWELL);
+    };
+    run(true);
+    const el = root.current;
+    const io =
+      el && 'IntersectionObserver' in window
+        ? new IntersectionObserver((entries) => run(entries.some((e) => e.isIntersecting)))
+        : null;
+    if (el) io?.observe(el);
+    return () => {
+      window.clearInterval(timer);
+      io?.disconnect();
+    };
   }, [tasks.length]);
 
   const task = tasks[at]!;
   return (
     <div
+      ref={root}
       aria-hidden="true"
       className={`overflow-hidden [mask-image:linear-gradient(to_bottom,#000_58%,transparent_96%)] ${className}`}
     >
-      <div className="flex w-fit max-w-full items-center gap-3 rounded-xl border border-black/[0.07] bg-white py-2.5 pr-3.5 pl-3.5 text-[0.8125rem]">
+      <div
+        className={`flex w-fit max-w-full items-center gap-3 rounded-xl border border-black/[0.07] bg-white py-2.5 pr-3.5 pl-3.5 text-[0.8125rem] ${lift}`}
+      >
         <span key={`i${at}`} className="view-swap shrink-0 text-ink">
           <Icon name={task.icon} size={15} />
         </span>
@@ -50,7 +75,7 @@ export function AppStage({
         <span className="ml-4 size-3.5 shrink-0 animate-spin rounded-full border-[1.5px] border-line-2 border-t-ink-3 motion-reduce:animate-none sm:ml-10" />
       </div>
       <div
-        className="mt-3 w-fit overflow-hidden rounded-[14px] border border-black/[0.07] bg-white"
+        className={`mt-3 w-fit overflow-hidden rounded-[14px] border border-black/[0.07] bg-white ${lift}`}
         style={{ '--accent': accent } as CSSProperties}
       >
         <div key={at} className="view-swap">

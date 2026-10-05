@@ -43,7 +43,7 @@ export function Logo({
   return (
     <Link
       href="/"
-      aria-label="Pixel Kinetix home"
+      aria-label="pixelkinetix home"
       className="inline-flex items-center"
       onPointerEnter={() => turn(pixel.current)}
       onFocus={() => turn(pixel.current)}

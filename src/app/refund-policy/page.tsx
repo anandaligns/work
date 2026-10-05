@@ -9,14 +9,16 @@ import { contact } from '@/content/site';
  * decides its refunds. Nothing here goes further than those published terms.
  */
 export const metadata: Metadata = {
-  title: 'Refund Policy',
-  description: 'How payments, the warranty and cancellations work at Pixel Kinetix.',
+  title: 'Refund Policy: Payments and Warranty',
+  description:
+    'How paying for a Pixel Kinetix project works, what the warranty puts right, how Evolve plans run and end, and how to ask about a refund.',
   alternates: { canonical: '/refund-policy' },
 };
 
 export default function RefundPolicy() {
   return (
     <LegalPage
+      path="/refund-policy"
       eyebrow="Refund Policy"
       title="Payments and refunds, plainly."
       intro="How paying for a project works, what the warranty puts right, and how to ask about a refund."

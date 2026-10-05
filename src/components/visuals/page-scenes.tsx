@@ -842,13 +842,13 @@ export function GroupHeroScene({ slug }: { slug: GroupSlug }) {
 
 /** A solution's hero: its Solutions scene — the chat swapped in, or the site being moved in. */
 export function SolutionHeroScene({ slug }: { slug: string }) {
-  if (slug === 'never-miss-a-lead') return <GetOnlineScene subject="chat" />;
-  if (slug === 'keep-it-improving') return <ManagedScene incoming />;
+  if (slug === 'lead-automation') return <GetOnlineScene subject="chat" />;
+  if (slug === 'website-care-hosting') return <ManagedScene incoming />;
   const Scene = SOLUTION_SCENES[slug as keyof typeof SOLUTION_SCENES];
   return Scene ? <Scene /> : null;
 }
 
-/** Evolve's hero: Keep It Improving's shielded cube and its nodes. */
+/** Evolve's hero: Website Care & Hosting's shielded cube and its nodes. */
 export function EvolveHeroScene() {
   return <ManagedScene />;
 }

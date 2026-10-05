@@ -4,6 +4,7 @@ import { Closing } from '@/components/home/closing';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
 import { type ZigRow, ZigZag } from '@/components/pages/zigzag';
 import { RollLink } from '@/components/ui/roll-link';
+import { WebPageStructuredData } from '@/components/seo/web-page-data';
 import { ConnectScene } from '@/components/visuals/connect-scene';
 import { categories, groupIntros, startFor, whatsappAbout } from '@/content/site';
 import { productFor } from '@/content/products';
@@ -12,15 +13,15 @@ import { productFor } from '@/content/products';
  * `/services` — every service, by group: the page intro, then the three groups as alternating
  * rows (each with its five services as points and a crop of the product), then the closing.
  */
+const SERVICES_TITLE = 'Services: Websites, Software & Automation';
+const SERVICES_DESCRIPTION =
+  'Websites, online stores and apps; dashboards, CRM and custom software; WhatsApp, booking and AI automation. Fifteen services from Bangalore, priced upfront.';
+
 export const metadata: Metadata = {
-  title: 'Services: Websites, Business Software & Automation',
-  description:
-    'Fifteen services in three groups: websites, stores, portals and apps; dashboards, CRM and custom software; WhatsApp, booking, integrations and AI. Looked after on Evolve.',
+  title: SERVICES_TITLE,
+  description: SERVICES_DESCRIPTION,
   alternates: { canonical: '/services' },
-  openGraph: {
-    title: 'Services: Websites, Business Software & Automation',
-    url: '/services',
-  },
+  openGraph: { title: SERVICES_TITLE, description: SERVICES_DESCRIPTION, url: '/services' },
 };
 
 /** Each group's colour, its highlighted word, and the two products its picture borrows. */
@@ -73,10 +74,24 @@ export default function ServicesPage() {
 
   return (
     <>
+      <WebPageStructuredData
+        type="CollectionPage"
+        name="Services"
+        description={SERVICES_DESCRIPTION}
+        path="/services"
+        items={categories.flatMap((category) => [
+          { name: category.name, path: `/services/${category.slug}`, description: category.line },
+          ...category.services.map((service) => ({
+            name: service.name,
+            path: `/services/${service.anchor}`,
+            description: service.summary,
+          })),
+        ])}
+      />
       <PageIntro
         eyebrow="Services"
-        title={'We build it, connect it,\nand keep it improving.'}
-        intro="Fifteen services in three groups — what your customers use, what your team runs on, and the work that moves on its own — with Evolve to look after all of it."
+        title={'Fifteen services,\none connected system.'}
+        intro="Three groups: what your customers use, what your team runs on, and the work that moves on its own. Each is priced upfront, and everything we build can be hosted and looked after on an Evolve care plan."
       >
         <Actions>
           <RollLink href={startFor('services')} size="lg">
@@ -88,13 +103,15 @@ export default function ServicesPage() {
         </Actions>
       </PageIntro>
 
-      <ZigZag id="groups" label="The three service groups" rows={rows} />
+      <div className="alt-bands">
+        <ZigZag id="groups" label="The three service groups" rows={rows} />
 
-      <Closing
-        interest="services"
-        topic="your services"
-        visual={<ConnectScene icon="layers" tint="sky" />}
-      />
+        <Closing
+          interest="services"
+          topic="your services"
+          visual={<ConnectScene icon="layers" tint="sky" />}
+        />
+      </div>
     </>
   );
 }

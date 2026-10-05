@@ -4,7 +4,7 @@ import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, deep, Head, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, deep, Head, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Dot, Stat } from './mock-parts';
 
 /**
@@ -342,7 +342,10 @@ export function RequestsMock() {
 export const API_INTEGRATIONS_MOCKS = [MappingMock, ReconMock, ErrorsMock, SheetMock, RequestsMock];
 
 /** How it's built: the sync log of every run, and one booking through every tool. */
-export function ApiIntegrationsHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function ApiIntegrationsHowScene({ box = false }: { box?: boolean }) {
   const steps = [
     { tool: 'WooCommerce', t: 'Booking placed', m: '9:41 am · website' },
     { tool: 'Razorpay', t: 'Payment captured', m: '9:41 am · UPI' },
@@ -350,58 +353,86 @@ export function ApiIntegrationsHow() {
     { tool: 'WhatsApp', t: 'Voucher sent', m: '9:42 am · to Meera' },
   ];
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={30} w={330} i={0}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head icon="history" accent={P} title="Sync log" meta="api.onlinetravelagency.in" />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            <Row
-              title="Booking → invoice, voucher, sheet"
-              meta="10:14 am · 1.4 s"
-              right={<Tag tone="ok">Done</Tag>}
-            />
-            <Row
-              title="Settlement → reconciliation"
-              meta="9:52 am · 19 records"
-              right={<Tag tone="ok">Done</Tag>}
-            />
-            <Row
-              title="Invoices → Tally vouchers"
-              meta="2:00 am · 48 records"
-              right={<Tag tone="wait">1 held</Tag>}
-            />
-          </div>
-        </div>
-      </Card>
-      <Card x={434} y={20} w={300} i={2}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head icon="globe" accent={P} title="Booking TR-2291" meta="Nothing copied by hand" />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            {steps.map((s) => (
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={30} w={330} i={0}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head icon="history" accent={P} title="Sync log" meta="api.onlinetravelagency.in" />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
               <Row
-                key={s.t}
-                lead={<Mark tool={s.tool} />}
-                title={s.t}
-                meta={s.m}
+                title="Booking → invoice, voucher, sheet"
+                meta="10:14 am · 1.4 s"
                 right={<Tag tone="ok">Done</Tag>}
               />
-            ))}
+              <Row
+                title="Settlement → reconciliation"
+                meta="9:52 am · 19 records"
+                right={<Tag tone="ok">Done</Tag>}
+              />
+              <Row
+                title="Invoices → Tally vouchers"
+                meta="2:00 am · 48 records"
+                right={<Tag tone="wait">1 held</Tag>}
+              />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Pill x={60} y={220} i={4} accent={P}>
-        Every tool talking to the others
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M354 100 C 394 100, 394 110, 434 110']}
-        dots={[
-          [354, 100],
-          [434, 110],
-        ]}
-      />
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={434} y={20} w={300} i={2}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head icon="globe" accent={P} title="Booking TR-2291" meta="Nothing copied by hand" />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              {steps.map((s) => (
+                <Row
+                  key={s.t}
+                  lead={<Mark tool={s.tool} />}
+                  title={s.t}
+                  meta={s.m}
+                  right={<Tag tone="ok">Done</Tag>}
+                />
+              ))}
+            </div>
+          </div>
+        </Card>
+      </Group>
+      <Group at={box ? { x: -4, y: 280 } : HOME}>
+        <Pill x={60} y={220} i={4} accent={P}>
+          Every tool talking to the others
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M386 116 H 438 V 236']}
+          dots={[
+            [386, 116],
+            [438, 236],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M354 100 C 394 100, 394 110, 434 110']}
+          dots={[
+            [354, 100],
+            [434, 110],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function ApiIntegrationsHow() {
+  return <ApiIntegrationsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function ApiIntegrationsHowBox() {
+  return <ApiIntegrationsHowScene box />;
 }

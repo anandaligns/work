@@ -19,6 +19,47 @@ export const surfaceOf = (accent: string) =>
   `linear-gradient(135deg, ${washOf(accent)} 0%, color-mix(in srgb, ${accent} 12%, white) 100%)`;
 
 /**
+ * A solution's large soft surface from its home-page tint: a lighter step of it at the top left,
+ * the tint itself at the foot — never deeper than the tint, so a bright colour stays light.
+ */
+export const groundOf = (tint: string) =>
+  `linear-gradient(135deg, color-mix(in srgb, ${tint} 70%, white) 0%, ${tint} 100%)`;
+
+/**
+ * The surface for windows that run off a panel's edges (`Bleed`): the page's lightest step at the
+ * top left, paling toward white at the foot and the right where the windows fade out — so the fade
+ * mixes into white and the colour never gathers in the corner.
+ */
+export const fadeSurfaceOf = (light: string) =>
+  `linear-gradient(135deg, ${light} 0%, ${light} 30%, color-mix(in srgb, ${light} 35%, white) 100%)`;
+
+/**
+ * A panel for a mockup whose windows run off its edges, on `fadeSurfaceOf` the page's lightest
+ * step (its accent at 7%, or the tint given); states inside it take the business's colour.
+ */
+export function FadePanel({
+  accent,
+  business,
+  light,
+  children,
+}: {
+  accent: string;
+  business?: string;
+  light?: string;
+  children: ReactNode;
+}) {
+  return (
+    <TintPanel
+      tint={fadeSurfaceOf(light ?? washOf(accent))}
+      accent={business ?? accent}
+      className="size-full"
+    >
+      {children}
+    </TintPanel>
+  );
+}
+
+/**
  * A mockup on the page's tint, filling whatever it is placed in; the states inside it (tags,
  * faces, ticks) take the business's colour.
  */

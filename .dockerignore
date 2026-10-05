@@ -1,3 +1,8 @@
 node_modules
 .next
 .git
+.claude
+.DS_Store
+pixelkinetix-ui
+tsconfig.tsbuildinfo
+Dockerfile

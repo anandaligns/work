@@ -453,7 +453,7 @@ function FixImproveScene() {
 
 /**
  * `incoming` adds, far left, a grey block on a dashed route: a site built elsewhere, being moved in —
- * Keep It Improving's own page.
+ * Website Care & Hosting's own page.
  */
 export function ManagedScene({ incoming = false }: { incoming?: boolean }) {
   const ring: {
@@ -508,14 +508,14 @@ export function ManagedScene({ incoming = false }: { incoming?: boolean }) {
 
 /**
  * Keyed by solution. Each scene stays with the solution in the same place in the list: the browser
- * and its connected nodes for Never Miss a Lead, the two screens in sync for Run It in One Place,
- * the shielded cube for Keep It Improving.
+ * and its connected nodes for Lead Automation, the two screens in sync for Business Dashboard & CRM,
+ * the shielded cube for Website Care & Hosting.
  */
 export const SOLUTION_SCENES = {
-  'never-miss-a-lead': GetOnlineScene,
-  'sell-and-book-online': SellBookScene,
-  'run-it-in-one-place': FixImproveScene,
-  'keep-it-improving': ManagedScene,
+  'lead-automation': GetOnlineScene,
+  'online-store-and-bookings': SellBookScene,
+  'business-dashboard-crm': FixImproveScene,
+  'website-care-hosting': ManagedScene,
 } as const;
 
 // --- the portal ----------------------------------------------------------------------------

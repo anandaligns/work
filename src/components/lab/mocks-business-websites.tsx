@@ -358,47 +358,61 @@ export function SpeedMock() {
 export const BUSINESS_WEBSITES_MOCKS = [SearchMock, BookMock, MailMock, AnalyticsMock, SpeedMock];
 
 /** How it's built: the page as you edit it, and the result Google shows for it. */
+/** The page in the site's editor: its title, its address and the price it shows. */
+function EditorCard({ x, y, w }: { x: number; y: number; w: number }) {
+  return (
+    <Card x={x} y={y} w={w} i={0}>
+      <div className="p-3.5">
+        <Head
+          icon="pen"
+          accent={P}
+          title="Modular kitchens"
+          meta="Saved 2 min ago"
+          right={<Tag tone="ok">Live</Tag>}
+        />
+        <div className="mt-3 flex flex-col gap-2">
+          <Field label="Page title" value="Modular kitchens in Indiranagar" accent={A} />
+          <Field label="Address" value="/services/kitchens" accent={A} />
+          <Field label="Price shown" value="From ₹3.5 L" accent={A} />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+/** The same page as Google shows it: the address, the title, the description, its setup. */
+function ResultCard({ x, y, w }: { x: number; y: number; w: number }) {
+  return (
+    <Card x={x} y={y} w={w} i={2}>
+      <div className="p-3.5">
+        <div className="flex items-center gap-2">
+          <ToolMark tool="Google" size={16} />
+          <span className="text-[10.5px] text-ink-3">
+            interiordesignstudio.in › services › kitchens
+          </span>
+        </div>
+        <p className="mt-1.5 text-[14px] font-medium" style={{ color: DEEP }}>
+          Modular kitchens in Indiranagar · Interior Design Studio
+        </p>
+        <p className="mt-1 text-[11px] leading-[1.5] text-ink-2">
+          Kitchens designed around how you cook, fitted in 45 days. A free site visit, booked
+          online.
+        </p>
+        <div className="mt-2.5 flex flex-wrap gap-1.5">
+          <Chip accent={A}>Sitemap</Chip>
+          <Chip accent={A}>Schema</Chip>
+          <Chip accent={A}>Description</Chip>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
 export function BusinessWebsitesHow() {
   return (
     <Fit w={760} h={330}>
-      <Card x={24} y={28} w={300} i={0}>
-        <div className="p-3.5">
-          <Head
-            icon="pen"
-            accent={P}
-            title="Modular kitchens"
-            meta="Saved 2 min ago"
-            right={<Tag tone="ok">Live</Tag>}
-          />
-          <div className="mt-3 flex flex-col gap-2">
-            <Field label="Page title" value="Modular kitchens in Indiranagar" accent={A} />
-            <Field label="Address" value="/services/kitchens" accent={A} />
-            <Field label="Price shown" value="From ₹3.5 L" accent={A} />
-          </div>
-        </div>
-      </Card>
-      <Card x={372} y={60} w={364} i={2}>
-        <div className="p-3.5">
-          <div className="flex items-center gap-2">
-            <ToolMark tool="Google" size={16} />
-            <span className="text-[10.5px] text-ink-3">
-              interiordesignstudio.in › services › kitchens
-            </span>
-          </div>
-          <p className="mt-1.5 text-[14px] font-medium" style={{ color: DEEP }}>
-            Modular kitchens in Indiranagar · Interior Design Studio
-          </p>
-          <p className="mt-1 text-[11px] leading-[1.5] text-ink-2">
-            Kitchens designed around how you cook, fitted in 45 days. A free site visit, booked
-            online.
-          </p>
-          <div className="mt-2.5 flex flex-wrap gap-1.5">
-            <Chip accent={A}>Sitemap</Chip>
-            <Chip accent={A}>Schema</Chip>
-            <Chip accent={A}>Description</Chip>
-          </div>
-        </div>
-      </Card>
+      <EditorCard x={24} y={28} w={300} />
+      <ResultCard x={372} y={60} w={364} />
       <Pill x={400} y={236} i={4} accent={P}>
         You edit the page; Google reads it right
       </Pill>
@@ -410,6 +424,33 @@ export function BusinessWebsitesHow() {
         dots={[
           [324, 120],
           [372, 130],
+        ]}
+      />
+    </Fit>
+  );
+}
+
+/**
+ * The same picture for a box beside the blocks (a split section): the editor at the top left,
+ * the page as Google shows it lower down on the right, the wire from one to the other and the
+ * outcome under them — on a 760 × 560 canvas.
+ */
+export function BusinessWebsitesHowBox() {
+  return (
+    <Fit w={760} h={560} max={1.25}>
+      <EditorCard x={56} y={44} w={330} />
+      <ResultCard x={336} y={276} w={380} />
+      <Pill x={356} y={470} i={4} accent={P}>
+        You edit the page; Google reads it right
+      </Pill>
+      <Wires
+        w={760}
+        h={560}
+        accent={P}
+        d={['M221 262 V 342 H 336']}
+        dots={[
+          [221, 262],
+          [336, 342],
         ]}
       />
     </Fit>

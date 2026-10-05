@@ -86,7 +86,7 @@ const page: ProductPage = {
     body: [
       '**Bookings by phone and WhatsApp tie up the person who should be looking after clients.** A booking page takes them at any hour, shows only slots that are really free, and asks for a deposit — so the booking counts.',
       '**Messages do the rest.** A confirmation the moment they book, a reminder and the location the day before, and your cancellation rules applied the same way every time.',
-      'It comes with the [Connected Website](/solutions/never-miss-a-lead), or as a Booking & Appointment System on its own — for [rooms, tables, appointments and classes](/solutions/sell-and-book-online).',
+      'It comes with the [Connected Website](/solutions/lead-automation), or as a Booking & Appointment System on its own — for [rooms, tables, appointments and classes](/solutions/online-store-and-bookings).',
     ],
     photo: {
       file: 'booking-salon-reception',
@@ -298,23 +298,35 @@ const page: ProductPage = {
     heading: 'How online booking and payments work',
     blocks: [
       {
+        icon: 'clock',
         title: 'Availability',
         body: 'Your rooms, tables or people with their rules, so nothing is double-booked.',
       },
       {
+        icon: 'rupee',
         title: 'Payments',
         body: 'Through a payment gateway, with receipts; the gateway’s fees are its own.',
       },
       {
+        icon: 'whatsapp',
         title: 'Messages',
         body: 'Confirmations and reminders on [WhatsApp](/services/whatsapp-automation), from approved templates.',
       },
-      { title: 'Calendar', body: 'Synced with Google Calendar where you need it.' },
       {
+        icon: 'calendar',
+        title: 'Calendar',
+        body: 'Synced with Google Calendar where you need it.',
+      },
+      {
+        icon: 'filter',
         title: 'Rules',
         body: 'Prices, gaps between slots, deposits and cancellation cut-offs, set by you.',
       },
-      { title: 'Records', body: 'Every booking, payment and message kept on the client’s record.' },
+      {
+        icon: 'history',
+        title: 'Records',
+        body: 'Every booking, payment and message kept on the client’s record.',
+      },
     ],
   },
 

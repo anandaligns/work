@@ -23,7 +23,16 @@ import { BlurText } from '../motion/blur-text';
 import { AppStage, type StageTask } from './app-stage';
 import { Actions, PageIntro } from './page-intro';
 import { FaqBand } from './sections';
-import { Head, Industries, Photo, PointOfView, Rich, UnderTheHood } from './product-parts';
+import {
+  BuildFoot,
+  Head,
+  Industries,
+  Photo,
+  PointOfView,
+  Rich,
+  UnderTheHood,
+} from './product-parts';
+import { Showcase } from '../solutions/showcase';
 
 /**
  * A service, solution or Evolve page presented as a product — Apple's way of explaining iPhone,
@@ -34,7 +43,7 @@ import { Head, Industries, Photo, PointOfView, Rich, UnderTheHood } from './prod
  */
 
 /** The figures under the hero, in a row between hairlines — where Lightfield puts its logos. */
-function Highlights({ heading, items }: ProductPage['highlights']) {
+export function Highlights({ heading, items }: ProductPage['highlights']) {
   return (
     <Band labelledBy="highlights-heading" className="py-10 lg:py-14">
       <h2 id="highlights-heading" className="sr-only">
@@ -165,7 +174,7 @@ function WhyBand({
  * size their words fill. Pointed at, a box lights from its corner, its mark lifts and brightens,
  * and its number and line brighten.
  */
-function WhyGrid({ heading, intro, items }: ProductPage['why']) {
+export function WhyGrid({ heading, intro, items }: ProductPage['why']) {
   return (
     <Band id="why" labelledBy="why-heading" className="band-night py-24 lg:py-32">
       <div className="xl:grid xl:grid-cols-[minmax(0,0.85fr)_minmax(0,2.15fr)] xl:gap-14">
@@ -491,8 +500,20 @@ export function ProductBody({
   after,
   interest,
   next,
+  compare = false,
+  tail,
+  view,
 }: {
   page: ProductPage;
+  /** The point of view's picture in place of its photograph: the page's isometric scene. */
+  view?: ReactNode;
+  /** After the questions, in the same alternation: the related pages and the closing. */
+  tail?: ReactNode;
+  /**
+   * The comparison table. Off on the service pages, where "why build it here" says it; kept on
+   * Lead Automation's v1 snapshot.
+   */
+  compare?: boolean;
   /** The page's `?interest=`, for "tell us what you need". */
   interest: string;
   /** The small label over each section: the service's name. */
@@ -506,9 +527,13 @@ export function ProductBody({
   /**
    * A service page's layout: the product's screens on the page's tint with an outcome pill (or its
    * own mockups in their place — the features, in order, and how it's built), "why" as the dark
-   * grid of boxes, the tools as the home page's scroll and the industries' marks raised.
+   * grid of boxes, the tools as the home page's scroll and the industries' marks raised. Given a
+   * picture for what's included, that section is Lightfield's split: the features down the left,
+   * the picture pinned beside them. With `howSplit`, how it's built is the same split as a
+   * solution's benefits — its blocks down the left, its picture beside them — with how we build it
+   * and the tools under both.
    */
-  next?: { features?: ReactNode[]; how?: ReactNode };
+  next?: { features?: ReactNode[]; how?: ReactNode; included?: ReactNode; howSplit?: boolean };
 }) {
   const accent = page.accent;
   const wash = `color-mix(in srgb, ${accent} 7%, white)`;
@@ -518,7 +543,7 @@ export function ProductBody({
       <PointOfView
         statement={page.view.statement}
         body={page.view.body}
-        photo={<Photo file={page.view.photo.file} alt={page.view.photo.alt} tint={tint} />}
+        photo={view ?? <Photo file={page.view.photo.file} alt={page.view.photo.alt} tint={tint} />}
       />
       <FeatureBento
         eyebrow={eyebrow}
@@ -529,26 +554,53 @@ export function ProductBody({
         scenes={next?.features}
         tint={next ? wash : undefined}
       />
-      <SpecSheet
-        eyebrow={eyebrow}
-        heading={page.included.heading}
-        intro={page.included.intro}
-        items={page.included.items}
-      />
-      <Band id="compare" labelledBy="compare-heading" className="py-24 lg:py-32">
-        <Head
-          id="compare"
+      {next?.included ? (
+        <Showcase
+          id="included"
           eyebrow={eyebrow}
-          title={page.compare.heading}
-          intro={page.compare.intro}
+          heading={page.included.heading}
+          intro={page.included.intro}
+          points={page.included.items}
+          accent={accent}
+          picture={next.included}
+          pinned
         />
-        <CompareTable
-          label={page.compare.heading}
-          options={page.compare.options}
-          us={page.compare.us}
+      ) : (
+        <SpecSheet
+          eyebrow={eyebrow}
+          heading={page.included.heading}
+          intro={page.included.intro}
+          items={page.included.items}
         />
-      </Band>
-      {next ? (
+      )}
+      {compare ? (
+        <Band id="compare" labelledBy="compare-heading" className="py-24 lg:py-32">
+          <Head
+            id="compare"
+            eyebrow={eyebrow}
+            title={page.compare.heading}
+            intro={page.compare.intro}
+          />
+          <CompareTable
+            label={page.compare.heading}
+            options={page.compare.options}
+            us={page.compare.us}
+          />
+        </Band>
+      ) : null}
+      {next?.howSplit && next.how ? (
+        <Showcase
+          id="how"
+          eyebrow={eyebrow}
+          heading={page.how.heading}
+          intro={page.how.intro}
+          points={page.how.blocks.map((block) => ({ ...block, icon: block.icon ?? 'check' }))}
+          accent={accent}
+          picture={next.how}
+          pinned
+          after={<BuildFoot build={page.build} after={<ToolRows {...page.tools} />} />}
+        />
+      ) : next ? (
         <UnderTheHood
           bare
           eyebrow={eyebrow}
@@ -602,6 +654,7 @@ export function ProductBody({
         topic={eyebrow}
         after={page.notes?.length ? <NotesBox notes={page.notes} /> : undefined}
       />
+      {tail}
     </div>
   );
 }
@@ -680,6 +733,7 @@ export function ProductOpeningFull({
   accent,
   tasks,
   note,
+  ground = 'grey',
 }: {
   title: string;
   intro: string;
@@ -689,11 +743,16 @@ export function ProductOpeningFull({
   tasks: StageTask[];
   /** A way on, pinned at the foot: a dot, a label, a line and a chevron. */
   note?: { label: string; text: string; href: string };
+  /**
+   * What it stands on: the quiet grey it was drawn on, or white or the site's off-white — the
+   * product lifted off either by a soft shadow.
+   */
+  ground?: 'grey' | 'white' | 'off';
 }) {
   return (
     <section
       aria-labelledby="page-heading"
-      className="relative overflow-hidden bg-[#ececef] lg:h-[100svh] lg:min-h-[640px]"
+      className={`relative overflow-hidden lg:h-[100svh] lg:min-h-[640px] ${ground === 'white' ? 'bg-white' : ground === 'off' ? 'bg-[#f5f5f7]' : 'bg-[#ececef]'}`}
     >
       <div className="container-fluid relative pt-28 sm:pt-32 lg:flex lg:h-full lg:items-center lg:pt-0">
         <div className="max-w-md lg:max-w-[min(25rem,31vw)] lg:pb-[4vh]">
@@ -740,6 +799,7 @@ export function ProductOpeningFull({
       <AppStage
         tasks={tasks}
         accent={accent}
+        lifted={ground !== 'grey'}
         className="rise-in mt-12 ml-5 h-[440px] sm:ml-6 sm:h-[540px] md:ml-8 lg:absolute lg:top-[16%] lg:right-0 lg:bottom-0 lg:left-[37.5%] lg:mt-0 lg:ml-0 lg:h-auto"
       />
     </section>

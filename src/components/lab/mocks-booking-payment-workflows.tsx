@@ -3,7 +3,7 @@ import product from '@/content/products/booking-payment-workflows';
 import { ToolMark } from '../ui/brand-logos';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, deep, Face, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, deep, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Chip, Dot, Field, Stat } from './mock-parts';
 
 /**
@@ -345,50 +345,81 @@ export function ChartMock() {
 export const BOOKING_MOCKS = [BookMock, PayMock, ConfirmedMock, CancellationsMock, ChartMock];
 
 /** How it's built: services, prices and rules set once, and Riya's deposit that follows them. */
-export function BookingHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function BookingHowScene({ box = false }: { box?: boolean }) {
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={24} w={320} i={0}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head
-            icon="layers"
-            accent={P}
-            title="Services and prices"
-            meta="salonbeautystudio.in/admin"
-          />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            <Row title="Haircut · 45 min" meta="Weekday ₹700 · weekend ₹800" />
-            <Row title="Hair colour · 90 min" meta="Weekday ₹2,300 · weekend ₹2,500" />
-            <Row title="Facial · 60 min" meta="Weekday ₹1,600 · weekend ₹1,800" />
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={24} w={320} i={0}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head
+              icon="layers"
+              accent={P}
+              title="Services and prices"
+              meta="salonbeautystudio.in/admin"
+            />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              <Row title="Haircut · 45 min" meta="Weekday ₹700 · weekend ₹800" />
+              <Row title="Hair colour · 90 min" meta="Weekday ₹2,300 · weekend ₹2,500" />
+              <Row title="Facial · 60 min" meta="Weekday ₹1,600 · weekend ₹1,800" />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={24} y={196} w={320} i={1}>
-        <div className="grid grid-cols-2 gap-2 p-3">
-          <Field label="Deposit" value="20% at booking" accent={A} />
-          <Field label="Free cancellation" value="Until 24 h before" accent={A} />
-        </div>
-      </Card>
-      <Card x={434} y={60} w={300} i={2}>
-        <div className="p-3.5">
-          <Head icon="card" accent={P} title="Pay the deposit" meta="Hair colour · Sat 6 pm" />
-          <p className="mt-2 text-[22px] leading-none font-semibold">₹500</p>
-          <p className="mt-1.5 text-[10px] text-ink-3">Free cancellation until Fri, 6 pm</p>
-        </div>
-      </Card>
-      <Pill x={434} y={196} i={4} accent={P}>
-        Your rules, followed on every booking
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M344 100 C 389 100, 389 110, 434 110', 'M344 230 C 389 230, 389 130, 434 130']}
-        dots={[
-          [344, 100],
-          [344, 230],
-        ]}
-      />
+        </Card>
+        <Card x={24} y={196} w={320} i={1}>
+          <div className="grid grid-cols-2 gap-2 p-3">
+            <Field label="Deposit" value="20% at booking" accent={A} />
+            <Field label="Free cancellation" value="Until 24 h before" accent={A} />
+          </div>
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={434} y={60} w={300} i={2}>
+          <div className="p-3.5">
+            <Head icon="card" accent={P} title="Pay the deposit" meta="Hair colour · Sat 6 pm" />
+            <p className="mt-2 text-[22px] leading-none font-semibold">₹500</p>
+            <p className="mt-1.5 text-[10px] text-ink-3">Free cancellation until Fri, 6 pm</p>
+          </div>
+        </Card>
+        <Pill x={434} y={196} i={4} accent={P}>
+          Your rules, followed on every booking
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M376 116 H 438 V 276', 'M376 246 H 438 V 276']}
+          dots={[
+            [376, 116],
+            [438, 276],
+            [376, 246],
+            [438, 276],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M344 100 C 389 100, 389 110, 434 110', 'M344 230 C 389 230, 389 130, 434 130']}
+          dots={[
+            [344, 100],
+            [344, 230],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function BookingHow() {
+  return <BookingHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function BookingHowBox() {
+  return <BookingHowScene box />;
 }

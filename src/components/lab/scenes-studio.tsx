@@ -4,7 +4,7 @@ import { Fit } from './fit';
 import { Bubble, Frag, FragHead, Line, Pill, Tag, Wires, lit } from './kit';
 
 /**
- * Sell & Book Online's mockups for the solution page under test, from its sample studio: pieces
+ * Online Store & Bookings's mockups for the solution page under test, from its sample studio: pieces
  * and seats counting down, the day's orders and bookings together, the week's workshops with
  * their seats, and — for the cards — a piece paid for, a workshop booked, and the confirmation.
  */

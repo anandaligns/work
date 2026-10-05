@@ -20,11 +20,14 @@ export function SystemRow({
   head,
   cards,
   tint,
+  accent,
 }: {
   id?: string;
   head: ReactNode;
   cards: { scene: ReactNode; title: string; body: string; cta: { label: string; href: string } }[];
   tint: string;
+  /** The colour the mockups' states take (`TintPanel`), as on the service pages. */
+  accent?: string;
 }) {
   return (
     <Band id={id} labelledBy={`${id}-heading`} className="py-24 lg:py-32">
@@ -32,7 +35,7 @@ export function SystemRow({
       <ul className="mt-14 grid gap-12 md:grid-cols-3 md:gap-6 lg:mt-16">
         {cards.map((card, i) => (
           <li key={card.title} data-reveal="" style={{ ['--i' as string]: i }}>
-            <TintPanel tint={tint} className="h-[280px] lg:h-[300px]">
+            <TintPanel tint={tint} accent={accent} className="h-[280px] lg:h-[300px]">
               {card.scene}
             </TintPanel>
             <h3 className="mt-6 text-[1.25rem] leading-snug font-medium tracking-[-0.02em] text-ink">

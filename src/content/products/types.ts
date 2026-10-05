@@ -77,7 +77,8 @@ export type ProductPage = {
   how: {
     heading: string;
     intro?: string;
-    blocks: { title: string; body: string }[];
+    /** A glyph for each, where the blocks are listed beside the picture (a split section). */
+    blocks: { title: string; body: string; icon?: IconName }[];
     /**
      * The system at work on two devices, over how we build it and what it works with, where the
      * page has no mockup of its own for it.

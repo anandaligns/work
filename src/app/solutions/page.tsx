@@ -4,6 +4,7 @@ import { Closing } from '@/components/home/closing';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
 import { type ZigRow, ZigZag } from '@/components/pages/zigzag';
 import { RollLink } from '@/components/ui/roll-link';
+import { WebPageStructuredData } from '@/components/seo/web-page-data';
 import { ConnectScene } from '@/components/visuals/connect-scene';
 import { solutionPageFor } from '@/content/pages';
 import { categories, evolve, solutions, startFor, whatsappAbout } from '@/content/site';
@@ -13,19 +14,22 @@ import { productFor } from '@/content/products';
  * `/solutions` — every solution: the page intro, then the four goals as alternating rows (each
  * with the services behind it as points and a crop of its product), then the closing.
  */
+const SOLUTIONS_TITLE = 'Solutions: Leads, Online Sales, CRM & Care';
+const SOLUTIONS_DESCRIPTION =
+  'Four ready-made systems with published prices: lead automation, an online store or bookings, a business dashboard and CRM, and website care and hosting.';
+
 export const metadata: Metadata = {
-  title: 'Solutions: Leads, Selling Online, One System, Care',
-  description:
-    'Four goals, each met with the services put together for it: never miss a lead, sell and book online, run the business in one place, and keep it improving.',
+  title: SOLUTIONS_TITLE,
+  description: SOLUTIONS_DESCRIPTION,
   alternates: { canonical: '/solutions' },
-  openGraph: { title: 'Solutions: Leads, Selling Online, One System, Care', url: '/solutions' },
+  openGraph: { title: SOLUTIONS_TITLE, description: SOLUTIONS_DESCRIPTION, url: '/solutions' },
 };
 
 const HIGHLIGHT: Record<string, string> = {
-  'never-miss-a-lead': 'a Lead',
-  'sell-and-book-online': 'Book Online',
-  'run-it-in-one-place': 'One Place',
-  'keep-it-improving': 'Improving',
+  'lead-automation': 'Automation',
+  'online-store-and-bookings': 'Bookings',
+  'business-dashboard-crm': 'Dashboard & CRM',
+  'website-care-hosting': 'Care & Hosting',
 };
 
 const services = categories.flatMap((category) => category.services);
@@ -43,7 +47,7 @@ export default function SolutionsPage() {
       return [];
     });
     const points =
-      solution.slug === 'keep-it-improving'
+      solution.slug === 'website-care-hosting'
         ? [
             {
               name: 'Move to Better Hosting',
@@ -72,6 +76,17 @@ export default function SolutionsPage() {
 
   return (
     <>
+      <WebPageStructuredData
+        type="CollectionPage"
+        name="Solutions"
+        description={SOLUTIONS_DESCRIPTION}
+        path="/solutions"
+        items={solutions.map((solution) => ({
+          name: solution.name,
+          path: `/solutions/${solution.slug}`,
+          description: solutionPageFor(solution.slug)?.description ?? solution.line,
+        }))}
+      />
       <PageIntro
         eyebrow="Solutions"
         title={'Tell us the problem.\nWe’ll build the system.'}
@@ -87,13 +102,15 @@ export default function SolutionsPage() {
         </Actions>
       </PageIntro>
 
-      <ZigZag id="solutions-list" label="The four solutions" rows={rows} />
+      <div className="alt-bands">
+        <ZigZag id="solutions-list" label="The four solutions" rows={rows} />
 
-      <Closing
-        interest="solutions"
-        topic="a solution"
-        visual={<ConnectScene icon="target" tint="mint" />}
-      />
+        <Closing
+          interest="solutions"
+          topic="a solution"
+          visual={<ConnectScene icon="target" tint="mint" />}
+        />
+      </div>
     </>
   );
 }

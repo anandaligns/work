@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Firecrawl MCP server over stdio, run in Docker. Claude Code starts it from .mcp.json.
+# The key comes from FIRECRAWL_API_KEY in the environment or in .claude/seo-tools/.env (gitignored).
+set -euo pipefail
+
+tools="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+flags=(--rm -i -v pixel-kinetix-npm-cache:/root/.npm)
+[[ -f "$tools/.env" ]] && flags+=(--env-file "$tools/.env")
+[[ -n "${FIRECRAWL_API_KEY:-}" ]] && flags+=(-e FIRECRAWL_API_KEY)
+
+# Same pinned version that claude-seo's Firecrawl extension installs.
+exec docker run "${flags[@]}" node:22-alpine npx -y firecrawl-mcp@3.11.0

@@ -4,7 +4,7 @@ import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, deep, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, deep, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Dot, Stat } from './mock-parts';
 
 /**
@@ -338,7 +338,10 @@ export function SummaryMock() {
 export const AI_WORKFLOWS_MOCKS = [QueueMock, ExceptionsMock, ApproveMock, ScanMock, SummaryMock];
 
 /** How it's built: the checks on every invoice, and the approved invoice's fields mapped into Tally. */
-export function AiWorkflowsHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function AiWorkflowsHowScene({ box = false }: { box?: boolean }) {
   const checks = [
     'Quantity matches the PO',
     'Rate within 1% of the price list',
@@ -353,63 +356,89 @@ export function AiWorkflowsHow() {
     ['total', 'amount'],
   ];
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={24} w={320} i={0}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head
-            icon="shield"
-            accent={P}
-            title="Checks on every invoice"
-            meta="docs.accountingtaxfirm.in"
-          />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            {checks.map((c) => (
-              <Row key={c} title={c} right={<Tag tone="ok">On</Tag>} />
-            ))}
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={24} w={320} i={0}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head
+              icon="shield"
+              accent={P}
+              title="Checks on every invoice"
+              meta="docs.accountingtaxfirm.in"
+            />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              {checks.map((c) => (
+                <Row key={c} title={c} right={<Tag tone="ok">On</Tag>} />
+              ))}
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={434} y={48} w={300} i={2}>
-        <div className="p-3.5">
-          <div className="flex items-center justify-between text-[10.5px] font-semibold">
-            <span>Approved invoice</span>
-            <span className="flex items-center gap-1.5">
-              <ToolMark tool="Tally" size={14} /> Tally
-            </span>
-          </div>
-          <div className="mt-2.5 flex flex-col gap-1.5">
-            {map.map(([from, to]) => (
-              <span key={from} className="grid grid-cols-[1fr_14px_1fr] items-center gap-1.5">
-                <span className="truncate rounded-[7px] bg-[#f4f5f7] px-1.5 py-1 font-mono text-[9.5px]">
-                  {from}
-                </span>
-                <span style={{ color: deep(A) }}>
-                  <Icon name="arrow" size={11} />
-                </span>
-                <span
-                  className="truncate rounded-[7px] px-1.5 py-1 font-mono text-[9.5px]"
-                  style={{ background: `color-mix(in srgb, ${A} 10%, white)` }}
-                >
-                  {to}
-                </span>
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={434} y={48} w={300} i={2}>
+          <div className="p-3.5">
+            <div className="flex items-center justify-between text-[10.5px] font-semibold">
+              <span>Approved invoice</span>
+              <span className="flex items-center gap-1.5">
+                <ToolMark tool="Tally" size={14} /> Tally
               </span>
-            ))}
+            </div>
+            <div className="mt-2.5 flex flex-col gap-1.5">
+              {map.map(([from, to]) => (
+                <span key={from} className="grid grid-cols-[1fr_14px_1fr] items-center gap-1.5">
+                  <span className="truncate rounded-[7px] bg-[#f4f5f7] px-1.5 py-1 font-mono text-[9.5px]">
+                    {from}
+                  </span>
+                  <span style={{ color: deep(A) }}>
+                    <Icon name="arrow" size={11} />
+                  </span>
+                  <span
+                    className="truncate rounded-[7px] px-1.5 py-1 font-mono text-[9.5px]"
+                    style={{ background: `color-mix(in srgb, ${A} 10%, white)` }}
+                  >
+                    {to}
+                  </span>
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-      </Card>
-      <Pill x={434} y={236} i={4} accent={P}>
-        Your checks, then your books
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M344 110 C 389 110, 389 110, 434 110']}
-        dots={[
-          [344, 110],
-          [434, 110],
-        ]}
-      />
+        </Card>
+        <Pill x={434} y={236} i={4} accent={P}>
+          Your checks, then your books
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M376 126 H 438 V 264']}
+          dots={[
+            [376, 126],
+            [438, 264],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M344 110 C 389 110, 389 110, 434 110']}
+          dots={[
+            [344, 110],
+            [434, 110],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function AiWorkflowsHow() {
+  return <AiWorkflowsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function AiWorkflowsHowBox() {
+  return <AiWorkflowsHowScene box />;
 }

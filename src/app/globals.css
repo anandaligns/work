@@ -282,8 +282,8 @@ html.lenis body {
     position: relative;
     border-top: 1px solid var(--color-line);
   }
-  /* A product page's sections alternate white and Apple's off-white, so each reads as its own
-     chapter without a rule between them. */
+  /* A page's sections, under its opening, alternate white and Apple's off-white, so each reads
+     as its own chapter without a rule between them. */
   .alt-bands > .band {
     border-top-color: transparent;
     background: #ffffff;
@@ -295,6 +295,14 @@ html.lenis body {
   /* The one dark band on a product page: why build it here. */
   .alt-bands > .band.band-night {
     background: var(--color-night);
+  }
+  /* After a dark band the alternation starts again on white, wherever the dark band falls: where
+     it lands on an even place, everything after it swaps (the cards on it with it). */
+  .alt-bands > .band.band-night:nth-of-type(even) ~ .band:nth-of-type(odd) {
+    background: #ffffff;
+  }
+  .alt-bands > .band.band-night:nth-of-type(even) ~ .band:nth-of-type(even) {
+    background: #f5f5f7;
   }
   .admin-row-fresh {
     animation: admin-row-in 900ms var(--ease-out-expo) 1.4s both;
@@ -403,6 +411,24 @@ html.lenis body {
       transform: translateY(6px);
     }
   }
+  /* Lightfield's frame: product windows run off a panel's right and bottom edges and fade out
+     there, so the picture reads as a glimpse of something larger. */
+  .edge-fade {
+    --fade: 4.5rem;
+    -webkit-mask-image:
+      linear-gradient(to right, #000 calc(100% - var(--fade)), transparent),
+      linear-gradient(to bottom, #000 calc(100% - var(--fade)), transparent);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to right, #000 calc(100% - var(--fade)), transparent),
+      linear-gradient(to bottom, #000 calc(100% - var(--fade)), transparent);
+    mask-composite: intersect;
+  }
+  @media (min-width: 1024px) {
+    .edge-fade {
+      --fade: 8rem;
+    }
+  }
   /* The mockups' states: green for done and amber for waiting on their own, and in a page's
      panel (`.mock-scope`, which carries its colour as `--mock`) steps of that colour instead —
      filled for done, outlined for waiting — so a page keeps to one colour. */
@@ -446,6 +472,14 @@ html.lenis body {
   }
   .alt-bands > .band:nth-of-type(odd) .bento-card,
   .alt-bands > .band:nth-of-type(odd) .how-panel {
+    background: #ffffff;
+  }
+  .alt-bands > .band.band-night:nth-of-type(even) ~ .band:nth-of-type(odd) .bento-card,
+  .alt-bands > .band.band-night:nth-of-type(even) ~ .band:nth-of-type(odd) .how-panel {
+    background: #f2f2f4;
+  }
+  .alt-bands > .band.band-night:nth-of-type(even) ~ .band:nth-of-type(even) .bento-card,
+  .alt-bands > .band.band-night:nth-of-type(even) ~ .band:nth-of-type(even) .how-panel {
     background: #ffffff;
   }
   /* A WhatsApp message arriving: the chat's last one, a moment after the screen appears. */
@@ -608,6 +642,10 @@ html.lenis body {
     flex: 0 0 var(--roll-h);
     align-items: center;
     transition: transform 550ms var(--ease-roll);
+  }
+  /* The label's twin, drawn from its \`data-label\`. */
+  .roll__twin::before {
+    content: attr(data-label);
   }
   .roll__arrow {
     position: relative;
@@ -1332,6 +1370,19 @@ html.lenis body {
       transform: translateX(-50%);
     }
   }
+  /* A track that slides a set distance — one copy's width — rather than half its own, for a row
+     whose second copy arrives after the first (`MarqueeCopy`). */
+  .marquee__track--shift {
+    animation-name: marquee-shift;
+  }
+  @keyframes marquee-shift {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(var(--marquee-shift));
+    }
+  }
 
   /* ==========================================================================================
      Hero tiles — codify's opening row, at codify's sizes: 209 × 360 tiles, the centre opening
@@ -1505,6 +1556,11 @@ html.lenis body {
    Motion primitives driven by markup: blur-in characters, scroll-filled headings, reveals.
    ============================================================================================ */
 @layer components {
+  /* BlurText's characters draw their glyph from \`data-c\`, so the headline is in the page's text
+     once — its screen-reader copy — rather than twice. */
+  .blur-glyph::before {
+    content: attr(data-c);
+  }
   .blur-char {
     display: inline-block;
     animation-name: blur-in;
@@ -2423,8 +2479,7 @@ html.lenis body {
   }
   /* HBR's +/−: two thin bars that turn half over together as the answer opens, the upright one
      folding flat on the way, so the plus lands as a minus. */
-  .faq-item__toggle,
-  .auto-row__toggle {
+  .faq-item__toggle {
     position: relative;
     flex: none;
     width: 1.375rem;
@@ -2435,9 +2490,7 @@ html.lenis body {
       color 0.35s ease;
   }
   .faq-item__toggle::before,
-  .faq-item__toggle::after,
-  .auto-row__toggle::before,
-  .auto-row__toggle::after {
+  .faq-item__toggle::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -2449,21 +2502,17 @@ html.lenis body {
     background: currentColor;
     transition: transform 0.5s var(--ease-premium);
   }
-  .faq-item__toggle::after,
-  .auto-row__toggle::after {
+  .faq-item__toggle::after {
     transform: rotate(90deg);
   }
-  .faq-item:hover .faq-item__toggle,
-  .auto-row:hover .auto-row__toggle {
+  .faq-item:hover .faq-item__toggle {
     color: var(--color-ink);
   }
-  .faq-item[data-open] .faq-item__toggle,
-  .auto-row[data-active] .auto-row__toggle {
+  .faq-item[data-open] .faq-item__toggle {
     color: var(--color-ink);
     transform: rotate(180deg);
   }
-  .faq-item[data-open] .faq-item__toggle::after,
-  .auto-row[data-active] .auto-row__toggle::after {
+  .faq-item[data-open] .faq-item__toggle::after {
     transform: rotate(0deg);
   }
   .faq-item__panel {
@@ -2952,39 +3001,67 @@ html.lenis body {
 }
 
 @layer components {
-  /* ---- Solutions — automatix's list, in light --------------------------------------------- */
-  /* The title's size, shared with the row's toggle so the circle centres on the title's line. */
-  .auto-row {
-    --row-title: clamp(1.3125rem, 1.15rem + 0.5vw, 1.625rem);
+  /* ---- Solutions — Codify's list and panel, in the site's tints ---------------------------- */
+  /* The colour is the glyph's alone: each item's disc in its solution's `--tint`, the glyph in
+     its `--accent`. Closed, an item is that glyph and a name; pointed at, a faint white wash;
+     open, a white card on a hairline with a soft contact shadow. */
+  .sol-item {
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    transition:
+      background-color 0.5s var(--ease-premium),
+      border-color 0.5s var(--ease-premium),
+      box-shadow 0.5s var(--ease-premium);
   }
-  .auto-row__title {
-    color: var(--color-ink-2);
-    font-family: var(--font-display);
-    font-size: var(--row-title);
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-    transition: color 0.4s ease;
+  .sol-item:not([data-active]):hover {
+    background: rgb(255 255 255 / 0.6);
   }
-  .auto-row[data-active] .auto-row__title,
-  .auto-row:hover .auto-row__title {
+  .sol-item[data-active] {
+    background: #ffffff;
+    border-color: var(--color-line);
+    box-shadow:
+      0 1px 2px rgb(11 13 18 / 0.04),
+      0 16px 36px -24px rgb(11 13 18 / 0.2);
+  }
+  .sol-item__mark {
+    display: grid;
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    place-items: center;
+    border-radius: 9999px;
+    background: var(--tint);
+    color: var(--accent);
+  }
+  .sol-item__title {
+    min-width: 0;
     color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
   }
-  /* The hairline between rows, fading out to the right as automatix draws it. */
-  .auto-row__rule {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 1px;
-    background: linear-gradient(to right, var(--color-line-2), var(--color-line) 55%, transparent);
-  }
-  .auto-row:last-child .auto-row__rule {
-    display: none;
-  }
-  /* The FAQ's plus at the row's end (drawn with the FAQ's, above), centred on the title's line:
-     it tells the reader each row opens, and turns half over into a minus for the open one. */
-  .auto-row__toggle {
-    margin-top: calc((var(--row-title) * 1.15 - 1.375rem) / 2);
-  }
+}
+
+/* Looping motion holds still while its section is off screen (`data-offscreen`, set by
+   ScrollEffects) and picks up again as the section comes back into view, so no one ever sees it
+   stop — and the page stops repainting dozens of loops no one can see. Outside the layers, so it
+   holds over the utilities' own `animation` shorthands. One-off entrances are left alone. */
+[data-offscreen]
+  :is(
+    .wire-flow,
+    .iso-float,
+    .dot-pulse,
+    .engine-flow,
+    .marquee__track,
+    .pk-art__spin,
+    .pk-art__px,
+    .roll__icon--shake,
+    .quick-call__shake,
+    .animate-spin,
+    .animate-pulse
+  ),
+[data-offscreen] .signal::after {
+  animation-play-state: paused;
 }

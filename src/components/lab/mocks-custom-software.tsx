@@ -3,7 +3,7 @@ import product from '@/content/products/custom-software';
 import { ToolMark } from '../ui/brand-logos';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, Head, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, Head, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Dot, Stat, Steps } from './mock-parts';
 
 /**
@@ -319,66 +319,97 @@ export function PlanMock() {
 export const CUSTOM_SOFTWARE_MOCKS = [OrdersMock, ApprovalsMock, ReportsMock, PhasesMock, PlanMock];
 
 /** How it's built: the office's projects, and the site engineer's diary on a tablet. */
-export function CustomSoftwareHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function CustomSoftwareHowScene({ box = false }: { box?: boolean }) {
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={30} w={330} i={0}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head icon="layers" accent={P} title="Projects" meta="app.constructioncompany.in" />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            <Row
-              title="Greenfield School · Block B"
-              meta="Slab 3 · 18 Oct"
-              right={<Tag tone="ok">On time</Tag>}
-            />
-            <Row
-              title="Lakeview Homes · Tower 2"
-              meta="Brickwork · 30 Nov"
-              right={<Tag tone="wait">At risk</Tag>}
-            />
-            <Row
-              title="Metro Clinic · fit-out"
-              meta="Plumbing · 6 Oct"
-              right={<Tag tone="ok">On time</Tag>}
-            />
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={30} w={330} i={0}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head icon="layers" accent={P} title="Projects" meta="app.constructioncompany.in" />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              <Row
+                title="Greenfield School · Block B"
+                meta="Slab 3 · 18 Oct"
+                right={<Tag tone="ok">On time</Tag>}
+              />
+              <Row
+                title="Lakeview Homes · Tower 2"
+                meta="Brickwork · 30 Nov"
+                right={<Tag tone="wait">At risk</Tag>}
+              />
+              <Row
+                title="Metro Clinic · fit-out"
+                meta="Plumbing · 6 Oct"
+                right={<Tag tone="ok">On time</Tag>}
+              />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={434} y={44} w={300} i={2}>
-        <div className="p-3.5">
-          <Head
-            icon="home"
-            accent={P}
-            title="Site diary · Block B"
-            meta="Greenfield School · today"
-          />
-          <p className="mt-2 text-[20px] leading-none font-semibold">Slab 3 · 72%</p>
-          <div className="mt-3">
-            <Steps
-              accent={A}
-              gap={8}
-              steps={[
-                { title: 'Shuttering checked', done: true },
-                { title: 'Concrete poured · 42 m³', done: true },
-                { title: 'Site photos', icon: 'scan' },
-              ]}
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={434} y={44} w={300} i={2}>
+          <div className="p-3.5">
+            <Head
+              icon="home"
+              accent={P}
+              title="Site diary · Block B"
+              meta="Greenfield School · today"
             />
+            <p className="mt-2 text-[20px] leading-none font-semibold">Slab 3 · 72%</p>
+            <div className="mt-3">
+              <Steps
+                accent={A}
+                gap={8}
+                steps={[
+                  { title: 'Shuttering checked', done: true },
+                  { title: 'Concrete poured · 42 m³', done: true },
+                  { title: 'Site photos', icon: 'scan' },
+                ]}
+              />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Pill x={60} y={242} i={4} accent={P}>
-        The office and the site on one system
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M354 110 C 394 110, 394 100, 434 100']}
-        dots={[
-          [354, 110],
-          [434, 100],
-        ]}
-      />
+        </Card>
+      </Group>
+      <Group at={box ? { x: -4, y: 258 } : HOME}>
+        <Pill x={60} y={242} i={4} accent={P}>
+          The office and the site on one system
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M386 126 H 438 V 260']}
+          dots={[
+            [386, 126],
+            [438, 260],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M354 110 C 394 110, 394 100, 434 100']}
+          dots={[
+            [354, 110],
+            [434, 100],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function CustomSoftwareHow() {
+  return <CustomSoftwareHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function CustomSoftwareHowBox() {
+  return <CustomSoftwareHowScene box />;
 }

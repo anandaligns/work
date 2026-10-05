@@ -197,8 +197,8 @@ export const MENU_ICONS: Record<string, LucideName> = {
   'ai-assistants': 'sparkles',
   'ai-workflows': 'fileSparkle',
   evolve: 'refreshCw',
-  'never-miss-a-lead': 'messageCircle',
-  'sell-and-book-online': 'store',
-  'run-it-in-one-place': 'layers',
-  'keep-it-improving': 'arrowRightToLine',
+  'lead-automation': 'messageCircle',
+  'online-store-and-bookings': 'store',
+  'business-dashboard-crm': 'layers',
+  'website-care-hosting': 'arrowRightToLine',
 };

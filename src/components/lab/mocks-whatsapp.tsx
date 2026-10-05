@@ -22,7 +22,7 @@ import {
 
 /**
  * WhatsApp & Email Automation's mockups for the service page under trial, in the light kit of the
- * Never Miss a Lead v2 page: white cards on the page's pale green, small quiet type, fine dashed
+ * Lead Automation v2 page: white cards on the page's pale green, small quiet type, fine dashed
  * wires and one white pill for the outcome. The business is a dental clinic — Priya's Sunday
  * question, Arjun's check-up, Meera's cleaning paid for, Lakshmi handed to Sameer at the desk.
  * Each is laid out on a fixed canvas (`Fit`).
@@ -497,19 +497,29 @@ export const WHATSAPP_FEATURE_MOCKS = [
  * Business Platform in the middle, and what it's connected to — each tool a card, the wires
  * running through the number.
  */
-export function PlatformMock() {
+function PlatformScene({ box = false }: { box?: boolean }) {
+  /** The rows of the two outer columns, and where the hub sits; the box spreads them out. */
+  const rows = box ? [70, 196, 322] : [40, 128, 216];
+  const hub = box ? 132 : 70;
+  const h = box ? 450 : 330;
   const from = [
-    { tool: 'Your website forms', title: 'Website form', y: 40 },
-    { tool: 'Instagram', title: 'Instagram ads', y: 128 },
-    { tool: 'Gmail', title: 'Email', y: 216 },
+    { tool: 'Your website forms', title: 'Website form', y: rows[0]! },
+    { tool: 'Instagram', title: 'Instagram ads', y: rows[1]! },
+    { tool: 'Gmail', title: 'Email', y: rows[2]! },
   ];
   const to = [
-    { tool: 'Zoho CRM', title: 'Zoho CRM', meta: 'Every chat on file', y: 40 },
-    { tool: 'Google Calendar', title: 'Google Calendar', meta: 'Chairs and bookings', y: 128 },
-    { tool: 'Razorpay', title: 'Razorpay', meta: 'Links and receipts', y: 216 },
+    { tool: 'Zoho CRM', title: 'Zoho CRM', meta: 'Every chat on file', y: rows[0]! },
+    {
+      tool: 'Google Calendar',
+      title: 'Google Calendar',
+      meta: 'Chairs and bookings',
+      y: rows[1]!,
+    },
+    { tool: 'Razorpay', title: 'Razorpay', meta: 'Links and receipts', y: rows[2]! },
   ];
+  const hubY = [hub + 40, hub + 80, hub + 120];
   return (
-    <Fit w={760} h={330}>
+    <Fit w={760} h={h} max={box ? 1.25 : 1.15}>
       {from.map((s, i) => (
         <Card key={s.title} x={24} y={s.y} w={176} i={i}>
           <div className="p-2.5">
@@ -519,7 +529,7 @@ export function PlatformMock() {
       ))}
       <Card
         x={262}
-        y={70}
+        y={hub}
         w={236}
         i={3}
         className="shadow-[0_1px_2px_rgb(11_13_18/0.04),0_24px_48px_-20px_rgb(11_13_18/0.3)]"
@@ -572,23 +582,28 @@ export function PlatformMock() {
       ))}
       <Wires
         w={760}
-        h={330}
+        h={h}
         accent={P}
         d={[
-          'M200 62 C 232 62, 230 110, 262 110',
-          'M200 150 C 232 150, 230 150, 262 150',
-          'M200 238 C 232 238, 230 190, 262 190',
-          'M498 110 C 530 110, 528 64, 560 64',
-          'M498 150 C 530 150, 528 152, 560 152',
-          'M498 190 C 530 190, 528 240, 560 240',
+          ...rows.map((y, k) => `M200 ${y + 22} C 232 ${y + 22}, 230 ${hubY[k]}, 262 ${hubY[k]}`),
+          ...rows.map((y, k) => `M498 ${hubY[k]} C 530 ${hubY[k]}, 528 ${y + 24}, 560 ${y + 24}`),
         ]}
         dots={[
-          [262, 150],
-          [498, 150],
+          [262, hubY[1]!],
+          [498, hubY[1]!],
         ]}
       />
     </Fit>
   );
+}
+
+export function PlatformMock() {
+  return <PlatformScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function PlatformMockBox() {
+  return <PlatformScene box />;
 }
 
 /** A mockup's frame for a section that sizes its own picture: the tint, at the height given. */

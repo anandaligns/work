@@ -25,7 +25,7 @@ const page: ProductPage = {
   view: {
     statement: 'When a process lives in one person’s head, the business can’t take a holiday.',
     body: [
-      '**An internal tool** — often called an admin panel — is a set of screens built for the work your team does every day: jobs, tasks, approvals, records and handovers. Small teams run on [spreadsheets](/solutions/run-it-in-one-place) and WhatsApp groups until something slips: a deadline missed, a document lost, an approval nobody saw.',
+      '**An internal tool** — often called an admin panel — is a set of screens built for the work your team does every day: jobs, tasks, approvals, records and handovers. Small teams run on [spreadsheets](/solutions/business-dashboard-crm) and WhatsApp groups until something slips: a deadline missed, a document lost, an approval nobody saw.',
       '**It puts the process on one screen everyone shares.** Each job moves through your own steps with an owner and a date; anything that needs a yes goes to the right person; and the full history is on every record, so the work doesn’t depend on who remembers what.',
       'It sends alerts on [WhatsApp](/services/whatsapp-automation) or email when something needs a person, and grows in phases with your process.',
     ],
@@ -238,17 +238,20 @@ const page: ProductPage = {
     heading: 'How an internal tool is built',
     blocks: [
       {
+        icon: 'clipboard',
         title: 'Built around your process',
         body: 'The screens follow your steps, not a generic template.',
       },
-      { title: 'Roles and access', body: 'Who can see, edit and approve.' },
-      { title: 'History', body: 'Every change recorded, with who and when.' },
-      { title: 'Alerts', body: 'WhatsApp or email when something needs a person.' },
+      { icon: 'lock', title: 'Roles and access', body: 'Who can see, edit and approve.' },
+      { icon: 'history', title: 'History', body: 'Every change recorded, with who and when.' },
+      { icon: 'bell', title: 'Alerts', body: 'WhatsApp or email when something needs a person.' },
       {
+        icon: 'plug',
         title: 'Connected',
         body: 'To your email, documents and accounting software through their [APIs](/services/api-integrations).',
       },
       {
+        icon: 'refresh',
         title: 'Looked after',
         body: 'Backups, monitoring and changes as your process changes, on [Evolve](/services/evolve).',
       },

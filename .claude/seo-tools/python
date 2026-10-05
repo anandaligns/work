@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Python 3.12 from the SEO tools image, for the skills' helper scripts.
+exec "$(dirname "${BASH_SOURCE[0]}")/run" python "$@"

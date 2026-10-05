@@ -231,20 +231,32 @@ const page: ProductPage = {
     heading: 'How a customer portal is built',
     blocks: [
       {
+        icon: 'lock',
         title: 'Secure login',
         body: 'By email or phone number; each customer sees only their own records.',
       },
       {
+        icon: 'key',
         title: 'Your data',
         body: 'Connected to where it already lives: your [CRM](/services/crm-systems), accounting software, or a database we build.',
       },
       {
+        icon: 'people',
         title: 'Roles for your team',
         body: 'Who posts updates, who answers requests, who sees payments.',
       },
-      { title: 'Notifications', body: 'WhatsApp or email whenever something new arrives.' },
-      { title: 'Mobile-first', body: 'Designed for the phone your customers will open it on.' },
       {
+        icon: 'bell',
+        title: 'Notifications',
+        body: 'WhatsApp or email whenever something new arrives.',
+      },
+      {
+        icon: 'device',
+        title: 'Mobile-first',
+        body: 'Designed for the phone your customers will open it on.',
+      },
+      {
+        icon: 'server',
         title: 'Hosted and backed up',
         body: 'Monitoring, daily backups and security updates on [Evolve](/services/evolve).',
       },

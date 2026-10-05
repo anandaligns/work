@@ -25,5 +25,12 @@
     "prettier": "^3.9.8",
     "tailwindcss": "^4.3.3",
     "typescript": "~5.9.3"
-  }
+  },
+  "browserslist": [
+    "chrome >= 111",
+    "edge >= 111",
+    "firefox >= 113",
+    "safari >= 16.4",
+    "ios_saf >= 16.4"
+  ]
 }

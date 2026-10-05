@@ -3,7 +3,7 @@ import { SAMPLE_NOTE } from './shared';
 import type { ProductPage } from './types';
 
 /**
- * Sell & Book Online, presented as a product: a pottery studio — "Your Studio" — that sells its
+ * Online Store & Bookings, presented as a product: a pottery studio — "Your Studio" — that sells its
  * pieces online and takes paid bookings for weekend workshops, with one admin for orders, seats,
  * stock and payments. The studio and its sample data are invented.
  */

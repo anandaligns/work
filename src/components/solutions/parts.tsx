@@ -8,6 +8,7 @@ import type { ProductPage } from '@/content/products/types';
 import { SectionHead } from '../home/section-head';
 import { Band } from '../layout/band';
 import { BlurText } from '../motion/blur-text';
+import { onColour } from '../lab/light-kit';
 import { ScreenView } from '../screens/screen';
 import type { Screen } from '../screens/types';
 import { Icon, type IconName } from '../ui/icon';
@@ -177,12 +178,15 @@ export function Journey({
   intro,
   steps,
   accent,
+  ground,
 }: {
   eyebrow: string;
   heading: Heading;
   intro: string;
   steps: { time: string; title: string; text: string; screen: Screen }[];
   accent: string;
+  /** The phones' panel: the page's tint with its dot grid, as the service pages' mockups sit. */
+  ground?: string;
 }) {
   return (
     <Band id="story" labelledBy="story-heading" className="overflow-hidden py-24 lg:py-32">
@@ -197,8 +201,8 @@ export function Journey({
           >
             <div className="flex items-center gap-3">
               <span
-                className="grid size-7 shrink-0 place-items-center rounded-full text-[0.75rem] font-semibold text-white"
-                style={{ background: accent }}
+                className="grid size-7 shrink-0 place-items-center rounded-full text-[0.75rem] font-semibold"
+                style={{ background: accent, color: onColour(accent) }}
               >
                 {i + 1}
               </span>
@@ -215,8 +219,12 @@ export function Journey({
             <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-2">{step.text}</p>
             <div
               aria-hidden="true"
-              className="bento-card relative mt-6 h-[300px] overflow-hidden rounded-3xl sm:h-[340px]"
+              className={`relative mt-6 h-[300px] overflow-hidden rounded-3xl sm:h-[340px] ${ground ? 'ring-1 ring-black/[0.04]' : 'bento-card'}`}
+              style={ground ? { background: ground } : undefined}
             >
+              {ground ? (
+                <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.08)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_80%)]" />
+              ) : null}
               <div className="absolute top-8 left-1/2 -translate-x-1/2">
                 <div className="origin-top scale-[0.82]">
                   <ScreenView screen={step.screen} size="lg" accent={accent} />
@@ -231,6 +239,14 @@ export function Journey({
 }
 
 // --- what it's built from ------------------------------------------------------------------
+
+/** Across the row from 1024px, one column for each service. */
+const COLS: Record<number, string> = {
+  2: 'lg:grid-cols-2',
+  3: 'lg:grid-cols-3',
+  4: 'lg:grid-cols-4',
+  5: 'lg:grid-cols-5',
+};
 
 /** The services behind the goal, joined by pluses, and what they add up to. */
 export function BuiltFrom({
@@ -252,7 +268,9 @@ export function BuiltFrom({
   return (
     <Band id="built-from" labelledBy="built-from-heading" className="py-24 lg:py-32">
       <SectionHead id="built-from" eyebrow={eyebrow} heading={heading} intro={intro} />
-      <ul className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      <ul
+        className={`mt-14 grid gap-3 sm:grid-cols-2 ${COLS[services.length] ?? 'lg:grid-cols-5'}`}
+      >
         {services.map((service, i) => (
           <li
             key={service.href}

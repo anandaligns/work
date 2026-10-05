@@ -50,7 +50,7 @@ export default function Lab() {
             <ServiceHeroScene slug={page.slug} tint={GROUP_TINT[page.group]} />
           </figure>
         ))}
-        {['never-miss-a-lead', 'keep-it-improving'].map((slug) => (
+        {['lead-automation', 'website-care-hosting'].map((slug) => (
           <figure key={slug} className="rounded-xl bg-fill p-6">
             <figcaption className="eyebrow mb-2">{slug}</figcaption>
             <SolutionHeroScene slug={slug} />

@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { hero, START } from '@/content/site';
 
 import { BlurText } from '../motion/blur-text';
+import { MarqueeCopy } from '../motion/marquee-copy';
 import { Pausable } from '../motion/pause-toggle';
 import { ModuleField } from '../motion/module-field';
 import { productFor } from '@/content/products';
@@ -45,7 +46,7 @@ const PHONES: Tile[] = [
 ];
 
 /** The centre tile: the enquiries dashboard, and the alert on the team's phone. */
-const LEADS = productFor('never-miss-a-lead')!;
+const LEADS = productFor('lead-automation')!;
 const DASHBOARD = LEADS.stage?.back!;
 const ALERT = LEADS.stage?.front?.[1]!;
 
@@ -154,19 +155,33 @@ export function Hero() {
       </div>
 
       {/* Below 768px the codify row would show a slice of one tile; a phone gets the four phone
-          designs drifting past at full size instead, each with its notification. */}
+          designs drifting past at full size instead, each with its notification. The track slides
+          one copy's width — four 209px tiles and their 16px gaps, 900px — and the second copy,
+          which only closes the loop, is drawn on a phone once the page is up (`MarqueeCopy`). */}
       <div
         aria-hidden="true"
         className="rise-in marquee mt-12 pb-10 md:hidden"
-        style={{ ['--d' as string]: 950, ['--marquee-duration' as string]: '36s' }}
+        style={{
+          ['--d' as string]: 950,
+          ['--marquee-duration' as string]: '36s',
+          ['--marquee-shift' as string]: '-900px',
+        }}
       >
-        <div className="marquee__track gap-4 pr-4">
-          {[...PHONES, ...PHONES].map((tile, i) => (
-            <div key={`${tile.id}-${i}`} className="relative h-[360px] w-[209px] shrink-0">
+        <div className="marquee__track marquee__track--shift gap-4 pr-4">
+          {PHONES.map((tile) => (
+            <div key={tile.id} className="relative h-[360px] w-[209px] shrink-0">
               <PhoneTile tile={tile} />
               <Toast id={tile.id} />
             </div>
           ))}
+          <MarqueeCopy>
+            {PHONES.map((tile) => (
+              <div key={`${tile.id}-copy`} className="relative h-[360px] w-[209px] shrink-0">
+                <PhoneTile tile={tile} />
+                <Toast id={tile.id} />
+              </div>
+            ))}
+          </MarqueeCopy>
         </div>
       </div>
       <div

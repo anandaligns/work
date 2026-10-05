@@ -266,26 +266,32 @@ const page: ProductPage = {
     heading: 'How an AI assistant works',
     blocks: [
       {
+        icon: 'book',
         title: 'Your knowledge',
         body: 'Prices, timings, policies and FAQs, read from your documents and kept current.',
       },
       {
+        icon: 'file',
         title: 'Answers with sources',
         body: 'It answers only from that knowledge, and shows where each answer came from.',
       },
       {
+        icon: 'userShare',
         title: 'Hand-over rules',
         body: 'To a person when it’s unsure, when asked, or on topics you choose.',
       },
       {
+        icon: 'plug',
         title: 'Connected',
         body: 'To your [booking system](/services/booking-payment-workflows), [CRM](/services/crm-systems) and WhatsApp, so it can act, not only answer.',
       },
       {
+        icon: 'check',
         title: 'Tested on real questions',
         body: 'Your team asks it what customers ask, and we correct it before launch.',
       },
       {
+        icon: 'eye',
         title: 'Visible to you',
         body: 'Every conversation saved, searchable and reviewed each week.',
       },

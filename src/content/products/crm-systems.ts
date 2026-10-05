@@ -62,7 +62,7 @@ const page: ProductPage = {
     body: [
       '**A CRM** keeps one record for every customer, with every enquiry, call, message and next step on it. When enquiries arrive from an ad, a listing site, a WhatsApp forward or a call and each lives in a different place, follow-ups depend on memory and the same buyer gets called twice or not at all.',
       '**A CRM-connected system brings every source into one record**, routes each lead to whoever handles it the moment it arrives, and reminds them of every next step until it’s closed either way. We connect the CRM you use — most with an API — or build a simple one around how you sell.',
-      'It works hand in hand with [WhatsApp automation](/services/whatsapp-automation) and, for businesses that want the whole system at once, the [Connected Website](/solutions/never-miss-a-lead).',
+      'It works hand in hand with [WhatsApp automation](/services/whatsapp-automation) and, for businesses that want the whole system at once, the [Connected Website](/solutions/lead-automation).',
     ],
     photo: {
       file: 'crm-real-estate-show-flat',
@@ -285,23 +285,32 @@ const page: ProductPage = {
     heading: 'How a CRM-connected system is built',
     blocks: [
       {
+        icon: 'target',
         title: 'Capture',
         body: 'Website forms, ad lead forms, WhatsApp, call notes, and listing sites by email or [API](/services/api-integrations).',
       },
       {
+        icon: 'userCheck',
         title: 'One record',
         body: 'Matched by phone and email, with every touch on its timeline.',
       },
-      { title: 'Routing and reminders', body: 'Rules you set, alerts on WhatsApp or email.' },
       {
+        icon: 'repeat',
+        title: 'Routing and reminders',
+        body: 'Rules you set, alerts on WhatsApp or email.',
+      },
+      {
+        icon: 'database',
         title: 'Your CRM or ours',
         body: 'We connect the one you use, or build a simple one around how you sell.',
       },
       {
+        icon: 'phone',
         title: 'Calls',
         body: 'A call note in a tap; automatic logging depends on your phone system, checked in the Blueprint.',
       },
       {
+        icon: 'eye',
         title: 'Watched',
         body: 'Connections monitored, and rules tuned each month on [Evolve](/services/evolve).',
       },

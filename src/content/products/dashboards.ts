@@ -129,7 +129,7 @@ const page: ProductPage = {
     body: [
       '**A business dashboard** brings the numbers you run the business on — enquiries, bookings, sales, payments, no-shows — into one live view, from the tools you already use. Most owners get them from someone who puts them together at the end of the day or the month; by then the moment to act has passed.',
       '**It changes the question** from “how many?” to “why?”. Filters by date, site, person or slot turn a number into a reason, and a summary on [WhatsApp](/services/whatsapp-automation) each morning means you know before you ask.',
-      'A lead dashboard comes with the [Connected Website](/solutions/never-miss-a-lead). A full business dashboard connects your tools through their [APIs](/services/api-integrations) and is built after a System Blueprint.',
+      'A lead dashboard comes with the [Connected Website](/solutions/lead-automation). A full business dashboard connects your tools through their [APIs](/services/api-integrations) and is built after a System Blueprint.',
     ],
     photo: {
       file: 'dashboard-solar-operations',
@@ -324,20 +324,28 @@ const page: ProductPage = {
     heading: 'How a business dashboard is built',
     blocks: [
       {
+        icon: 'plug',
         title: 'Connections',
         body: 'To your tools through their [APIs](/services/api-integrations) or exports, and to the systems we build.',
       },
-      { title: 'One data store', body: 'Cleaned, de-duplicated and updated on its own.' },
-      { title: 'Roles and access', body: 'Each person sees what they need.' },
       {
+        icon: 'database',
+        title: 'One data store',
+        body: 'Cleaned, de-duplicated and updated on its own.',
+      },
+      { icon: 'lock', title: 'Roles and access', body: 'Each person sees what they need.' },
+      {
+        icon: 'download',
         title: 'Summaries and exports',
         body: 'Daily on WhatsApp or email; exports for your accountant.',
       },
       {
+        icon: 'clock',
         title: 'As live as the source',
         body: 'Many connections update as things happen; some tools only allow a daily export. The Blueprint shows which.',
       },
       {
+        icon: 'shield',
         title: 'Safe',
         body: 'Access by login and role, and daily backups on [Evolve](/services/evolve).',
       },

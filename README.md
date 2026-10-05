@@ -30,6 +30,9 @@ docker compose down                           # stop
 | `src/content/site.ts`                          | Typed reads of the catalogue, plus this page's own headings and figures                                                                                                                                           |
 | `src/content/pages.ts`                         | The three group pages in full; for the services, Evolve and the solutions, their titles, descriptions, opening lines and closings                                                                                 |
 | `src/content/products/`                        | One file per service, solution and Evolve: the product page's words, accent, example business and screens, and its FAQPage answers (`kit.ts` holds the shorthands)                                                |
+| `src/content/lab/`                             | Each solution page’s own words (`solutions.ts`): its colour, opening tasks, the system behind it, its story, how it works and what changes                                                                        |
+| `src/components/solutions/`                    | The solution page (`solution-page.tsx`) and its parts: the split section after Lightfield (`showcase.tsx`), the story and the ways in                                                                             |
+| `src/components/lab/`                          | The mockups drawn in the light kit and the window kit, by page (`service-mocks.tsx`, `solution-mocks.tsx`)                                                                                                        |
 | `src/content/cases.ts`                         | Case studies for `/work/<slug>` — empty until a client agrees to one                                                                                                                                              |
 | `src/components/motion/`                       | Lenis, the blur-in headline, scroll-filled headings, the pixel dissolve, count-ups, the one scroll controller, the logo's quarter-turn and the living brand pattern                                               |
 | `src/components/visuals/iso.tsx`               | The isometric drawing kit                                                                                                                                                                                         |
@@ -44,16 +47,19 @@ docker compose down                           # stop
 | `src/components/home/`                         | The home page's sections                                                                                                                                                                                          |
 | `src/components/pages/`                        | What the other pages are built from: the page intro, card bands, sections, price cards, the flow strip, the policy page                                                                                           |
 | `src/components/contact/`                      | The enquiry form, what happens next, and the thanks heading                                                                                                                                                       |
-| `src/components/seo/`                          | JSON-LD: home (business, website, all 31 answers) and every service and solution page (Service, BreadcrumbList, FAQPage)                                                                                          |
+| `src/components/seo/`                          | JSON-LD: home (business, website, all 31 answers), every service and solution page (Service, BreadcrumbList, FAQPage), and the indexes, About, Contact and policies (`web-page-data.tsx`)                         |
 | `src/app/services/[slug]`, `solutions/[slug]`  | Every service group, service, Evolve and solution, live and indexed, each with its own share image                                                                                                                |
 | `src/app/api/enquiry`, `contact/thanks`        | Where the form sends (checked again, honeypot, rate limit, passed to `LEAD_WEBHOOK_URL`) and where it lands (`noindex`)                                                                                           |
 | `src/app/about`, `contact`, `privacy`, `terms` | The company pages; `not-found.tsx` is the 404                                                                                                                                                                     |
-| `src/app/sitemap.ts`, `robots.ts`              | The sitemap (live pages only) and robots rules (`/lab` kept out)                                                                                                                                                  |
+| `src/app/sitemap.ts`, `robots.ts`, `llms.txt/` | The sitemap (live pages only), robots rules (search and AI crawlers welcome, `/lab` and `/api/` kept out) and `/llms.txt` for answer engines. All use `SITE_URL`, set per build by `NEXT_PUBLIC_SITE_URL`       |
+
+What's left before the move to pixelkinetix.com — server, search, content and open decisions — is
+in [LAUNCH-CHECKLIST.md](LAUNCH-CHECKLIST.md).
 
 ## Photos and statements
 
-The service and solution pages each wait for two photographs: a dark background for the product
-panel and a point-of-view photo. [IMAGE-PROMPTS.md](IMAGE-PROMPTS.md) lists all forty: file names,
+The service and solution pages wait for one photograph each: a dark background for the product
+panel (their point of view is drawn — an isometric scene per page, `visuals/iso-views.tsx`). [IMAGE-PROMPTS.md](IMAGE-PROMPTS.md) lists all forty: file names,
 alt text and a prompt for each, in each page's own colour. They go in `public/photos/` as
 `<name>-800` and `<name>-1600`, in AVIF and WebP; until one is there, the panel shows its dark
 gradient and the point of view a tinted placeholder.

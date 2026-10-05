@@ -24,15 +24,15 @@ import { categories, solutions } from '@/content/site';
  * `/solutions/never-miss-a-lead-v2` — the solution page redesigned, on the site's own light, to
  * read differently from the service pages: the product at work in the opening, one lead's
  * evening, the system behind it in three mockups, the five services built as one, what changes
- * in five boxes, and the ways in. The live `/solutions/never-miss-a-lead` is left as it is. Out of
+ * in five boxes, and the ways in. The live `/solutions/lead-automation` is left as it is. Out of
  * search and the sitemap.
  */
 export const metadata: Metadata = {
-  title: 'Never Miss a Lead (v2)',
+  title: 'Lead Automation (v2)',
   robots: { index: false, follow: false },
 };
 
-const SLUG = 'never-miss-a-lead';
+const SLUG = 'lead-automation';
 const A = lab.accent;
 const TINT = '#eaf5ee';
 

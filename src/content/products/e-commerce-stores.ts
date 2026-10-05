@@ -64,7 +64,7 @@ const page: ProductPage = {
     body: [
       '**An e-commerce store** is a website where customers choose, pay and get updates without messaging you. Most small brands start by selling in DMs: a photo, a price, a payment screenshot, an address typed out by hand. It works until the orders pile up.',
       '**A store does the same job for every customer at once.** It takes the payment itself through a gateway, updates the stock with every sale, keeps the record of every order, and — as an E-commerce System — sends order and shipping updates on [WhatsApp](/services/whatsapp-automation).',
-      'Your posts can link straight to products, so a DM becomes a checkout. If you also take bookings, see [Sell & Book Online](/solutions/sell-and-book-online).',
+      'Your posts can link straight to products, so a DM becomes a checkout. If you also take bookings, see [Online Store & Bookings](/solutions/online-store-and-bookings).',
     ],
     photo: {
       file: 'ecommerce-store-handloom-order-packing',
@@ -283,26 +283,32 @@ const page: ProductPage = {
     heading: 'How an e-commerce store is built',
     blocks: [
       {
+        icon: 'rupee',
         title: 'Payment gateway',
         body: 'The customer pays, the gateway confirms, the order is created. The gateway’s fees are its own.',
       },
       {
+        icon: 'store',
         title: 'Catalogue',
         body: 'Up to 50 products on the Store package, each with sizes, colours and photos.',
       },
       {
+        icon: 'truck',
         title: 'Orders and shipping',
         body: 'Set up with your shipping rules, and connected to a shipping partner if you use one.',
       },
       {
+        icon: 'database',
         title: 'Stock',
         body: 'One count per size and colour, changed only by a confirmed sale or by you.',
       },
       {
+        icon: 'device',
         title: 'Built for phones',
         body: 'Most orders are placed on a phone, so every step is designed for one first.',
       },
       {
+        icon: 'refresh',
         title: 'Looked after',
         body: 'SSL, daily backups and monitoring on [Evolve](/services/evolve).',
       },

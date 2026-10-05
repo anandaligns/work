@@ -5,7 +5,9 @@ import { Fragment, type CSSProperties } from 'react';
  * low, on a stagger. Measured from the template's own animation config — blur 10px, y 10, a
  * springy 0.4s per token — and rebuilt in CSS (`.blur-char`), so it starts at first paint instead
  * of waiting for hydration. The sentence itself is in the accessibility tree once, whole; the
- * animated copy is hidden from it, because a screen reader should not spell a headline out.
+ * animated copy is hidden from it, because a screen reader should not spell a headline out — and
+ * its characters are drawn by CSS from `data-c` (`.blur-glyph`), so search engines and answer
+ * engines read the headline once too.
  *
  * A newline in `text` is where the line breaks from the `sm` width up; below it the words wrap
  * where they fall, as a phone's narrow column needs.
@@ -43,9 +45,12 @@ export function BlurText({
                     {[...word].map((char) => {
                       const d = delay + index++ * stagger;
                       return (
-                        <span key={d} className="blur-char" style={{ '--d': d } as CSSProperties}>
-                          {char}
-                        </span>
+                        <span
+                          key={d}
+                          className="blur-char blur-glyph"
+                          data-c={char}
+                          style={{ '--d': d } as CSSProperties}
+                        />
                       );
                     })}
                   </span>

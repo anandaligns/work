@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "firecrawl-mcp": {
+      "command": ".claude/seo-tools/firecrawl-mcp"
+    }
+  }
+}

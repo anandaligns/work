@@ -270,15 +270,25 @@ export function AutomationMock() {
 // --- the four solutions ------------------------------------------------------------------------
 
 const SOLUTION_ACCENT: Record<string, string> = {
-  'never-miss-a-lead': '#166534',
-  'sell-and-book-online': '#4d7c0f',
-  'run-it-in-one-place': '#2563eb',
-  'keep-it-improving': '#86198f',
+  'lead-automation': '#166534',
+  'online-store-and-bookings': '#4d7c0f',
+  'business-dashboard-crm': '#2563eb',
+  'website-care-hosting': '#86198f',
 };
 
-/** Never Miss a Lead: new enquiries, and the note that no lead goes cold. */
+/**
+ * The four solution pictures stand on the Solutions section's dark panel, so whatever is drawn
+ * straight on it — a note, a strip, a board, a wire — is set for the night; the white cards keep
+ * their own colours. A wire in a solution's colour takes this lighter step of it.
+ */
+const ON_NIGHT: Record<string, string> = {
+  '#2563eb': '#7aa5ff',
+  '#86198f': '#e07ae8',
+};
+
+/** Lead Automation: new enquiries, and the note that no lead goes cold. */
 function LeadMock() {
-  const A = SOLUTION_ACCENT['never-miss-a-lead']!;
+  const A = SOLUTION_ACCENT['lead-automation']!;
   const rows = [
     ['Priya asked for a quote', 'Just now'],
     ['Rahul is waiting for a reply', '1m ago'],
@@ -323,20 +333,20 @@ function LeadMock() {
           <BrandSymbol className="size-4" />
         </span>
         <span>
-          <span className="block text-[12.5px] leading-snug text-ink">
+          <span className="block text-[12.5px] leading-snug text-white/90">
             All 5 enquiries were answered in seconds. 2 follow-ups go out today, so no lead goes
             cold.
           </span>
-          <span className="mt-1.5 block text-[11px] text-ink-3">Just now</span>
+          <span className="mt-1.5 block text-[11px] text-white/50">Just now</span>
         </span>
       </div>
     </Fit>
   );
 }
 
-/** Sell & Book Online: the day chosen, and the booking paid. */
+/** Online Store & Bookings: the day chosen, and the booking paid. */
 function SellMock() {
-  const A = SOLUTION_ACCENT['sell-and-book-online']!;
+  const A = SOLUTION_ACCENT['online-store-and-bookings']!;
   const days = ['18', '19', '20', '21', '22'];
   const rows: { icon: IconName; text: string }[] = [
     { icon: 'check', text: 'Payment received · ₹6,450' },
@@ -346,7 +356,7 @@ function SellMock() {
   return (
     <Fit w={520} h={360}>
       <div
-        className="frag-in absolute flex items-center gap-3 rounded-full px-4 py-2 text-[14px] font-semibold text-white"
+        className="frag-in absolute flex items-center gap-3 rounded-full px-4 py-2 text-[14px] font-semibold text-white ring-1 ring-white/15"
         style={
           {
             left: 150,
@@ -354,7 +364,8 @@ function SellMock() {
             width: 220,
             height: 46,
             '--i': 0,
-            background: 'linear-gradient(90deg, #3a3d46, #0b0d12 30%, #0b0d12 70%, #3a3d46)',
+            background:
+              'linear-gradient(90deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.07) 30%, rgb(255 255 255 / 0.07) 70%, rgb(255 255 255 / 0.16))',
           } as CSSProperties
         }
       >
@@ -410,9 +421,9 @@ function SellMock() {
   );
 }
 
-/** Run It in One Place: the tools on one board, and the view they feed. */
+/** Business Dashboard & CRM: the tools on one board, and the view they feed. */
 function RunMock() {
-  const A = SOLUTION_ACCENT['run-it-in-one-place']!;
+  const A = SOLUTION_ACCENT['business-dashboard-crm']!;
   const raised: Record<number, string> = {
     1: 'Tally',
     3: 'Google Sheets',
@@ -426,7 +437,7 @@ function RunMock() {
         style={{ left: 150, top: 104, width: 220, height: 220, '--i': 0 } as CSSProperties}
       >
         <div
-          className="grid size-full grid-cols-3 gap-2.5 rounded-2xl border border-dashed border-[#cfd2da] bg-white/70 p-2.5"
+          className="grid size-full grid-cols-3 gap-2.5 rounded-2xl border border-dashed border-white/25 bg-white/[0.07] p-2.5"
           style={{
             transform: 'rotateX(58deg) rotateZ(-45deg)',
             boxShadow: '0 30px 40px -20px rgb(11 13 18 / 0.25)',
@@ -442,7 +453,7 @@ function RunMock() {
                 <ToolMark tool={raised[k]!} size={26} />
               </span>
             ) : (
-              <span key={k} className="rounded-xl border border-dashed border-[#d6d9e0]" />
+              <span key={k} className="rounded-xl border border-dashed border-white/20" />
             ),
           )}
         </div>
@@ -487,7 +498,7 @@ function RunMock() {
       <Wires
         w={520}
         h={360}
-        accent={A}
+        accent={ON_NIGHT[A] ?? A}
         d={['M300 58 C 280 58, 290 118, 272 128', 'M196 302 C 222 302, 214 262, 218 252']}
         dots={[
           [300, 58],
@@ -498,9 +509,9 @@ function RunMock() {
   );
 }
 
-/** Keep It Improving: a request read into what was done, and when. */
+/** Website Care & Hosting: a request read into what was done, and when. */
 function KeepMock() {
-  const A = SOLUTION_ACCENT['keep-it-improving']!;
+  const A = SOLUTION_ACCENT['website-care-hosting']!;
   const fields = [
     ['Request', 'New offer banner'],
     ['Raised', 'Mon, 10:12 am'],
@@ -552,7 +563,7 @@ function KeepMock() {
       <Wires
         w={520}
         h={360}
-        accent={A}
+        accent={ON_NIGHT[A] ?? A}
         d={['M234 180 H 262 V 174 H 292']}
         dots={[
           [234, 180],
@@ -697,10 +708,10 @@ export function SolutionsRestMock() {
 }
 
 export const SOLUTION_MOCKS: Record<string, () => ReactNode> = {
-  'never-miss-a-lead': LeadMock,
-  'sell-and-book-online': SellMock,
-  'run-it-in-one-place': RunMock,
-  'keep-it-improving': KeepMock,
+  'lead-automation': LeadMock,
+  'online-store-and-bookings': SellMock,
+  'business-dashboard-crm': RunMock,
+  'website-care-hosting': KeepMock,
 };
 
 // --- the promises ------------------------------------------------------------------------------

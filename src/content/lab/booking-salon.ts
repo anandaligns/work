@@ -350,7 +350,7 @@ const page: ProductPage = {
     body: [
       '**Bookings by phone tie up the person who should be serving.** A booking page takes them at any hour, shows only slots that are really free, and asks for a small deposit where you want one — so the booking counts.',
       '**Reminders do the rest.** The evening before, a message asks the client to confirm or change in one reply; a missed booking gets a polite follow-up to rebook.',
-      'It comes with the [Connected Website](/solutions/never-miss-a-lead), or as a Booking & Appointment System on its own, for [salons, clinics, classes and rooms](/solutions/sell-and-book-online).',
+      'It comes with the [Connected Website](/solutions/lead-automation), or as a Booking & Appointment System on its own, for [salons, clinics, classes and rooms](/solutions/online-store-and-bookings).',
     ],
     photo: {
       file: 'booking-salon-front-desk',

@@ -79,7 +79,7 @@ export function Work() {
       contain={false}
       pattern
       seed={11}
-      className="on-night overflow-hidden border-t-0 bg-night text-white"
+      className="band-night on-night overflow-hidden border-t-0 bg-night text-white"
     >
       {/* The whole band sits on the identity's cover: its modules, tone on tone on the ink. */}
       <Pausable label="the gallery" tone="night" className="pb-24 lg:pb-32">

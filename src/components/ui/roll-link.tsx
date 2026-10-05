@@ -4,8 +4,9 @@ import type { ReactNode } from 'react';
 import { Icon } from './icon';
 
 /**
- * pk-static's rolling action. The label is written twice — the second copy `aria-hidden` — and
- * hover rolls the pair up one line; the arrow is tilted 45° and rolls out to the upper right as its
+ * pk-static's rolling action. The label is shown twice — the second copy drawn by CSS from
+ * `data-label`, so it is neither read out nor indexed as a second line of text — and hover rolls
+ * the pair up one line; the arrow is tilted 45° and rolls out to the upper right as its
  * twin rolls in from the lower left. CSS only (`.roll` in globals.css), so it works before the
  * page hydrates.
  *
@@ -40,9 +41,7 @@ export function RollLabel({ children, arrow = true }: { children: string; arrow?
     <>
       <span className="roll__text">
         <span className="roll__label">{children}</span>
-        <span className="roll__label" aria-hidden="true">
-          {children}
-        </span>
+        <span className="roll__label roll__twin" aria-hidden="true" data-label={children} />
       </span>
       {arrow ? (
         <span className="roll__arrow" aria-hidden="true">

@@ -6,7 +6,7 @@ import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
 import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
-import { Card, Face, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
+import { Card, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Chip, Dot, Stat } from './mock-parts';
 
 /**
@@ -359,60 +359,91 @@ export function RoutesMock() {
 export const WEB_APPS_MOCKS = [InstallMock, ReorderMock, FlowMock, RolesMock, RoutesMock];
 
 /** How it's built: the team's jobs view, and the customer's statement, from one app. */
-export function WebAppsHow() {
+/** Where a group sits when the picture is drawn wide, as it was. */
+const HOME = { x: 0, y: 0 };
+
+function WebAppsHowScene({ box = false }: { box?: boolean }) {
   return (
-    <Fit w={760} h={330}>
-      <Card x={24} y={30} w={320} i={0}>
-        <div className="p-3.5">
-          <Head icon="dashboard" accent={P} title="Today’s jobs" meta="Signed in · Farhan Ali" />
-          <div className="mt-3 grid grid-cols-2 gap-3">
-            <Stat label="Jobs today" value="96" delta="4" accent={A} />
-            <Stat label="On the road" value="14 of 18" accent={A} />
-            <Stat label="Booked in the app" value="87%" delta="9 pts" accent={A} size={17} />
-            <Stat label="On time this week" value="97%" accent={A} size={17} />
+    <Fit w={760} h={box ? 560 : 330} max={box ? 1.25 : 1.15}>
+      <Group at={box ? { x: 32, y: 16 } : HOME}>
+        <Card x={24} y={30} w={320} i={0}>
+          <div className="p-3.5">
+            <Head icon="dashboard" accent={P} title="Today’s jobs" meta="Signed in · Farhan Ali" />
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <Stat label="Jobs today" value="96" delta="4" accent={A} />
+              <Stat label="On the road" value="14 of 18" accent={A} />
+              <Stat label="Booked in the app" value="87%" delta="9 pts" accent={A} size={17} />
+              <Stat label="On time this week" value="97%" accent={A} size={17} />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Card x={404} y={48} w={330} i={2}>
-        <div className="px-3.5 pt-3.5 pb-1.5">
-          <Head
-            icon="receipt"
-            accent={P}
-            title="Statement · ₹42,380"
-            meta="Sri Sai Traders · due by 30 Sep"
-          />
-          <div className="mt-1.5 divide-y divide-[#f0f0f3]">
-            <Row
-              title="INV-5512 · ₹6,800"
-              meta="LD-3321 · today"
-              right={<Tag tone="wait">Due</Tag>}
+        </Card>
+      </Group>
+      <Group at={box ? { x: -56, y: 216 } : HOME}>
+        <Card x={404} y={48} w={330} i={2}>
+          <div className="px-3.5 pt-3.5 pb-1.5">
+            <Head
+              icon="receipt"
+              accent={P}
+              title="Statement · ₹42,380"
+              meta="Sri Sai Traders · due by 30 Sep"
             />
-            <Row
-              title="INV-5488 · ₹8,200"
-              meta="LD-3290 · 8 Sep"
-              right={<Tag tone="wait">Due</Tag>}
-            />
-            <Row
-              title="INV-5410 · ₹6,940"
-              meta="LD-3244 · 1 Sep"
-              right={<Tag tone="ok">Paid</Tag>}
-            />
+            <div className="mt-1.5 divide-y divide-[#f0f0f3]">
+              <Row
+                title="INV-5512 · ₹6,800"
+                meta="LD-3321 · today"
+                right={<Tag tone="wait">Due</Tag>}
+              />
+              <Row
+                title="INV-5488 · ₹8,200"
+                meta="LD-3290 · 8 Sep"
+                right={<Tag tone="wait">Due</Tag>}
+              />
+              <Row
+                title="INV-5410 · ₹6,940"
+                meta="LD-3244 · 1 Sep"
+                right={<Tag tone="ok">Paid</Tag>}
+              />
+            </div>
           </div>
-        </div>
-      </Card>
-      <Pill x={60} y={250} i={4} accent={P}>
-        One app for the team and its customers
-      </Pill>
-      <Wires
-        w={760}
-        h={330}
-        accent={P}
-        d={['M344 110 C 374 110, 374 100, 404 100']}
-        dots={[
-          [344, 110],
-          [404, 100],
-        ]}
-      />
+        </Card>
+      </Group>
+      <Group at={box ? { x: -4, y: 250 } : HOME}>
+        <Pill x={60} y={250} i={4} accent={P}>
+          One app for the team and its customers
+        </Pill>
+      </Group>
+      {box ? (
+        <Wires
+          w={760}
+          h={560}
+          accent={P}
+          d={['M376 126 H 408 V 264']}
+          dots={[
+            [376, 126],
+            [408, 264],
+          ]}
+        />
+      ) : (
+        <Wires
+          w={760}
+          h={330}
+          accent={P}
+          d={['M344 110 C 374 110, 374 100, 404 100']}
+          dots={[
+            [344, 110],
+            [404, 100],
+          ]}
+        />
+      )}
     </Fit>
   );
+}
+
+export function WebAppsHow() {
+  return <WebAppsHowScene />;
+}
+
+/** The same picture, laid out for a box beside its blocks (a split section). */
+export function WebAppsHowBox() {
+  return <WebAppsHowScene box />;
 }

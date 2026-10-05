@@ -432,7 +432,7 @@ const page: ProductPage = {
     body: [
       '**WhatsApp automation** means the messages your business sends again and again — the first reply, the booking confirmation, the reminder, the follow-up — go out on their own, at the right moment, from your own number. It runs on the official WhatsApp Business Platform, with email alongside for the people who prefer it.',
       '**Your team keeps every conversation.** Automation starts each one on time and remembers every reminder; a person takes over whenever a conversation needs one, with the whole history in front of them.',
-      'It comes with the [Connected Website](/solutions/never-miss-a-lead), or we add it to the website and [CRM](/services/crm-systems) you already have.',
+      'It comes with the [Connected Website](/solutions/lead-automation), or we add it to the website and [CRM](/services/crm-systems) you already have.',
     ],
     photo: {
       file: 'whatsapp-automation-dental-clinic',
@@ -682,26 +682,32 @@ const page: ProductPage = {
     heading: 'Built on the official WhatsApp Business Platform',
     blocks: [
       {
+        icon: 'shield',
         title: 'Official and yours',
         body: 'Your number is registered on Meta’s WhatsApp Business Platform through an approved provider. Your business name shows on every message, and the number stays yours.',
       },
       {
+        icon: 'check',
         title: 'Templates Meta approves',
         body: 'Messages that start a conversation — reminders, follow-ups, offers — use templates Meta approves in advance. We write them in your voice and handle the approvals.',
       },
       {
+        icon: 'clock',
         title: 'The 24-hour window',
         body: 'When a customer writes to you, you can reply freely for 24 hours. After that, only approved templates can reach them, so every flow is designed around it.',
       },
       {
+        icon: 'plug',
         title: 'Triggers from your tools',
         body: 'Forms, ad leads, bookings, payments and dates start each flow through your tools’ [APIs and webhooks](/services/api-integrations). Nothing is copied by hand.',
       },
       {
+        icon: 'userCheck',
         title: 'Opt-in and quality',
         body: 'Meta watches how people respond to each number. Messaging only people who expect to hear from you, with an easy opt-out, keeps your number in good standing.',
       },
       {
+        icon: 'chart',
         title: 'Logged and reported',
         body: 'Every message, delivery and reply is recorded against the contact, and your [dashboard](/services/dashboards) shows what’s working.',
       },

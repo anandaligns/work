@@ -4,3 +4,8 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+pixelkinetix-ui/
+
+# Firecrawl key for the SEO skills
+.claude/seo-tools/.env
+.claude/worktrees/

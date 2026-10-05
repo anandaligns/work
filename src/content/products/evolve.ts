@@ -459,7 +459,7 @@ const page: ProductPage = {
     body: [
       '**Software ages.** Its parts need security updates, prices and offers change, and the business moves on. Evolve is the plan that keeps pace: someone watching your system every day, backups every night, and changes by message every month.',
       '**Everything happens in your client portal**: ask for a change in a sentence and follow it until it’s done, see your system’s status, and read the monthly report on Standard and Complete.',
-      'It covers everything we build — websites, apps and software — and the [Connected Website](/solutions/never-miss-a-lead) comes with its first three months. Sites we didn’t build can [move to us](/solutions/keep-it-improving) first.',
+      'It covers everything we build — websites, apps and software — and the [Connected Website](/solutions/lead-automation) comes with its first three months. Sites we didn’t build can [move to us](/solutions/website-care-hosting) first.',
     ],
     photo: {
       file: 'evolve-owner-reading-report',
