@@ -34,7 +34,7 @@ docker compose down                           # stop
 | `src/components/solutions/`                    | The solution page (`solution-page.tsx`) and its parts: the split section after Lightfield (`showcase.tsx`), the story and the ways in                                                                             |
 | `src/components/lab/`                          | The mockups drawn in the light kit and the window kit, by page (`service-mocks.tsx`, `solution-mocks.tsx`)                                                                                                        |
 | `src/content/cases.ts`                         | Case studies for `/work/<slug>` — empty until a client agrees to one                                                                                                                                              |
-| `src/components/motion/`                       | Lenis, the blur-in headline, scroll-filled headings, the pixel dissolve, count-ups, the one scroll controller, the logo's quarter-turn and the living brand pattern                                               |
+| `src/components/motion/`                       | The blur-in headline, scroll-filled headings, the pixel dissolve, the one scroll controller, the logo's quarter-turn and the living brand pattern, beside beUI's components (see [beUI](#beui))                |
 | `src/components/visuals/iso.tsx`               | The isometric drawing kit                                                                                                                                                                                         |
 | `src/components/visuals/scenes.tsx`            | Every illustration, composed from the kit                                                                                                                                                                         |
 | `src/components/visuals/page-scenes.tsx`       | Each page's hero scene, planned from the kit (bounds worked out, no hand-set viewBox)                                                                                                                             |
@@ -99,13 +99,22 @@ pnpm dlx shadcn@latest add @beui/expandable-control
 The files are kept exactly as beUI ships them (and out of Prettier, see `.prettierignore`), so
 running the same command again updates them in place.
 
-| beUI component       | Files                                                              | Where the site uses it                                     |
-| -------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------- |
-| `breadcrumb`         | `components/motion/breadcrumb.tsx`, `popover-morph.tsx`, `popover-position.ts` | Every inner page's opening (`pages/page-trail.tsx`)        |
-| `expandable-control` | `components/motion/expandable-control.tsx`                         | The contact page's copy chips (`contact/copy-chips.tsx`)   |
-| `collapsible`        | `components/motion/collapsible.tsx`                                | Every FAQ (`home/faq.tsx`, `FaqList`)                      |
-| `button`             | `components/motion/button/`, `magnetic.tsx`                        | The enquiry form's Send (`StatefulButton`)                 |
-| shared               | `lib/utils.ts` (`cn`), `lib/ease.ts`, `lib/hooks/use-hover-capable.ts` | Every beUI component                                       |
+| beUI component       | Where the site uses it                                                                                       |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `tabs`               | Pricing's Build · Evolve plans and the comparisons (`ui/segmented.tsx`), the FAQ rail, the solution engine |
+| `collapsible`        | Every FAQ (`home/faq.tsx`), the home Solutions list, the phone menu's Services and Solutions                |
+| `breadcrumb`         | Every inner page's opening (`pages/page-trail.tsx`)                                                          |
+| `expandable-control` | The contact page's copy chips (`contact/copy-chips.tsx`)                                                     |
+| `switch`             | Evolve's yearly billing in Pricing                                                                           |
+| `select`, `checkbox`, `alert`, `button` | The enquiry form: its three choices, the consent box, the send failure, the stateful Send |
+| `number-ticker`      | The home figures                                                                                             |
+| `marquee`            | The sector rows, a service page's tool rows and logo strip, the Work gallery                                 |
+| `smooth-scroll`, `scroll-to` | Lenis on every page (`app/layout.tsx`, with `motion/scroll-bridge.tsx`), the footer's Back to top    |
+| shared               | `lib/utils.ts` (`cn`), `lib/ease.ts` (every `RollLink` presses on its `SPRING_PRESS`), `lib/hooks/use-hover-capable.ts`, `lib/presence-gate.tsx` |
+
+Their sources are in `src/components/motion/` beside the site's own motion. One local change:
+`tabs.tsx` line 202 has a `!` that this repository's stricter TypeScript (`noUncheckedIndexedAccess`)
+needs; put it back after updating that file.
 
 beUI is written in shadcn's token names (`background`, `foreground`, `muted`, `border`, `ring`,
 `primary` …). `globals.css` maps each onto the brand's own token, so a newly added component

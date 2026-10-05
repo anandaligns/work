@@ -15,7 +15,7 @@ export default function NotFound() {
         <RollLink href="/" size="lg">
           Home
         </RollLink>
-        <RollLink href="/#pricing" variant="line" size="lg">
+        <RollLink href="/#pricing" variant="kinetic" size="lg">
           See plans and prices
         </RollLink>
         <RollLink href={START.href} variant="line" size="lg">

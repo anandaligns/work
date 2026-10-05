@@ -1,12 +1,13 @@
+import { NumberTicker } from '@/components/motion/number-ticker';
 import { headings, numbers } from '@/content/site';
 
 import { Band } from '../layout/band';
-import { CountUp } from '../motion/count-up';
 import { SectionHead } from './section-head';
 
 /**
- * aoutive's stats row. As there, the figures do not move in — they count, on aoutive's spring
- * (`CountUp`), and that is the whole of it. Every figure is already on the price list or in the
+ * aoutive's stats row. The figures do not move in — their digits roll into place on beUI's
+ * number ticker (`@beui/number-ticker`) as the row comes into view, and that is the whole of it.
+ * The exact figure is always in the text for assistive tech. Every figure is already on the price list or in the
  * catalogue — none of them is a count of clients or projects this business does not have yet.
  */
 export function Numbers() {
@@ -21,7 +22,7 @@ export function Numbers() {
           >
             <dt className="order-2 text-sm font-medium text-ink">{n.label}</dt>
             <dd className="order-1 font-display text-[clamp(2rem,1.5rem+1.6vw,3rem)] leading-none tracking-[var(--tracking-display)] whitespace-nowrap text-ink">
-              <CountUp value={n.value} />
+              <NumberTicker value={n.value} blur />
               <span className="text-ink-3">{n.suffix}</span>
             </dd>
             <dd className="order-3 text-xs text-ink-2">{n.note}</dd>

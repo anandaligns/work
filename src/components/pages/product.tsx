@@ -12,7 +12,7 @@ import { Band } from '../layout/band';
 import { DeskView, isDesk } from '../screens/desk-views';
 import { ScreenView } from '../screens/screen';
 import type { Screen } from '../screens/types';
-import { KineticMarquee } from '../motion/kinetic-marquee';
+import { Marquee } from '../motion/marquee';
 import { Pausable } from '../motion/pause-toggle';
 import { ToolMark, logoKey } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
@@ -260,8 +260,8 @@ function ToolRows({ heading, groups }: ProductPage['tools']) {
       </h3>
       <Pausable label="the tools" className="mt-7" buttonClassName="-top-[3.25rem] right-0">
         <div className="flex flex-col gap-3">
-          <KineticMarquee direction={-1} speed={34}>
-            <ul className="flex gap-3 pr-3">
+          <Marquee direction="left" speed={40} gap="0.75rem" className="-mt-2 -mb-7 pt-2 pb-7">
+            <ul className="flex gap-3">
               {tools.map((tool, i) => (
                 <li key={`${tool}-${i}`} className="sector-chip sector-chip--tool">
                   <span className="sector-chip__mark">
@@ -271,9 +271,9 @@ function ToolRows({ heading, groups }: ProductPage['tools']) {
                 </li>
               ))}
             </ul>
-          </KineticMarquee>
-          <KineticMarquee direction={1} speed={26}>
-            <ul className="flex gap-3 pr-3">
+          </Marquee>
+          <Marquee direction="right" speed={52} gap="0.75rem" className="-mt-2 -mb-7 pt-2 pb-7">
+            <ul className="flex gap-3">
               {repeated.map((job, i) => (
                 <li
                   key={`${job}-${i}`}
@@ -288,7 +288,7 @@ function ToolRows({ heading, groups }: ProductPage['tools']) {
                 </li>
               ))}
             </ul>
-          </KineticMarquee>
+          </Marquee>
         </div>
       </Pausable>
     </div>
@@ -304,36 +304,26 @@ function ToolStrip({ heading, groups }: ProductPage['tools']) {
   const tools = toolsOf(groups);
   // Enough in one row to be wider than the widest screen, so the loop never shows a gap.
   const row = tools.length < 8 ? [...tools, ...tools] : tools;
-  const list = (copy: boolean) => (
-    <ul
-      aria-hidden={copy || undefined}
-      className="flex shrink-0 items-center gap-12 pr-12 sm:gap-16 sm:pr-16"
-    >
-      {row.map((tool, i) => (
-        <li
-          key={`${tool}-${i}`}
-          className="flex items-center gap-3 text-[1.0625rem] font-medium whitespace-nowrap text-ink"
-        >
-          <ToolMark tool={tool} size={30} />
-          {tool}
-        </li>
-      ))}
-    </ul>
-  );
   return (
     <div id="works-with" className="mt-16 border-t border-black/[0.08] pt-12 lg:mt-20 lg:pt-14">
       <h3 id="works-with-heading" className="text-center text-sm text-ink-2">
         {heading}
       </h3>
-      <div
-        className="marquee mt-6"
-        style={{ '--marquee-duration': `${row.length * 4}s` } as CSSProperties}
-      >
-        <div className="marquee__track py-2">
-          {list(false)}
-          {list(true)}
-        </div>
-      </div>
+      {/* beUI's marquee (`@beui/marquee`): the logos drift, faded at both edges, held when
+          pointed at. */}
+      <Marquee speed={row.length * 4} gap="3rem" className="mt-6 py-2">
+        <ul className="flex shrink-0 items-center gap-12 sm:gap-16">
+          {row.map((tool, i) => (
+            <li
+              key={`${tool}-${i}`}
+              className="flex items-center gap-3 text-[1.0625rem] font-medium whitespace-nowrap text-ink"
+            >
+              <ToolMark tool={tool} size={30} />
+              {tool}
+            </li>
+          ))}
+        </ul>
+      </Marquee>
     </div>
   );
 }
@@ -707,7 +697,7 @@ export function ProductOpening({
           <RollLink href={startFor(interest)} size="lg">
             Get Started
           </RollLink>
-          <RollLink href={whatsappAbout(topic)} variant="line" size="lg" external>
+          <RollLink href={whatsappAbout(topic)} variant="kinetic" size="lg" external>
             Ask on WhatsApp
           </RollLink>
         </Actions>
@@ -782,7 +772,7 @@ export function ProductOpeningFull({
             <RollLink href={startFor(interest)} size="sm">
               Get Started
             </RollLink>
-            <RollLink href={whatsappAbout(topic)} variant="line" size="sm" external>
+            <RollLink href={whatsappAbout(topic)} variant="kinetic" size="sm" external>
               Ask on WhatsApp
             </RollLink>
           </div>

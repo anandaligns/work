@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react';
 
+import { Marquee } from '@/components/motion/marquee';
 import { sectorNeeds, sectors } from '@/content/site';
 
 import { Band } from '../layout/band';
-import { KineticMarquee } from '../motion/kinetic-marquee';
 import { Pausable } from '../motion/pause-toggle';
 import { Icon, type IconName } from '../ui/icon';
 
@@ -11,8 +11,8 @@ import { Icon, type IconName } from '../ui/icon';
  * aoutive's "trusted by" strip, told honestly and made to move: the kinds of business this site is
  * built for — not a row of logos belonging to clients nobody has signed yet — in two rows running
  * opposite ways. The first names each business beside a tinted mark; the second says what we most
- * often build for it. Both run with the page's scroll (`KineticMarquee`), turning back when the
- * page does.
+ * often build for it. Both drift on beUI's marquee (`@beui/marquee`), faded at the edges and
+ * held while pointed at so they can be read.
  */
 export const MARKS: Record<string, IconName> = {
   Retail: 'store',
@@ -39,8 +39,8 @@ export function Sectors() {
         buttonClassName="-top-[3.25rem] right-0"
       >
         <div className="flex flex-col gap-3">
-          <KineticMarquee direction={-1} speed={34}>
-            <ul className="flex gap-3 pr-3">
+          <Marquee direction="left" speed={40} gap="0.75rem" className="-mt-2 -mb-7 pt-2 pb-7">
+            <ul className="flex gap-3">
               {sectors.map((sector, i) => (
                 <li
                   key={sector}
@@ -54,9 +54,9 @@ export function Sectors() {
                 </li>
               ))}
             </ul>
-          </KineticMarquee>
-          <KineticMarquee direction={1} speed={26}>
-            <ul className="flex gap-3 pr-3">
+          </Marquee>
+          <Marquee direction="right" speed={52} gap="0.75rem" className="-mt-2 -mb-7 pt-2 pb-7">
+            <ul className="flex gap-3">
               {sectors.map((sector, i) => (
                 <li
                   key={sector}
@@ -67,7 +67,7 @@ export function Sectors() {
                 </li>
               ))}
             </ul>
-          </KineticMarquee>
+          </Marquee>
         </div>
       </Pausable>
     </Band>

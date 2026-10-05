@@ -2,11 +2,13 @@
 
 import { type CSSProperties, type ReactNode, useEffect, useRef, useState } from 'react';
 
+import { Tabs, TabsList, TabsTrigger } from '@/components/motion/tabs';
 import type { EngineNode, EngineTab } from '@/content/lab/never-miss-a-lead';
 
 import { KINETIC, SYMBOL } from '../ui/brand';
 import { logoPath } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
+import { moveBetweenTabs } from '../ui/segmented';
 import { Box, INK, leftMatrix, Scene } from '../visuals/iso';
 
 /**
@@ -19,7 +21,7 @@ import { Box, INK, leftMatrix, Scene } from '../visuals/iso';
  * The tabs take turns on their own, a line under the open one filling as it waits; a pointer
  * resting on them or keyboard focus holds the turn, and choosing one restarts it there. Under
  * reduced motion nothing advances or runs. The picture repeats the tabs' words, so it is hidden
- * from assistive tech; each tab is a toggle button.
+ * from assistive tech. The tabs are beUI's (`@beui/tabs`); the open one's card glides between them.
  */
 const DWELL = 7000;
 
@@ -234,51 +236,61 @@ export function Engine({
         </div>
       </div>
 
-      <div
-        className="grid gap-2 sm:grid-cols-2 lg:col-start-1 lg:row-start-2"
-        onPointerEnter={(event) => event.pointerType === 'mouse' && setHovered(true)}
-        onPointerLeave={() => setHovered(false)}
-        onFocus={(event) => setFocused(event.target.matches(':focus-visible'))}
-        onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
-        }}
+      {/* beUI's tabs (`@beui/tabs`, the underline variant laid out as a grid): the white card is
+          the indicator, and it glides from one tab to the next as they take their turns. */}
+      <Tabs
+        value={String(active)}
+        onValueChange={(value) => choose(Number(value))}
+        variant="underline"
+        className="lg:col-start-1 lg:row-start-2"
       >
-        {tabs.map((tab, i) => {
-          const on = i === active;
-          return (
-            <button
-              key={tab.title}
-              type="button"
-              aria-pressed={on}
-              onClick={() => choose(i)}
-              className={`relative flex flex-col items-start justify-start overflow-hidden rounded-2xl p-6 text-left transition-[background-color,box-shadow] duration-500 lg:p-7 ${
-                on
-                  ? 'bento-card shadow-[0_1px_2px_rgb(11_13_18/0.05),0_16px_36px_-22px_rgb(11_13_18/0.25)]'
-                  : 'hover:bg-black/[0.025]'
-              }`}
-            >
-              <span
-                className={`block font-display text-[1.25rem] leading-tight font-medium tracking-[-0.02em] transition-colors duration-500 ${on ? 'text-ink' : 'text-ink-3'}`}
+        <TabsList
+          aria-label="What the system does"
+          className="grid w-full items-stretch gap-2 border-b-0 p-1 pb-6 sm:grid-cols-2"
+          wrapperClassName="-m-1 -mb-6"
+          onPointerEnter={(event) => event.pointerType === 'mouse' && setHovered(true)}
+          onPointerLeave={() => setHovered(false)}
+          onFocus={(event) => setFocused(event.target.matches(':focus-visible'))}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
+          }}
+        >
+          {tabs.map((tab, i) => {
+            const on = i === active;
+            return (
+              <TabsTrigger
+                key={tab.title}
+                value={String(i)}
+                tabIndex={on ? 0 : -1}
+                onKeyDown={moveBetweenTabs}
+                indicatorClassName="engine-card top-0 h-auto -z-10 rounded-2xl shadow-[0_1px_2px_rgb(11_13_18/0.05),0_16px_36px_-22px_rgb(11_13_18/0.25)]"
+                className={`mb-0 flex h-full min-h-0 flex-col items-start justify-start rounded-2xl p-6 text-left whitespace-normal transition-[background-color] duration-500 lg:p-7 ${
+                  on ? '' : 'hover:bg-black/[0.025]'
+                }`}
               >
-                {tab.title}
-              </span>
-              <span
-                className={`mt-3 block text-[0.9375rem] leading-relaxed transition-colors duration-500 ${on ? 'text-ink-2' : 'text-ink-3'}`}
-              >
-                {tab.text}
-              </span>
-              {on ? (
                 <span
-                  aria-hidden="true"
-                  key={`${active}-${cycle}`}
-                  className="engine-progress absolute right-6 bottom-0 left-6 h-[2px] lg:right-7 lg:left-7"
-                  style={{ background: accent, '--dwell': `${DWELL}ms` } as CSSProperties}
-                />
-              ) : null}
-            </button>
-          );
-        })}
-      </div>
+                  className={`block font-display text-[1.25rem] leading-tight font-medium tracking-[-0.02em] transition-colors duration-500 ${on ? 'text-ink' : 'text-ink-3'}`}
+                >
+                  {tab.title}
+                </span>
+                <span
+                  className={`mt-3 block text-[0.9375rem] leading-relaxed transition-colors duration-500 ${on ? 'text-ink-2' : 'text-ink-3'}`}
+                >
+                  {tab.text}
+                </span>
+                {on ? (
+                  <span
+                    aria-hidden="true"
+                    key={`${active}-${cycle}`}
+                    className="engine-progress absolute right-6 bottom-0 left-6 h-[2px] lg:right-7 lg:left-7"
+                    style={{ background: accent, '--dwell': `${DWELL}ms` } as CSSProperties}
+                  />
+                ) : null}
+              </TabsTrigger>
+            );
+          })}
+        </TabsList>
+      </Tabs>
     </div>
   );
 }

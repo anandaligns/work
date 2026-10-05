@@ -8,8 +8,8 @@
    Colour is spent deliberately, in three places only — the concept work (hero tiles and the
    gallery), the soft tints behind the illustrations, and a handful of signal dots inside the
    line art. Kinetic Blue is rarer still: it marks what moves — the logo's pixel, the modules
-   turning in the hero, and the one action a page leads with, on the brand's lit surface — and
-   nothing else. Everything else is monochrome, which is what makes those places land.
+   turning in the hero — and, on the brand's lit surface, the second of a pair of actions beside
+   the graphite first. Everything else is monochrome, which is what makes those places land.
 
    Brand identity 2026: Graphite Ink #0B0D12, Kinetic Blue #055BD3 (flat, for marks and type),
    the 128° lit surface (the blue for backgrounds), Blue Night #5CA6FF, Haze #E7F0FC, Signal
@@ -233,6 +233,30 @@
   --surface-kinetic: var(--surface-kinetic-glow), var(--surface-kinetic-base);
 }
 
+/* beUI's marquee (`@beui/marquee`) runs on these. Its keyframes take their own name, so the
+   site's `.marquee__track` keeps its half-width `marquee`. */
+@theme {
+  --animate-marquee: beui-marquee 30s linear infinite;
+  --animate-marquee-vertical: beui-marquee-vertical 30s linear infinite;
+
+  @keyframes beui-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap, 1rem)));
+    }
+  }
+  @keyframes beui-marquee-vertical {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(calc(-100% - var(--gap, 1rem)));
+    }
+  }
+}
+
 /* shadcn's token names, which beUI's components are written in, mapped onto the brand. */
 @theme inline {
   --color-background: var(--color-paper);
@@ -252,6 +276,7 @@
   --color-destructive: #d92d4a;
   --color-border: var(--color-line);
   --color-input: var(--color-line-2);
+  --color-border-strong: var(--color-line-2);
   --color-ring: var(--color-kinetic);
 }
 
@@ -314,6 +339,22 @@ html.lenis body {
 }
 .lenis.lenis-stopped {
   overflow: clip;
+}
+
+/* The solution engine's gliding card — beUI's tab indicator — on a bento card's ground: grey on a
+   white band, white on a grey one. Outside the layers, so it wins over the indicator's own
+   utility colour. */
+.engine-card {
+  background: #f2f2f4;
+}
+.alt-bands > .band:nth-of-type(odd) .engine-card {
+  background: #ffffff;
+}
+.alt-bands > .band.band-night:nth-of-type(even) ~ .band:nth-of-type(odd) .engine-card {
+  background: #f2f2f4;
+}
+.alt-bands > .band.band-night:nth-of-type(even) ~ .band:nth-of-type(even) .engine-card {
+  background: #ffffff;
 }
 
 @layer components {
@@ -668,7 +709,7 @@ html.lenis body {
     gap: 0.625rem;
     white-space: nowrap;
     cursor: pointer;
-    transition-property: transform, background-color, border-color, box-shadow, color;
+    transition-property: transform, translate, background-color, border-color, box-shadow, color;
     transition-duration: 300ms;
     transition-timing-function: var(--ease-premium);
     -webkit-tap-highlight-color: transparent;
@@ -749,7 +790,7 @@ html.lenis body {
   }
   .btn-ink:hover {
     background: linear-gradient(rgb(52 52 52) 0%, rgb(30 30 29) 67%);
-    transform: translateY(-2px);
+    translate: 0 -2px;
     box-shadow:
       rgb(36 38 40) 0 0 0 1px,
       rgb(27 28 29 / 0.4) 0 12px 24px -12px,
@@ -765,7 +806,7 @@ html.lenis body {
   }
   .btn-line:hover {
     background: #fafbfc;
-    transform: translateY(-2px);
+    translate: 0 -2px;
     box-shadow:
       #cdd1d9 0 0 0 1px,
       rgb(11 13 18 / 0.14) 0 12px 24px -12px,
@@ -780,7 +821,7 @@ html.lenis body {
       rgb(255 255 255 / 0.9) 0 0.5px 0 1px inset;
   }
   .btn-paper:hover {
-    transform: translateY(-2px);
+    translate: 0 -2px;
   }
   /* An outline on a dark ground. */
   .btn-ghost {
@@ -792,15 +833,15 @@ html.lenis body {
       rgb(255 255 255 / 0.1) 0 0.5px 0 1px inset;
   }
   .btn-ghost:hover {
-    transform: translateY(-2px);
+    translate: 0 -2px;
     box-shadow:
       rgb(255 255 255 / 0.7) 0 0 0 1px,
       rgb(0 0 0 / 0.3) 0 1px 2px 0,
       rgb(255 255 255 / 0.12) 0 0.5px 0 1px inset;
   }
-  /* Kinetic Blue, for the one action a page leads with, on the brand's lit surface: the 128°
-     gradient with its soft central glow. White on it is about 4.5:1 at its lightest point, the
-     glow; 5:1 and more everywhere else. */
+  /* Kinetic Blue on the brand's lit surface — the 128° gradient with its soft central glow — for
+     the second of a pair of actions (the first is graphite, `btn-ink`) and contact's Mail us.
+     White on it is about 4.5:1 at its lightest point, the glow; 5:1 and more everywhere else. */
   .btn-kinetic {
     background: var(--surface-kinetic);
     color: #fff;
@@ -812,7 +853,7 @@ html.lenis body {
   .btn-kinetic:hover {
     background:
       var(--surface-kinetic-glow), linear-gradient(128deg, #064aab 0%, #005fd6 48%, #064bb0 100%);
-    transform: translateY(-2px);
+    translate: 0 -2px;
     box-shadow:
       #0449ab 0 0 0 1px,
       rgb(5 91 211 / 0.55) 0 12px 24px -12px,
@@ -829,7 +870,7 @@ html.lenis body {
   }
   .btn-whatsapp:hover {
     background: #21c35d;
-    transform: translateY(-2px);
+    translate: 0 -2px;
     box-shadow:
       #21c35d 0 0 0 1px,
       rgb(18 140 70 / 0.55) 0 12px 24px -12px,
@@ -1299,24 +1340,7 @@ html.lenis body {
   [data-paused] .marquee__track {
     animation-play-state: paused;
   }
-  /* ---- The kinetic rows (sector strip) ----------------------------------------------------- */
-  /* Room above and below, taken back by the margins, so a chip that lifts when pointed at — and
-     its shadow — isn't clipped by the row. */
-  .kinetic {
-    overflow: hidden;
-    margin-block: -0.5rem -1.75rem;
-    padding-block: 0.5rem 1.75rem;
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-  }
-  .kinetic__track {
-    display: flex;
-    width: max-content;
-    will-change: transform;
-  }
-  .kinetic__copy {
-    flex: none;
-  }
+  /* ---- The sector strip's chips (on beUI's marquee) ------------------------------------------ */
   /* A business: a white pill with its mark in a tinted disc. Pointed at, it lifts and the mark
      turns graphite. */
   .sector-chip {
@@ -1391,23 +1415,6 @@ html.lenis body {
     height: 0.4rem;
     border-radius: 9999px;
     background: var(--signal);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .kinetic {
-      -webkit-mask-image: none;
-      mask-image: none;
-    }
-    .kinetic__track {
-      width: auto;
-      justify-content: center;
-    }
-    .kinetic__copy ul {
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .kinetic__copy[aria-hidden] {
-      display: none;
-    }
   }
 
   @keyframes marquee {
@@ -1582,7 +1589,9 @@ html.lenis body {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .marquee__track {
+  .marquee__track,
+  .animate-marquee,
+  .animate-marquee-vertical {
     animation: none !important;
   }
   .tilt-plane {
@@ -1847,14 +1856,8 @@ html.lenis body {
     color: var(--color-ink-2);
     cursor: pointer;
   }
-  .enquiry__consent input {
-    width: 1.125rem;
-    height: 1.125rem;
-    flex: none;
-    margin-top: 0.15rem;
-    accent-color: var(--color-ink);
-  }
-  .enquiry__consent input[aria-invalid] {
+  /* beUI's checkbox, ringed in red while the box still needs ticking. */
+  .enquiry__consent[data-invalid] [role='checkbox'] {
     outline: 2px solid #b42318;
     outline-offset: 2px;
   }
@@ -2377,30 +2380,6 @@ html.lenis body {
     transform: rotate(-8deg) scale(1.06);
   }
 
-  /* ---- Pricing's segmented control — the thumb that slides ---------------------------------- */
-  .seg-thumb {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 9999px;
-    background: var(--color-graphite);
-    box-shadow: 0 10px 22px -12px rgb(11 13 18 / 0.7);
-    opacity: 0;
-    pointer-events: none;
-  }
-  .seg-thumb--placed {
-    opacity: 1;
-    transition:
-      transform 0.6s var(--ease-premium),
-      width 0.6s var(--ease-premium),
-      height 0.6s var(--ease-premium);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .seg-thumb--placed {
-      transition: none;
-    }
-  }
-
   /* ---- FAQ — pk-static's rail, automatix's questions ------------------------------------------ */
   .faq-rail {
     scrollbar-width: none;
@@ -2445,17 +2424,9 @@ html.lenis body {
     font-weight: 600;
   }
   /* Once the marker is placed, it carries the chosen tab's bar and wash, and slides. */
-  .faq-marker {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    border-radius: 0 12px 12px 0;
-    background: rgb(11 13 18 / 0.05);
-    opacity: 0;
-    pointer-events: none;
-  }
-  .faq-marker::before {
+  /* beUI's tab indicator, restyled as the rail's marker: the wash, and the ink bar at its left
+     edge. It glides between categories, so the chosen tab stops drawing its own. */
+  .faq-indicator::before {
     content: '';
     position: absolute;
     top: 0;
@@ -2464,22 +2435,11 @@ html.lenis body {
     width: 3px;
     background: var(--color-ink);
   }
-  .faq-rail[data-placed] .faq-marker {
-    opacity: 1;
-    transition:
-      transform 0.55s var(--ease-premium),
-      height 0.55s var(--ease-premium);
-  }
-  .faq-rail[data-placed] .faq-tab[data-active] {
+  .faq-rail .faq-tab[data-active] {
     background: transparent;
   }
-  .faq-rail[data-placed] .faq-tab[data-active]::before {
+  .faq-rail .faq-tab[data-active]::before {
     transform: scaleY(0);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .faq-rail[data-placed] .faq-marker {
-      transition: none;
-    }
   }
   .faq-tab__icon {
     display: inline-flex;

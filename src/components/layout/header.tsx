@@ -4,6 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type CSSProperties, useCallback, useEffect, useId, useRef, useState } from 'react';
 
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/motion/collapsible';
 import { categories, evolve, nav, solutions, START, startFor } from '@/content/site';
 import { announceAnchor, useAnchor } from '@/lib/anchor';
 
@@ -394,15 +399,18 @@ export function Header() {
               return (
                 <li key={item.label} className="m-item" style={{ ['--i' as string]: index }}>
                   {item.menu ? (
-                    <>
-                      <button
-                        type="button"
-                        className="sheet-link"
-                        data-active={current || undefined}
-                        aria-expanded={sheetSection === item.menu}
-                        aria-controls={`${ids}-sheet-${item.menu}`}
-                        onClick={() =>
-                          setSheetSection((was) => (was === item.menu ? null : item.menu))
+                    // beUI's collapsible (`@beui/collapsible`): the list springs open in place.
+                    <Collapsible
+                      open={sheetSection === item.menu}
+                      onOpenChange={(next) => setSheetSection(next ? item.menu! : null)}
+                    >
+                      <CollapsibleTrigger
+                        render={
+                          <button
+                            type="button"
+                            className="sheet-link"
+                            data-active={current || undefined}
+                          />
                         }
                       >
                         <span className="sheet-link__label">{item.label}</span>
@@ -413,17 +421,9 @@ export function Header() {
                             sheetSection === item.menu ? 'rotate-180' : ''
                           }`}
                         />
-                      </button>
-                      <div
-                        id={`${ids}-sheet-${item.menu}`}
-                        inert={sheetSection !== item.menu}
-                        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-[var(--ease-premium)] ${
-                          sheetSection === item.menu
-                            ? 'grid-rows-[1fr] opacity-100'
-                            : 'grid-rows-[0fr] opacity-0'
-                        }`}
-                      >
-                        <div className="overflow-hidden">
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <div>
                           <div className="flex flex-col gap-5 pt-2 pb-5">
                             {(item.menu === 'services'
                               ? [
@@ -493,8 +493,8 @@ export function Header() {
                             ))}
                           </div>
                         </div>
-                      </div>
-                    </>
+                      </CollapsibleContent>
+                    </Collapsible>
                   ) : (
                     <Link
                       href={item.href!}

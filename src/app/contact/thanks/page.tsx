@@ -36,7 +36,7 @@ export default function Thanks() {
               <RollLink href="/" size="lg">
                 Back to home
               </RollLink>
-              <RollLink href="/#process" variant="line" size="lg">
+              <RollLink href="/#process" variant="kinetic" size="lg">
                 See how a project runs
               </RollLink>
             </div>

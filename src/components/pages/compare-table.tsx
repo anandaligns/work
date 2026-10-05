@@ -1,10 +1,10 @@
 'use client';
 
-import { type CSSProperties, useState } from 'react';
+import { type CSSProperties, useId, useState } from 'react';
 
 import { BrandSymbol } from '../ui/brand';
 import { Icon } from '../ui/icon';
-import { Segmented } from '../ui/segmented';
+import { Segmented, segmentTabId } from '../ui/segmented';
 
 type Option = {
   label: string;
@@ -28,6 +28,7 @@ export function CompareTable({
   us?: string;
 }) {
   const [chosen, setChosen] = useState('0');
+  const ids = useId();
   return (
     <div>
       {options.length > 1 ? (
@@ -38,6 +39,7 @@ export function CompareTable({
             onChange={setChosen}
             label={label}
             options={options.map((option, i) => ({ value: String(i), label: option.label }))}
+            panel={(value) => `${ids}-option-${value}`}
           />
         </div>
       ) : null}
@@ -54,6 +56,13 @@ export function CompareTable({
           <div
             key={option.label}
             hidden={String(i) !== chosen}
+            {...(options.length > 1
+              ? {
+                  role: 'tabpanel',
+                  id: `${ids}-option-${i}`,
+                  'aria-labelledby': segmentTabId(`${ids}-option-${i}`, String(i)),
+                }
+              : {})}
             className={`compare-in relative mt-12 grid grid-cols-1 [grid-template-rows:repeat(var(--rows),auto)] md:rounded-[1.5rem] md:bg-white md:ring-1 md:ring-line md:[grid-template-rows:repeat(var(--rows-md),auto)] ${topics ? 'md:grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)_minmax(0,1fr)]' : 'md:grid-cols-2'}`}
             style={{ '--rows': 2 * n + 3, '--rows-md': n + 1 } as CSSProperties}
           >

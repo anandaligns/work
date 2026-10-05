@@ -1,5 +1,10 @@
+'use client';
+
+import { motion, useReducedMotion } from 'motion/react';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+
+import { SPRING_PRESS } from '@/lib/ease';
 
 import { Icon } from './icon';
 
@@ -12,7 +17,13 @@ import { Icon } from './icon';
  *
  * An `icon` leads the label and spins a full turn on hover; `shake` rings it every 2.4s, the way
  * Call Now's phone does. `mailto:` and `tel:` links are plain links, opened in place.
+ *
+ * Pressed, it gives a little under beUI's press spring (`SPRING_PRESS`, as beUI's Button does) —
+ * the one part that runs on script, so the roll still works before the page hydrates. The hover
+ * lift is CSS `translate`, separate from the press's `transform`, so the two never fight.
  */
+const MotionLink = motion.create(Link);
+const PRESS = { scale: 0.96 };
 const VARIANTS = {
   ink: 'btn-ink',
   line: 'btn-line',
@@ -90,20 +101,29 @@ export function RollLink({
       <RollLabel arrow={arrow}>{children}</RollLabel>
     </>
   );
+  const reduce = useReducedMotion();
+  const press = { whileTap: reduce ? undefined : PRESS, transition: SPRING_PRESS };
   if (/^(mailto|tel):/.test(href)) {
     return (
-      <a href={href} className={classes} onClick={onClick}>
+      <motion.a href={href} className={classes} onClick={onClick} {...press}>
         {inner}
-      </a>
+      </motion.a>
     );
   }
   return external ? (
-    <a href={href} className={classes} target="_blank" rel="noreferrer" onClick={onClick}>
+    <motion.a
+      href={href}
+      className={classes}
+      target="_blank"
+      rel="noreferrer"
+      onClick={onClick}
+      {...press}
+    >
       {inner}
-    </a>
+    </motion.a>
   ) : (
-    <Link href={href} className={classes} onClick={onClick}>
+    <MotionLink href={href} className={classes} onClick={onClick} {...press}>
       {inner}
-    </Link>
+    </MotionLink>
   );
 }

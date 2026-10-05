@@ -6,6 +6,7 @@ import { MobileStart } from '@/components/layout/floating-actions';
 import { Footer } from '@/components/layout/footer';
 import { Header } from '@/components/layout/header';
 import { ScrollEffects } from '@/components/motion/scroll-effects';
+import { ScrollBridge } from '@/components/motion/scroll-bridge';
 import { SmoothScroll } from '@/components/motion/smooth-scroll';
 import { SITE_URL } from '@/content/site';
 
@@ -54,14 +55,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           Skip to content
         </a>
-        <Header />
-        <main id="main" tabIndex={-1} className="outline-none">
-          {children}
-        </main>
-        <Footer />
-        <MobileStart />
-        <SmoothScroll />
-        <ScrollEffects />
+        {/* beUI's smooth scroll (`@beui/smooth-scroll`): Lenis on the page, at the two-second
+            glide the site has always had. */}
+        <SmoothScroll duration={2}>
+          <ScrollBridge />
+          <Header />
+          <main id="main" tabIndex={-1} className="outline-none">
+            {children}
+          </main>
+          <Footer />
+          <MobileStart />
+          <ScrollEffects />
+        </SmoothScroll>
       </body>
     </html>
   );

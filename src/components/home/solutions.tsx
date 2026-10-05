@@ -1,8 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { type CSSProperties, useEffect, useId, useRef, useState } from 'react';
+import type { MotionStyle } from 'motion/react';
+import { useEffect, useRef, useState } from 'react';
 
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/motion/collapsible';
 import { headings, solutions } from '@/content/site';
 import { useAnchor } from '@/lib/anchor';
 
@@ -23,8 +29,8 @@ import { SectionHead } from './section-head';
  * solution, or closes the open one again; with every one closed, the frame rests on the four
  * solutions as a deck, one card lifted over its slot. Nothing turns on its own.
  *
- * It is an accordion in the ARIA sense — each item's button expands its own region, which holds
- * everything the item says. The picture on the right repeats it visually and is hidden from
+ * It is an accordion in the ARIA sense, each row beUI's Collapsible (`@beui/collapsible`): its
+ * button expands its own region, which holds everything the item says, on beUI's layout spring. The picture on the right repeats it visually and is hidden from
  * assistive tech. Below 1024px there is no right: the open card carries its own picture, under
  * its words.
  */
@@ -43,7 +49,6 @@ const toneOf = (slug?: string) =>
   (slug ? TONES[slug] : undefined) ?? { tint: 'var(--color-fill)', accent: 'var(--color-ink)' };
 
 export function Solutions() {
-  const ids = useId();
   // The open row, or -1 once the reader closes it.
   const [active, setActive] = useState(0);
   const mountedAt = useRef(0);
@@ -83,85 +88,76 @@ export function Solutions() {
 
   return (
     <div className="mt-14 grid items-start gap-10 lg:mt-16 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:gap-16">
-      <div className="flex flex-col gap-1.5">
+      <div data-sol-list="" className="flex flex-col gap-1.5">
         {solutions.map((solution, i) => {
           const selected = i === active;
           const tone = toneOf(solution.slug);
           return (
-            <div
+            <Collapsible
               key={solution.slug}
+              open={selected}
+              onOpenChange={(open) => setActive(open ? i : -1)}
               className="sol-item"
               data-active={selected || undefined}
-              style={{ '--tint': tone.tint, '--accent': tone.accent } as CSSProperties}
+              style={{ '--tint': tone.tint, '--accent': tone.accent } as MotionStyle}
             >
-              <button
-                type="button"
-                id={`${ids}-tab-${i}`}
-                aria-expanded={selected}
-                aria-controls={`${ids}-region-${i}`}
-                onClick={() => setActive(selected ? -1 : i)}
-                onKeyDown={(event) => {
-                  if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
-                  event.preventDefault();
-                  const next =
-                    (i + (event.key === 'ArrowDown' ? 1 : -1) + solutions.length) %
-                    solutions.length;
-                  setActive(next);
-                  document.getElementById(`${ids}-tab-${next}`)?.focus();
-                }}
-                className={`flex w-full items-center gap-4 px-5 pt-5 text-left transition-[padding] duration-500 sm:px-6 sm:pt-6 ${selected ? 'pb-4' : 'pb-5 sm:pb-6'}`}
+              <CollapsibleTrigger
+                render={
+                  <button
+                    type="button"
+                    onKeyDown={(event) => {
+                      if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+                      event.preventDefault();
+                      const next =
+                        (i + (event.key === 'ArrowDown' ? 1 : -1) + solutions.length) %
+                        solutions.length;
+                      setActive(next);
+                      event.currentTarget
+                        .closest('[data-sol-list]')
+                        ?.querySelectorAll<HTMLButtonElement>('[data-slot="collapsible-trigger"]')
+                        [next]?.focus();
+                    }}
+                    className={`flex w-full items-center gap-4 px-5 pt-5 text-left transition-[padding] duration-500 sm:px-6 sm:pt-6 ${selected ? 'pb-4' : 'pb-5 sm:pb-6'}`}
+                  />
+                }
               >
                 <span aria-hidden="true" className="sol-item__mark">
                   <Lucide name={MENU_ICONS[solution.slug] ?? 'layers'} size={18} />
                 </span>
                 <span className="sol-item__title">{solution.name}</span>
-              </button>
-              <div
-                id={`${ids}-region-${i}`}
-                role="region"
-                aria-labelledby={`${ids}-tab-${i}`}
-                inert={!selected}
-                className={`grid transition-[grid-template-rows,opacity] duration-700 ease-[var(--ease-premium)] ${
-                  selected ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                }`}
-              >
-                <div className="overflow-hidden">
-                  <div className="px-5 pb-6 sm:pr-6 sm:pl-[4.75rem]">
-                    <p className="max-w-lg text-body text-ink-2">
-                      {solution.line} {solution.positioning ?? ''}
-                    </p>
-                    <ul className="mt-5 flex flex-col gap-3">
-                      {solution.bundles.map((bundle) => (
-                        <li
-                          key={bundle.anchor}
-                          id={bundle.anchor}
-                          className="flex scroll-mt-40 items-start gap-3"
-                        >
-                          <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg border border-line bg-white text-ink">
-                            <Icon name={iconFor(bundle.anchor)} size={14} />
-                          </span>
-                          <span className="min-w-0">
-                            <span className="block text-sm font-semibold text-ink">
-                              {bundle.name}
-                            </span>
-                            <span className="block text-xs leading-relaxed text-ink-2">
-                              {bundle.includes.join(' · ')}
-                            </span>
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Link
-                      href={`/solutions/${solution.slug}`}
-                      className="roll mt-6 inline-flex text-sm font-semibold text-ink"
+              </CollapsibleTrigger>
+              <CollapsibleContent contentClassName="px-5 pb-6 sm:pr-6 sm:pl-[4.75rem]">
+                <p className="max-w-lg text-body text-ink-2">
+                  {solution.line} {solution.positioning ?? ''}
+                </p>
+                <ul className="mt-5 flex flex-col gap-3">
+                  {solution.bundles.map((bundle) => (
+                    <li
+                      key={bundle.anchor}
+                      id={bundle.anchor}
+                      className="flex scroll-mt-40 items-start gap-3"
                     >
-                      <RollLabel>{`Explore ${solution.name}`}</RollLabel>
-                    </Link>
-                    <SceneFrame slug={solution.slug} inline />
-                  </div>
-                </div>
-              </div>
-            </div>
+                      <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg border border-line bg-white text-ink">
+                        <Icon name={iconFor(bundle.anchor)} size={14} />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-sm font-semibold text-ink">{bundle.name}</span>
+                        <span className="block text-xs leading-relaxed text-ink-2">
+                          {bundle.includes.join(' · ')}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={`/solutions/${solution.slug}`}
+                  className="roll mt-6 inline-flex text-sm font-semibold text-ink"
+                >
+                  <RollLabel>{`Explore ${solution.name}`}</RollLabel>
+                </Link>
+                <SceneFrame slug={solution.slug} inline />
+              </CollapsibleContent>
+            </Collapsible>
           );
         })}
       </div>
@@ -183,7 +179,9 @@ function SceneFrame({ slug, inline = false }: { slug?: string; inline?: boolean 
     <div
       aria-hidden="true"
       className={`relative overflow-hidden border border-white/10 bg-night ${
-        inline ? 'mt-6 rounded-2xl lg:hidden' : 'hidden rounded-[1.25rem] lg:sticky lg:top-24 lg:block'
+        inline
+          ? 'mt-6 rounded-2xl lg:hidden'
+          : 'hidden rounded-[1.25rem] lg:sticky lg:top-24 lg:block'
       }`}
     >
       <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(255_255_255/0.12)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />

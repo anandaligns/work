@@ -1,9 +1,32 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { type FormEvent, type ReactNode, useEffect, useId, useRef, useState } from 'react';
+import {
+  type FormEvent,
+  type ReactNode,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
+import {
+  Alert,
+  AlertClose,
+  AlertContent,
+  AlertDescription,
+  AlertIcon,
+} from '@/components/motion/alert';
 import { StatefulButton } from '@/components/motion/button';
+import { Checkbox } from '@/components/motion/checkbox';
+import {
+  Select as BeSelect,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/motion/select';
 import { contact, INTERESTS, interestFor } from '@/content/site';
 import {
   BUDGETS,
@@ -97,7 +120,11 @@ export function EnquiryForm() {
     setErrors(found);
     const first = ORDER.find((key) => found[key]);
     if (first) {
-      form.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+      (
+        form.current?.querySelector<HTMLElement>(`[name="${first}"]`) ??
+        form.current?.querySelector<HTMLElement>(`[data-field="${first}"] button`) ??
+        document.getElementById(`${ids}-${first}`)
+      )?.focus();
       return;
     }
     setSending(true);
@@ -270,35 +297,46 @@ export function EnquiryForm() {
       </div>
 
       <div className="mt-6">
-        <label htmlFor={`${ids}-consent`} className="enquiry__consent">
-          <input
-            {...field('consent')}
-            type="checkbox"
+        {/* beUI's checkbox (`@beui/checkbox`): its tick draws itself in. The words are its label. */}
+        <div className="enquiry__consent" data-invalid={errors.consent ? true : undefined}>
+          <Checkbox
+            id={`${ids}-consent`}
             checked={fields.consent}
-            onChange={(e) => set('consent', e.target.checked)}
+            onCheckedChange={(checked) => set('consent', checked)}
+            aria-describedby={errors.consent ? `${ids}-consent-error` : undefined}
+            className="mt-0.5"
           />
-          <span>
+          <label htmlFor={`${ids}-consent`}>
             I agree to Pixel Kinetix contacting me by phone, email and WhatsApp about my enquiry, as
             described in the{' '}
             <a href="/privacy" className="underline underline-offset-2 hover:text-ink">
               privacy policy
             </a>
             .
-          </span>
-        </label>
+          </label>
+        </div>
         {error('consent')}
       </div>
 
-      {failed ? (
-        <p role="alert" className="enquiry__error mt-6">
-          <Icon name="alert" size={14} />
-          Your message didn’t send. Please try again, or message us on WhatsApp.
-        </p>
-      ) : null}
+      {/* beUI's alert (`@beui/alert`), announced at once, springing in and out. */}
+      <Alert
+        variant="destructive"
+        open={failed}
+        onOpenChange={setFailed}
+        className="mt-6 rounded-[0.875rem] border border-[#b42318]/25"
+      >
+        <AlertIcon />
+        <AlertContent>
+          <AlertDescription>
+            Your message didn’t send. Please try again, or message us on WhatsApp.
+          </AlertDescription>
+        </AlertContent>
+        <AlertClose aria-label="Dismiss" />
+      </Alert>
 
       <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
         {/* beUI's stateful button (`@beui/button`): its label rolls from Send to Sending to Sent, or
-            to Try again, on the brand's lit Kinetic Blue. */}
+            to Try again, in the site's graphite. */}
         <StatefulButton
           type="submit"
           state={sending ? 'loading' : sent ? 'success' : failed ? 'error' : 'idle'}
@@ -307,7 +345,7 @@ export function EnquiryForm() {
           successText="Sent"
           errorText="Try again"
           icon={<Icon name="arrow" size={16} strokeWidth={1.8} />}
-          className="h-11 gap-2 rounded-[10px] bg-[image:var(--surface-kinetic)] px-5 text-[0.9375rem] text-white shadow-[#0449ab_0_0_0_1px,rgb(4_40_100/0.4)_0_1px_2px_0,rgb(255_255_255/0.2)_0_0.5px_0_1px_inset] disabled:opacity-100"
+          className="h-11 gap-2 rounded-[10px] bg-[image:linear-gradient(rgb(40_40_40)_0%,rgb(23_23_22)_67%)] px-5 text-[0.9375rem] text-white shadow-[rgb(36_38_40)_0_0_0_1px,rgb(27_28_29/0.48)_0_1px_2px_0,rgb(255_255_255/0.12)_0_0.5px_0_1px_inset] disabled:opacity-100"
         >
           Send
         </StatefulButton>
@@ -343,7 +381,7 @@ function Field({
 }) {
   return (
     <div className={`enquiry__field ${className}`}>
-      <label htmlFor={htmlFor}>
+      <label id={`${htmlFor}-label`} htmlFor={htmlFor}>
         {label}
         {required ? null : <span className="font-normal text-ink-2"> (optional)</span>}
       </label>
@@ -352,12 +390,19 @@ function Field({
   );
 }
 
+/**
+ * A choice from a short list, on beUI's select (`@beui/select`): the panel unfolds out of the field
+ * and the options rise in. beUI names its own trigger, so the field's label is tied to it here, and
+ * so are an error and its invalid state.
+ */
 function Select({
   value,
   onChange,
   options,
   placeholder,
-  ...rest
+  id,
+  name,
+  ...aria
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -368,17 +413,32 @@ function Select({
   'aria-invalid'?: boolean;
   'aria-describedby'?: string;
 }) {
+  const wrap = useRef<HTMLDivElement>(null);
+  const invalid = aria['aria-invalid'];
+  const describedBy = aria['aria-describedby'];
+  useLayoutEffect(() => {
+    const trigger = wrap.current?.querySelector('button[aria-haspopup="listbox"]');
+    if (!trigger) return;
+    trigger.setAttribute('aria-labelledby', `${id}-label ${trigger.id}`);
+    if (invalid) trigger.setAttribute('aria-invalid', 'true');
+    else trigger.removeAttribute('aria-invalid');
+    if (describedBy) trigger.setAttribute('aria-describedby', describedBy);
+    else trigger.removeAttribute('aria-describedby');
+  }, [id, invalid, describedBy]);
   return (
-    <span className="enquiry__select">
-      <select {...rest} value={value} onChange={(e) => onChange(e.target.value)}>
-        {placeholder ? <option value="">{placeholder}</option> : null}
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-      <Icon name="chevron" size={16} />
-    </span>
+    <div ref={wrap} data-field={name}>
+      <BeSelect value={value} onValueChange={onChange}>
+        <SelectTrigger className="h-12 border-line-2 bg-white px-4 text-base text-ink hover:border-ink-3 focus-visible:border-ink focus-visible:ring-[3px] focus-visible:ring-ink/10 aria-[invalid]:border-[#b42318]">
+          <SelectValue placeholder={placeholder ?? 'Choose one'} />
+        </SelectTrigger>
+        <SelectContent className="border-line-2 bg-white">
+          {options.map((option) => (
+            <SelectItem key={option} value={option} className="py-2 text-[0.9375rem]">
+              {option}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </BeSelect>
+    </div>
   );
 }

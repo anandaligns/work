@@ -1,24 +1,26 @@
 'use client';
 
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useId, useState } from 'react';
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/motion/collapsible';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/motion/tabs';
 import { contact, faqGroups, START } from '@/content/site';
 
 import { Morph } from '../motion/morph';
 import { Icon } from '../ui/icon';
 import { RollLink } from '../ui/roll-link';
-import { Segmented } from '../ui/segmented';
+import { moveBetweenTabs, Segmented } from '../ui/segmented';
 
 /**
  * pk-static's category rail, with automatix's questions beside it.
  *
- * The rail's marker slides between categories as Pricing's thumb does, vertically. On a phone the
- * rail becomes Pricing's segmented control, each category named in a word.
+ * The rail is beUI's tabs: its marker glides between categories on beUI's spring, vertically, as
+ * Pricing's pill does across. On a phone the rail becomes Pricing's segmented control, each
+ * category named in a word.
  *
  * The rail item is pk-static's (itself hbranalytics' menu link): a 3px bar at the left edge that
  * grows in, a tinted wash, a darker label and a 4px nudge right, on hover and when active, with the
@@ -36,8 +38,6 @@ import { Segmented } from '../ui/segmented';
  * Every answer of every shelf is in the server HTML — the shelves not chosen sit `hidden` — so all
  * of them are on the page and in its FAQPage data.
  */
-const useIsoLayout = typeof window === 'undefined' ? useEffect : useLayoutEffect;
-
 export type FaqEntry = { question: string; answer: string };
 
 /**
@@ -91,77 +91,46 @@ export function FaqList({ items, initial = 0 }: { items: FaqEntry[]; initial?: n
 
 export function Faq() {
   const ids = useId();
-  const [group, setGroup] = useState(0);
-
-  const current = faqGroups[group]!;
-  const count = faqGroups.length;
-  const choose = (i: number) => setGroup((i + count) % count);
-
-  // The rail's marker — its ink bar and wash — slides to the chosen category rather than jumping,
-  // measured off the chosen tab as Pricing's thumb is. Until it is placed, the tab marks itself.
-  const rail = useRef<HTMLDivElement>(null);
-  const marker = useRef<HTMLSpanElement>(null);
-  const [placed, setPlaced] = useState(false);
-  useIsoLayout(() => {
-    const place = () => {
-      const chosen = rail.current?.querySelector<HTMLElement>('[aria-selected="true"]');
-      if (!chosen || !marker.current) return;
-      marker.current.style.height = `${chosen.offsetHeight}px`;
-      marker.current.style.transform = `translateY(${chosen.offsetTop}px)`;
-    };
-    place();
-    setPlaced(true);
-    const observer = new ResizeObserver(place);
-    if (rail.current) observer.observe(rail.current);
-    return () => observer.disconnect();
-  }, [group]);
+  const [group, setGroup] = useState(faqGroups[0]!.id);
+  const panelId = (id: string) => `${ids}-panel-${id}`;
+  const tabId = (id: string) => `${ids}-tab-${id}`;
 
   return (
-    <div className="mt-14">
+    // beUI's tabs (`@beui/tabs`) hold the chosen shelf. From 1024px their list is the rail —
+    // the underline variant, stood on end, its indicator restyled as the rail's ink bar and wash
+    // so it glides up and down between categories. On a phone the categories are the segmented
+    // control, a second set of beUI tabs on the same choice.
+    <Tabs value={group} onValueChange={setGroup} variant="underline" className="mt-14">
       <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-16">
         {/* Phones: the categories as Pricing's segmented control, a word each. */}
         <div className="lg:hidden">
           <Segmented
             label="Question categories"
             stretch
-            value={current.id}
+            value={group}
             options={faqGroups.map((g) => ({ value: g.id, label: g.short }))}
-            onChange={(id) => choose(faqGroups.findIndex((g) => g.id === id))}
+            onChange={setGroup}
           />
         </div>
 
         {/* From 1024px: the rail, and under it the way to ask — in the column's empty space. */}
         <div className="hidden flex-col gap-8 lg:flex">
-          <div
-            ref={rail}
-            role="tablist"
+          <TabsList
             aria-label="Question categories"
             aria-orientation="vertical"
-            data-placed={placed || undefined}
-            className="faq-rail relative flex flex-col gap-1"
+            className="faq-rail w-full flex-col items-stretch gap-1 border-b-0"
           >
-            <span ref={marker} aria-hidden="true" className="faq-marker" />
-            {faqGroups.map((g, i) => (
-              <button
+            {faqGroups.map((g) => (
+              <TabsTrigger
                 key={g.id}
-                type="button"
-                role="tab"
-                id={`${ids}-tab-${g.id}`}
-                aria-selected={i === group}
-                aria-controls={`${ids}-panel`}
-                tabIndex={i === group ? 0 : -1}
-                data-active={i === group || undefined}
-                onClick={() => choose(i)}
-                onKeyDown={(event) => {
-                  const keys = ['ArrowDown', 'ArrowRight', 'ArrowUp', 'ArrowLeft'];
-                  if (!keys.includes(event.key)) return;
-                  event.preventDefault();
-                  const step = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
-                  const to = (i + step + count) % count;
-                  choose(to);
-                  document.getElementById(`${ids}-tab-${faqGroups[to]!.id}`)?.focus();
-                }}
-                className="faq-tab shrink-0"
+                value={g.id}
+                id={tabId(g.id)}
+                aria-controls={panelId(g.id)}
+                tabIndex={g.id === group ? 0 : -1}
+                data-active={g.id === group || undefined}
+                onKeyDown={moveBetweenTabs}
+                indicatorClassName="faq-indicator top-0 h-auto -z-10 rounded-r-[12px] bg-ink/5"
+                className="faq-tab mb-0 min-h-0 w-full gap-[0.85rem] py-[11px] pr-5 pl-5 text-[0.9375rem] hover:pl-6 data-[active]:pl-6 data-[active]:font-semibold"
               >
                 <span className="faq-tab__icon">
                   <Icon name={g.icon} size={20} />
@@ -171,32 +140,29 @@ export function Faq() {
                 <span className="w-5 shrink-0 text-right font-tech text-xs tabular-nums opacity-60">
                   {String(g.items.length).padStart(2, '0')}
                 </span>
-              </button>
+              </TabsTrigger>
             ))}
-          </div>
+          </TabsList>
           <AskCard />
         </div>
 
-        <div role="tabpanel" id={`${ids}-panel`} aria-labelledby={`${ids}-tab-${current.id}`}>
-          <Morph id={current.id}>
-            <FaqList key={current.id} items={current.items} />
-          </Morph>
-          {/* The other shelves, closed and hidden, so every answer is in the page's HTML. */}
-          {faqGroups.map((g) =>
-            g.id === current.id ? null : (
-              <div key={g.id} hidden>
-                <FaqList items={g.items} initial={-1} />
+        {/* Every shelf is in the HTML; beUI keeps the ones not chosen mounted and `hidden`. */}
+        <Morph id={group}>
+          {faqGroups.map((g) => (
+            <TabsContent key={g.id} value={g.id} className="mt-0">
+              <div role="tabpanel" id={panelId(g.id)} aria-labelledby={tabId(g.id)}>
+                <FaqList items={g.items} />
               </div>
-            ),
-          )}
-        </div>
+            </TabsContent>
+          ))}
+        </Morph>
       </div>
 
       {/* Phones: the way to ask, after the questions. */}
       <div className="mt-10 lg:hidden">
         <AskCard />
       </div>
-    </div>
+    </Tabs>
   );
 }
 
@@ -216,7 +182,7 @@ export function AskCard({
       <p className="text-h4 font-medium text-ink">Still have a question?</p>
       <p className="mt-1 text-sm text-ink-2">Ask us on WhatsApp, or tell us what you need.</p>
       <div className="mt-4 grid gap-2.5">
-        <RollLink href={whatsapp} variant="line" size="sm" external className="w-full">
+        <RollLink href={whatsapp} variant="kinetic" size="sm" external className="w-full">
           Ask on WhatsApp
         </RollLink>
         <RollLink href={start} size="sm" className="w-full">

@@ -1,3 +1,4 @@
+import { Marquee } from '@/components/motion/marquee';
 import { headings, START } from '@/content/site';
 
 import { Band } from '../layout/band';
@@ -40,19 +41,19 @@ const SYSTEMS: Record<string, string> = {
 
 /** The fifteen service pages' example businesses, five to a row, each shown once. */
 const row = (ids: string[]) => ids.map((id) => BRANDS[id]!);
-const ROWS: { brands: Brand[]; duration: string; reverse?: boolean }[] = [
+const ROWS: { brands: Brand[]; duration: number; reverse?: boolean }[] = [
   {
     brands: row(['dentalclinic', 'interiordesign', 'logistics', 'solarenergy', 'lawfirm']),
-    duration: '70s',
+    duration: 70,
   },
   {
     brands: row(['restaurant', 'realestate', 'school', 'travelagency', 'fashionstore']),
-    duration: '90s',
+    duration: 90,
     reverse: true,
   },
   {
     brands: row(['salon', 'construction', 'partsdistributor', 'recruitment', 'accounting']),
-    duration: '80s',
+    duration: 80,
   },
 ];
 
@@ -100,20 +101,18 @@ export function Work() {
         <div className="tilt-stage relative mt-16" aria-hidden="true">
           <div className="tilt-plane flex flex-col gap-5 md:gap-7">
             {ROWS.map((row, i) => (
-              <div
+              // beUI's marquee (`@beui/marquee`), one per row, alternate rows the other way.
+              <Marquee
                 key={i}
-                className="marquee [mask-image:none]"
-                style={{
-                  ['--marquee-duration' as string]: row.duration,
-                  ['--marquee-direction' as string]: row.reverse ? 'reverse' : 'normal',
-                }}
+                speed={row.duration}
+                direction={row.reverse ? 'right' : 'left'}
+                gap="0px"
+                fade={false}
               >
-                <div className="marquee__track">
-                  {[...row.brands, ...row.brands].map((b, j) => (
-                    <Card key={`${b.id}-${j}`} b={b} />
-                  ))}
-                </div>
-              </div>
+                {row.brands.map((b) => (
+                  <Card key={b.id} b={b} />
+                ))}
+              </Marquee>
             ))}
           </div>
         </div>

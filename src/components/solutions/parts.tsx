@@ -77,7 +77,7 @@ export function SolutionHero({
             <RollLink href={startFor(interest)} size="lg">
               Get Started
             </RollLink>
-            <RollLink href={whatsappAbout(topic)} variant="line" size="lg" external>
+            <RollLink href={whatsappAbout(topic)} variant="kinetic" size="lg" external>
               Ask on WhatsApp
             </RollLink>
           </div>

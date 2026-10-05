@@ -58,7 +58,7 @@ export function Closing({
             </RollLink>
             <RollLink
               href={topic ? whatsappAbout(topic) : contact.whatsappHref}
-              variant="line"
+              variant="kinetic"
               size="lg"
               external
             >

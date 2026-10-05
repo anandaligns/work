@@ -1,20 +1,21 @@
 'use client';
 
+import { ScrollTo } from '@/components/motion/scroll-to';
+
 import { Icon } from '../ui/icon';
 
 /**
- * The footer's way back up: the words and an arrow, gliding on Lenis where it runs. Focus lands
- * on the page's main region, so a keyboard user starts again from the top too.
+ * The footer's way back up: the words and an arrow, on beUI's scroll-to (`@beui/scroll-to`), which
+ * glides through the page's smooth scroll. Focus lands on the page's main region, so a keyboard
+ * user starts again from the top too.
  */
 export function BackToTop({ className = '' }: { className?: string }) {
-  const toTop = () => {
-    const lenis = (window as Window & { __lenis?: { scrollTo: (t: number) => void } }).__lenis;
-    if (lenis) lenis.scrollTo(0);
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('main')?.focus({ preventScroll: true });
-  };
   return (
-    <button type="button" onClick={toTop} className={`roll gap-1.5 ${className}`}>
+    <ScrollTo
+      to={0}
+      onClickCapture={() => document.getElementById('main')?.focus({ preventScroll: true })}
+      className={`roll gap-1.5 ${className}`}
+    >
       <span className="roll__text">
         <span className="roll__label">Back to top</span>
         <span className="roll__label" aria-hidden="true">
@@ -22,6 +23,6 @@ export function BackToTop({ className = '' }: { className?: string }) {
         </span>
       </span>
       <Icon name="arrow" size={14} strokeWidth={1.8} className="-rotate-90" />
-    </button>
+    </ScrollTo>
   );
 }

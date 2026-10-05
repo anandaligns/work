@@ -14,3 +14,13 @@ src/components/motion/popover-position.ts
 src/components/motion/collapsible.tsx
 src/components/motion/magnetic.tsx
 src/components/motion/button/
+src/components/motion/tabs.tsx
+src/components/motion/switch.tsx
+src/components/motion/number-ticker.tsx
+src/components/motion/marquee.tsx
+src/components/motion/select.tsx
+src/components/motion/checkbox.tsx
+src/components/motion/alert.tsx
+src/lib/presence-gate.tsx
+src/components/motion/smooth-scroll.tsx
+src/components/motion/scroll-to.tsx
