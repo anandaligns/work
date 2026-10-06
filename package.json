@@ -2,7 +2,7 @@
   "name": "pixel-kinetix-site",
   "version": "0.0.0",
   "private": true,
-  "description": "A standalone design build of the Pixel Kinetix public site: aoutive-grade motion, isometric line art, and the Pixel Kinetix catalogue.",
+  "description": "The Pixel Kinetix public website: pages, design, content and motion, built with Next.js.",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev --port 3000 --hostname 0.0.0.0",
