@@ -1384,14 +1384,14 @@ html.lenis body {
     background-position: center top;
     background-size: 12px 12px;
   }
-  /* "Live": Kinetic Orange, its dot breathing. */
+  /* "Live": graphite, its dot the one touch of orange, breathing. */
   .svc-live {
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
     padding: 0.25rem 0.5rem;
     border-radius: 0.375rem;
-    background: var(--color-kinetic);
+    background: var(--color-graphite);
     color: #fff;
     font-family: var(--font-mono);
     font-size: 0.625rem;
@@ -1404,7 +1404,7 @@ html.lenis body {
     width: 0.375rem;
     height: 0.375rem;
     border-radius: 9999px;
-    background: #fff;
+    background: var(--color-kinetic);
     animation: svc-live 1.6s ease-in-out infinite;
   }
   @keyframes svc-live {
@@ -1426,8 +1426,8 @@ html.lenis body {
     }
     6%,
     26% {
-      border-color: rgb(255 61 0 / 0.35);
-      box-shadow: 0 12px 26px -20px rgb(255 61 0 / 0.7);
+      border-color: rgb(11 13 18 / 0.28);
+      box-shadow: 0 12px 26px -20px rgb(11 13 18 / 0.55);
     }
   }
   .svc-step__status {
@@ -1446,7 +1446,7 @@ html.lenis body {
       transform: scale(0.85);
     }
   }
-  /* The tools' edges light in turn round the centre, and a ring breathes out from it. */
+  /* The tools' edges darken in turn round the centre, and a ring breathes out from it. */
   .svc-hex {
     stroke: #d9dce4;
     animation: svc-hex 7.2s ease-in-out infinite;
@@ -1459,7 +1459,7 @@ html.lenis body {
       stroke: #d9dce4;
     }
     8% {
-      stroke: #ff3d00;
+      stroke: #0b0d12;
     }
   }
   .svc-ripple {

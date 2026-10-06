@@ -21,7 +21,8 @@ changed and why.
   tokens in `globals.css`; its motion runs on `motion` v11 with the springs in `lib/ease.ts`.
   The home Services section is one bordered panel: Digital Experiences and Automation & AI side
   by side, Business Systems across the foot, each a title, its line, its services as chips and a
-  picture of it at work on a ground of small checks, dots or plain (`home/services-visuals.tsx`).
+  picture of it at work on a ground of small checks, dots or plain (`home/services-visuals.tsx`),
+  drawn in graphite — the only orange is the mark's pixel and the dot in Live.
   Kept as they were, on purpose: `BlurText` and `[data-reveal]` (beUI's text and scroll reveals
   hide their content until script runs), the hero's phone marquee (its second copy waits for the
   page, which beUI's marquee can't) and the product screens.

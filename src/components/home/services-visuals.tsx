@@ -24,31 +24,31 @@ const STEPS: {
     title: 'Consultation booked',
     meta: 'Interior Design Studio · Sat 11:00',
     status: 'confirmed',
-    tint: 'var(--color-tint-sky)',
-    accent: 'var(--color-signal-sky)',
+    tint: 'var(--color-fill)',
+    accent: 'var(--color-ink)',
   },
   {
     icon: 'chat',
     title: 'Quote asked for',
     meta: 'Deep cleaning · 3 BHK · 9:02 pm',
     status: 'reply sent',
-    tint: '#fff0ea',
-    accent: KINETIC,
+    tint: 'var(--color-fill)',
+    accent: 'var(--color-ink)',
   },
   {
     icon: 'card',
     title: 'Order paid',
     meta: 'Block-print kurta · ₹1,890',
     status: 'stock updated',
-    tint: 'var(--color-tint-mint)',
-    accent: '#16804a',
+    tint: 'var(--color-fill)',
+    accent: 'var(--color-ink)',
   },
 ];
 
 /**
  * Digital Experiences — a website that answers back: three things customers did, each already
  * turned into its next step. The rows take turns being the one that just happened: its edge lights
- * Kinetic Orange and its tick pops in again, a row every three seconds.
+ * graphite and its tick pops in again, a row every three seconds.
  */
 export function NextStepCard() {
   return (
@@ -126,7 +126,7 @@ const LIGHT_ORDER = ['Google Calendar', 'Gmail', 'WhatsApp', 'Zoho', 'Google She
 
 /**
  * Automation & AI — your tools, working as one: the tools a business already uses in a honeycomb
- * round our mark, which sits on Kinetic Orange. A ring breathes out from the centre, the
+ * round our mark, on graphite with its orange pixel. A ring breathes out from the centre, the
  * tools' edges light in turn round it, and the mark's pixel makes its quarter-turn when the
  * picture comes into view and whenever it is pointed at.
  */
@@ -138,14 +138,14 @@ export function ToolHive() {
       <svg viewBox="-250 -170 500 340" className="h-auto w-full overflow-visible">
         <defs>
           <linearGradient id="svc-lit" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#ff7a4d" />
-            <stop offset="0.5" stopColor="#ff3d00" />
-            <stop offset="1" stopColor="#e63700" />
+            <stop offset="0" stopColor="#2a2d36" />
+            <stop offset="0.5" stopColor="#14161d" />
+            <stop offset="1" stopColor="#0b0d12" />
           </linearGradient>
           <radialGradient id="svc-glow">
-            <stop offset="0" stopColor="#ff5a1f" stopOpacity="0.3" />
-            <stop offset="0.55" stopColor="#ff3d00" stopOpacity="0.09" />
-            <stop offset="1" stopColor="#ff3d00" stopOpacity="0" />
+            <stop offset="0" stopColor="#0b0d12" stopOpacity="0.1" />
+            <stop offset="0.55" stopColor="#0b0d12" stopOpacity="0.03" />
+            <stop offset="1" stopColor="#0b0d12" stopOpacity="0" />
           </radialGradient>
         </defs>
         <circle r={150} fill="url(#svc-glow)" />
@@ -183,12 +183,12 @@ export function ToolHive() {
             </g>
           );
         })}
-        <path d={HEX} fill="none" stroke={KINETIC} strokeWidth={1.5} className="svc-ripple" />
+        <path d={HEX} fill="none" stroke="#0b0d12" strokeWidth={1.25} className="svc-ripple" />
         <path d={HEX} fill="url(#svc-lit)" strokeLinejoin="round" />
         <g transform={`translate(${-symbol / 2} ${-symbol / 2}) scale(${k})`}>
           <path d={SYMBOL.p} fill="#fff" />
-          {/* On the orange, the pixel turns ink, so it is always the contrasting part. */}
-          <path d={SYMBOL.pixel} fill="#0b0d12" className="pk-px" data-turn="" />
+          {/* The mark as the app icon draws it: white P, and the one touch of orange, its pixel. */}
+          <path d={SYMBOL.pixel} fill={KINETIC} className="pk-px" data-turn="" />
         </g>
       </svg>
     </TurnOnView>
@@ -208,7 +208,7 @@ const BOOKINGS = [
 const MOST = Math.max(...BOOKINGS.map((b) => b.value));
 /** This month's enquiries, day by day: one hue, light to dark as the days get busier. */
 const HEAT = [0, 1, 0, 2, 1, 1, 2, 1, 3, 2, 2, 3, 2, 4, 3, 3, 4, 4];
-const HEAT_STEPS = ['#edeef3', '#ffe2d6', '#ffb59a', '#ff7a4d', KINETIC];
+const HEAT_STEPS = ['#edeef3', '#d9dce4', '#a9adba', '#5b6070', '#0b0d12'];
 
 const FIRING: { tool: string; label: string; meta: string }[] = [
   { tool: 'WhatsApp', label: 'Quote sent', meta: 'in 8 sec' },
@@ -219,7 +219,7 @@ const FIRING: { tool: string; label: string; meta: string }[] = [
 /**
  * Business Systems — one place to run the business: the overview of a business's own dashboard in
  * a browser window, cropped by the panel's foot. Enquiries this month, bookings by month (the bars
- * rise as the panel arrives, this month's in Kinetic Orange) and the automations firing right now.
+ * rise as the panel arrives, this month's in graphite) and the automations firing right now.
  */
 export function OverviewWindow() {
   return (
@@ -290,7 +290,7 @@ export function OverviewWindow() {
                             '--i': i,
                             height: `${(b.value / MOST) * 100}%`,
                             background: now
-                              ? `linear-gradient(${KINETIC} 0 5px, #ff9a73 5px, rgb(255 240 234 / 0.6))`
+                              ? 'linear-gradient(#0b0d12 0 5px, #5b6070 5px, rgb(91 96 112 / 0.12))'
                               : 'linear-gradient(#e6e8ee, rgb(244 245 248 / 0.4))',
                           } as CSSProperties
                         }
