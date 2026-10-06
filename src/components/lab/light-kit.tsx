@@ -2,7 +2,6 @@ import type { CSSProperties, ReactNode } from 'react';
 
 import { ToolMark } from '../ui/brand-logos';
 import { Icon, type IconName } from '../ui/icon';
-import type { Ground } from '../visuals/graphite';
 
 /**
  * The light mockup kit: the few pieces of the product that tell a story, drawn on the page's pale
@@ -38,40 +37,28 @@ const place = ({ x, y, w, h, i = 0 }: Place): CSSProperties =>
   ({ left: x, top: y, width: w, height: h, '--i': i }) as CSSProperties;
 
 /**
- * The panel a mockup sits on: the page's tint, a faint dot grid, fading to the edges. Given the
- * page's colour, everything inside that has a state — a tag, a face, a tick — takes a step of it
- * too (`.mock-scope`), so a page's mockups stay in one colour.
+ * The panel a mockup sits on: the page's tint, a very faint dot grid fading well before the edges.
+ * Given the page's colour, everything inside that has a state — a tag, a face, a tick — takes a
+ * step of it too (`.mock-scope`), so a page's mockups stay in one colour.
  */
 export function TintPanel({
   tint,
   accent,
-  ground,
   className = '',
   children,
 }: {
   tint: string;
   accent?: string;
-  /** Stand on white with a fine grid or dots instead of the tint (`.ground`). */
-  ground?: Ground;
   className?: string;
   children?: ReactNode;
 }) {
   return (
     <div
       aria-hidden="true"
-      className={`relative overflow-hidden rounded-[20px] ${accent ? 'mock-scope' : ''} ${
-        ground ? `ground ground--${ground} border border-line` : ''
-      } ${className}`}
-      style={
-        {
-          ...(ground ? {} : { background: tint }),
-          ...(accent ? { '--mock': accent } : {}),
-        } as CSSProperties
-      }
+      className={`relative overflow-hidden rounded-[20px] ${accent ? 'mock-scope' : ''} ${className}`}
+      style={{ background: tint, ...(accent ? { '--mock': accent } : {}) } as CSSProperties}
     >
-      {ground ? null : (
-        <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.09)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_80%)]" />
-      )}
+      <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.055)_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_75%)]" />
       {children}
     </div>
   );

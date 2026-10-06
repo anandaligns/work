@@ -2,13 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { type CSSProperties, useCallback, useEffect, useId, useRef, useState } from 'react';
+import {
+  type CSSProperties,
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/motion/collapsible';
+import { SharedLayoutBg } from '@/components/motion/shared-layout-bg';
 import { categories, evolve, nav, solutions, START, startFor } from '@/content/site';
 import { announceAnchor, useAnchor } from '@/lib/anchor';
 
@@ -219,7 +228,12 @@ export function Header() {
                     </Link>
                     <span className="mega-title__line">{category.line}</span>
                   </p>
-                  <ul className="row-span-5 grid grid-rows-subgrid">
+                  <SharedLayoutBg
+                    as="ul"
+                    inset={0}
+                    className="row-span-5 grid grid-rows-subgrid"
+                    pillClassName={MENU_PILL}
+                  >
                     {category.services.map((service, r) => (
                       <FlatItem
                         key={service.anchor}
@@ -233,12 +247,17 @@ export function Header() {
                         onPick={() => close(false)}
                       />
                     ))}
-                  </ul>
+                  </SharedLayoutBg>
                 </div>
               ))}
             </div>
           ) : (
-            <ul className="-mx-3 grid grid-cols-4 gap-6">
+            <SharedLayoutBg
+              as="ul"
+              inset={0}
+              className="-mx-3 grid grid-cols-4 gap-6"
+              pillClassName={MENU_PILL}
+            >
               {solutions.map((solution) => (
                 <FlatItem
                   key={solution.slug}
@@ -251,7 +270,7 @@ export function Header() {
                   onPick={() => close(false)}
                 />
               ))}
-            </ul>
+            </SharedLayoutBg>
           )}
           {/* The foot, under a hairline: the way to everything. */}
           <div
@@ -526,6 +545,9 @@ export function Header() {
  * solution also lists its two ways in as points under a hairline — each bundle's name and what it
  * includes — inside the one link to the solution's page.
  */
+/** The soft grey under the pointer, gliding from item to item (`@beui/shared-layout-bg`). */
+const MENU_PILL = 'rounded-[6px] bg-[rgb(11_13_18/0.05)]';
+
 /**
  * An item of the flat menu under test, to Alia's measure: a 12px box, the 18px glyph and the name
  * (16/20) on one line 8px apart, the summary (15/20) 6px under it; the box fills its row, so the
@@ -540,6 +562,9 @@ function FlatItem({
   active,
   style,
   onPick,
+  className = '',
+  onMouseEnter,
+  children,
 }: {
   href: string;
   icon: LucideName;
@@ -548,14 +573,23 @@ function FlatItem({
   active: boolean;
   style: CSSProperties;
   onPick: () => void;
+  /** From beUI's shared-layout-bg, which hands each row its hover and the pill to hold. */
+  className?: string;
+  onMouseEnter?: () => void;
+  children?: ReactNode;
 }) {
   return (
-    <li className="gnav-flyout__item flex min-w-0" style={style}>
+    <li
+      className={`gnav-flyout__item flex min-w-0 ${className}`}
+      style={style}
+      onMouseEnter={onMouseEnter}
+    >
+      {children}
       <Link
         href={href}
         onClick={onPick}
         aria-current={active ? 'page' : undefined}
-        className="flat-link flex w-full flex-col gap-1.5 rounded-[6px] p-3 transition-colors duration-200 hover:bg-[rgb(11_13_18/0.05)] aria-[current=page]:bg-[rgb(11_13_18/0.05)]"
+        className="flat-link relative z-10 flex w-full flex-col gap-1.5 rounded-[6px] p-3 aria-[current=page]:bg-[rgb(11_13_18/0.05)]"
       >
         <span className="flex items-center gap-2 text-[var(--nav-fg)]">
           <Lucide name={icon} size={17} />

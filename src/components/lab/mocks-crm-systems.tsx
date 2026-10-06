@@ -1,8 +1,10 @@
+import product from '@/content/products/crm-systems';
+
 import { ToolMark } from '../ui/brand-logos';
+import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bubble, Dot } from './mock-parts';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * CRM Systems' mockups, in the light kit, from the page's own sample business — a developer
@@ -12,9 +14,9 @@ import { GRAPHITE } from '../visuals/graphite';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = GRAPHITE;
+const P = product.accent;
 /** The business's own colour: everything inside its screens. */
-const A = GRAPHITE;
+const A = BRANDS.realestate!.accent;
 
 /** One record: every touch Rohit made, in order, on one record. */
 export function RecordMock() {

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { Tooltip } from '@/components/motion/tooltip';
 import { categories, groupTitles, headings } from '@/content/site';
 
 import { Band } from '../layout/band';
@@ -15,7 +16,7 @@ import { SectionHead } from './section-head';
  * under them, a picture of that group at work:
  *
  * - Digital Experiences, the website answering back: customers' requests turning into next steps,
- *   on a ground of a fine grid;
+ *   on a ground of a faint grid;
  * - Automation & AI, the tools working as one: a honeycomb of the tools a business already uses,
  *   our mark on Kinetic Orange at its centre, on a ground of dots;
  * - Business Systems, the place the business runs from: the overview of its own dashboard, cropped
@@ -100,16 +101,19 @@ function Group({
         >
           {category.services.map((service) => (
             <li key={service.anchor} id={service.anchor} className="scroll-mt-40">
-              <Link
-                href={`/services/${service.anchor}`}
-                title={service.summary}
-                className="svc-chip"
+              {/* beUI's tooltip (`@beui/tooltip`): the service's one line, scaling in above the
+                  chip on hover or focus. */}
+              <Tooltip
+                content={service.summary}
+                className="max-w-64 rounded-[10px] border-line bg-white px-3 py-2 text-center text-[0.8125rem] leading-snug font-normal whitespace-normal text-ink-2 shadow-[0_14px_30px_-16px_rgb(11_13_18/0.35)]"
               >
-                <span className="svc-chip__icon" aria-hidden="true">
-                  <Lucide name={MENU_ICONS[service.anchor] ?? 'sparkles'} size={14} />
-                </span>
-                {service.name}
-              </Link>
+                <Link href={`/services/${service.anchor}`} className="svc-chip">
+                  <span className="svc-chip__icon" aria-hidden="true">
+                    <Lucide name={MENU_ICONS[service.anchor] ?? 'sparkles'} size={14} />
+                  </span>
+                  {service.name}
+                </Link>
+              </Tooltip>
             </li>
           ))}
         </ul>

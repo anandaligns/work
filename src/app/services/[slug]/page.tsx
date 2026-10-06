@@ -12,14 +12,13 @@ import type { Crumb } from '@/components/pages/page-trail';
 import { BuildCards, FaqBand, HeroWell, Prices, Section } from '@/components/pages/sections';
 import { ProductBody, ProductOpening, RelatedIndex } from '@/components/pages/product';
 import { ServiceOpening } from '@/components/pages/service-stage';
-import { stageFor } from '@/components/pages/service-stages';
+import { businessColour, stageFor } from '@/components/pages/service-stages';
 import { PageStructuredData } from '@/components/seo/page-structured-data';
 import { ShowcasePanel } from '@/components/solutions/showcase';
 import { type IconName, iconFor } from '@/components/ui/icon';
 import { RollLink } from '@/components/ui/roll-link';
 import { ConnectScene } from '@/components/visuals/connect-scene';
 import { GroupHeroScene } from '@/components/visuals/page-scenes';
-import { GRAPHITE } from '@/components/visuals/graphite';
 import { IsoView } from '@/components/visuals/iso-views';
 import {
   evolvePage,
@@ -50,17 +49,18 @@ const GROUP_GLYPH: Record<string, IconName> = {
 };
 
 /**
- * A service page's own mockups, when it has them (`SERVICE_MOCKS`): drawn in graphite on white
- * grounds of a fine grid or dots, as the home page's Services pictures are.
+ * A service page's own mockups, on its tint, when it has them (`SERVICE_MOCKS`): the panel in the
+ * page's accent, the business's screens inside it in the business's colour.
  */
-function mocksFor(slug: string, accent: string = GRAPHITE) {
+function mocksFor(slug: string, accent: string) {
   const set = SERVICE_MOCKS[slug];
   if (!set) return {};
   const How = set.how;
   const HowBox = set.howBox;
   const Included = set.included;
-  const business = accent;
-  const light = 'white';
+  const business = businessColour(slug);
+  /** The split sections' panels start as strong as the solutions' (their home-page tints). */
+  const light = `color-mix(in srgb, ${accent} 12%, white)`;
   return {
     included: Included ? (
       <ShowcasePanel className="lg:aspect-[900/780]">
@@ -296,8 +296,8 @@ function ServiceView({ page }: { page: ServicePage }) {
         interest={page.slug}
         eyebrow={service.name}
         tint={tint}
-        next={mocksFor(page.slug)}
-        view={<IsoView slug={page.slug} />}
+        next={mocksFor(page.slug, product.accent)}
+        view={<IsoView slug={page.slug} accent={product.accent} />}
         tail={
           <>
             <RelatedIndex
@@ -326,7 +326,14 @@ function ServiceView({ page }: { page: ServicePage }) {
               heading={page.closing}
               interest={page.slug}
               topic={service.name}
-              visual={<ConnectScene icon={iconFor(page.slug)} tint={tint} />}
+              visual={
+                <ConnectScene
+                  icon={iconFor(page.slug)}
+                  tint={tint}
+                  accent={product.accent}
+                  accentDark={product.accentDark}
+                />
+              }
             />
           </>
         }
@@ -371,7 +378,7 @@ function EvolveView() {
         interest={evolve.slug}
         eyebrow={evolve.name}
         tint="butter"
-        view={<IsoView slug={evolve.slug} />}
+        view={<IsoView slug={evolve.slug} accent={product.accent} />}
         priceExtra={<Pricing only="care" />}
         after={
           <Section

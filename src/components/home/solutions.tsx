@@ -1,14 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import type { MotionStyle } from 'motion/react';
-import { useEffect, useRef, useState } from 'react';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/motion/collapsible';
+import { BouncyAccordion } from '@/components/motion/bouncy-accordion';
 import { headings, solutions } from '@/content/site';
 import { useAnchor } from '@/lib/anchor';
 
@@ -17,7 +12,6 @@ import { Lucide, MENU_ICONS } from '../ui/lucide';
 import { RollLabel } from '../ui/roll-link';
 import { SOLUTION_MOCKS, SolutionsRestMock } from './native-mocks';
 
-import { GRAPHITE } from '../visuals/graphite';
 import { SectionHead } from './section-head';
 
 /**
@@ -25,19 +19,30 @@ import { SectionHead } from './section-head';
  *
  * A list on the left and a large panel on the right. The open solution is a white card — its
  * glyph, its name, then everything it says: its line, its two ways in and the way to its page;
- * the others are a glyph and a name. The glyphs are graphite on light grey. The picture sits on a
- * panel after the home Services pictures and changes with the solution. The reader opens a
+ * the others are a glyph and a name. The colour is the glyphs' alone, each on its solution's
+ * tint. The picture sits on a white panel and changes with the solution. The reader opens a
  * solution, or closes the open one again; with every one closed, the frame rests on the four
  * solutions as a deck, one card lifted over its slot. Nothing turns on its own.
  *
- * It is an accordion in the ARIA sense, each row beUI's Collapsible (`@beui/collapsible`): its
- * button expands its own region, which holds everything the item says, on beUI's layout spring. The picture on the right repeats it visually and is hidden from
+ * It is beUI's bouncy accordion (`@beui/bouncy-accordion`), as the FAQ is: the closed solutions sit
+ * together in one container and the open one springs out as its own card, its region holding
+ * everything the item says. The picture on the right repeats it visually and is hidden from
  * assistive tech. Below 1024px there is no right: the open card carries its own picture, under
  * its words.
  */
 
-/** Each solution's glyph colours: graphite on light grey, after the home Services pictures. */
-const toneOf = (_slug?: string) => ({ tint: 'var(--color-fill)', accent: GRAPHITE });
+/** Each solution's glyph colours — the tint and colour its own page is drawn in. */
+const TONES: Record<string, { tint: string; accent: string }> = {
+  'lead-automation': { tint: 'var(--color-tint-mint)', accent: '#166534' },
+  'online-store-and-bookings': { tint: 'var(--color-tint-sky)', accent: 'var(--color-signal-sky)' },
+  'business-dashboard-crm': {
+    tint: 'var(--color-tint-violet)',
+    accent: 'var(--color-signal-violet)',
+  },
+  'website-care-hosting': { tint: 'var(--color-tint-blush)', accent: 'var(--color-signal-rose)' },
+};
+const toneOf = (slug?: string) =>
+  (slug ? TONES[slug] : undefined) ?? { tint: 'var(--color-fill)', accent: 'var(--color-ink)' };
 
 export function Solutions() {
   // The open row, or -1 once the reader closes it.
@@ -79,45 +84,25 @@ export function Solutions() {
 
   return (
     <div className="mt-14 grid items-start gap-10 lg:mt-16 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1fr)] lg:gap-16">
-      <div data-sol-list="" className="flex flex-col gap-1.5">
-        {solutions.map((solution, i) => {
-          const selected = i === active;
+      <BouncyAccordion
+        value={current?.slug ?? null}
+        onValueChange={(slug) => setActive(solutions.findIndex((s) => s.slug === slug))}
+        classNames={SOL_CLASSES}
+        items={solutions.map((solution) => {
           const tone = toneOf(solution.slug);
-          return (
-            <Collapsible
-              key={solution.slug}
-              open={selected}
-              onOpenChange={(open) => setActive(open ? i : -1)}
-              className="sol-item"
-              data-active={selected || undefined}
-              style={{ '--tint': tone.tint, '--accent': tone.accent } as MotionStyle}
-            >
-              <CollapsibleTrigger
-                render={
-                  <button
-                    type="button"
-                    onKeyDown={(event) => {
-                      if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
-                      event.preventDefault();
-                      const next =
-                        (i + (event.key === 'ArrowDown' ? 1 : -1) + solutions.length) %
-                        solutions.length;
-                      setActive(next);
-                      event.currentTarget
-                        .closest('[data-sol-list]')
-                        ?.querySelectorAll<HTMLButtonElement>('[data-slot="collapsible-trigger"]')
-                        [next]?.focus();
-                    }}
-                    className={`flex w-full items-center gap-4 px-5 pt-5 text-left transition-[padding] duration-500 sm:px-6 sm:pt-6 ${selected ? 'pb-4' : 'pb-5 sm:pb-6'}`}
-                  />
-                }
+          return {
+            id: solution.slug,
+            title: solution.name,
+            icon: (
+              <span
+                className="sol-acc__mark"
+                style={{ '--tint': tone.tint, '--accent': tone.accent } as CSSProperties}
               >
-                <span aria-hidden="true" className="sol-item__mark">
-                  <Lucide name={MENU_ICONS[solution.slug] ?? 'layers'} size={18} />
-                </span>
-                <span className="sol-item__title">{solution.name}</span>
-              </CollapsibleTrigger>
-              <CollapsibleContent contentClassName="px-5 pb-6 sm:pr-6 sm:pl-[4.75rem]">
+                <Lucide name={MENU_ICONS[solution.slug] ?? 'layers'} size={18} />
+              </span>
+            ),
+            description: (
+              <>
                 <p className="max-w-lg text-body text-ink-2">
                   {solution.line} {solution.positioning ?? ''}
                 </p>
@@ -147,34 +132,46 @@ export function Solutions() {
                   <RollLabel>{`Explore ${solution.name}`}</RollLabel>
                 </Link>
                 <SceneFrame slug={solution.slug} inline />
-              </CollapsibleContent>
-            </Collapsible>
-          );
+              </>
+            ),
+          };
         })}
-      </div>
+      />
 
       <SceneFrame slug={current?.slug} />
     </div>
   );
 }
 
+/** The site's look on beUI's accordion: white rows on a hairline, a tinted glyph, our type. */
+const SOL_CLASSES = {
+  root: 'sol-acc',
+  item: 'sol-acc__item',
+  trigger: 'min-h-0 gap-4 py-5 sm:px-6 sm:py-6',
+  icon: 'size-9',
+  title: 'sol-acc__title whitespace-normal!',
+  chevron: 'sol-acc__chevron',
+  description: 'pb-1 sm:pr-1 sm:pl-[3.25rem]',
+};
+
 /**
- * The picture's panel, after the home Services pictures: white on a hairline, a fine grid fading
- * out toward its edges, the picture on it in graphite. The picture repeats what its row says, so
- * it is hidden from assistive tech. Beside the list from 1024px; `inline`, inside the open card
- * below that.
+ * The picture's panel: white on a hairline, a dot grid fading out from its centre, the picture
+ * on it — as before, without the grey card around it or the corner marks. The picture repeats
+ * what its row says, so it is hidden from assistive tech. Beside the list from 1024px; `inline`,
+ * inside the open card below that.
  */
 function SceneFrame({ slug, inline = false }: { slug?: string; inline?: boolean }) {
   const Mock = slug ? SOLUTION_MOCKS[slug] : SolutionsRestMock;
   return (
     <div
       aria-hidden="true"
-      className={`ground ground--grid relative overflow-hidden border border-line ${
+      className={`relative overflow-hidden border border-white/10 bg-night ${
         inline
           ? 'mt-6 rounded-2xl lg:hidden'
-          : 'hidden rounded-[1.75rem] lg:sticky lg:top-24 lg:block'
+          : 'hidden rounded-[1.25rem] lg:sticky lg:top-24 lg:block'
       }`}
     >
+      <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(255_255_255/0.12)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
       <div
         key={slug ?? 'rest'}
         className={`scene-swap relative ${inline ? 'h-[15rem] sm:h-[21rem]' : 'h-[19rem] sm:h-[26rem] lg:h-[32rem]'}`}

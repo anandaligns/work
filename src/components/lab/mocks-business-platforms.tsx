@@ -1,7 +1,9 @@
+import product from '@/content/products/business-platforms';
+
+import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, Face, Head, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Chip, Field, Stat, Steps } from './mock-parts';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Business Platforms' mockups, in the light kit, from the page's own sample business — a
@@ -11,9 +13,9 @@ import { GRAPHITE } from '../visuals/graphite';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = GRAPHITE;
+const P = product.accent;
 /** The business's own colour: everything inside its screens. */
-const A = GRAPHITE;
+const A = BRANDS.recruitment!.accent;
 
 /** First version: an agency signs up and sets up its workspace on its own. */
 export function SignupMock() {

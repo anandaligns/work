@@ -1,8 +1,10 @@
+import product from '@/content/products/customer-portals';
+
 import { ToolMark } from '../ui/brand-logos';
+import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Chip, Dot, Field, Stat } from './mock-parts';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Customer Portals' mockups, in the light kit, from the page's own sample business — an Industrial
@@ -12,9 +14,9 @@ import { GRAPHITE } from '../visuals/graphite';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = GRAPHITE;
+const P = product.accent;
 /** The business's own colour: everything inside its screens. */
-const A = GRAPHITE;
+const A = BRANDS.partsdistributor!.accent;
 
 /** Progress: the order's stages, and today's update from dispatch. */
 export function ProgressMock() {

@@ -1,3 +1,5 @@
+import product from '@/content/products/never-miss-a-lead';
+
 import { ToolMark } from '../ui/brand-logos';
 import { Bleed, Fit } from './fit';
 import { Card, Face, Head, Pill, Row, Tag, Wires } from './light-kit';
@@ -28,7 +30,6 @@ import {
   Title,
   ViewChip,
 } from './window-kit';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Lead Automation's mockups for the v2 page, in the light kit, from its own sample business: every
@@ -36,7 +37,7 @@ import { GRAPHITE } from '../visuals/graphite';
  * follow-ups with a next step on each. Each is laid out on a 480 × 340 canvas.
  */
 
-const A = GRAPHITE;
+const A = product.accent;
 
 export function SourcesMock() {
   const sources = [
@@ -69,7 +70,7 @@ export function SourcesMock() {
           />
           <div className="mt-1.5 divide-y divide-[#f0f0f3]">
             <Row
-              lead={<Face name="Priya Menon" tone="#eceef2" />}
+              lead={<Face name="Priya Menon" tone="#e6f7ee" />}
               title="Priya Menon"
               meta="Website form · 8 s"
               right={
@@ -79,13 +80,13 @@ export function SourcesMock() {
               }
             />
             <Row
-              lead={<Face name="Rahul Bose" tone="#e2e5eb" />}
+              lead={<Face name="Rahul Bose" tone="#e5f3fb" />}
               title="Rahul Bose"
               meta="Google Ads · 5 s"
               right={<Tag tone="ok">Booked</Tag>}
             />
             <Row
-              lead={<Face name="Sana Khan" tone="#e7e9ee" />}
+              lead={<Face name="Sana Khan" tone="#fdecee" />}
               title="Sana Khan"
               meta="Instagram · 6 s"
               right={<Tag>Replied</Tag>}
@@ -206,13 +207,13 @@ export function FollowUpMock() {
           />
           <div className="mt-1.5 divide-y divide-[#f0f0f3]">
             <Row
-              lead={<Face name="Sana Khan" tone="#e7e9ee" />}
+              lead={<Face name="Sana Khan" tone="#fdecee" />}
               title="Sana Khan · sofa"
               meta="Second reminder, then a call · Ravi"
               right={<Tag tone="wait">Due</Tag>}
             />
             <Row
-              lead={<Face name="Neha Gupta" tone="#f1f2f5" />}
+              lead={<Face name="Neha Gupta" tone="#fff5d6" />}
               title="Neha Gupta · move-in"
               meta="Call: asked about a Sunday · Anita"
               right={
@@ -222,7 +223,7 @@ export function FollowUpMock() {
               }
             />
             <Row
-              lead={<Face name="Meera S" tone="#eef0f3" />}
+              lead={<Face name="Meera S" tone="#eceefb" />}
               title="Meera S · kitchen"
               meta="Quote viewed, no reply · tomorrow"
               right={<Tag>Automatic</Tag>}
@@ -272,19 +273,19 @@ export function FirstRepliesMock() {
           />
           <div className="mt-1.5 divide-y divide-[#f0f0f3]">
             <Row
-              lead={<Face name="Priya Menon" tone="#eceef2" />}
+              lead={<Face name="Priya Menon" tone="#e6f7ee" />}
               title="Priya Menon"
               meta="Website form · 9:02 pm"
               right={<Tag tone="ok">8 s</Tag>}
             />
             <Row
-              lead={<Face name="Rahul Bose" tone="#e2e5eb" />}
+              lead={<Face name="Rahul Bose" tone="#e5f3fb" />}
               title="Rahul Bose"
               meta="Google Ads · 8:41 pm"
               right={<Tag tone="ok">5 s</Tag>}
             />
             <Row
-              lead={<Face name="Sana Khan" tone="#e7e9ee" />}
+              lead={<Face name="Sana Khan" tone="#fdecee" />}
               title="Sana Khan"
               meta="Instagram · 7:15 pm"
               right={<Tag tone="ok">6 s</Tag>}

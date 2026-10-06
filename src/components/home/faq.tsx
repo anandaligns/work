@@ -2,11 +2,7 @@
 
 import { useId, useState } from 'react';
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/motion/collapsible';
+import { BouncyAccordion } from '@/components/motion/bouncy-accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/motion/tabs';
 import { contact, faqGroups, START } from '@/content/site';
 
@@ -26,11 +22,10 @@ import { moveBetweenTabs, Segmented } from '../ui/segmented';
  * grows in, a tinted wash, a darker label and a 4px nudge right, on hover and when active, with the
  * icon lifting with it.
  *
- * The questions are automatix's, measured off its page and turned light: no card at rest — a large
- * question in a muted grey, a plus at the far end, 18px by 36px of padding, 14px between rows.
- * Pointed at, the row fills and the question darkens; open, it becomes a bordered card on a faint
- * top-to-bottom wash, the plus turns over into a minus, and the answer rises in a beat after the
- * height. The opening itself is beUI's Collapsible (see `FaqList`).
+ * The questions are beUI's bouncy accordion in automatix's type: a large question in a muted grey,
+ * a plus at the far end, 18px by 36px of padding. At rest they sit together in one container;
+ * the one asked springs apart into its own card, the plus turns over into a minus, and the answer
+ * fades in as the height settles (see `FaqList`).
  *
  * Under the rail, in the column's empty space, a small card with the ways to ask; on a phone it
  * follows the questions.
@@ -41,53 +36,42 @@ import { moveBetweenTabs, Segmented } from '../ui/segmented';
 export type FaqEntry = { question: string; answer: string };
 
 /**
- * The accordion alone: one shelf of questions, the `initial` one open (−1 for none). The home FAQ
- * shows one per shelf; an inner page shows one with no rail.
+ * The accordion alone: one shelf of questions, all closed until one is asked. The home FAQ shows
+ * one per shelf; an inner page shows one with no rail.
  *
- * Each question is beUI's Collapsible (`@beui/collapsible`): the card springs open on beUI's
- * layout spring while the rows under it glide down to make room, and the answer fades in once the
- * height has started to move. One open at a time, so the shelf drives every row's `open`. The
- * answers are always in the HTML — a closed one is a clipped, inert region — so every one is on
- * the page and in its FAQPage data.
+ * It is beUI's bouncy accordion (`@beui/bouncy-accordion`): at rest the questions sit together as
+ * one rounded container, a hairline between rows; asked, a question springs out of the group as a
+ * card of its own — the rows above and below rounding off and gliding apart on its weighted
+ * spring — and its answer fades in as the height settles. One open at a time. beUI's chevron is
+ * drawn over as HBR's +/− (`.faq-acc__toggle`): two thin bars that turn half over with beUI's spin,
+ * the upright one folding flat, so the plus lands as a minus. The answers are always in the HTML —
+ * a closed one is a clipped, inert region — so every one is on the page and in its FAQPage data.
  */
-export function FaqList({ items, initial = 0 }: { items: FaqEntry[]; initial?: number }) {
-  const [open, setOpen] = useState(initial);
-
+export function FaqList({ items, initial = -1 }: { items: FaqEntry[]; initial?: number }) {
   return (
-    <div className="morph-stagger flex flex-col gap-3.5">
-      {items.map((faq, i) => {
-        const expanded = open === i;
-        return (
-          <Collapsible
-            key={faq.question}
-            open={expanded}
-            onOpenChange={(next) => setOpen(next ? i : -1)}
-            className="faq-item"
-            data-open={expanded || undefined}
-          >
-            <h3>
-              <CollapsibleTrigger
-                render={
-                  <button
-                    type="button"
-                    className="flex w-full items-center gap-6 px-5 py-[1.125rem] text-left sm:px-9"
-                  />
-                }
-              >
-                <span className="faq-item__q">{faq.question}</span>
-                {/* HBR's toggle: a plus that turns half over into a minus as the answer opens. */}
-                <span aria-hidden="true" className="faq-item__toggle" />
-              </CollapsibleTrigger>
-            </h3>
-            <CollapsibleContent>
-              <p className="faq-item__a">{faq.answer}</p>
-            </CollapsibleContent>
-          </Collapsible>
-        );
-      })}
+    <div className="morph-stagger">
+      <BouncyAccordion
+        defaultValue={initial >= 0 ? `q${initial}` : null}
+        items={items.map((faq, i) => ({
+          id: `q${i}`,
+          title: faq.question,
+          description: faq.answer,
+        }))}
+        classNames={FAQ_CLASSES}
+      />
     </div>
   );
 }
+
+/** The site's look on beUI's accordion: white rows on a hairline, our type, our +/−. */
+const FAQ_CLASSES = {
+  root: 'faq-acc',
+  item: 'faq-acc__item',
+  trigger: 'faq-acc__trigger min-h-0 gap-6 py-[1.125rem] sm:px-9',
+  title: 'faq-acc__q whitespace-normal!',
+  chevron: 'faq-acc__toggle',
+  description: 'faq-acc__a',
+};
 
 export function Faq() {
   const ids = useId();

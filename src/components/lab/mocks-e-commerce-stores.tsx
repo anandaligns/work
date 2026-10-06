@@ -1,9 +1,11 @@
+import product from '@/content/products/e-commerce-stores';
+
 import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
+import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, deep, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Chip, Dot, Field, Share, Stat } from './mock-parts';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * E-commerce Stores' mockups, in the light kit, from the page's own sample business — Fashion / Clothing Store,
@@ -12,9 +14,9 @@ import { GRAPHITE } from '../visuals/graphite';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = GRAPHITE;
+const P = product.accent;
 /** The business's own colour: everything inside its screens. */
-const A = GRAPHITE;
+const A = BRANDS.fashionstore!.accent;
 
 /** Checkout and payments: the bag, paid by UPI, and the order that exists only once it's paid. */
 export function CheckoutMock() {

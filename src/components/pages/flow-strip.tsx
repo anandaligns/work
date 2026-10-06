@@ -5,18 +5,17 @@ import { type CSSProperties, useEffect, useLayoutEffect, useRef, useState } from
 import type { Step, Tint } from '@/content/pages';
 
 import { Icon } from '../ui/icon';
+import { TINT_BG } from '../visuals/scene-panel';
 
 /**
  * How something works, as the Process track laid on its side: one glyph block per step on a route,
  * left to right — top to bottom on a phone. When the strip is well into view, a Kinetic Orange dot
  * runs along the route once, the one thing on it that moves; nothing loops, so it needs no pause.
- * The blocks are white, the first and last graphite — after the home Services pictures, the dot
- * is the only orange. `tint` is the page's, kept for callers.
  * Under reduced motion the dot never shows.
  *
  * The steps are an ordered list, so they read in order with or without the picture.
  */
-export function FlowStrip({ steps }: { steps: Step[]; tint?: Tint | 'white' }) {
+export function FlowStrip({ steps, tint = 'white' }: { steps: Step[]; tint?: Tint | 'white' }) {
   const list = useRef<HTMLOListElement>(null);
   const [play, setPlay] = useState(false);
 
@@ -73,7 +72,7 @@ export function FlowStrip({ steps }: { steps: Step[]; tint?: Tint | 'white' }) {
       {steps.map((step, i) => (
         <li key={step.label} className="flow__step">
           <span
-            className={`flow__block ${i === 0 || i === steps.length - 1 ? 'flow__block--end' : 'bg-white'}`}
+            className={`flow__block ${TINT_BG[i === 0 || i === steps.length - 1 ? tint : 'white']}`}
           >
             <Icon name={step.icon} size={20} />
           </span>

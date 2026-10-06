@@ -10,6 +10,7 @@ import { sectors } from '@/content/site';
 import { MARKS, TINTS } from '../home/sectors';
 import { Band } from '../layout/band';
 import { Icon } from '../ui/icon';
+import { TINT_BG } from '../visuals/scene-panel';
 
 /**
  * The parts a product page shares with the rest of the site — words with links and lead-ins, the
@@ -61,11 +62,10 @@ export const plain = (text: string) =>
 
 /**
  * One photograph of the people the page is for, 3:2, rounded, slightly warm. Until the photo is
- * in `public/photos/` — `<file>-800` and `<file>-1600`, in AVIF and WebP — a quiet panel of fading
- * dots holds its place, after the home Services pictures; on the dev server it shows the file it
- * is waiting for. `tint` is the page's, kept for callers; the panel no longer wears it.
+ * in `public/photos/` — `<file>-800` and `<file>-1600`, in AVIF and WebP — a quiet panel of the
+ * page's tint holds its place; on the dev server it shows the file it is waiting for.
  */
-export function Photo({ file, alt }: { file: string; alt: string; tint?: Tint }) {
+export function Photo({ file, alt, tint }: { file: string; alt: string; tint: Tint }) {
   const ready = existsSync(join(process.cwd(), 'public/photos', `${file}-1600.webp`));
   if (ready) {
     return (
@@ -93,7 +93,7 @@ export function Photo({ file, alt }: { file: string; alt: string; tint?: Tint })
     <div
       role="img"
       aria-label={alt}
-      className="ground ground--dots grid aspect-[3/2] w-full place-items-center rounded-[var(--radius-panel)] border border-line"
+      className={`grid aspect-[3/2] w-full place-items-center rounded-[var(--radius-panel)] border border-line ${TINT_BG[tint]}`}
     >
       <span className="flex flex-col items-center gap-2 text-ink-3">
         <Icon name="eye" size={22} />
@@ -255,8 +255,8 @@ export function BuildFoot({
 // --- the industries -------------------------------------------------------------------------------
 
 /**
- * Who it suits, as cards: each industry's mark on light grey — the same grey it wears on the home
- * page's strip — then its name and what this service does for it.
+ * Who it suits, as cards: each industry's mark in its own light tint — the same tint it wears on
+ * the home page's strip — then its name and what this service does for it.
  */
 export function Industries({
   eyebrow,

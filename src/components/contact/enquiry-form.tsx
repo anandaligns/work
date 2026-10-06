@@ -20,6 +20,7 @@ import {
 } from '@/components/motion/alert';
 import { StatefulButton } from '@/components/motion/button';
 import { Checkbox } from '@/components/motion/checkbox';
+import { Input } from '@/components/motion/input';
 import {
   Select as BeSelect,
   SelectContent,
@@ -85,6 +86,8 @@ export function EnquiryForm() {
   const form = useRef<HTMLFormElement>(null);
   const [fields, setFields] = useState<Fields>(EMPTY);
   const [errors, setErrors] = useState<EnquiryErrors>({});
+  // Fields the visitor has left; a left field that now reads right shows beUI's drawn tick.
+  const [left, setLeft] = useState<Partial<Record<keyof Fields, boolean>>>({});
   const [sending, setSending] = useState(false);
   const [failed, setFailed] = useState(false);
   const [sent, setSent] = useState(false);
@@ -162,6 +165,14 @@ export function EnquiryForm() {
     'aria-invalid': errors[key] ? true : undefined,
     'aria-describedby': errors[key] ? `${ids}-${key}-error` : undefined,
   });
+  // beUI's input (`@beui/input`): an error shakes the field and reddens its edge (the words stay
+  // ours, under it); a field filled in right, once left, draws its tick.
+  const state = (key: keyof Fields) => ({
+    error: Boolean(errors[key]),
+    success: Boolean(left[key]) && fields[key] !== EMPTY[key] && !validateEnquiry(fields)[key],
+    onBlur: () => setLeft((l) => ({ ...l, [key]: true })),
+    classNames: INPUT_CLASSES,
+  });
   const error = (key: keyof Fields) =>
     errors[key] ? (
       <p id={`${ids}-${key}-error`} className="enquiry__error">
@@ -174,53 +185,58 @@ export function EnquiryForm() {
     <form ref={form} noValidate onSubmit={submit} className="enquiry">
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Your name" htmlFor={`${ids}-name`} required>
-          <input
+          <Input
             {...field('name')}
             type="text"
             autoComplete="name"
             value={fields.name}
-            onChange={(e) => set('name', e.target.value)}
+            onChange={(value) => set('name', value)}
+            {...state('name')}
           />
           {error('name')}
         </Field>
         <Field label="Business name" htmlFor={`${ids}-business`} required>
-          <input
+          <Input
             {...field('business')}
             type="text"
             autoComplete="organization"
             value={fields.business}
-            onChange={(e) => set('business', e.target.value)}
+            onChange={(value) => set('business', value)}
+            {...state('business')}
           />
           {error('business')}
         </Field>
         <Field label="Phone (WhatsApp)" htmlFor={`${ids}-phone`} required>
-          <input
+          <Input
             {...field('phone')}
             type="tel"
             inputMode="tel"
             autoComplete="tel"
             value={fields.phone}
-            onChange={(e) => set('phone', e.target.value)}
+            onChange={(value) => set('phone', value)}
+            {...state('phone')}
           />
           {error('phone')}
         </Field>
         <Field label="Email" htmlFor={`${ids}-email`} required>
-          <input
+          <Input
             {...field('email')}
             type="email"
             autoComplete="email"
             value={fields.email}
-            onChange={(e) => set('email', e.target.value)}
+            onChange={(value) => set('email', value)}
+            {...state('email')}
           />
           {error('email')}
         </Field>
         <Field label="City" htmlFor={`${ids}-city`}>
-          <input
+          <Input
             {...field('city')}
             type="text"
             autoComplete="address-level2"
             value={fields.city}
-            onChange={(e) => set('city', e.target.value)}
+            onChange={(value) => set('city', value)}
+            {...state('city')}
           />
         </Field>
         <Field label="Interested in" htmlFor={`${ids}-interest`}>
@@ -365,6 +381,15 @@ export function EnquiryForm() {
     </form>
   );
 }
+
+/** The site's field on beUI's input: 48px, 14px corners, the ink focus ring of the selects. */
+const INPUT_CLASSES = {
+  root: 'gap-0',
+  field:
+    'h-12 rounded-[0.875rem] border-line-2 bg-white hover:border-ink-3 data-[state=focused]:border-ink data-[state=focused]:ring-[3px] data-[state=focused]:ring-ink/10 data-[state=error]:border-[#b42318] data-[state=error]:ring-[#b42318]/15',
+  input: 'enquiry__be-input px-4 text-ink placeholder:text-ink-3',
+  successIcon: 'text-signal-green',
+};
 
 function Field({
   label,

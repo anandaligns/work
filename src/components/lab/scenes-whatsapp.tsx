@@ -2,7 +2,6 @@ import product from '@/content/products/whatsapp-automation';
 
 import { Fit } from './fit';
 import { Bubble, Device, Frag, FragHead, Line, Pill, Tag, Wires, lit } from './kit';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * WhatsApp & Email Automation's mockups for the page under test, from its own sample business:
@@ -12,7 +11,7 @@ import { GRAPHITE } from '../visuals/graphite';
  * 480 × 340 for the cards.
  */
 
-const A = GRAPHITE;
+const A = product.accent;
 const screen = (label: string) => product.features.items.find((i) => i.label === label)!.screen!;
 
 export function InstantScene() {

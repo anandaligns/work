@@ -1,9 +1,11 @@
+import product from '@/content/products/business-websites';
+
 import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
+import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, deep, Face, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
 import { Bars, Chip, Dot, Field, Ring, Share, Stat } from './mock-parts';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Business Websites' mockups, in the light kit, from the page's own sample business — an Interior
@@ -11,9 +13,9 @@ import { GRAPHITE } from '../visuals/graphite';
  * 9:14 pm, measured and fast. Each is laid out on a fixed canvas (`Fit`).
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = GRAPHITE;
+const P = product.accent;
 /** The business's own colour: everything inside its screens. */
-const A = GRAPHITE;
+const A = BRANDS.interiordesign!.accent;
 /** The deep step of the page's colour, for the link Google shows. */
 const DEEP = `color-mix(in srgb, ${A} 80%, #0b0d12)`;
 

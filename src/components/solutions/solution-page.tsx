@@ -1,7 +1,6 @@
 import { Closing } from '@/components/home/closing';
 import { SectionHead } from '@/components/home/section-head';
-import { FadePanel } from '@/components/lab/mock-parts';
-import { GRAPHITE } from '@/components/visuals/graphite';
+import { FadePanel, groundOf, surfaceOf } from '@/components/lab/mock-parts';
 import { SOLUTION_PAGE_MOCKS } from '@/components/lab/solution-mocks';
 import { SystemRow } from '@/components/lab/soft';
 import { Highlights, ProductOpeningFull, RelatedIndex, WhyGrid } from '@/components/pages/product';
@@ -66,10 +65,7 @@ export function SolutionPageView({ slug }: { slug: string }) {
   const c = SOLUTION_CONTENT[slug]!;
   const mocks = SOLUTION_PAGE_MOCKS[slug]!;
   const A = c.accent;
-  // Below the opening, the pictures are graphite on white grounds (`visuals/graphite.ts`); the
-  // page's own colour stays with its opening.
-  const V = GRAPHITE;
-  const ground = 'white';
+  const ground = c.tint ? groundOf(c.tint) : surfaceOf(A);
   const others = solutionPages.filter((other) => other.slug !== slug);
   const How = mocks.how;
   const Benefits = mocks.benefits;
@@ -111,12 +107,12 @@ export function SolutionPageView({ slug }: { slug: string }) {
         <PointOfView
           statement={product.view.statement}
           body={product.view.body}
-          photo={<IsoView slug={slug} />}
+          photo={<IsoView slug={slug} accent={A} />}
         />
 
         <SystemRow
           tint={ground}
-          accent={V}
+          accent={A}
           head={
             <SectionHead
               id="behind"
@@ -137,7 +133,7 @@ export function SolutionPageView({ slug }: { slug: string }) {
           heading={c.journey.heading}
           intro={c.journey.intro}
           steps={c.journey.steps}
-          accent={V}
+          accent={A}
           ground={ground}
         />
 
@@ -147,11 +143,11 @@ export function SolutionPageView({ slug }: { slug: string }) {
           heading={c.system.heading}
           intro={c.system.intro}
           points={c.system.points}
-          accent={V}
+          accent={A}
           pinned
           picture={
             <ShowcasePanel className="lg:aspect-[900/780]">
-              <FadePanel accent={V}>
+              <FadePanel accent={A} light={c.tint}>
                 <How />
               </FadePanel>
             </ShowcasePanel>
@@ -164,10 +160,10 @@ export function SolutionPageView({ slug }: { slug: string }) {
           heading={c.benefits.heading}
           intro={c.benefits.intro}
           points={c.benefits.points}
-          accent={V}
+          accent={A}
           picture={
             <ShowcasePanel>
-              <FadePanel accent={V}>
+              <FadePanel accent={A} light={c.tint}>
                 <Benefits />
               </FadePanel>
             </ShowcasePanel>
@@ -193,7 +189,7 @@ export function SolutionPageView({ slug }: { slug: string }) {
           heading={c.ways.heading}
           intro={c.ways.intro}
           price={product.price}
-          accent={V}
+          accent={A}
         />
 
         <WhyGrid {...c.why} />

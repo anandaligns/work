@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useState } from 'react';
 
+import { NumberTicker } from '@/components/motion/number-ticker';
 import { Switch } from '@/components/motion/switch';
 import {
   carePlans,
@@ -174,12 +175,7 @@ export function Pricing({ only }: { only?: Segment } = {}) {
                         From
                       </span>
                     ) : null}
-                    <span
-                      key={price}
-                      className="scene-swap font-display text-[2.5rem] leading-none tracking-[var(--tracking-display)]"
-                    >
-                      {price}
-                    </span>
+                    <Price text={price} />
                     <span className={`text-sm ${focal ? 'text-white/60' : 'text-ink-2'}`}>
                       {unit}
                     </span>
@@ -314,5 +310,31 @@ export function Pricing({ only }: { only?: Segment } = {}) {
         </div>
       </Morph>
     </div>
+  );
+}
+
+/**
+ * A price in rupees on beUI's number ticker (`@beui/number-ticker`): switched between monthly and
+ * yearly, each digit rolls to its new value rather than the figure swapping whole. Indian grouping
+ * (₹1,49,900), and the real figure in the server HTML. Anything not a plain amount is set as text.
+ */
+function Price({ text }: { text: string }) {
+  const amount = /^₹[\d,]+$/.test(text) ? Number(text.slice(1).replace(/,/g, '')) : null;
+  const look = 'font-display text-[2.5rem] leading-none tracking-[var(--tracking-display)]';
+  if (amount === null)
+    return (
+      <span key={text} className={`scene-swap ${look}`}>
+        {text}
+      </span>
+    );
+  return (
+    <NumberTicker
+      value={amount}
+      prefix="₹"
+      startOnView={false}
+      duration={0.6}
+      format={(n) => n.toLocaleString('en-IN')}
+      className={look}
+    />
   );
 }

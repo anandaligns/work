@@ -1,3 +1,5 @@
+import { ScrollProgress } from '@/components/motion/scroll-progress';
+
 import { Band } from '../layout/band';
 import { WebPageStructuredData } from '../seo/web-page-data';
 import { PageIntro } from './page-intro';
@@ -5,7 +7,8 @@ import { PageIntro } from './page-intro';
 /**
  * A plain-language policy page: the intro, then short sections in one readable column. Written
  * for the site as it stands — no forms, no analytics — and to be revised, and reviewed by a
- * lawyer, before either is added.
+ * lawyer, before either is added. A thin Kinetic Orange line across the top of the window says how
+ * far through it the reader is (`@beui/scroll-progress`, read off the page's Lenis scroll).
  */
 export type LegalSection = { heading: string; body: string[] };
 
@@ -27,6 +30,7 @@ export function LegalPage({
 }) {
   return (
     <>
+      <ScrollProgress className="z-[60] bg-kinetic" />
       {path ? <WebPageStructuredData name={eyebrow} description={intro} path={path} /> : null}
       <PageIntro
         eyebrow={eyebrow}

@@ -1,7 +1,10 @@
 import type { ReactNode } from 'react';
 
+import product from '@/content/products/whatsapp-automation';
+
 import { ToolMark } from '../ui/brand-logos';
 import { Icon, type IconName } from '../ui/icon';
+import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import {
   Card,
@@ -16,7 +19,6 @@ import {
   TintPanel,
   Wires,
 } from './light-kit';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * WhatsApp & Email Automation's mockups for the service page under trial, in the light kit of the
@@ -27,9 +29,9 @@ import { GRAPHITE } from '../visuals/graphite';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = GRAPHITE;
+const P = product.accent;
 /** The business's own colour: everything inside its screens. */
-const A = GRAPHITE;
+const A = BRANDS.dentalclinic!.accent;
 export const WHATSAPP_TINT = '#eaf5ee';
 
 /** A mockup on the page's tint, filling whatever it is placed in. */
@@ -128,7 +130,7 @@ export function InstantReplyMock() {
           </p>
           <div className="mt-2 divide-y divide-[#f0f0f3]">
             <Row
-              lead={<Face name="Priya Sharma" tone="#eceef2" />}
+              lead={<Face name="Priya Sharma" tone="#e6f7ee" />}
               title="Priya Sharma"
               meta="11:52 pm"
               right={
@@ -138,13 +140,13 @@ export function InstantReplyMock() {
               }
             />
             <Row
-              lead={<Face name="Arjun Rao" tone="#e2e5eb" />}
+              lead={<Face name="Arjun Rao" tone="#e5f3fb" />}
               title="Arjun Rao"
               meta="11:48 pm"
               right={<Tag tone="ok">Booked</Tag>}
             />
             <Row
-              lead={<Face name="Meera Pillai" tone="#f1f2f5" />}
+              lead={<Face name="Meera Pillai" tone="#fff5d6" />}
               title="Meera Pillai"
               meta="10:02 pm"
               right={<Tag tone="ok">Paid</Tag>}
@@ -393,7 +395,7 @@ export function HandoverMock() {
           <Head icon="chat" accent={P} title="Inbox" meta="All 24 · Unread 3 · Automated 16" />
           <div className="mt-1.5 divide-y divide-[#f0f0f3]">
             <Row
-              lead={<Face name="Priya Sharma" tone="#eceef2" />}
+              lead={<Face name="Priya Sharma" tone="#e6f7ee" />}
               title="Priya Sharma"
               meta="Do you open on Sundays?"
               right={
@@ -403,19 +405,19 @@ export function HandoverMock() {
               }
             />
             <Row
-              lead={<Face name="Arjun Rao" tone="#e2e5eb" />}
+              lead={<Face name="Arjun Rao" tone="#e5f3fb" />}
               title="Arjun Rao"
               meta="Booked: tomorrow, 7:00 pm"
               right={<Tag tone="ok">Booked</Tag>}
             />
             <Row
-              lead={<Face name="Lakshmi Menon" tone="#e7e9ee" />}
+              lead={<Face name="Lakshmi Menon" tone="#fdecee" />}
               title="Lakshmi Menon"
               meta="Can I bring my mother?"
               right={<Tag tone="wait">Sameer</Tag>}
             />
             <Row
-              lead={<Face name="Meera Pillai" tone="#f1f2f5" />}
+              lead={<Face name="Meera Pillai" tone="#fff5d6" />}
               title="Meera Pillai"
               meta="Receipt sent · ₹1,500"
               right={<Tag tone="ok">Paid</Tag>}
@@ -448,7 +450,7 @@ export function HandoverMock() {
       <Card x={668} y={96} w={184} i={3}>
         <div className="p-3">
           <div className="flex items-center gap-2.5">
-            <Face name="Sameer K" tone="#eef0f3" />
+            <Face name="Sameer K" tone="#eceefb" />
             <span className="min-w-0">
               <span className="block truncate text-[12px] font-semibold">Sameer</span>
               <span className="block truncate text-[10px] text-ink-3">Front desk</span>

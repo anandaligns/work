@@ -2,44 +2,37 @@ import type { ComponentType } from 'react';
 
 import { SERVICE_DASHBOARDS } from './service-dashboards';
 import {
-  BUSINESS_WEBSITES_MOCKS,
-  BusinessWebsitesHow,
-  BusinessWebsitesHowBox,
-} from './mocks-business-websites';
-import {
-  CUSTOMER_PORTALS_MOCKS,
-  CustomerPortalsHow,
-  CustomerPortalsHowBox,
-} from './mocks-customer-portals';
-import { E_COMMERCE_MOCKS, ECommerceHow, ECommerceHowBox } from './mocks-e-commerce-stores';
-import { AI_ASSISTANTS_MOCKS, AiAssistantsHow, AiAssistantsHowBox } from './mocks-ai-assistants';
-import { AI_WORKFLOWS_MOCKS, AiWorkflowsHow, AiWorkflowsHowBox } from './mocks-ai-workflows';
-import {
+  AI_ASSISTANTS_MOCKS,
+  AI_WORKFLOWS_MOCKS,
   API_INTEGRATIONS_MOCKS,
-  ApiIntegrationsHow,
-  ApiIntegrationsHowBox,
-} from './mocks-api-integrations';
-import { BOOKING_MOCKS, BookingHow, BookingHowBox } from './mocks-booking-payment-workflows';
-import {
+  BOOKING_MOCKS,
   BUSINESS_PLATFORMS_MOCKS,
-  BusinessPlatformsHow,
-  BusinessPlatformsHowBox,
-} from './mocks-business-platforms';
-import { CRM_MOCKS, CrmHow, CrmHowBox } from './mocks-crm-systems';
-import {
+  BUSINESS_WEBSITES_MOCKS,
+  CRM_MOCKS,
+  CUSTOMER_PORTALS_MOCKS,
   CUSTOM_SOFTWARE_MOCKS,
-  CustomSoftwareHow,
-  CustomSoftwareHowBox,
-} from './mocks-custom-software';
-import { DASHBOARDS_MOCKS, DashboardsHow, DashboardsHowBox } from './mocks-dashboards';
-import {
+  DASHBOARDS_MOCKS,
+  E_COMMERCE_MOCKS,
   INTERNAL_TOOLS_MOCKS,
-  InternalToolsHow,
-  InternalToolsHowBox,
-} from './mocks-internal-tools';
-import { MOBILE_APPS_MOCKS, MobileAppsHow, MobileAppsHowBox } from './mocks-mobile-apps';
-import { WEB_APPS_MOCKS, WebAppsHow, WebAppsHowBox } from './mocks-web-apps';
-import { PlatformMock, PlatformMockBox, WHATSAPP_FEATURE_MOCKS } from './mocks-whatsapp';
+  MOBILE_APPS_MOCKS,
+  WEB_APPS_MOCKS,
+  WHATSAPP_FEATURE_MOCKS,
+} from '../showcase/sets';
+import { BusinessWebsitesHow, BusinessWebsitesHowBox } from '../showcase/business-websites';
+import { CustomerPortalsHow, CustomerPortalsHowBox } from '../showcase/customer-portals';
+import { ECommerceHow, ECommerceHowBox } from '../showcase/e-commerce-stores';
+import { AiAssistantsHow, AiAssistantsHowBox } from '../showcase/ai-assistants';
+import { AiWorkflowsHow, AiWorkflowsHowBox } from '../showcase/ai-workflows';
+import { ApiIntegrationsHow, ApiIntegrationsHowBox } from '../showcase/api-integrations';
+import { BookingHow, BookingHowBox } from '../showcase/booking-payment-workflows';
+import { BusinessPlatformsHow, BusinessPlatformsHowBox } from '../showcase/business-platforms';
+import { CrmHow, CrmHowBox } from '../showcase/crm-systems';
+import { CustomSoftwareHow, CustomSoftwareHowBox } from '../showcase/custom-software';
+import { DashboardsHow, DashboardsHowBox } from '../showcase/dashboards';
+import { InternalToolsHow, InternalToolsHowBox } from '../showcase/internal-tools';
+import { MobileAppsHow, MobileAppsHowBox } from '../showcase/mobile-apps';
+import { WebAppsHow, WebAppsHowBox } from '../showcase/web-apps';
+import { PlatformMock, PlatformMockBox } from '../showcase/whatsapp-automation';
 
 /**
  * Each service page's mockups, drawn in the light kit after the WhatsApp page: one per feature,

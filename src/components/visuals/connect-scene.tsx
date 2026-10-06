@@ -13,8 +13,7 @@ import { ScenePanel } from './scene-panel';
 /**
  * The Connect scene — every page's closing picture but About's: the page's own subject, routed
  * through the Pixel Kinetix block to a finished result, drawn as the home mockups are — rounded
- * white tiles on soft shadows, each glyph graphite on a light grey chip, on a fine grid that fades
- * toward the panel's edges as the home Services pictures do, fine dashed routes with a ringed
+ * white tiles on soft shadows, each glyph on a chip in its tint, fine dashed routes with a ringed
  * dot at each joint. On the left, the subject; in the middle, the ink block with the P on top, its
  * pixel in Kinetic Orange; on the right, the result — a check unless given — with a green signal
  * beside it. Home's is `converge`: three tiles — what customers see, what the team runs on, what
@@ -33,12 +32,26 @@ const CUBE = 92;
 const CUBE_H = 36;
 const ROUTE = '#8b90a0';
 
-/**
- * Every chip in graphite, after the home page's Services pictures: a pale grey and an ink glyph,
- * whatever the tone asked for. The one colour left is the Kinetic Orange dot that travels.
- */
-const chipOf = (_tone: Tone): [string, string] => ['#f1f2f5', INK];
+/** Each tone's chip: its pale tint, and the glyph in the tint's own colour. */
+const CHIP: Partial<Record<Tone, [string, string]>> = {
+  violet: ['#eceefb', SIGNAL.violet],
+  sky: ['#e5f3fb', SIGNAL.sky],
+  mint: ['#e6f7ee', SIGNAL.green],
+  butter: ['#fff5d6', '#d98a00'],
+  blush: ['#fdecee', SIGNAL.rose],
+};
+const chipOf = (tone: Tone) => CHIP[tone] ?? ['#f1f2f5', INK];
 
+/** `t` of colour `a` over colour `b`, both hex: a pale step of a page's accent, for a chip's fill. */
+const mixHex = (a: string, b: string, t: number) =>
+  '#' +
+  [1, 3, 5]
+    .map((i) =>
+      Math.round(parseInt(a.slice(i, i + 2), 16) * t + parseInt(b.slice(i, i + 2), 16) * (1 - t))
+        .toString(16)
+        .padStart(2, '0'),
+    )
+    .join('');
 const M: World = [150, 150];
 const R: World = [260, 40];
 /** A converging scene's three subjects, stacked on the left, and where each meets the bus. */
@@ -66,12 +79,20 @@ type Subject = { icon: IconName; tone: Tone };
 export function ConnectScene({
   icon = 'spark',
   tint = 'white',
+  accent,
+  accentDark,
   converge,
   result,
 }: {
   icon?: IconName;
-  /** The page's tint — kept for the subject block's tone; every chip is drawn in graphite. */
+  /** The panel's tint, and the subject block's. */
   tint?: Tint | 'white';
+  /**
+   * A service page's own colour, in place of the tint: the panel on its soft surface (7% deepening
+   * to 12%), and the subject's chip a pale step of it with the glyph in its dark accent.
+   */
+  accent?: string;
+  accentDark?: string;
   /** Several subjects meeting in the cube, in place of one. */
   converge?: Subject[];
   /** The result block: a white check unless given. */
@@ -204,7 +225,15 @@ export function ConnectScene({
         if (event.pointerType === 'mouse' && svg.current?.hasAttribute('data-drawn')) void play();
       }}
     >
-      <ScenePanel tint={tint} innerClassName="h-[18rem] p-6 sm:h-[22rem] sm:p-8">
+      <ScenePanel
+        tint={tint}
+        surface={
+          accent
+            ? `linear-gradient(135deg, ${mixHex(accent, '#ffffff', 0.07)} 0%, ${mixHex(accent, '#ffffff', 0.12)} 100%)`
+            : undefined
+        }
+        innerClassName="h-[18rem] p-6 sm:h-[22rem] sm:p-8"
+      >
         <svg
           ref={svg}
           viewBox={box.map((v) => v.toFixed(1)).join(' ')}
@@ -281,7 +310,10 @@ export function ConnectScene({
             );
           })}
           {blocks.map((c, i) => {
-            const [tint, color] = chipOf(subjects[i]!.tone);
+            const [tint, color] =
+              accent && !converge
+                ? [mixHex(accent, '#ffffff', 0.14), accentDark ?? accent]
+                : chipOf(subjects[i]!.tone);
             return (
               <Slab
                 key={c.join()}

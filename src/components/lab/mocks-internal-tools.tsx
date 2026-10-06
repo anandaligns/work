@@ -1,7 +1,9 @@
+import product from '@/content/products/internal-tools';
+
+import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Chip, Dot, Field, RoleGrid, Steps } from './mock-parts';
-import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Internal Tools' mockups, in the light kit, from the page's own sample business — a School /
@@ -11,9 +13,9 @@ import { GRAPHITE } from '../visuals/graphite';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = GRAPHITE;
+const P = product.accent;
 /** The business's own colour: everything inside its screens. */
-const A = GRAPHITE;
+const A = BRANDS.school!.accent;
 
 /** Owners and dates: every task, its job, its owner and when it's due. */
 export function TasksMock() {

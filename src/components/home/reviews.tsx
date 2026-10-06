@@ -1,30 +1,32 @@
 import { headings, shownReviews, type Review } from '@/content/site';
 
 import { Band } from '../layout/band';
-import { GRAPHITE } from '../visuals/graphite';
 import { ReviewRail } from './review-rail';
+import { TINTS, wash } from './wash';
 
 /**
  * Lightfield's customer section, in our light: the heading on the left and the rail's two arrows on
- * the right, then a row of tall cards that scrolls sideways. Each card sits as the home Services
- * pictures do — white on a hairline, over a fine grid or dots that fade toward its edges — with the
- * words on it in ink: the mark and name at the top, the review large, and who said it at the foot.
+ * the right, then a row of tall cards that scrolls sideways. Each card
+ * is a soft, blurred wash in one of the home page's light tints, with the words on it in ink —
+ * the mark and name at the top, the review large, and who said it at the foot.
  *
  * Every review shown today is a labelled sample, and only the dev server shows them — see
  * `shownReviews`. With nothing real to show, the section is not rendered.
  */
 
 function Card({ review, index }: { review: Review; index: number }) {
+  const t = TINTS[index % TINTS.length]!;
   return (
     <li className="w-[86%] shrink-0 snap-start sm:w-[62%] lg:w-[calc((100%-2rem)/3)]">
       <figure
-        className={`ground ${index % 2 ? 'ground--dots' : 'ground--grid'} relative flex h-full min-h-[27rem] flex-col overflow-hidden rounded-2xl border border-line p-7 text-ink sm:p-8 lg:aspect-[622/707] lg:min-h-0`}
+        className="relative flex h-full min-h-[27rem] flex-col overflow-hidden rounded-[8px] border border-black/[0.05] p-7 text-ink sm:p-8 lg:aspect-[622/707] lg:min-h-0"
+        style={wash(index)}
       >
         <div className="flex items-center gap-3.5">
           <span
             aria-hidden="true"
-            className="grid size-9 shrink-0 place-items-center rounded-[10px] font-display text-[1.0625rem] leading-none text-white"
-            style={{ background: GRAPHITE }}
+            className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-white/70 font-display text-[1.0625rem] leading-none"
+            style={{ color: t.ink }}
           >
             {review.business.charAt(0)}
           </span>

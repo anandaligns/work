@@ -260,6 +260,18 @@
   --color-ring: var(--color-ink);
 }
 
+/* …and as plain variables, for the beUI pieces that read them directly (the text shimmer). */
+:root {
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --card: var(--color-surface);
+  --muted: var(--color-fill);
+  --muted-foreground: var(--color-ink-2);
+  --primary: var(--color-graphite);
+  --border: var(--color-line);
+  --ring: var(--color-ink);
+}
+
 /* ============================================================================================
    Base
    ============================================================================================ */
@@ -1318,36 +1330,6 @@ html.lenis body {
   [data-paused] .marquee__track {
     animation-play-state: paused;
   }
-  /* ---- Grounds for pictures, after the home Services panel ---------------------------------- */
-  /* White, with a fine grid or dots that fade out toward the edges, so the cards on it float. The
-     pattern sits behind the content (`isolation`), so nothing inside has to be positioned. */
-  .ground {
-    position: relative;
-    isolation: isolate;
-    background-color: #fff;
-  }
-  .ground::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 92%);
-    mask-image: radial-gradient(ellipse at center, #000 40%, transparent 92%);
-    pointer-events: none;
-  }
-  .ground--grid::before {
-    background-image:
-      linear-gradient(#eceef2 1px, transparent 1px),
-      linear-gradient(90deg, #eceef2 1px, transparent 1px);
-    background-position: center;
-    background-size: 24px 24px;
-  }
-  .ground--dots::before {
-    background-image: radial-gradient(#d4d7df 1px, transparent 1.25px);
-    background-position: center;
-    background-size: 12px 12px;
-  }
-
   /* ---- Services: fifteen services in one panel ---------------------------------------------- */
   /* A service: a white pill, its icon in a grey disc that turns graphite when pointed at. */
   .svc-chip {
@@ -1391,7 +1373,8 @@ html.lenis body {
     background: var(--color-graphite);
     color: #fff;
   }
-  /* The ground under each picture: a grid, or dots, fading in from the words above. */
+  /* The ground under each picture: a faint grid, or dots, fading in from the words above and out
+     toward the sides, so it sits behind the picture rather than competing with it. */
   .svc-ground > * {
     position: relative;
   }
@@ -1399,20 +1382,20 @@ html.lenis body {
     content: '';
     position: absolute;
     inset: 0;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%);
-    mask-image: linear-gradient(to bottom, transparent, #000 30%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 60%, #000 25%, transparent 100%);
+    mask-image: radial-gradient(ellipse 70% 75% at 50% 60%, #000 25%, transparent 100%);
     pointer-events: none;
   }
-  /* A fine grid: hairlines every 24px, one grey a step off the white. */
+  /* A faint grid: 1px lines a step off the white, 28px apart. */
   .svc-ground--grid::before {
     background-image:
-      linear-gradient(#eceef2 1px, transparent 1px),
-      linear-gradient(90deg, #eceef2 1px, transparent 1px);
+      linear-gradient(#f0f1f4 1px, transparent 1px),
+      linear-gradient(90deg, #f0f1f4 1px, transparent 1px);
     background-position: center top;
-    background-size: 24px 24px;
+    background-size: 28px 28px;
   }
   .svc-ground--dots::before {
-    background-image: radial-gradient(#d9dce4 1px, transparent 1.25px);
+    background-image: radial-gradient(#dfe2e8 1px, transparent 1.25px);
     background-position: center top;
     background-size: 12px 12px;
   }
@@ -1986,7 +1969,7 @@ html.lenis body {
     font-weight: 600;
     color: var(--color-ink);
   }
-  .enquiry__field :is(input, textarea, select) {
+  .enquiry__field :is(input:not(.enquiry__be-input), textarea, select) {
     width: 100%;
     border: 1px solid var(--color-line-2);
     border-radius: 0.875rem;
@@ -1998,7 +1981,7 @@ html.lenis body {
       border-color 0.2s ease,
       box-shadow 0.2s ease;
   }
-  .enquiry__field :is(input, select) {
+  .enquiry__field :is(input:not(.enquiry__be-input), select) {
     height: 3rem;
   }
   .enquiry__field textarea {
@@ -2008,11 +1991,11 @@ html.lenis body {
   .enquiry__field ::placeholder {
     color: var(--color-ink-3);
   }
-  .enquiry__field :is(input, textarea, select):focus-visible {
+  .enquiry__field :is(input:not(.enquiry__be-input), textarea, select):focus-visible {
     border-color: var(--color-ink);
     box-shadow: 0 0 0 3px rgb(11 13 18 / 0.08);
   }
-  .enquiry__field [aria-invalid] {
+  .enquiry__field [aria-invalid]:not(.enquiry__be-input) {
     border-color: #b42318;
   }
   .enquiry__select {
@@ -2359,10 +2342,6 @@ html.lenis body {
     box-shadow: 0 3px 0 var(--color-ink);
     color: var(--color-ink);
   }
-  .flow__block--end {
-    background: var(--color-graphite);
-    color: #ffffff;
-  }
   .flow__label {
     padding-top: 0.125rem;
   }
@@ -2645,103 +2624,129 @@ html.lenis body {
   .faq-tab[data-active] .faq-tab__icon {
     color: var(--color-ink);
   }
-  /* automatix's question row, measured (18px 36px padding, 20px corners, a 26px question at
-     weight 500 and -1px tracking, a 19px answer on 1.65) and turned light. */
-  .faq-item {
-    border: 1px solid transparent;
-    border-radius: 20px;
-    background-color: transparent;
-    transition:
-      background-color 0.35s ease,
-      border-color 0.35s ease,
-      box-shadow 0.45s ease;
+}
+
+/* beUI's bouncy accordion in the site's dress — outside the layers, so it wins over the utilities
+   beUI writes on its rows. At rest the rows are one white container on a hairline (each row's
+   1px outline overlapping its neighbour's, so a single line runs between them); the asked one
+   springs out as its own card with a soft contact shadow. beUI animates the corners and the gap;
+   everything here is colour, automatix's type (measured, and turned light) and the +/−. */
+.faq-acc__item {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 1px var(--color-line);
+  transition: box-shadow 0.45s ease;
+}
+.faq-acc__item[data-state='open'] {
+  box-shadow:
+    0 0 0 1px var(--color-line),
+    0 26px 50px -38px rgb(0 0 0 / 0.3);
+}
+.faq-acc__trigger {
+  transition: background-color 0.35s ease;
+}
+.faq-acc__item[data-state='closed'] .faq-acc__trigger:hover {
+  background-color: var(--color-fill);
+}
+.faq-acc__q {
+  /* automatix's #919191 on black, as a grey that still reads at 4.9:1 on this paper. */
+  color: #6f6f6f;
+  font-family: var(--font-display);
+  font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  transition: color 0.35s ease;
+}
+.faq-acc__trigger:hover .faq-acc__q,
+.faq-acc__item[data-state='open'] .faq-acc__q {
+  color: var(--color-ink);
+}
+/* HBR's +/− over beUI's chevron: two thin bars; beUI turns the whole mark half over as the row
+   opens, and the upright bar folds flat on the way, so the plus lands as a minus. */
+.faq-acc__toggle {
+  position: relative;
+  width: 1.375rem;
+  height: 1.375rem;
+  color: var(--color-ink-2);
+  transition: color 0.35s ease;
+}
+.faq-acc__toggle > svg {
+  display: none;
+}
+.faq-acc__toggle::before,
+.faq-acc__toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1.5px;
+  margin: -0.75px 0 0 -0.5rem;
+  border-radius: 1px;
+  background: currentColor;
+  transition: transform 0.5s var(--ease-premium);
+}
+.faq-acc__toggle::after {
+  transform: rotate(90deg);
+}
+.faq-acc__trigger:hover .faq-acc__toggle,
+.faq-acc__item[data-state='open'] .faq-acc__toggle {
+  color: var(--color-ink);
+}
+.faq-acc__item[data-state='open'] .faq-acc__toggle::after {
+  transform: rotate(0deg);
+}
+.faq-acc__a {
+  max-width: 46rem;
+  padding-top: 0.25rem;
+  color: var(--color-ink-2);
+  font-size: 1.0625rem;
+  line-height: 1.47;
+}
+@media (min-width: 640px) {
+  .faq-acc__a {
+    padding-inline: 1rem;
+    padding-bottom: 0.75rem;
   }
-  .faq-item:not([data-open]):hover {
-    background-color: var(--color-fill);
-  }
-  .faq-item[data-open] {
-    border-color: var(--color-line);
-    background-color: #fff;
-    background-image: linear-gradient(180deg, rgb(255 255 255 / 0) 0%, rgb(0 0 0 / 0.028) 100%);
-    box-shadow: 0 26px 50px -38px rgb(0 0 0 / 0.3);
-  }
-  .faq-item__q {
-    flex: 1 1 auto;
-    /* automatix's #919191 on black, as a grey that still reads at 4.9:1 on this paper. */
-    color: #6f6f6f;
-    font-family: var(--font-display);
-    font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
-    font-weight: 500;
-    line-height: 1.4;
-    letter-spacing: -0.025em;
-    transition: color 0.35s ease;
-  }
-  .faq-item:hover .faq-item__q,
-  .faq-item[data-open] .faq-item__q {
-    color: var(--color-ink);
-  }
-  /* HBR's +/−: two thin bars that turn half over together as the answer opens, the upright one
-     folding flat on the way, so the plus lands as a minus. */
-  .faq-item__toggle {
-    position: relative;
-    flex: none;
-    width: 1.375rem;
-    height: 1.375rem;
-    color: var(--color-ink-2);
-    transition:
-      transform 0.5s var(--ease-premium),
-      color 0.35s ease;
-  }
-  .faq-item__toggle::before,
-  .faq-item__toggle::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1rem;
-    height: 1.5px;
-    margin: -0.75px 0 0 -0.5rem;
-    border-radius: 1px;
-    background: currentColor;
-    transition: transform 0.5s var(--ease-premium);
-  }
-  .faq-item__toggle::after {
-    transform: rotate(90deg);
-  }
-  .faq-item:hover .faq-item__toggle {
-    color: var(--color-ink);
-  }
-  .faq-item[data-open] .faq-item__toggle {
-    color: var(--color-ink);
-    transform: rotate(180deg);
-  }
-  .faq-item[data-open] .faq-item__toggle::after {
-    transform: rotate(0deg);
-  }
-  .faq-item__a {
-    max-width: 46rem;
-    padding: 0.25rem 1.25rem 1.75rem;
-    color: var(--color-ink-2);
-    font-size: 1.0625rem;
-    line-height: 1.47;
-    opacity: 0;
-    translate: 0 10px;
-    transition:
-      opacity 0.3s ease,
-      translate 0.3s ease;
-  }
-  .faq-item[data-open] .faq-item__a {
-    opacity: 1;
-    translate: 0 0;
-    transition:
-      opacity 0.5s ease 0.1s,
-      translate 0.6s var(--ease-premium) 0.1s;
-  }
-  @media (min-width: 640px) {
-    .faq-item__a {
-      padding-inline: 2.25rem;
-    }
-  }
+}
+
+/* ---- Solutions — Codify's list and panel, on beUI's bouncy accordion ------------------------
+   Outside the layers, over the utilities beUI writes on its rows. The rows are the FAQ's: one
+   white container on a hairline at rest, the open solution springing out as a card with a soft
+   contact shadow. The colour is the glyph's alone: each disc in its solution's `--tint`, the
+   glyph in its `--accent`. */
+.sol-acc__item {
+  background-color: #ffffff;
+  box-shadow: 0 0 0 1px var(--color-line);
+  transition: box-shadow 0.45s ease;
+}
+.sol-acc__item[data-state='open'] {
+  box-shadow:
+    0 0 0 1px var(--color-line),
+    0 16px 36px -24px rgb(11 13 18 / 0.2);
+}
+.sol-acc__item[data-state='closed'] button:hover {
+  background-color: var(--color-fill);
+}
+.sol-acc__mark {
+  display: grid;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  border-radius: 9999px;
+  background: var(--tint);
+  color: var(--accent);
+}
+.sol-acc__title {
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.sol-acc__chevron {
+  color: var(--color-ink-2);
 }
 
 @layer components {
@@ -3196,46 +3201,6 @@ html.lenis body {
 }
 
 @layer components {
-  /* ---- Solutions — Codify's list and panel ------------------------------------------------- */
-  /* Each item's disc in its `--tint`, the glyph in its `--accent` — light grey and graphite. Closed, an item is that glyph and a name; pointed at, a faint white wash;
-     open, a white card on a hairline with a soft contact shadow. */
-  .sol-item {
-    border: 1px solid transparent;
-    border-radius: 1rem;
-    transition:
-      background-color 0.5s var(--ease-premium),
-      border-color 0.5s var(--ease-premium),
-      box-shadow 0.5s var(--ease-premium);
-  }
-  .sol-item:not([data-active]):hover {
-    background: rgb(255 255 255 / 0.6);
-  }
-  .sol-item[data-active] {
-    background: #ffffff;
-    border-color: var(--color-line);
-    box-shadow:
-      0 1px 2px rgb(11 13 18 / 0.04),
-      0 16px 36px -24px rgb(11 13 18 / 0.2);
-  }
-  .sol-item__mark {
-    display: grid;
-    flex: none;
-    width: 2.25rem;
-    height: 2.25rem;
-    place-items: center;
-    border-radius: 9999px;
-    background: var(--tint);
-    color: var(--accent);
-  }
-  .sol-item__title {
-    min-width: 0;
-    color: var(--color-ink);
-    font-family: var(--font-display);
-    font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.3;
-  }
 }
 
 /* Looping motion holds still while its section is off screen (`data-offscreen`, set by
@@ -3258,4 +3223,519 @@ html.lenis body {
   ),
 [data-offscreen] .signal::after {
   animation-play-state: paused;
+}
+
+@layer components {
+  /* ---- The showcase kit (`components/showcase/kit.tsx`) ---------------------------------------
+     Every mockup, drawn as the home Services pictures are: white surfaces on a hairline with a
+     deep soft shadow, the page's colour (`--sc-accent`) on tiles, lit edges, the live dot and the
+     charts, the business's (`--sc-brand`) inside its own screens. Motion runs only while the
+     picture is on screen (`.sc[data-play]`, set by the Stage); off screen it holds still. */
+  .sc-card {
+    position: absolute;
+    border: 1px solid var(--color-line);
+    border-radius: 1rem;
+    background: #ffffff;
+    padding: 0.5rem;
+    color: var(--color-ink);
+    box-shadow: 0 28px 56px -32px rgb(11 13 18 / 0.4);
+  }
+  .sc-tile--accent {
+    background: color-mix(in srgb, var(--sc-accent) 12%, white);
+    color: color-mix(in srgb, var(--sc-accent) 78%, #0b0d12);
+  }
+  .sc-tile--ok {
+    background: var(--color-tint-mint);
+    color: #136b3d;
+  }
+  .sc-tile--ink {
+    background: var(--color-ink);
+    color: #ffffff;
+  }
+  .sc-tile--fill {
+    background: var(--color-fill);
+    color: var(--color-ink-2);
+  }
+  .sc-face {
+    background: color-mix(in srgb, var(--sc-accent) 14%, white);
+    color: color-mix(in srgb, var(--sc-accent) 70%, #0b0d12);
+  }
+  .sc-face[data-shade='1'] {
+    background: #eef0f4;
+    color: var(--color-ink-2);
+  }
+  .sc-face[data-shade='2'] {
+    background: color-mix(in srgb, var(--sc-accent) 24%, white);
+  }
+  .sc-status {
+    border-color: var(--color-line);
+    background: #ffffff;
+    color: var(--color-ink);
+  }
+  .sc-status--ok {
+    border-color: #cfeedd;
+    background: #effaf4;
+    color: #15803d;
+  }
+  .sc-status--accent {
+    border-color: color-mix(in srgb, var(--sc-accent) 30%, white);
+    background: color-mix(in srgb, var(--sc-accent) 9%, white);
+    color: color-mix(in srgb, var(--sc-accent) 75%, #0b0d12);
+  }
+  .sc-status--wait {
+    border-color: #f5e3b8;
+    background: #fff8e8;
+    color: #9a5b06;
+  }
+  .sc-status--muted {
+    color: var(--color-ink-2);
+  }
+  .sc-status--ink {
+    border-color: var(--color-ink);
+    background: var(--color-ink);
+    color: #ffffff;
+  }
+  .sc-status__dot {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background: currentColor;
+  }
+  .sc-chip--on {
+    border-color: var(--sc-brand);
+    background: var(--sc-brand);
+    color: #ffffff;
+  }
+  .sc-delta {
+    background: color-mix(in srgb, var(--sc-accent) 12%, white);
+    color: color-mix(in srgb, var(--sc-accent) 75%, #0b0d12);
+  }
+  .sc-plan--on {
+    border-color: var(--sc-brand);
+    background: color-mix(in srgb, var(--sc-brand) 8%, white);
+  }
+  .sc-funnel {
+    background: color-mix(in srgb, var(--sc-accent) 28%, white);
+  }
+  .sc-slot {
+    background: color-mix(in srgb, var(--sc-brand) 6%, white);
+  }
+  .sc-scan {
+    background: linear-gradient(
+      transparent,
+      color-mix(in srgb, var(--sc-accent) 22%, transparent) 80%,
+      var(--sc-accent) 96%,
+      transparent
+    );
+    animation: sc-scan 2.6s ease-in-out infinite;
+  }
+  @keyframes sc-scan {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(560%);
+    }
+  }
+  .sc-row--lit {
+    background: color-mix(in srgb, var(--sc-accent) 9%, white);
+  }
+  .sc-code {
+    color: color-mix(in srgb, var(--sc-accent) 78%, #0b0d12);
+  }
+  .sc-slot--fresh {
+    background: var(--sc-brand);
+    color: #ffffff;
+    box-shadow: 0 10px 22px -14px var(--sc-brand);
+  }
+  .sc-slot--on {
+    background: color-mix(in srgb, var(--sc-brand) 16%, white);
+    box-shadow: inset 3px 0 0 var(--sc-brand);
+  }
+  .sc-check--on {
+    border-color: var(--sc-brand);
+    background: var(--sc-brand);
+    color: #ffffff;
+  }
+  .sc-track--done {
+    background: var(--sc-accent);
+    color: #ffffff;
+  }
+  .sc-track--now {
+    border: 2px solid var(--sc-accent);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--sc-accent) 16%, transparent);
+  }
+  .sc-track--later {
+    border: 1.5px solid var(--color-line-2);
+    background: #ffffff;
+  }
+  .sc-step--lit {
+    border-color: color-mix(in srgb, var(--sc-accent) 45%, white);
+    box-shadow: 0 14px 28px -20px color-mix(in srgb, var(--sc-accent) 70%, transparent);
+  }
+  .sc-bar {
+    background: linear-gradient(#e6e8ee, rgb(244 245 248 / 0.4));
+  }
+  .sc-bar--now {
+    background: linear-gradient(
+      var(--sc-accent) 0 5px,
+      color-mix(in srgb, var(--sc-accent) 55%, white) 5px,
+      color-mix(in srgb, var(--sc-accent) 8%, white)
+    );
+  }
+  .sc-meter {
+    background: var(--sc-accent);
+  }
+  .sc-ring {
+    stroke: var(--sc-accent);
+  }
+  .sc-field--focus {
+    border-color: var(--sc-brand);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--sc-brand) 14%, transparent);
+  }
+  .sc-caret {
+    display: inline-block;
+    width: 1.5px;
+    height: 1em;
+    background: var(--color-ink);
+    animation: sc-blink 1.05s steps(1) infinite;
+  }
+  .sc-press {
+    background: var(--sc-brand);
+    color: #ffffff;
+    animation: sc-press 4.5s var(--ease-premium) 1.6s infinite;
+  }
+  .sc-bubble--us {
+    background: color-mix(in srgb, var(--sc-accent) 14%, white);
+    color: var(--color-ink);
+  }
+  .sc-type {
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background: var(--color-ink-3);
+    animation: sc-type 1.2s ease-in-out infinite;
+  }
+  .sc-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 9999px;
+    background: var(--color-ink);
+    padding: 0.25rem 0.5rem;
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .sc-live::before {
+    content: '';
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background: var(--sc-accent);
+    animation: svc-live 1.6s ease-in-out infinite;
+  }
+
+  /* The motion. Each piece waits until its picture is on screen. */
+  .sc-rise {
+    animation: sc-rise 800ms var(--ease-out-expo) calc(150ms + var(--i, 0) * 140ms) both;
+  }
+  .sc-pop {
+    animation: sc-pop 750ms cubic-bezier(0.34, 1.56, 0.64, 1) calc(650ms + var(--i, 0) * 140ms) both;
+  }
+  .sc-float {
+    animation: sc-float 6s ease-in-out 1.6s infinite;
+  }
+  .sc-grow {
+    transform-origin: 50% 100%;
+    animation: sc-grow 900ms var(--ease-premium) calc(350ms + var(--i, 0) * 70ms) both;
+  }
+  .sc-fill {
+    transform-origin: 0 50%;
+    animation: sc-fill 1100ms var(--ease-premium) calc(400ms + var(--i, 0) * 110ms) both;
+  }
+  .sc-draw {
+    animation: sc-draw 1300ms var(--ease-premium) calc(400ms + var(--i, 0) * 150ms) both;
+  }
+  .sc-turn {
+    animation: var(--sc-turn) var(--sc-cycle) var(--ease-premium) calc(1.2s + var(--i, 0) * 3s)
+      infinite;
+  }
+  .sc-turn-status {
+    display: inline-flex;
+    animation: sc-turn-status var(--sc-cycle) var(--ease-premium) calc(1.2s + var(--i, 0) * 3s)
+      infinite;
+  }
+  .sc-turn--2 {
+    --sc-turn: sc-turn-2;
+    --sc-cycle: 6s;
+  }
+  .sc-turn--3 {
+    --sc-turn: sc-turn-3;
+    --sc-cycle: 9s;
+  }
+  .sc-turn--4 {
+    --sc-turn: sc-turn-4;
+    --sc-cycle: 12s;
+  }
+  .sc-turn--5 {
+    --sc-turn: sc-turn-5;
+    --sc-cycle: 15s;
+  }
+  .sc-turn-status.sc-turn--2 {
+    animation-name: sc-status-2;
+  }
+  .sc-turn-status.sc-turn--3 {
+    animation-name: sc-status-3;
+  }
+  .sc-turn-status.sc-turn--4 {
+    animation-name: sc-status-4;
+  }
+  .sc-turn-status.sc-turn--5 {
+    animation-name: sc-status-5;
+  }
+  .sc
+    :is(
+      .sc-rise,
+      .sc-pop,
+      .sc-float,
+      .sc-grow,
+      .sc-fill,
+      .sc-draw,
+      .sc-turn,
+      .sc-turn-status,
+      .sc-press,
+      .sc-caret,
+      .sc-type,
+      .sc-loop
+    ),
+  .sc .sc-live::before {
+    animation-play-state: paused;
+  }
+  .sc[data-play]
+    :is(
+      .sc-rise,
+      .sc-pop,
+      .sc-float,
+      .sc-grow,
+      .sc-fill,
+      .sc-draw,
+      .sc-turn,
+      .sc-turn-status,
+      .sc-press,
+      .sc-caret,
+      .sc-type,
+      .sc-loop
+    ),
+  .sc[data-play] .sc-live::before {
+    animation-play-state: running;
+  }
+  @keyframes sc-rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes sc-pop {
+    from {
+      opacity: 0;
+      transform: translateY(10px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes sc-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  @keyframes sc-grow {
+    from {
+      transform: scaleY(0.04);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes sc-fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: none;
+    }
+  }
+  @keyframes sc-draw {
+    from {
+      stroke-dashoffset: var(--sc-len);
+    }
+    to {
+      stroke-dashoffset: var(--sc-off);
+    }
+  }
+  @keyframes sc-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes sc-press {
+    0%,
+    8%,
+    16%,
+    100% {
+      transform: none;
+      filter: none;
+    }
+    11% {
+      transform: scale(0.96);
+      filter: brightness(0.92);
+    }
+  }
+  @keyframes sc-type {
+    0%,
+    60%,
+    100% {
+      transform: none;
+      opacity: 0.45;
+    }
+    30% {
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+  }
+  /* A row's turn: its edge lights in the page's colour for a beat of its cycle, then rests. */
+  @keyframes sc-turn-2 {
+    0%,
+    48%,
+    100% {
+      border-color: var(--color-line);
+      box-shadow: none;
+    }
+    8%,
+    38% {
+      border-color: color-mix(in srgb, var(--sc-accent) 45%, white);
+      box-shadow: 0 14px 28px -20px color-mix(in srgb, var(--sc-accent) 70%, transparent);
+    }
+  }
+  @keyframes sc-turn-3 {
+    0%,
+    33%,
+    100% {
+      border-color: var(--color-line);
+      box-shadow: none;
+    }
+    6%,
+    26% {
+      border-color: color-mix(in srgb, var(--sc-accent) 45%, white);
+      box-shadow: 0 14px 28px -20px color-mix(in srgb, var(--sc-accent) 70%, transparent);
+    }
+  }
+  @keyframes sc-turn-4 {
+    0%,
+    25%,
+    100% {
+      border-color: var(--color-line);
+      box-shadow: none;
+    }
+    4%,
+    20% {
+      border-color: color-mix(in srgb, var(--sc-accent) 45%, white);
+      box-shadow: 0 14px 28px -20px color-mix(in srgb, var(--sc-accent) 70%, transparent);
+    }
+  }
+  @keyframes sc-turn-5 {
+    0%,
+    20%,
+    100% {
+      border-color: var(--color-line);
+      box-shadow: none;
+    }
+    3%,
+    16% {
+      border-color: color-mix(in srgb, var(--sc-accent) 45%, white);
+      box-shadow: 0 14px 28px -20px color-mix(in srgb, var(--sc-accent) 70%, transparent);
+    }
+  }
+  /* …and its status pops back in as it lights. */
+  @keyframes sc-status-2 {
+    0%,
+    12%,
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+    3% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+  @keyframes sc-status-3 {
+    0%,
+    9%,
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+    2% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+  @keyframes sc-status-4 {
+    0%,
+    7%,
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+    1.5% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+  @keyframes sc-status-5 {
+    0%,
+    6%,
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+    1.2% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sc
+      :is(
+        .sc-rise,
+        .sc-pop,
+        .sc-float,
+        .sc-grow,
+        .sc-fill,
+        .sc-draw,
+        .sc-turn,
+        .sc-turn-status,
+        .sc-press,
+        .sc-caret,
+        .sc-type,
+        .sc-loop
+      ),
+    .sc .sc-live::before {
+      animation: none;
+    }
+  }
 }
