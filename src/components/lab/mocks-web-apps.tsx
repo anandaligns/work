@@ -1,13 +1,11 @@
 import { Fragment } from 'react';
 
-import product from '@/content/products/web-apps';
-
 import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
-import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Chip, Dot, Stat } from './mock-parts';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Web Apps' mockups, in the light kit, from the page's own sample business — a Logistics & Fleet
@@ -17,9 +15,9 @@ import { Chip, Dot, Stat } from './mock-parts';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = product.accent;
+const P = GRAPHITE;
 /** The business's own colour: everything inside its screens. */
-const A = BRANDS.logistics!.accent;
+const A = GRAPHITE;
 
 /** Nothing to install: the customer's loads in the app, from one link on any device. */
 export function InstallMock() {

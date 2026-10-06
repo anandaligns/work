@@ -1,7 +1,6 @@
-import product from '@/content/products/sell-and-book-online';
-
 import { Fit } from './fit';
 import { Bubble, Frag, FragHead, Line, Pill, Tag, Wires, lit } from './kit';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Online Store & Bookings's mockups for the solution page under test, from its sample studio: pieces
@@ -9,7 +8,7 @@ import { Bubble, Frag, FragHead, Line, Pill, Tag, Wires, lit } from './kit';
  * their seats, and — for the cards — a piece paid for, a workshop booked, and the confirmation.
  */
 
-const A = product.accent;
+const A = GRAPHITE;
 
 /** A wheel-thrown vase, drawn simply. */
 function Vase({ size = 120 }: { size?: number }) {

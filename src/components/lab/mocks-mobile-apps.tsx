@@ -1,10 +1,8 @@
-import product from '@/content/products/mobile-apps';
-
 import { ToolMark } from '../ui/brand-logos';
-import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, deep, Face, Head, onColour, Pill, Row, Tag, Wires } from './light-kit';
 import { Chip, Dot, Stat } from './mock-parts';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Mobile Apps' mockups, in the light kit, from the page's own sample business — a South Indian
@@ -14,9 +12,9 @@ import { Chip, Dot, Stat } from './mock-parts';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = product.accent;
+const P = GRAPHITE;
 /** The business's own colour: everything inside its screens. */
-const A = BRANDS.restaurant!.accent;
+const A = GRAPHITE;
 
 /** Regulars: the week's special and the usual, ordered again in a tap. */
 export function RegularsMock() {

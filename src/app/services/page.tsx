@@ -24,22 +24,19 @@ export const metadata: Metadata = {
   openGraph: { title: SERVICES_TITLE, description: SERVICES_DESCRIPTION, url: '/services' },
 };
 
-/** Each group's colour, its highlighted word, and the two products its picture borrows. */
-const GROUPS: Record<string, { accent: string; highlight: string; back: string; front: string }> = {
+/** Each group's highlighted word, and the two products its picture borrows. */
+const GROUPS: Record<string, { highlight: string; back: string; front: string }> = {
   'digital-experiences': {
-    accent: '#4b55d6',
     highlight: 'Digital',
     back: 'business-websites',
     front: 'e-commerce-stores',
   },
   'business-systems': {
-    accent: '#1a7ab8',
     highlight: 'Systems',
     back: 'dashboards',
     front: 'crm-systems',
   },
   'automation-ai': {
-    accent: '#15803d',
     highlight: 'Automation',
     back: 'whatsapp-automation',
     front: 'ai-assistants',
@@ -62,13 +59,7 @@ export default function ServicesPage() {
         href: `/services/${service.anchor}`,
       })),
       cta: { label: `Explore ${category.name}`, href: `/services/${category.slug}` },
-      accent: group.accent,
-      visual: {
-        back: back.stage?.back!,
-        backAccent: back.accent,
-        front: front.stage?.front?.[0],
-        frontAccent: front.accent,
-      },
+      visual: { back: back.stage?.back!, front: front.stage?.front?.[0] },
     };
   });
 

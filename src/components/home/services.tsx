@@ -15,7 +15,7 @@ import { SectionHead } from './section-head';
  * under them, a picture of that group at work:
  *
  * - Digital Experiences, the website answering back: customers' requests turning into next steps,
- *   on a ground of small checks;
+ *   on a ground of a fine grid;
  * - Automation & AI, the tools working as one: a honeycomb of the tools a business already uses,
  *   our mark on Kinetic Orange at its centre, on a ground of dots;
  * - Business Systems, the place the business runs from: the overview of its own dashboard, cropped
@@ -28,8 +28,8 @@ const NUMBER_WORDS: Record<number, string> = { 12: 'Twelve', 15: 'Fifteen', 16: 
 const total = categories.reduce((sum, category) => sum + category.services.length, 0);
 
 /** The groups in the panel's order — two above, one across the foot — and each one's picture. */
-const LAYOUT: { slug: string; visual: () => ReactNode; ground: 'checks' | 'dots' | 'plain' }[] = [
-  { slug: 'digital-experiences', visual: NextStepCard, ground: 'checks' },
+const LAYOUT: { slug: string; visual: () => ReactNode; ground: 'grid' | 'dots' | 'plain' }[] = [
+  { slug: 'digital-experiences', visual: NextStepCard, ground: 'grid' },
   { slug: 'automation-ai', visual: ToolHive, ground: 'dots' },
   { slug: 'business-systems', visual: OverviewWindow, ground: 'plain' },
 ];
@@ -74,7 +74,7 @@ function Group({
 }: {
   category: (typeof categories)[number];
   visual: () => ReactNode;
-  ground: 'checks' | 'dots' | 'plain';
+  ground: 'grid' | 'dots' | 'plain';
   index: number;
   wide?: boolean;
   className?: string;

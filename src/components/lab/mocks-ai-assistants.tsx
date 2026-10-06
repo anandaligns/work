@@ -1,11 +1,9 @@
-import product from '@/content/products/ai-assistants';
-
 import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
-import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, Face, Head, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Bubble, Chip, Dot, Stat } from './mock-parts';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * AI Assistants' mockups, in the light kit, from the page's own sample business — a Law Firm and
@@ -15,9 +13,9 @@ import { Bars, Bubble, Chip, Dot, Stat } from './mock-parts';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = product.accent;
+const P = GRAPHITE;
 /** The business's own colour: everything inside its screens. */
-const A = BRANDS.lawfirm!.accent;
+const A = GRAPHITE;
 
 /** A source chip under an answer: the document it came from. */
 function Source({ children }: { children: string }) {

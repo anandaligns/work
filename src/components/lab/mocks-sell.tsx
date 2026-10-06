@@ -1,5 +1,3 @@
-import { content } from '@/content/lab/sell-and-book-online';
-
 import { ToolMark } from '../ui/brand-logos';
 import { Bleed, Fit } from './fit';
 import { Card, Face, Head, Mark, onColour, Pill, Row, Tag, Wires } from './light-kit';
@@ -31,6 +29,7 @@ import {
   Title,
   ViewChip,
 } from './window-kit';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Online Store & Bookings's mockups, from its sample studio — "Your Studio", a pottery studio selling
@@ -40,7 +39,7 @@ import {
  * panel (`Bleed`). Every figure is the product page's own.
  */
 
-const A = content.accent;
+const A = GRAPHITE;
 const price = (value: string) => (
   <span className="text-[11.5px] font-semibold tabular-nums">{value}</span>
 );

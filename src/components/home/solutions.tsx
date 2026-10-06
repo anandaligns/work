@@ -17,6 +17,7 @@ import { Lucide, MENU_ICONS } from '../ui/lucide';
 import { RollLabel } from '../ui/roll-link';
 import { SOLUTION_MOCKS, SolutionsRestMock } from './native-mocks';
 
+import { GRAPHITE } from '../visuals/graphite';
 import { SectionHead } from './section-head';
 
 /**
@@ -24,8 +25,8 @@ import { SectionHead } from './section-head';
  *
  * A list on the left and a large panel on the right. The open solution is a white card — its
  * glyph, its name, then everything it says: its line, its two ways in and the way to its page;
- * the others are a glyph and a name. The colour is the glyphs' alone, each on its solution's
- * tint. The picture sits on a white panel and changes with the solution. The reader opens a
+ * the others are a glyph and a name. The glyphs are graphite on light grey. The picture sits on a
+ * panel after the home Services pictures and changes with the solution. The reader opens a
  * solution, or closes the open one again; with every one closed, the frame rests on the four
  * solutions as a deck, one card lifted over its slot. Nothing turns on its own.
  *
@@ -35,18 +36,8 @@ import { SectionHead } from './section-head';
  * its words.
  */
 
-/** Each solution's glyph colours — the tint and colour its own page is drawn in. */
-const TONES: Record<string, { tint: string; accent: string }> = {
-  'lead-automation': { tint: 'var(--color-tint-mint)', accent: '#166534' },
-  'online-store-and-bookings': { tint: 'var(--color-tint-sky)', accent: 'var(--color-signal-sky)' },
-  'business-dashboard-crm': {
-    tint: 'var(--color-tint-violet)',
-    accent: 'var(--color-signal-violet)',
-  },
-  'website-care-hosting': { tint: 'var(--color-tint-blush)', accent: 'var(--color-signal-rose)' },
-};
-const toneOf = (slug?: string) =>
-  (slug ? TONES[slug] : undefined) ?? { tint: 'var(--color-fill)', accent: 'var(--color-ink)' };
+/** Each solution's glyph colours: graphite on light grey, after the home Services pictures. */
+const toneOf = (_slug?: string) => ({ tint: 'var(--color-fill)', accent: GRAPHITE });
 
 export function Solutions() {
   // The open row, or -1 once the reader closes it.
@@ -168,23 +159,22 @@ export function Solutions() {
 }
 
 /**
- * The picture's panel: white on a hairline, a dot grid fading out from its centre, the picture
- * on it — as before, without the grey card around it or the corner marks. The picture repeats
- * what its row says, so it is hidden from assistive tech. Beside the list from 1024px; `inline`,
- * inside the open card below that.
+ * The picture's panel, after the home Services pictures: white on a hairline, a fine grid fading
+ * out toward its edges, the picture on it in graphite. The picture repeats what its row says, so
+ * it is hidden from assistive tech. Beside the list from 1024px; `inline`, inside the open card
+ * below that.
  */
 function SceneFrame({ slug, inline = false }: { slug?: string; inline?: boolean }) {
   const Mock = slug ? SOLUTION_MOCKS[slug] : SolutionsRestMock;
   return (
     <div
       aria-hidden="true"
-      className={`relative overflow-hidden border border-white/10 bg-night ${
+      className={`ground ground--grid relative overflow-hidden border border-line ${
         inline
           ? 'mt-6 rounded-2xl lg:hidden'
-          : 'hidden rounded-[1.25rem] lg:sticky lg:top-24 lg:block'
+          : 'hidden rounded-[1.75rem] lg:sticky lg:top-24 lg:block'
       }`}
     >
-      <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(255_255_255/0.12)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
       <div
         key={slug ?? 'rest'}
         className={`scene-swap relative ${inline ? 'h-[15rem] sm:h-[21rem]' : 'h-[19rem] sm:h-[26rem] lg:h-[32rem]'}`}

@@ -62,7 +62,7 @@ The service and solution pages wait for one photograph each: a dark background f
 panel (their point of view is drawn — an isometric scene per page, `visuals/iso-views.tsx`). [IMAGE-PROMPTS.md](IMAGE-PROMPTS.md) lists all forty: file names,
 alt text and a prompt for each, in each page's own colour. They go in `public/photos/` as
 `<name>-800` and `<name>-1600`, in AVIF and WebP; until one is there, the panel shows its dark
-gradient and the point of view a tinted placeholder.
+gradient and the point of view a placeholder of fading dots.
 
 [STATEMENTS.md](STATEMENTS.md) gathers every line written for the twenty pages — search titles,
 openings, taglines, statements, figures, feature titles, headings and closings — with the file

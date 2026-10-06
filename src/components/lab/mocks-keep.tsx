@@ -1,5 +1,3 @@
-import { content } from '@/content/lab/keep-it-improving';
-
 import { Bleed, Fit } from './fit';
 import { Card, Head, Pill, Row, Tag, Wires } from './light-kit';
 import { Stat, Steps } from './mock-parts';
@@ -31,6 +29,7 @@ import {
   Title,
   ViewChip,
 } from './window-kit';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Website Care & Hosting's mockups, from its sample precision-parts maker and its old site,
@@ -40,7 +39,7 @@ import {
  * running off the panel (`Bleed`). Every figure is the product page's own.
  */
 
-const A = content.accent;
+const A = GRAPHITE;
 
 // --- the system behind a looked-after site -------------------------------------------------------
 

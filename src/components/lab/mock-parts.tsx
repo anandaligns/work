@@ -34,8 +34,8 @@ export const fadeSurfaceOf = (light: string) =>
   `linear-gradient(135deg, ${light} 0%, ${light} 30%, color-mix(in srgb, ${light} 35%, white) 100%)`;
 
 /**
- * A panel for a mockup whose windows run off its edges, on `fadeSurfaceOf` the page's lightest
- * step (its accent at 7%, or the tint given); states inside it take the business's colour.
+ * A panel for a mockup whose windows run off its edges: white on a fine grid, fading out at the
+ * edges (`.ground--grid`), after the home Services panel; states inside it take the colour given.
  */
 export function FadePanel({
   accent,
@@ -52,6 +52,7 @@ export function FadePanel({
     <TintPanel
       tint={fadeSurfaceOf(light ?? washOf(accent))}
       accent={business ?? accent}
+      ground="grid"
       className="size-full"
     >
       {children}
@@ -60,8 +61,8 @@ export function FadePanel({
 }
 
 /**
- * A mockup on the page's tint, filling whatever it is placed in; the states inside it (tags,
- * faces, ticks) take the business's colour.
+ * A mockup on white with fine dots (`.ground--dots`), filling whatever it is placed in; the states
+ * inside it (tags, faces, ticks) take the colour given.
  */
 export function MockPanel({
   accent,
@@ -73,7 +74,12 @@ export function MockPanel({
   children: ReactNode;
 }) {
   return (
-    <TintPanel tint={surfaceOf(accent)} accent={business ?? accent} className="size-full">
+    <TintPanel
+      tint={surfaceOf(accent)}
+      accent={business ?? accent}
+      ground="dots"
+      className="size-full"
+    >
       {children}
     </TintPanel>
   );

@@ -4,7 +4,7 @@ import { Fit } from '../lab/fit';
 import { Card, Head } from '../lab/light-kit';
 import { Icon, type IconName } from '../ui/icon';
 import { leftMatrix, p, Slab, topMatrix } from './iso';
-import { Corners } from './scene-panel';
+import { GRAPHITE } from './graphite';
 
 /**
  * The point of view's picture on every service and solution page, in the home Solutions
@@ -166,7 +166,21 @@ function Cube({
 }
 
 /** A column of a chart, standing on whatever is under it. */
-function Column({ x, y, z, h, t, solid = false }: { x: number; y: number; z: number; h: number; t: Tones; solid?: boolean }) {
+function Column({
+  x,
+  y,
+  z,
+  h,
+  t,
+  solid = false,
+}: {
+  x: number;
+  y: number;
+  z: number;
+  h: number;
+  t: Tones;
+  solid?: boolean;
+}) {
   return (
     <Slab
       x={x}
@@ -304,7 +318,19 @@ function Stack({
 }
 
 /** A phone lying on the platform, its notch at the back. */
-function Phone({ x, y, w = 62, d = 112, children }: { x: number; y: number; w?: number; d?: number; children?: ReactNode }) {
+function Phone({
+  x,
+  y,
+  w = 62,
+  d = 112,
+  children,
+}: {
+  x: number;
+  y: number;
+  w?: number;
+  d?: number;
+  children?: ReactNode;
+}) {
   return (
     <Sheet x={x} y={y} w={w} d={d} h={8} r={12} stroke="#cdd1d9">
       {bar(w / 2 - 9, 6, 18, '#e1e3e8', 4)}
@@ -401,7 +427,13 @@ const BusinessWebsites: Scene = ({ t }) => (
       <rect x={114} y={28} width={26} height={56} rx={7} fill={t.top} />
       <circle cx={127} cy={46} r={6} fill={t.soft} />
     </Sheet>
-    <Dots path={[[180, 168], [236, 168], [236, 118]]} />
+    <Dots
+      path={[
+        [180, 168],
+        [236, 168],
+        [236, 118],
+      ]}
+    />
     <Lifted t={t}>
       <Note icon="mail" t={t} />
     </Lifted>
@@ -423,7 +455,12 @@ const EcommerceStores: Scene = ({ t }) => (
         {bar(6, 43, 18, t.ink, 5)}
       </Sheet>
     ))}
-    <Dots path={[[144, 186], [196, 186]]} />
+    <Dots
+      path={[
+        [144, 186],
+        [196, 186],
+      ]}
+    />
     <Cube x={198} y={164} s={44} h={28} icon="cart" t={t} solid />
     <Lifted t={t}>
       <Note icon="receipt" t={t} />
@@ -445,7 +482,14 @@ const CustomerPortals: Scene = ({ t }) => (
         <g key={i}>
           <rect x={42} y={8 + i * 26} width={100} height={20} rx={6} fill="#f8f9fb" />
           {bar(50, 15 + i * 26, 40, INK, 5)}
-          <rect x={112} y={13 + i * 26} width={24} height={10} rx={5} fill={i === 0 ? t.ink : t.top} />
+          <rect
+            x={112}
+            y={13 + i * 26}
+            width={24}
+            height={10}
+            rx={5}
+            fill={i === 0 ? t.ink : t.top}
+          />
         </g>
       ))}
     </Sheet>
@@ -483,7 +527,13 @@ const WebApps: Scene = ({ t }) => (
         </g>
       ))}
     </Sheet>
-    <Dots path={[[188, 150], [236, 150], [236, 118]]} />
+    <Dots
+      path={[
+        [188, 150],
+        [236, 150],
+        [236, 118],
+      ]}
+    />
     <Cube x={210} y={168} s={34} h={20} icon="window" t={t} />
     <Lifted t={t}>
       <Glyph u={12} v={12} s={24} icon="apps" bg={t.top} fg={t.ink} />
@@ -526,7 +576,13 @@ const MobileApps: Scene = ({ t }) => (
       ))}
       <rect x={8} y={94} width={46} height={11} rx={5.5} fill={t.ink} />
     </Phone>
-    <Dots path={[[180, 164], [228, 164], [228, 118]]} />
+    <Dots
+      path={[
+        [180, 164],
+        [228, 164],
+        [228, 118],
+      ]}
+    />
     <Lifted t={t}>
       <Note icon="bell" t={t} pill={false} />
     </Lifted>
@@ -602,7 +658,13 @@ const InternalTools: Scene = ({ t }) => (
         </g>
       ))}
     </Sheet>
-    <Dots path={[[190, 160], [236, 160], [236, 118]]} />
+    <Dots
+      path={[
+        [190, 160],
+        [236, 160],
+        [236, 118],
+      ]}
+    />
     <Lifted t={t}>
       <Glyph u={12} v={12} s={24} icon="check" bg={t.top} fg={t.ink} />
       {bar(44, 14, 46, INK, 7)}
@@ -631,9 +693,19 @@ const CrmSystems: Scene = ({ t }) => (
         ))}
       </g>
     ))}
-    <Dots path={[[214, 196], [184, 196]]} />
+    <Dots
+      path={[
+        [214, 196],
+        [184, 196],
+      ]}
+    />
     <Cube x={214} y={180} s={32} h={18} icon="whatsapp" t={t} />
-    <Dots path={[[214, 152], [184, 152]]} />
+    <Dots
+      path={[
+        [214, 152],
+        [184, 152],
+      ]}
+    />
     <Cube x={214} y={136} s={32} h={18} icon="globe" t={t} />
     <Lifted t={t}>
       <circle cx={26} cy={26} r={13} fill={t.ink} />
@@ -649,21 +721,55 @@ const CrmSystems: Scene = ({ t }) => (
 const CustomSoftware: Scene = ({ t }) => (
   <>
     <Slot t={t} />
-    <Dots path={[[70, 140], [100, 140]]} />
-    <Dots path={[[50, 160], [50, 182]]} />
-    <Dots path={[[122, 166], [122, 182]]} />
-    <Dots path={[[70, 202], [100, 202]]} />
+    <Dots
+      path={[
+        [70, 140],
+        [100, 140],
+      ]}
+    />
+    <Dots
+      path={[
+        [50, 160],
+        [50, 182],
+      ]}
+    />
+    <Dots
+      path={[
+        [122, 166],
+        [122, 182],
+      ]}
+    />
+    <Dots
+      path={[
+        [70, 202],
+        [100, 202],
+      ]}
+    />
     <Cube x={30} y={120} s={40} h={24} icon="database" t={t} />
     <Cube x={100} y={120} s={44} h={32} icon="code" t={t} solid />
     <Cube x={30} y={182} s={40} h={24} icon="receipt" t={t} />
     <Cube x={100} y={182} s={40} h={24} icon="tasks" t={t} />
-    <Dots path={[[146, 140], [236, 140], [236, 116]]} />
+    <Dots
+      path={[
+        [146, 140],
+        [236, 140],
+        [236, 116],
+      ]}
+    />
     <Lifted t={t}>
       <Glyph u={12} v={12} s={24} icon="layers" bg={t.top} fg={t.ink} />
       {bar(44, 14, 46, INK, 7)}
       {bar(44, 27, 32)}
       {[0, 1, 2, 3].map((k) => (
-        <rect key={k} x={12 + k * 22} y={50} width={16} height={16} rx={4} fill={k === 3 ? t.ink : t.top} />
+        <rect
+          key={k}
+          x={12 + k * 22}
+          y={50}
+          width={16}
+          height={16}
+          rx={4}
+          fill={k === 3 ? t.ink : t.top}
+        />
       ))}
     </Lifted>
   </>
@@ -690,8 +796,20 @@ const BusinessPlatforms: Scene = ({ t }) => (
           ? [0, 1].map((r) =>
               [0, 1].map((c) => (
                 <g key={`${r}${c}`}>
-                  <rect x={10 + c * 64} y={10 + r * 48} width={56} height={40} rx={7} fill="#f6f7f9" />
-                  <circle cx={22 + c * 64} cy={22 + r * 48} r={6} fill={r + c === 0 ? t.ink : t.soft} />
+                  <rect
+                    x={10 + c * 64}
+                    y={10 + r * 48}
+                    width={56}
+                    height={40}
+                    rx={7}
+                    fill="#f6f7f9"
+                  />
+                  <circle
+                    cx={22 + c * 64}
+                    cy={22 + r * 48}
+                    r={6}
+                    fill={r + c === 0 ? t.ink : t.soft}
+                  />
                   {bar(32 + c * 64, 19 + r * 48, 26, INK, 5)}
                   {bar(16 + c * 64, 34 + r * 48, 40, GREY, 4)}
                 </g>
@@ -700,7 +818,12 @@ const BusinessPlatforms: Scene = ({ t }) => (
           : null}
       </Sheet>
     ))}
-    <Dots path={[[174, 186], [204, 186]]} />
+    <Dots
+      path={[
+        [174, 186],
+        [204, 186],
+      ]}
+    />
     <Cube x={204} y={170} s={30} h={18} icon="people" t={t} />
     <Cube x={246} y={170} s={30} h={18} icon="briefcase" t={t} />
     <Lifted t={t}>
@@ -720,11 +843,27 @@ const WhatsappAutomation: Scene = ({ t }) => (
       <rect x={22} y={78} width={38} height={14} rx={6} fill={t.top} />
       {bar(27, 83, 22, t.ink, 4)}
     </Phone>
-    <Dots path={[[100, 140], [126, 140]]} />
-    <Dots path={[[100, 190], [126, 190]]} />
+    <Dots
+      path={[
+        [100, 140],
+        [126, 140],
+      ]}
+    />
+    <Dots
+      path={[
+        [100, 190],
+        [126, 190],
+      ]}
+    />
     <Cube x={126} y={122} s={34} h={20} icon="bell" t={t} />
     <Cube x={126} y={172} s={34} h={20} icon="clock" t={t} />
-    <Dots path={[[164, 140], [236, 140], [236, 116]]} />
+    <Dots
+      path={[
+        [164, 140],
+        [236, 140],
+        [236, 116],
+      ]}
+    />
     <Lifted t={t}>
       <Glyph u={12} v={12} s={24} icon="whatsapp" bg={t.ink} fg="#ffffff" />
       {bar(44, 14, 46, INK, 7)}
@@ -750,12 +889,23 @@ const BookingPayments: Scene = ({ t }) => (
             width={19}
             height={17}
             rx={4}
-            fill={r === 1 && c === 3 ? t.ink : (r === 2 && c === 1) || (r === 0 && c === 4) ? t.top : '#f4f5f8'}
+            fill={
+              r === 1 && c === 3
+                ? t.ink
+                : (r === 2 && c === 1) || (r === 0 && c === 4)
+                  ? t.top
+                  : '#f4f5f8'
+            }
           />
         )),
       )}
     </Sheet>
-    <Dots path={[[160, 178], [186, 178]]} />
+    <Dots
+      path={[
+        [160, 178],
+        [186, 178],
+      ]}
+    />
     <Sheet x={186} y={150} w={88} d={58} h={5} r={9} top={t.ink} side={t.deep} stroke={t.deep}>
       <rect x={10} y={10} width={15} height={11} rx={2.5} fill="#ffffff" opacity={0.55} />
       {bar(10, 32, 46, '#ffffff', 5)}
@@ -770,14 +920,37 @@ const BookingPayments: Scene = ({ t }) => (
 const ApiIntegrations: Scene = ({ t }) => (
   <>
     <Slot t={t} />
-    <Dots path={[[70, 82], [134, 82], [134, 122]]} />
-    <Dots path={[[70, 196], [110, 196], [110, 166]]} />
-    <Dots path={[[160, 196], [196, 196]]} />
+    <Dots
+      path={[
+        [70, 82],
+        [134, 82],
+        [134, 122],
+      ]}
+    />
+    <Dots
+      path={[
+        [70, 196],
+        [110, 196],
+        [110, 166],
+      ]}
+    />
+    <Dots
+      path={[
+        [160, 196],
+        [196, 196],
+      ]}
+    />
     <Cube x={36} y={64} s={34} h={20} icon="card" t={t} />
     <Cube x={110} y={120} s={48} h={32} icon="plug" t={t} solid />
     <Cube x={36} y={178} s={34} h={20} icon="database" t={t} />
     <Cube x={196} y={180} s={34} h={20} icon="receipt" t={t} />
-    <Dots path={[[160, 136], [236, 136], [236, 116]]} />
+    <Dots
+      path={[
+        [160, 136],
+        [236, 136],
+        [236, 116],
+      ]}
+    />
     <Lifted t={t}>
       <Glyph u={12} v={12} s={24} icon="refresh" bg={t.top} fg={t.ink} />
       {bar(44, 14, 46, INK, 7)}
@@ -804,7 +977,12 @@ const AiAssistants: Scene = ({ t }) => (
       <rect x={8} y={98} width={36} height={12} rx={6} fill="#ffffff" stroke={t.edge} />
       <rect x={48} y={98} width={44} height={12} rx={6} fill="#ffffff" stroke={t.edge} />
     </Sheet>
-    <Dots path={[[194, 176], [168, 176]]} />
+    <Dots
+      path={[
+        [194, 176],
+        [168, 176],
+      ]}
+    />
     <Stack x={194} y={150} w={72} d={56} t={t} icon="book" />
     <Lifted t={t}>
       <Glyph u={12} v={12} s={24} icon="spark" bg={t.ink} fg="#ffffff" />
@@ -831,14 +1009,31 @@ const AiWorkflows: Scene = ({ t }) => (
       {bar(10, 94, 24, INK, 6)}
       {bar(48, 94, 26, t.ink, 6)}
     </Sheet>
-    <Dots path={[[110, 150], [122, 150]]} />
+    <Dots
+      path={[
+        [110, 150],
+        [122, 150],
+      ]}
+    />
     <Cube x={122} y={134} s={30} h={22} icon="spark" t={t} solid />
-    <Dots path={[[154, 150], [162, 150]]} />
+    <Dots
+      path={[
+        [154, 150],
+        [162, 150],
+      ]}
+    />
     <Sheet x={162} y={128} w={112} d={92} r={12}>
       {[0, 1, 2, 3].map((i) => (
         <g key={i}>
           {bar(10, 10 + i * 20, 24, GREY, 4)}
-          <rect x={40} y={7 + i * 20} width={62} height={12} rx={4} fill={i === 2 ? t.top : '#f6f7f9'} />
+          <rect
+            x={40}
+            y={7 + i * 20}
+            width={62}
+            height={12}
+            rx={4}
+            fill={i === 2 ? t.top : '#f6f7f9'}
+          />
           <rect x={40} y={7 + i * 20} width={3} height={12} rx={1.5} fill={t.ink} />
           {bar(48, 11 + i * 20, 30, INK, 4)}
         </g>
@@ -876,14 +1071,27 @@ const Care: Scene = ({ t }) => (
         </g>
       );
     })}
-    <Dots path={[[138, 176], [188, 176]]} />
+    <Dots
+      path={[
+        [138, 176],
+        [188, 176],
+      ]}
+    />
     <Cube x={188} y={150} s={44} h={28} icon="shield" t={t} solid />
     <Lifted t={t}>
       <Glyph u={12} v={12} s={24} icon="gauge" bg={t.top} fg={t.ink} />
       {bar(44, 14, 46, INK, 7)}
       {bar(44, 27, 32)}
       {Array.from({ length: 12 }, (_, k) => (
-        <rect key={k} x={12 + k * 7.4} y={50} width={5} height={14} rx={1.5} fill={k === 8 ? t.soft : t.ink} />
+        <rect
+          key={k}
+          x={12 + k * 7.4}
+          y={50}
+          width={5}
+          height={14}
+          rx={1.5}
+          fill={k === 8 ? t.soft : t.ink}
+        />
       ))}
     </Lifted>
   </>
@@ -896,7 +1104,12 @@ const LeadAutomation: Scene = ({ t }) => (
     <Slot t={t} />
     {(['globe', 'target', 'whatsapp'] as const).map((icon, k) => (
       <g key={icon}>
-        <Dots path={[[58, 113 + k * 48], [96, 113 + k * 48]]} />
+        <Dots
+          path={[
+            [58, 113 + k * 48],
+            [96, 113 + k * 48],
+          ]}
+        />
         <Cube x={24} y={96 + k * 48} s={34} h={20} icon={icon} t={t} />
       </g>
     ))}
@@ -907,11 +1120,23 @@ const LeadAutomation: Scene = ({ t }) => (
           <rect x={8} y={26 + i * 23} width={94} height={18} rx={6} fill="#f8f9fb" />
           <circle cx={18} cy={35 + i * 23} r={5} fill={t.soft} />
           {bar(28, 32 + i * 23, 34, INK, 5)}
-          <rect x={70} y={30 + i * 23} width={26} height={10} rx={5} fill={i === 0 ? t.ink : t.top} />
+          <rect
+            x={70}
+            y={30 + i * 23}
+            width={26}
+            height={10}
+            rx={5}
+            fill={i === 0 ? t.ink : t.top}
+          />
         </g>
       ))}
     </Sheet>
-    <Dots path={[[210, 190], [230, 190]]} />
+    <Dots
+      path={[
+        [210, 190],
+        [230, 190],
+      ]}
+    />
     <Cube x={230} y={174} s={32} h={20} icon="bell" t={t} solid />
     <Lifted t={t}>
       <Note icon="userCheck" t={t} />
@@ -934,7 +1159,12 @@ const StoreAndBookings: Scene = ({ t }) => (
         {bar(5, 37, 16, t.ink, 4)}
       </Sheet>
     ))}
-    <Dots path={[[126, 170], [168, 170]]} />
+    <Dots
+      path={[
+        [126, 170],
+        [168, 170],
+      ]}
+    />
     <Sheet x={168} y={146} w={96} d={72} r={10}>
       {bar(8, 8, 36, INK, 6)}
       {[0, 1, 2].map((r) =>
@@ -977,7 +1207,12 @@ const DashboardAndCrm: Scene = ({ t }) => (
     {[20, 34, 26, 46, 58].map((h, i) => (
       <Column key={i} x={32 + i * 24} y={148} z={Z + 6} h={h} t={t} solid={i === 4} />
     ))}
-    <Dots path={[[160, 180], [180, 180]]} />
+    <Dots
+      path={[
+        [160, 180],
+        [180, 180],
+      ]}
+    />
     <Stack x={180} y={150} w={86} d={60} t={t} icon="people" />
     <Lifted t={t}>
       <Glyph u={12} v={12} s={24} icon="chart" bg={t.top} fg={t.ink} />
@@ -1077,7 +1312,12 @@ const SCENES: Record<string, { scene: Scene; icon: IconName; title: string; meta
     title: 'AI workflow',
     meta: 'Reads, enters, flags',
   },
-  evolve: { scene: Care, icon: 'refresh', title: 'Evolve care', meta: 'Hosted, backed up, improving' },
+  evolve: {
+    scene: Care,
+    icon: 'refresh',
+    title: 'Evolve care',
+    meta: 'Hosted, backed up, improving',
+  },
   'lead-automation': {
     scene: LeadAutomation,
     icon: 'target',
@@ -1107,26 +1347,22 @@ const SCENES: Record<string, { scene: Scene; icon: IconName; title: string; meta
 export const hasIsoView = (slug: string) => slug in SCENES;
 
 /** A page's scene in the home picture's frame, 3:2 as the photograph it stands in for. */
-export function IsoView({ slug, accent }: { slug: string; accent: string }) {
+export function IsoView({ slug }: { slug: string; accent?: string }) {
   const entry = SCENES[slug];
   if (!entry) return null;
   const Scene = entry.scene;
+  // Drawn in graphite on a fine grid, as the home page's Services pictures are; the page's own
+  // colour stays with its opening.
   return (
-    <div aria-hidden="true" data-nosnippet="" className="rounded-[2rem] border border-line bg-fill p-3 sm:p-5">
-      <div className="relative overflow-hidden rounded-[1.2rem] border border-line bg-white sm:rounded-[1.4rem]">
-        <Corners />
-        <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.08)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
-        <div className="relative aspect-[3/2]">
-          <Stage
-            id={slug}
-            accent={accent}
-            icon={entry.icon}
-            title={entry.title}
-            meta={entry.meta}
-          >
-            <Scene t={tonesOf(accent)} />
-          </Stage>
-        </div>
+    <div
+      aria-hidden="true"
+      data-nosnippet=""
+      className="ground ground--grid relative overflow-hidden rounded-[1.75rem] border border-line"
+    >
+      <div className="relative aspect-[3/2]">
+        <Stage id={slug} accent={GRAPHITE} icon={entry.icon} title={entry.title} meta={entry.meta}>
+          <Scene t={tonesOf(GRAPHITE)} />
+        </Stage>
       </div>
     </div>
   );

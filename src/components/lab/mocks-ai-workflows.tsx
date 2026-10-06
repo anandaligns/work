@@ -1,11 +1,9 @@
-import product from '@/content/products/ai-workflows';
-
 import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
-import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, deep, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Dot, Stat } from './mock-parts';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * AI Workflows' mockups, in the light kit, from the page's own sample business — an Accounting &
@@ -16,9 +14,9 @@ import { Bars, Dot, Stat } from './mock-parts';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = product.accent;
+const P = GRAPHITE;
 /** The business's own colour: everything inside its screens. */
-const A = BRANDS.accounting!.accent;
+const A = GRAPHITE;
 
 /** Reading: today's documents from the accounts inbox, each read and sorted. */
 export function QueueMock() {

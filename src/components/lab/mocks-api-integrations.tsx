@@ -1,11 +1,9 @@
-import product from '@/content/products/api-integrations';
-
 import { ToolMark } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
-import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, deep, Head, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Dot, Stat } from './mock-parts';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * API Integrations' mockups, in the light kit, from the page's own sample business — an Online
@@ -15,9 +13,9 @@ import { Dot, Stat } from './mock-parts';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = product.accent;
+const P = GRAPHITE;
 /** The business's own colour: everything inside its screens. */
-const A = BRANDS.travelagency!.accent;
+const A = GRAPHITE;
 
 /** A tool's mark in a small grey disc, for a row's lead. */
 function Mark({ tool }: { tool: string }) {

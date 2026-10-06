@@ -1,10 +1,8 @@
 import type { ComponentType } from 'react';
 
-import { productFor } from '@/content/products';
-
 import { ToolMark } from '../ui/brand-logos';
 import { Icon, type IconName } from '../ui/icon';
-import { BRANDS } from '../visuals/concept-sites';
+import { GRAPHITE } from '../visuals/graphite';
 import { Bleed } from './fit';
 import { deep, Tag } from './light-kit';
 import { Bar, Check, Label, Pane, Widget } from './window-kit';
@@ -68,7 +66,7 @@ function Ticked({ accent, children }: { accent: string; children: string }) {
 }
 
 export function FeatureDashboard({ spec, accent }: { spec: DashboardSpec; accent: string }) {
-  const link = deep(BRANDS[spec.brand]?.accent ?? accent, 80);
+  const link = deep(accent, 80);
   const tops = [372, 558, 744];
   return (
     <Bleed w={900} h={780}>
@@ -846,7 +844,7 @@ const SPECS: Record<string, DashboardSpec> = {
 /** Each service page's dashboard beside what's included, by its slug. */
 export const SERVICE_DASHBOARDS: Record<string, ComponentType> = Object.fromEntries(
   Object.entries(SPECS).map(([slug, spec]) => {
-    const accent = productFor(slug)?.accent ?? '#0b0d12';
+    const accent = GRAPHITE;
     const Dashboard = () => <FeatureDashboard spec={spec} accent={accent} />;
     Dashboard.displayName = `Dashboard(${slug})`;
     return [slug, Dashboard];

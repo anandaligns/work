@@ -1318,6 +1318,36 @@ html.lenis body {
   [data-paused] .marquee__track {
     animation-play-state: paused;
   }
+  /* ---- Grounds for pictures, after the home Services panel ---------------------------------- */
+  /* White, with a fine grid or dots that fade out toward the edges, so the cards on it float. The
+     pattern sits behind the content (`isolation`), so nothing inside has to be positioned. */
+  .ground {
+    position: relative;
+    isolation: isolate;
+    background-color: #fff;
+  }
+  .ground::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 92%);
+    mask-image: radial-gradient(ellipse at center, #000 40%, transparent 92%);
+    pointer-events: none;
+  }
+  .ground--grid::before {
+    background-image:
+      linear-gradient(#eceef2 1px, transparent 1px),
+      linear-gradient(90deg, #eceef2 1px, transparent 1px);
+    background-position: center;
+    background-size: 24px 24px;
+  }
+  .ground--dots::before {
+    background-image: radial-gradient(#d4d7df 1px, transparent 1.25px);
+    background-position: center;
+    background-size: 12px 12px;
+  }
+
   /* ---- Services: fifteen services in one panel ---------------------------------------------- */
   /* A service: a white pill, its icon in a grey disc that turns graphite when pointed at. */
   .svc-chip {
@@ -1361,7 +1391,7 @@ html.lenis body {
     background: var(--color-graphite);
     color: #fff;
   }
-  /* The ground under each picture: small checks, or dots, fading in from the words above. */
+  /* The ground under each picture: a grid, or dots, fading in from the words above. */
   .svc-ground > * {
     position: relative;
   }
@@ -1373,11 +1403,13 @@ html.lenis body {
     mask-image: linear-gradient(to bottom, transparent, #000 30%);
     pointer-events: none;
   }
-  /* Small checks: a fine checkerboard of 8px squares, one grey a step off the white. */
-  .svc-ground--checks::before {
-    background-image: conic-gradient(#eff0f4 25%, transparent 0 50%, #eff0f4 0 75%, transparent 0);
+  /* A fine grid: hairlines every 24px, one grey a step off the white. */
+  .svc-ground--grid::before {
+    background-image:
+      linear-gradient(#eceef2 1px, transparent 1px),
+      linear-gradient(90deg, #eceef2 1px, transparent 1px);
     background-position: center top;
-    background-size: 16px 16px;
+    background-size: 24px 24px;
   }
   .svc-ground--dots::before {
     background-image: radial-gradient(#d9dce4 1px, transparent 1.25px);
@@ -2327,6 +2359,10 @@ html.lenis body {
     box-shadow: 0 3px 0 var(--color-ink);
     color: var(--color-ink);
   }
+  .flow__block--end {
+    background: var(--color-graphite);
+    color: #ffffff;
+  }
   .flow__label {
     padding-top: 0.125rem;
   }
@@ -3160,9 +3196,8 @@ html.lenis body {
 }
 
 @layer components {
-  /* ---- Solutions — Codify's list and panel, in the site's tints ---------------------------- */
-  /* The colour is the glyph's alone: each item's disc in its solution's `--tint`, the glyph in
-     its `--accent`. Closed, an item is that glyph and a name; pointed at, a faint white wash;
+  /* ---- Solutions — Codify's list and panel ------------------------------------------------- */
+  /* Each item's disc in its `--tint`, the glyph in its `--accent` — light grey and graphite. Closed, an item is that glyph and a name; pointed at, a faint white wash;
      open, a white card on a hairline with a soft contact shadow. */
   .sol-item {
     border: 1px solid transparent;

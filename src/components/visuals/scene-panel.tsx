@@ -3,10 +3,10 @@ import type { ReactNode } from 'react';
 import type { Tint } from '@/content/pages';
 
 /**
- * automatix's frame, as the Solutions picture has it: a padded outer card, the picture in a rounded
- * panel inside it, framed by four corner marks and centred on a dotted grid that fades out towards
- * the edges. The panel takes a page's tint, or stays white. The picture only repeats what the page
- * says, so the frame is hidden from assistive tech.
+ * A picture's frame, after the home page's Services panel: one white panel on a hairline, the
+ * picture centred on a fine grid that fades out towards the edges. (A page's tint is no longer
+ * painted behind it: the pictures below each opening are graphite on white.) The picture only
+ * repeats what the page says, so the frame is hidden from assistive tech.
  */
 export const TINT_BG: Record<Tint | 'white', string> = {
   violet: 'bg-tint-violet',
@@ -54,16 +54,8 @@ export function ScenePanel({
   children: ReactNode;
 }) {
   return (
-    <div
-      aria-hidden="true"
-      className={`rounded-[2rem] border border-line bg-fill p-3 sm:p-5 ${className}`}
-    >
-      <div
-        className={`relative overflow-hidden rounded-[1.4rem] border border-line ${surface ? '' : TINT_BG[tint]}`}
-        style={surface ? { background: surface } : undefined}
-      >
-        <Corners />
-        <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.08)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
+    <div aria-hidden="true" className={className} data-tint={surface ? undefined : tint}>
+      <div className="ground ground--grid relative overflow-hidden rounded-[1.75rem] border border-line">
         <div
           className={`relative grid place-items-center [&_svg]:max-h-full [&_svg]:max-w-[30rem] ${innerClassName}`}
         >

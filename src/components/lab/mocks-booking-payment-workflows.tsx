@@ -1,10 +1,8 @@
-import product from '@/content/products/booking-payment-workflows';
-
 import { ToolMark } from '../ui/brand-logos';
-import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, deep, Face, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Chip, Dot, Field, Stat } from './mock-parts';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Booking & Payment Workflows' mockups, in the light kit, from the page's own sample business — a
@@ -14,9 +12,9 @@ import { Chip, Dot, Field, Stat } from './mock-parts';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = product.accent;
+const P = GRAPHITE;
 /** The business's own colour: everything inside its screens. */
-const A = BRANDS.salon!.accent;
+const A = GRAPHITE;
 
 /** Online booking: a stylist chosen, the slots really free, and a deposit to hold one. */
 export function BookMock() {

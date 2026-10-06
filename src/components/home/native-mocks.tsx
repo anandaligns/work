@@ -4,6 +4,7 @@ import { Fit } from '../lab/fit';
 import { Card, Head, Row, Tag, Wires } from '../lab/light-kit';
 import { BrandSymbol, KINETIC } from '../ui/brand';
 import { ToolMark } from '../ui/brand-logos';
+import { GRAPHITE } from '../visuals/graphite';
 import { Icon, type IconName } from '../ui/icon';
 import { p, Slab, topMatrix } from '../visuals/iso';
 
@@ -16,11 +17,10 @@ import { p, Slab, topMatrix } from '../visuals/iso';
  */
 
 // The signal colours of the home page's tints, one per picture.
-const VIOLET = '#6e78ff';
-const SKY = '#1e9be0';
-const GREEN = '#1fb866';
-const AMBER = '#d98a00';
-const ROSE = '#f0506e';
+// Graphite, after the home Services pictures (`visuals/graphite.ts`); green stays for "done".
+const VIOLET = GRAPHITE;
+const AMBER = GRAPHITE;
+const ROSE = GRAPHITE;
 
 /** A small line of grey, standing in for text. */
 function Bar({ w, tone = '#e4e5ea', h = 6 }: { w: number | string; tone?: string; h?: number }) {
@@ -36,21 +36,15 @@ function Glyph({ icon, color, size = 14 }: { icon: IconName; color: string; size
   );
 }
 
-const SOLUTION_ACCENT: Record<string, string> = {
-  'lead-automation': '#166534',
-  'online-store-and-bookings': '#4d7c0f',
-  'business-dashboard-crm': '#2563eb',
-  'website-care-hosting': '#86198f',
-};
-
 /**
- * The four solution pictures stand on the Solutions section's dark panel, so whatever is drawn
- * straight on it — a note, a strip, a board, a wire — is set for the night; the white cards keep
- * their own colours. A wire in a solution's colour takes this lighter step of it.
+ * The four solution pictures stand on white with a fine grid, as the home Services pictures do,
+ * and every one of them is drawn in graphite.
  */
-const ON_NIGHT: Record<string, string> = {
-  '#2563eb': '#7aa5ff',
-  '#86198f': '#e07ae8',
+const SOLUTION_ACCENT: Record<string, string> = {
+  'lead-automation': GRAPHITE,
+  'online-store-and-bookings': GRAPHITE,
+  'business-dashboard-crm': GRAPHITE,
+  'website-care-hosting': GRAPHITE,
 };
 
 /** Lead Automation: new enquiries, and the note that no lead goes cold. */
@@ -72,7 +66,7 @@ function LeadMock() {
             width: 140,
             height: 104,
             '--i': 0,
-            backgroundImage: `repeating-linear-gradient(135deg, color-mix(in srgb, ${A} 22%, white) 0 6px, color-mix(in srgb, ${A} 10%, white) 6px 12px)`,
+            backgroundImage: `repeating-linear-gradient(135deg, color-mix(in srgb, ${A} 9%, white) 0 6px, color-mix(in srgb, ${A} 3%, white) 6px 12px)`,
           } as CSSProperties
         }
       />
@@ -100,11 +94,11 @@ function LeadMock() {
           <BrandSymbol className="size-4" />
         </span>
         <span>
-          <span className="block text-[12.5px] leading-snug text-white/90">
+          <span className="block text-[12.5px] leading-snug text-ink">
             All 5 enquiries were answered in seconds. 2 follow-ups go out today, so no lead goes
             cold.
           </span>
-          <span className="mt-1.5 block text-[11px] text-white/50">Just now</span>
+          <span className="mt-1.5 block text-[11px] text-ink-2">Just now</span>
         </span>
       </div>
     </Fit>
@@ -123,7 +117,7 @@ function SellMock() {
   return (
     <Fit w={520} h={360}>
       <div
-        className="frag-in absolute flex items-center gap-3 rounded-full px-4 py-2 text-[14px] font-semibold text-white ring-1 ring-white/15"
+        className="frag-in absolute flex items-center gap-3 rounded-full bg-white px-4 py-2 text-[14px] font-semibold text-ink ring-1 ring-line shadow-[0_12px_28px_-16px_rgb(11_13_18/0.35)]"
         style={
           {
             left: 150,
@@ -131,15 +125,13 @@ function SellMock() {
             width: 220,
             height: 46,
             '--i': 0,
-            background:
-              'linear-gradient(90deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.07) 30%, rgb(255 255 255 / 0.07) 70%, rgb(255 255 255 / 0.16))',
           } as CSSProperties
         }
       >
         {days.map((d) => (
           <span
             key={d}
-            className={`grid flex-1 place-items-center ${d === '20' ? 'size-[34px] flex-none rounded-full bg-white text-ink' : 'text-white/85'}`}
+            className={`grid flex-1 place-items-center ${d === '20' ? 'size-[34px] flex-none rounded-full bg-ink text-white' : 'text-ink-2'}`}
           >
             {d}
           </span>
@@ -204,7 +196,7 @@ function RunMock() {
         style={{ left: 150, top: 104, width: 220, height: 220, '--i': 0 } as CSSProperties}
       >
         <div
-          className="grid size-full grid-cols-3 gap-2.5 rounded-2xl border border-dashed border-white/25 bg-white/[0.07] p-2.5"
+          className="grid size-full grid-cols-3 gap-2.5 rounded-2xl border border-dashed border-line-2 bg-fill/70 p-2.5"
           style={{
             transform: 'rotateX(58deg) rotateZ(-45deg)',
             boxShadow: '0 30px 40px -20px rgb(11 13 18 / 0.25)',
@@ -220,7 +212,7 @@ function RunMock() {
                 <ToolMark tool={raised[k]!} size={26} />
               </span>
             ) : (
-              <span key={k} className="rounded-xl border border-dashed border-white/20" />
+              <span key={k} className="rounded-xl border border-dashed border-line-2" />
             ),
           )}
         </div>
@@ -265,7 +257,7 @@ function RunMock() {
       <Wires
         w={520}
         h={360}
-        accent={ON_NIGHT[A] ?? A}
+        accent={A}
         d={['M300 58 C 280 58, 290 118, 272 128', 'M196 302 C 222 302, 214 262, 218 252']}
         dots={[
           [300, 58],
@@ -330,7 +322,7 @@ function KeepMock() {
       <Wires
         w={520}
         h={360}
-        accent={ON_NIGHT[A] ?? A}
+        accent={A}
         d={['M234 180 H 262 V 174 H 292']}
         dots={[
           [234, 180],
@@ -343,16 +335,16 @@ function KeepMock() {
 
 /** One solution card's tint: its top, its side, its edge, and the colour of what is on it. */
 const DECK: [string, string, string, string][] = [
-  ['#eceefb', '#dcdff7', '#bcc2f0', VIOLET],
-  ['#e5f3fb', '#cde8f7', '#a3d2ef', SKY],
-  ['#fff5d6', '#ffe9a8', '#efd27e', AMBER],
-  ['#e6f7ee', '#cfeedd', '#a5dcbf', GREEN],
+  ['#ffffff', '#eef0f3', '#d9dce4', '#5b6070'],
+  ['#fbfbfc', '#e9ebf0', '#d3d7df', '#5b6070'],
+  ['#f6f7f9', '#e4e6eb', '#cdd1d9', '#5b6070'],
+  ['#ffffff', '#eef0f3', '#d9dce4', GRAPHITE],
 ];
 
 /**
  * The Solutions picture while every row is closed: the four solutions as a deck of cards on a
  * platform, each in its tint, and one lifted over the empty slot beside it — hovering, ready to
- * drop in. The lifted card is the one thing that moves, so it carries the Kinetic Orange.
+ * drop in. The lifted card is the one thing that moves, so its dot is the one touch of orange.
  */
 export function SolutionsRestMock() {
   const Z = 16;
@@ -400,8 +392,8 @@ export function SolutionsRestMock() {
           height={slot.d}
           rx={12}
           transform={topMatrix(slot.x, slot.y, Z)}
-          fill="rgb(255 61 0 / 0.08)"
-          stroke="rgb(255 61 0 / 0.45)"
+          fill="rgb(11 13 18 / 0.03)"
+          stroke="rgb(11 13 18 / 0.3)"
           strokeWidth={1.25}
           strokeDasharray="4 4"
           vectorEffect="non-scaling-stroke"
@@ -435,8 +427,8 @@ export function SolutionsRestMock() {
             y1={dy0}
             x2={dx1}
             y2={dy1}
-            stroke={KINETIC}
-            strokeOpacity={0.6}
+            stroke="#0b0d12"
+            strokeOpacity={0.35}
             strokeWidth={1.25}
             strokeDasharray="3 4"
           />
@@ -633,7 +625,7 @@ function WarrantyMock() {
         <div className="px-3.5 pt-3.5 pb-1.5">
           <Head
             icon="shield"
-            accent={GREEN}
+            accent={GRAPHITE}
             title="Covered after launch"
             meta="Your Business · website"
           />
@@ -651,7 +643,7 @@ function WarrantyMock() {
         <div className="p-2.5">
           <Head
             icon="wrench"
-            accent={GREEN}
+            accent={GRAPHITE}
             title="Form fix"
             meta="A defect we built"
             right={<Tag tone="ok">Covered</Tag>}
@@ -661,7 +653,7 @@ function WarrantyMock() {
       <Wires
         w={440}
         h={220}
-        accent={GREEN}
+        accent={GRAPHITE}
         d={['M154 132 C 154 164, 176 175, 196 175']}
         dots={[
           [154, 132],
@@ -693,14 +685,14 @@ function Dashes({ filled, color }: { filled: number; color: string }) {
 
 const STATUS = {
   done: { text: 'Done', bg: '#eaf7ef', fg: '#15803d', line: '#cfeedd' },
-  now: { text: 'In progress', bg: '#eef3ff', fg: '#2f5fd0', line: '#d8e3fb' },
-  next: { text: 'Up next', bg: '#fff5e0', fg: '#a15c07', line: '#f7e2b5' },
+  now: { text: 'In progress', bg: '#eceef2', fg: GRAPHITE, line: '#dcdfe6' },
+  next: { text: 'Up next', bg: '#f6f6f8', fg: '#4a4f5c', line: '#e6e7eb' },
   later: { text: 'Planned', bg: '#f3f3f5', fg: '#6b7080', line: '#e6e7eb' },
 } as const;
 
 export type PortalView = 'stage' | 'files' | 'agreement' | 'invoices' | 'requests';
 
-/** A status pill, in Lightfield's soft colours. */
+/** A status pill, in Lightfield's soft greys; green only for done. */
 function Status({ kind }: { kind: keyof typeof STATUS }) {
   const st = STATUS[kind];
   return (
@@ -713,7 +705,7 @@ function Status({ kind }: { kind: keyof typeof STATUS }) {
   );
 }
 
-const AVATAR_TONES = ['#fde2d8', '#e5f3fb', '#eceefb', '#e6f7ee'];
+const AVATAR_TONES = ['#eceef2', '#e2e5eb', '#f1f2f5', '#e7e9ee'];
 
 function Avatars({ who, seed = 0 }: { who: string[]; seed?: number }) {
   return (
@@ -739,7 +731,7 @@ function Lead({ icon, name, dot }: { icon: IconName; name: string; dot?: boolean
         <Icon name={icon} size={13} />
       </span>
       <span className="truncate">{name}</span>
-      {dot ? <span className="mr-3 ml-auto size-1.5 shrink-0 rounded-full bg-[#3b82f6]" /> : null}
+      {dot ? <span className="mr-3 ml-auto size-1.5 shrink-0 rounded-full bg-[#1d2130]" /> : null}
     </span>
   );
 }
@@ -759,7 +751,7 @@ type Table = {
 /** What the portal shows for each of its five parts. */
 function tableFor(view: PortalView): Table {
   const bar = (k: keyof typeof STATUS) =>
-    k === 'done' ? '#22c55e' : k === 'now' ? '#3b82f6' : '#f0a500';
+    k === 'done' ? '#22c55e' : k === 'now' ? GRAPHITE : '#a3a8b4';
   switch (view) {
     case 'files':
       return {
@@ -1041,7 +1033,7 @@ export const PORTAL_VIEWS: { view: PortalView; label: string }[] = [
  * the invoices or the requests.
  */
 export function PortalMock({ view = 'stage' }: { view?: PortalView }) {
-  const A = '#ff3d00';
+  const A = GRAPHITE;
   const table = tableFor(view);
   const nav: { view?: PortalView; icon: IconName; label: string }[] = [
     { icon: 'clock', label: 'Up next' },

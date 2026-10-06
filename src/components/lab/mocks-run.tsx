@@ -1,5 +1,3 @@
-import { content } from '@/content/lab/run-it-in-one-place';
-
 import { ToolMark } from '../ui/brand-logos';
 import { Bleed, Fit } from './fit';
 import { Card, Face, Head, Mark, onColour, Pill, Row, Tag, Wires } from './light-kit';
@@ -26,6 +24,7 @@ import {
   Title,
   ViewChip,
 } from './window-kit';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Business Dashboard & CRM's mockups, from its sample bakery — three outlets (Jayanagar, Indiranagar,
@@ -36,7 +35,7 @@ import {
  * product page's own.
  */
 
-const A = content.accent;
+const A = GRAPHITE;
 
 // --- the system behind every number ----------------------------------------------------------
 

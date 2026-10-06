@@ -13,7 +13,6 @@ import { ScreenView } from '../screens/screen';
 import type { Screen } from '../screens/types';
 import { Icon, type IconName } from '../ui/icon';
 import { RollLink } from '../ui/roll-link';
-import { Corners } from '../visuals/scene-panel';
 
 /**
  * The parts of a solution's page, as a pattern of its own: a solution is a goal, so its page
@@ -98,15 +97,10 @@ export function SolutionHero({
 
         <div
           aria-hidden="true"
-          className="rise-in rounded-[2rem] border border-line bg-fill p-3 sm:p-5"
-          style={{ '--d': 300 } as CSSProperties}
+          className="rise-in"
+          style={{ '--d': 300, '--tint': tint } as CSSProperties}
         >
-          <div
-            className="relative overflow-hidden rounded-[1.4rem] border border-line"
-            style={{ background: tint }}
-          >
-            <Corners />
-            <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.1)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
+          <div className="ground ground--dots relative overflow-hidden rounded-[1.75rem] border border-line">
             <div className="relative grid h-[18rem] place-items-center p-8 sm:h-[26rem] sm:p-12 lg:h-[30rem] [&_svg]:max-h-full [&_svg]:max-w-[34rem]">
               {scene}
             </div>
@@ -219,12 +213,9 @@ export function Journey({
             <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink-2">{step.text}</p>
             <div
               aria-hidden="true"
-              className={`relative mt-6 h-[300px] overflow-hidden rounded-3xl sm:h-[340px] ${ground ? 'ring-1 ring-black/[0.04]' : 'bento-card'}`}
-              style={ground ? { background: ground } : undefined}
+              className="ground ground--grid relative mt-6 h-[300px] overflow-hidden rounded-3xl border border-line sm:h-[340px]"
+              data-ground={ground ? 'page' : undefined}
             >
-              {ground ? (
-                <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.08)_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_at_center,#000_35%,transparent_80%)]" />
-              ) : null}
               <div className="absolute top-8 left-1/2 -translate-x-1/2">
                 <div className="origin-top scale-[0.82]">
                   <ScreenView screen={step.screen} size="lg" accent={accent} />

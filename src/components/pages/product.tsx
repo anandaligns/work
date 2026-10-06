@@ -17,7 +17,7 @@ import { Pausable } from '../motion/pause-toggle';
 import { ToolMark, logoKey } from '../ui/brand-logos';
 import { Icon } from '../ui/icon';
 import { RollLink } from '../ui/roll-link';
-import { BRANDS } from '../visuals/concept-sites';
+import { GRAPHITE } from '../visuals/graphite';
 import { CompareTable } from './compare-table';
 import { BlurText } from '../motion/blur-text';
 import { AppStage, type StageTask } from './app-stage';
@@ -280,7 +280,7 @@ function ToolRows({ heading, groups }: ProductPage['tools']) {
                   className="sector-need"
                   style={
                     {
-                      '--signal': ['#6e78ff', '#1fb866', '#1e9be0', '#f0a500', '#f0506e'][i % 5],
+                      '--signal': [GRAPHITE, '#6b7080', GRAPHITE, '#a3a8b4', GRAPHITE][i % 5],
                     } as CSSProperties
                   }
                 >
@@ -526,8 +526,10 @@ export function ProductBody({
    */
   next?: { features?: ReactNode[]; how?: ReactNode; included?: ReactNode; howSplit?: boolean };
 }) {
-  const accent = page.accent;
-  const wash = `color-mix(in srgb, ${accent} 7%, white)`;
+  // Everything below the opening is drawn in graphite on white grounds (`visuals/graphite.ts`);
+  // the page's own colour stays with its opening.
+  const accent = GRAPHITE;
+  const wash = 'ground';
   return (
     <div className="alt-bands">
       <Highlights {...page.highlights} />
@@ -860,27 +862,17 @@ export function StagePanel({
 
 // --- the features, as a bento -----------------------------------------------------------------
 
-const WASH_DOTS =
-  'pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.08)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_85%)]';
-
-/** A product screen on the page's pale tint and a dot grid, as the home page's mockups sit. */
-function OnWash({ wash, children }: { wash: string; children: ReactNode }) {
+/** A product screen on white and a fine grid, as the home page's Services pictures sit. */
+function OnWash({ children }: { wash?: string; children: ReactNode }) {
   return (
-    <div
-      className="relative w-full overflow-hidden rounded-[24px] px-5 py-10 sm:px-10 sm:py-14"
-      style={{ background: wash }}
-    >
-      <div className={WASH_DOTS} />
+    <div className="ground ground--grid relative w-full overflow-hidden rounded-[24px] border border-line px-5 py-10 sm:px-10 sm:py-14">
       <div className="relative grid place-items-center">{children}</div>
     </div>
   );
 }
 
-/** A screen's colour: its example business's own, or the page's. */
-const accentOf = (screen: Screen, fallback: string) =>
-  'brand' in screen && screen.brand && screen.brand !== 'yours'
-    ? (BRANDS[screen.brand]?.accent ?? fallback)
-    : fallback;
+/** A screen's colour below the opening: the graphite it is given (`visuals/graphite.ts`). */
+const accentOf = (_screen: Screen, fallback: string) => fallback;
 
 /**
  * Where a screen sits in its card: a phone rises from the foot of the card and is cut by it; an
@@ -998,11 +990,7 @@ export function FeatureBento({
                     {scenes[i]}
                   </div>
                 ) : item.screen && tint ? (
-                  <div
-                    className="absolute inset-x-5 top-0 bottom-5 overflow-hidden rounded-[20px] sm:inset-x-8 sm:bottom-8"
-                    style={{ background: tint }}
-                  >
-                    <div className={WASH_DOTS} />
+                  <div className="ground ground--dots absolute inset-x-5 top-0 bottom-5 overflow-hidden rounded-[20px] border border-line sm:inset-x-8 sm:bottom-8">
                     <BentoVisual
                       screen={item.screen}
                       accent={accent}

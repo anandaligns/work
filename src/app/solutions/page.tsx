@@ -64,13 +64,7 @@ export default function SolutionsPage() {
       text: page.intro,
       points,
       cta: { label: `See ${solution.name}`, href: `/solutions/${solution.slug}` },
-      accent: product.accent,
-      visual: {
-        back: product.stage?.back!,
-        backAccent: product.accent,
-        front: product.stage?.front?.[0],
-        frontAccent: product.accent,
-      },
+      visual: { back: product.stage?.back!, front: product.stage?.front?.[0] },
     };
   });
 

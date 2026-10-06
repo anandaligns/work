@@ -17,10 +17,10 @@ import { SectionHead } from './section-head';
  * fade, no scale, exactly as aoutive moves them (`ScrollEffects`, `[data-spread]`).
  *
  * The cards are the three promises from the CMS, the warranty from the price list, and the list of
- * what every build includes.
+ * what every build includes. Each picture sits as the home Services pictures do: white on a
+ * hairline, over a fine grid or dots that fade toward its edges, drawn in graphite.
  */
-const TINTS = ['bg-tint-butter', 'bg-tint-violet', 'bg-tint-blush', 'bg-tint-mint'];
-const COVERS = ['#fff5d6', '#eceefb', '#fdecee', '#e6f7ee'];
+const GROUNDS = ['ground--grid', 'ground--dots', 'ground--dots', 'ground--grid'];
 
 /**
  * Where each card sits, which way it starts displaced toward the centre of its row (1 to the
@@ -55,9 +55,11 @@ export function Promises() {
               style={{ zIndex: place.z } as CSSProperties}
               className={`group relative flex flex-col overflow-hidden rounded-[var(--radius-panel)] border border-line bg-white ${place.span}`}
             >
-              <div className={`m-3 overflow-hidden rounded-2xl ${TINTS[index % 4]}`}>
+              <div
+                className={`ground ${GROUNDS[index % 4]} m-3 overflow-hidden rounded-2xl border border-line`}
+              >
                 <PixelReveal
-                  cover={COVERS[index % 4]}
+                  cover="#ffffff"
                   delay={index * 120}
                   className="h-60 transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-[1.03]"
                 >

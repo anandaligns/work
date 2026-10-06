@@ -1,9 +1,7 @@
-import product from '@/content/products/dashboards';
-
-import { BRANDS } from '../visuals/concept-sites';
 import { Fit } from './fit';
 import { Card, Head, onColour, Pill, Row, Tag, Wires, Group } from './light-kit';
 import { Bars, Chip, Dot, RoleGrid, Stat } from './mock-parts';
+import { GRAPHITE } from '../visuals/graphite';
 
 /**
  * Dashboards' mockups, in the light kit, from the page's own sample business — a Solar Energy
@@ -13,9 +11,9 @@ import { Bars, Chip, Dot, RoleGrid, Stat } from './mock-parts';
  */
 
 /** The page's accent: the marks, the wires and the outcome. */
-const P = product.accent;
+const P = GRAPHITE;
 /** The business's own colour: everything inside its screens. */
-const A = BRANDS.solarenergy!.accent;
+const A = GRAPHITE;
 
 /** Morning summary: yesterday across 38 sites, in the inbox at 7:00 am. */
 export function DigestMock() {
