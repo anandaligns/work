@@ -124,12 +124,3 @@ export function BrandLockup({
     </svg>
   );
 }
-
-/** The wordmark alone, one colour. ViewBox `0 -63.97 489.88 64.89`. */
-export function BrandWordmark({ className = '', ink = 'currentColor' }) {
-  return (
-    <svg viewBox="0 -63.97 489.88 64.89" className={className} aria-hidden="true" focusable="false">
-      <Glyphs fill={ink} />
-    </svg>
-  );
-}

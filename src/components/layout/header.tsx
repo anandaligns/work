@@ -63,6 +63,9 @@ const serviceHref = (slug: string) => `/services/${slug}`;
  * They open on hover and on focus, close on Escape with focus handed back to the trigger, and
  * only one is ever open; moving from one to the other swaps the contents in place.
  */
+/** Pages that open on a dark band: over it, before the page moves, the bar's words are white. */
+const NIGHT_TOPS = new Set(['/services/evolve']);
+
 export function Header() {
   const ids = useId();
   const [open, setOpen] = useState<MenuKey | null>(null);
@@ -314,6 +317,7 @@ export function Header() {
       data-flyout={open || undefined}
       data-swap={swap || undefined}
       data-sheet={sheet || undefined}
+      data-night={(NIGHT_TOPS.has(pathname) && !scrolled) || undefined}
       onMouseLeave={closeSoon}
     >
       <span aria-hidden="true" className="gnav__bar -z-[1]" />

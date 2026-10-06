@@ -19,7 +19,8 @@ import {
  */
 export const dynamic = 'force-static';
 
-const line = (name: string, path: string, text: string) => `- [${name}](${SITE_URL}${path}): ${text}`;
+const line = (name: string, path: string, text: string) =>
+  `- [${name}](${SITE_URL}${path}): ${text}`;
 
 function body() {
   const out: string[] = [
@@ -37,16 +38,19 @@ function body() {
   for (const solution of solutions) {
     if (!isLive(solution.slug)) continue;
     const page = solutionPageFor(solution.slug);
-    out.push(line(solution.name, `/solutions/${solution.slug}`, page?.description ?? solution.line));
+    out.push(
+      line(solution.name, `/solutions/${solution.slug}`, page?.description ?? solution.line),
+    );
   }
   out.push('', '## Services', '');
   for (const category of categories) {
     out.push(`### ${category.name}`, '', groupIntros[category.slug] ?? category.line, '');
-    out.push(line(category.name, `/services/${category.slug}`, 'All five services in this group.'));
     for (const service of category.services) {
       if (!isLive(service.anchor)) continue;
       const page = servicePageFor(service.anchor);
-      out.push(line(service.name, `/services/${service.anchor}`, page?.description ?? service.summary));
+      out.push(
+        line(service.name, `/services/${service.anchor}`, page?.description ?? service.summary),
+      );
     }
     out.push('');
   }

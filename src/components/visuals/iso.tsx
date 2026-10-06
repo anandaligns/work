@@ -237,11 +237,6 @@ export const leftMatrix = (x: number, y: number, z: number) => {
   const [X, Y] = p(x, y, z);
   return `matrix(${C} ${S} 0 1 ${X.toFixed(2)} ${Y.toFixed(2)})`;
 };
-/** Onto the +x face (facing lower-right): u along −y, v down the face. */
-export const rightMatrix = (x: number, y: number, z: number) => {
-  const [X, Y] = p(x, y, z);
-  return `matrix(${C} ${-S} 0 1 ${X.toFixed(2)} ${Y.toFixed(2)})`;
-};
 
 /** A glyph lying flat on top of a block, centred, sized to the smaller side. */
 export function TopGlyph({
@@ -360,36 +355,6 @@ export function FrontEdges({
       {line([x, y, z + h], [x + w, y, z + h])}
       {line([x, y, z + h], [x, y + d, z + h])}
     </g>
-  );
-}
-
-/** A line across the ground (or at height z) between two world points. */
-export function Wire({
-  from,
-  to,
-  z = 0,
-  dashed = false,
-  color = INK,
-}: {
-  from: [number, number];
-  to: [number, number];
-  z?: number;
-  dashed?: boolean;
-  color?: string;
-}) {
-  const [x1, y1] = p(from[0], from[1], z);
-  const [x2, y2] = p(to[0], to[1], z);
-  return (
-    <line
-      x1={x1}
-      y1={y1}
-      x2={x2}
-      y2={y2}
-      stroke={color}
-      strokeWidth={1}
-      strokeDasharray={dashed ? '3 4' : undefined}
-      strokeLinecap="round"
-    />
   );
 }
 

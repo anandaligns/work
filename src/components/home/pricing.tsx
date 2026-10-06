@@ -12,7 +12,7 @@ import {
   startFor,
   websitePackages,
 } from '@/content/site';
-import { ANCHOR_EVENT, announceAnchor } from '@/lib/anchor';
+import { ANCHOR_EVENT } from '@/lib/anchor';
 
 import { Morph } from '../motion/morph';
 import { PixelCover } from '../motion/pixel-reveal';
@@ -33,26 +33,6 @@ import { Segmented, segmentTabId } from '../ui/segmented';
 type Segment = 'websites' | 'care';
 
 export const EVOLVE_PLANS_HREF = '/#evolve-plans';
-
-/** A link to the Evolve plans that opens their tab — usable from a server component. */
-export function EvolvePlansLink({
-  children,
-  className = '',
-}: {
-  children: string;
-  className?: string;
-}) {
-  return (
-    <RollLink
-      href={EVOLVE_PLANS_HREF}
-      variant="line"
-      className={className}
-      onClick={() => announceAnchor(EVOLVE_PLANS_HREF)}
-    >
-      {children}
-    </RollLink>
-  );
-}
 
 const priceOf = (offer: Offer, label: string | null) =>
   offer.headline.find((price) => price.label === label)?.text ?? offer.headline[0]?.text ?? '—';

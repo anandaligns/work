@@ -73,8 +73,49 @@ export function validateEnquiry(form: Partial<Enquiry>): EnquiryErrors {
   return errors;
 }
 
-/** Where a sent enquiry leaves the first name, for the thanks page — never in the address bar. */
-export const THANKS_NAME_KEY = 'pk-enquiry-name';
+/**
+ * The contact page's general form: who you are, how to reach you, what it's about and the message.
+ * A project goes through the Start a project flow instead (`components/start/`), which sends an
+ * `Enquiry`.
+ */
+export const TOPICS = [
+  'A question',
+  'A new project',
+  'Help with my current site',
+  'Something else',
+] as const;
+
+export type ContactMessage = {
+  name: string;
+  email: string;
+  phone: string;
+  topic: string;
+  message: string;
+  consent: boolean;
+  page: string;
+  referrer: string;
+  utm: Record<string, string>;
+};
+
+export type ContactErrors = Partial<Record<keyof ContactMessage, string>>;
+
+export function validateContact(form: Partial<ContactMessage>): ContactErrors {
+  const errors: ContactErrors = {};
+  const text = (value: unknown) => (typeof value === 'string' ? value.trim() : '');
+  if (!text(form.name)) errors.name = 'Please add your name.';
+  if (!text(form.email)) errors.email = 'Please add an email address.';
+  else if (!EMAIL.test(text(form.email))) errors.email = 'Please check the email address.';
+  // The phone is optional here; a prefix alone is no number at all.
+  const phone = text(form.phone);
+  if (phone && phone !== '+91' && !normalisePhone(phone))
+    errors.phone = 'Please check the number: an Indian mobile has 10 digits.';
+  if (form.topic && !(TOPICS as readonly string[]).includes(form.topic))
+    errors.topic = 'Please choose one of the options.';
+  if (text(form.message).length < 10) errors.message = 'Please tell us a little more.';
+  if (form.consent !== true)
+    errors.consent = 'Please tick the box so we can reply to your message.';
+  return errors;
+}
 
 /**
  * Is the form on? Only once it has somewhere to send to (`LEAD_WEBHOOK_URL`, read at build) — or
@@ -82,10 +123,3 @@ export const THANKS_NAME_KEY = 'pk-enquiry-name';
  */
 export const enquiryLive = () =>
   Boolean(process.env.LEAD_WEBHOOK_URL) || process.env.NODE_ENV === 'development';
-
-/**
- * Does the automation behind the form reply to the visitor and alert Pixel Kinetix yet? Until it
- * does, no page says a copy is on its way, and the "runs on our own Connected Website" caption
- * stays off.
- */
-export const ENQUIRY_AUTOMATION_LIVE = false;

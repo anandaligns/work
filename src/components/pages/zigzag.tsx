@@ -1,15 +1,13 @@
 import Link from 'next/link';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 import { Band } from '../layout/band';
-import { ScreenView } from '../screens/screen';
-import type { Screen } from '../screens/types';
 import { Icon } from '../ui/icon';
 
 /**
  * The index of a family of pages — every service group, or every solution — as alternating rows:
  * a large faint number, the name with one word in its colour, a paragraph, a checked list of
- * what's inside with links, and an outline button, beside a crop of the product itself. Rows swap
+ * what's inside with links, and an outline button, beside its pages' screens fanned. Rows swap
  * sides one after another from 1200px, and stack below it with the picture under the words.
  */
 export type ZigRow = {
@@ -22,7 +20,8 @@ export type ZigRow = {
   cta: { label: string; href: string };
   /** The row's colour: its number, its highlight, its ticks, its button and its glow. */
   accent: string;
-  visual: { back: Screen; backAccent: string; front?: Screen; frontAccent?: string };
+  /** The row's picture: its pages' screens, fanned (`visuals/project-fan.tsx`). */
+  visual: ReactNode;
 };
 
 function Name({ name, highlight, accent }: { name: string; highlight: string; accent: string }) {
@@ -34,28 +33,6 @@ function Name({ name, highlight, accent }: { name: string; highlight: string; ac
       <span style={{ color: accent }}>{highlight}</span>
       {name.slice(at + highlight.length)}
     </>
-  );
-}
-
-/** A crop of the product: the software on a dark ground, a phone over its lower right. */
-function Peek({ visual, accent }: { visual: ZigRow['visual']; accent: string }) {
-  return (
-    <div
-      aria-hidden="true"
-      className="zig-peek relative h-[300px] overflow-hidden rounded-[24px] bg-[#0c0d11] shadow-[0_20px_50px_rgb(0_0_0/0.1)] sm:h-[360px] min-[1200px]:h-[400px]"
-      style={{
-        backgroundImage: `radial-gradient(70% 60% at 80% 15%, color-mix(in srgb, ${accent} 32%, transparent), transparent 70%), radial-gradient(60% 50% at 10% 100%, rgb(255 255 255 / 0.06), transparent 70%), linear-gradient(160deg, #1a1c23 0%, #0b0c10 100%)`,
-      }}
-    >
-      <div className="absolute top-[10%] left-[6%]">
-        <ScreenView screen={visual.back} size="lg" accent={visual.backAccent} />
-      </div>
-      {visual.front ? (
-        <div className="absolute right-[5%] -bottom-[34%] origin-bottom-right scale-[0.58] sm:-bottom-[26%] sm:scale-[0.68] min-[1200px]:scale-[0.72]">
-          <ScreenView screen={visual.front} size="lg" accent={visual.frontAccent} />
-        </div>
-      ) : null}
-    </div>
   );
 }
 
@@ -81,7 +58,7 @@ export function ZigZag({
             id={row.id}
             data-reveal=""
             aria-labelledby={`${row.id}-name`}
-            className={`group flex flex-col gap-8 min-[1200px]:items-center min-[1200px]:gap-[60px] ${i % 2 ? 'min-[1200px]:flex-row-reverse' : 'min-[1200px]:flex-row'}`}
+            className={`group flex scroll-mt-28 flex-col gap-8 min-[1200px]:items-center min-[1200px]:gap-[60px] ${i % 2 ? 'min-[1200px]:flex-row-reverse' : 'min-[1200px]:flex-row'}`}
             style={{ '--accent': row.accent } as CSSProperties}
           >
             <div className="min-w-0 flex-1">
@@ -119,9 +96,7 @@ export function ZigZag({
                 <Icon name="arrow" size={15} />
               </Link>
             </div>
-            <div className="w-full min-w-0 flex-1 transition-transform duration-[600ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-[1.02]">
-              <Peek visual={row.visual} accent={row.accent} />
-            </div>
+            <div className="w-full min-w-0 flex-1">{row.visual}</div>
           </article>
         ))}
       </div>

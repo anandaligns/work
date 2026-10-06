@@ -3,7 +3,8 @@ import { SectionHead } from '@/components/home/section-head';
 import { FadePanel, groundOf, surfaceOf } from '@/components/lab/mock-parts';
 import { SOLUTION_PAGE_MOCKS } from '@/components/lab/solution-mocks';
 import { SystemRow } from '@/components/lab/soft';
-import { Highlights, ProductOpeningFull, RelatedIndex, WhyGrid } from '@/components/pages/product';
+import { Highlights, ProductOpeningFull, WhyGrid } from '@/components/pages/product';
+import { Related } from '@/components/pages/related';
 import { Industries, PointOfView, Rich } from '@/components/pages/product-parts';
 import { FaqBand } from '@/components/pages/sections';
 import { PageStructuredData } from '@/components/seo/page-structured-data';
@@ -213,13 +214,21 @@ export function SolutionPageView({ slug }: { slug: string }) {
           }
         />
 
-        <RelatedIndex
+        <Related
           id="other-solutions"
           eyebrow="Solutions"
           heading="Other solutions"
-          links={others.map((other) => {
+          all={{ label: 'All solutions', href: '/solutions' }}
+          items={others.map((other) => {
             const s = solutions.find((x) => x.slug === other.slug)!;
-            return { name: s.name, line: s.line, href: `/solutions/${other.slug}` };
+            return {
+              slug: other.slug,
+              kind: 'Solution',
+              name: s.name,
+              line: s.line,
+              href: `/solutions/${other.slug}`,
+              accent: SOLUTION_CONTENT[other.slug]?.accent ?? A,
+            };
           })}
         />
 

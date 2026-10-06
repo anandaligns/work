@@ -1,7 +1,7 @@
 import { Fragment, type ReactNode } from 'react';
 
 import { Icon, type IconName } from '../ui/icon';
-import { deep, markColour, onColour, TintPanel } from './light-kit';
+import { markColour, onColour, TintPanel } from './light-kit';
 
 /**
  * Small pieces the service pages' mockups share, on top of the light kit: the page's tinted panel,
@@ -108,38 +108,6 @@ export function Dot({ icon, tone }: { icon: IconName; tone: string }) {
       style={{ background: `color-mix(in srgb, ${tone} 12%, white)`, color: markColour(tone) }}
     >
       <Icon name={icon} size={13} strokeWidth={2.1} />
-    </span>
-  );
-}
-
-/** A figure, its label over it and its change beside it. */
-export function Stat({
-  label,
-  value,
-  delta,
-  accent,
-  size = 20,
-}: {
-  label: string;
-  value: string;
-  delta?: string;
-  accent: string;
-  size?: number;
-}) {
-  return (
-    <span className="block min-w-0">
-      <span className="block truncate text-[10px] text-ink-3">{label}</span>
-      <span
-        className="mt-1 flex items-baseline gap-1.5 leading-none font-semibold"
-        style={{ fontSize: size }}
-      >
-        {value}
-        {delta ? (
-          <span className="text-[9.5px] font-semibold" style={{ color: deep(accent) }}>
-            ↑ {delta}
-          </span>
-        ) : null}
-      </span>
     </span>
   );
 }

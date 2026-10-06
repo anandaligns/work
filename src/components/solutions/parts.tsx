@@ -1,19 +1,16 @@
 import Link from 'next/link';
-import type { CSSProperties, ReactNode } from 'react';
 
 import type { Heading } from '@/content/site';
-import { startFor, whatsappAbout } from '@/content/site';
+import { startFor } from '@/content/site';
 import type { ProductPage } from '@/content/products/types';
 
 import { SectionHead } from '../home/section-head';
 import { Band } from '../layout/band';
-import { BlurText } from '../motion/blur-text';
 import { onColour } from '../lab/light-kit';
 import { ScreenView } from '../screens/screen';
 import type { Screen } from '../screens/types';
 import { Icon, type IconName } from '../ui/icon';
 import { RollLink } from '../ui/roll-link';
-import { Corners } from '../visuals/scene-panel';
 
 /**
  * The parts of a solution's page, as a pattern of its own: a solution is a goal, so its page
@@ -24,146 +21,7 @@ import { Corners } from '../visuals/scene-panel';
 
 // --- the opening ---------------------------------------------------------------------------
 
-/**
- * The words on the left — chip, blur-in title, line, actions and four facts in a row — and on the
- * right the solution's drawing, in the home page's frame on the solution's tint.
- */
-export function SolutionHero({
-  eyebrow,
-  title,
-  intro,
-  interest,
-  topic,
-  facts,
-  tint,
-  scene,
-}: {
-  eyebrow: string;
-  title: string;
-  intro: string;
-  interest: string;
-  topic: string;
-  facts: { value: string; label: string }[];
-  tint: string;
-  scene: ReactNode;
-}) {
-  return (
-    <section aria-labelledby="page-heading" className="relative">
-      <div className="container-fluid grid items-center gap-14 pt-28 pb-20 sm:pt-32 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16 lg:pb-24">
-        <div className="text-center lg:text-left">
-          <p
-            className="eyebrow blur-char inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-1.5"
-            style={{ '--d': 0 } as CSSProperties}
-          >
-            <span className="size-1.5 rounded-full bg-signal-green" />
-            {eyebrow}
-          </p>
-          <h1
-            id="page-heading"
-            className="mt-6 text-title tracking-[var(--tracking-heading)] text-ink"
-          >
-            <BlurText text={title} delay={120} />
-          </h1>
-          <p
-            className="rise-in mx-auto mt-5 max-w-xl text-lead text-ink-2 lg:mx-0 lg:max-w-md"
-            style={{ '--d': 520 } as CSSProperties}
-          >
-            {intro}
-          </p>
-          <div
-            className="rise-in mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
-            style={{ '--d': 680 } as CSSProperties}
-          >
-            <RollLink href={startFor(interest)} size="lg">
-              Get Started
-            </RollLink>
-            <RollLink href={whatsappAbout(topic)} variant="line" size="lg" external>
-              Ask on WhatsApp
-            </RollLink>
-          </div>
-          <dl
-            className="rise-in mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-line pt-7 text-left sm:grid-cols-4"
-            style={{ '--d': 820 } as CSSProperties}
-          >
-            {facts.map((fact) => (
-              <div key={fact.value} className="flex flex-col-reverse justify-end gap-1">
-                <dt className="text-xs leading-snug text-ink-2">{fact.label}</dt>
-                <dd className="font-display text-[1.375rem] leading-none font-medium tracking-[-0.02em] text-ink">
-                  {fact.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        <div
-          aria-hidden="true"
-          className="rise-in rounded-[2rem] border border-line bg-fill p-3 sm:p-5"
-          style={{ '--d': 300 } as CSSProperties}
-        >
-          <div
-            className="relative overflow-hidden rounded-[1.4rem] border border-line"
-            style={{ background: tint }}
-          >
-            <Corners />
-            <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(rgb(11_13_18/0.1)_1px,transparent_1px)] [background-size:18px_18px] [mask-image:radial-gradient(ellipse_at_center,#000_40%,transparent_80%)]" />
-            <div className="relative grid h-[18rem] place-items-center p-8 sm:h-[26rem] sm:p-12 lg:h-[30rem] [&_svg]:max-h-full [&_svg]:max-w-[34rem]">
-              {scene}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // --- where the work goes missing -------------------------------------------------------------
-
-/** Each place the goal slips today, what it looks like now, crossed out, and what replaces it. */
-export function Leaks({
-  heading,
-  intro,
-  items,
-  accent,
-}: {
-  heading: Heading;
-  intro: string;
-  items: { topic: string; without: string; with: string }[];
-  accent: string;
-}) {
-  return (
-    <Band id="missing" labelledBy="missing-heading" className="py-24 lg:py-32">
-      <SectionHead
-        id="missing"
-        eyebrow="Where enquiries go missing"
-        heading={heading}
-        intro={intro}
-      />
-      <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map((item, i) => (
-          <li
-            key={item.topic}
-            data-reveal=""
-            style={{ ['--i' as string]: i }}
-            className="bento-card flex flex-col rounded-3xl p-7"
-          >
-            <p className="eyebrow">{item.topic}</p>
-            <p className="mt-6 text-[0.9375rem] leading-relaxed text-ink-3 line-through decoration-ink-3/40">
-              {item.without}
-            </p>
-            <span aria-hidden="true" className="my-4 h-px w-10 bg-line-2" />
-            <p className="mt-auto flex items-start gap-2.5 font-medium text-ink">
-              <span className="mt-[3px] shrink-0" style={{ color: accent }}>
-                <Icon name="check" size={16} strokeWidth={2.4} />
-              </span>
-              {item.with}
-            </p>
-          </li>
-        ))}
-      </ul>
-    </Band>
-  );
-}
 
 // --- one customer's story ------------------------------------------------------------------
 
@@ -345,7 +203,7 @@ export function WaysIn({
   return (
     <Band id="ways-in" labelledBy="ways-in-heading" className="py-24 lg:py-32">
       <SectionHead id="ways-in" eyebrow={eyebrow} heading={heading} intro={intro} />
-      <div className="mt-14 grid gap-5 lg:grid-cols-2">
+      <div className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-2">
         {(price.packages ?? []).map((pkg) => {
           const dark = pkg.focal;
           const includes = rows.flatMap((row, i) => {
@@ -357,7 +215,7 @@ export function WaysIn({
             <article
               key={pkg.name}
               aria-labelledby={`${pkg.interest}-name`}
-              className={`flex flex-col rounded-[2rem] p-8 lg:p-10 ${dark ? 'on-night bg-night text-white' : 'border border-line bg-white text-ink'}`}
+              className={`flex min-w-0 flex-col rounded-[2rem] p-6 sm:p-8 lg:p-10 ${dark ? 'on-night bg-night text-white' : 'border border-line bg-white text-ink'}`}
             >
               <h3
                 id={`${pkg.interest}-name`}

@@ -4,6 +4,7 @@ import { Closing } from '@/components/home/closing';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
 import { type ZigRow, ZigZag } from '@/components/pages/zigzag';
 import { RollLink } from '@/components/ui/roll-link';
+import { GroupFan } from '@/components/showcase/cards';
 import { WebPageStructuredData } from '@/components/seo/web-page-data';
 import { ConnectScene } from '@/components/visuals/connect-scene';
 import { categories, groupIntros, startFor, whatsappAbout } from '@/content/site';
@@ -11,7 +12,8 @@ import { productFor } from '@/content/products';
 
 /**
  * `/services` — every service, by group: the page intro, then the three groups as alternating
- * rows (each with its five services as points and a crop of the product), then the closing.
+ * rows (each with its five services as points, beside the five fanned — open them to pick one),
+ * then the closing.
  */
 const SERVICES_TITLE = 'Services: Websites, Software & Automation';
 const SERVICES_DESCRIPTION =
@@ -24,33 +26,16 @@ export const metadata: Metadata = {
   openGraph: { title: SERVICES_TITLE, description: SERVICES_DESCRIPTION, url: '/services' },
 };
 
-/** Each group's colour, its highlighted word, and the two products its picture borrows. */
-const GROUPS: Record<string, { accent: string; highlight: string; back: string; front: string }> = {
-  'digital-experiences': {
-    accent: '#4b55d6',
-    highlight: 'Digital',
-    back: 'business-websites',
-    front: 'e-commerce-stores',
-  },
-  'business-systems': {
-    accent: '#1a7ab8',
-    highlight: 'Systems',
-    back: 'dashboards',
-    front: 'crm-systems',
-  },
-  'automation-ai': {
-    accent: '#15803d',
-    highlight: 'Automation',
-    back: 'whatsapp-automation',
-    front: 'ai-assistants',
-  },
+/** Each group's colour and the word of its name drawn in it. */
+const GROUPS: Record<string, { accent: string; highlight: string }> = {
+  'digital-experiences': { accent: '#4b55d6', highlight: 'Digital' },
+  'business-systems': { accent: '#1a7ab8', highlight: 'Systems' },
+  'automation-ai': { accent: '#15803d', highlight: 'Automation' },
 };
 
 export default function ServicesPage() {
   const rows: ZigRow[] = categories.map((category) => {
     const group = GROUPS[category.slug]!;
-    const back = productFor(group.back)!;
-    const front = productFor(group.front)!;
     return {
       id: category.slug,
       name: category.name,
@@ -61,14 +46,20 @@ export default function ServicesPage() {
         line: service.summary,
         href: `/services/${service.anchor}`,
       })),
-      cta: { label: `Explore ${category.name}`, href: `/services/${category.slug}` },
+      cta: { label: `Ask about ${category.name}`, href: startFor(category.slug) },
       accent: group.accent,
-      visual: {
-        back: back.stage?.back!,
-        backAccent: back.accent,
-        front: front.stage?.front?.[0],
-        frontAccent: front.accent,
-      },
+      visual: (
+        <GroupFan
+          name={category.name}
+          accent={group.accent}
+          services={category.services.map((service) => ({
+            slug: service.anchor,
+            name: service.name,
+            href: `/services/${service.anchor}`,
+            accent: productFor(service.anchor)?.accent ?? group.accent,
+          }))}
+        />
+      ),
     };
   });
 
@@ -79,14 +70,13 @@ export default function ServicesPage() {
         name="Services"
         description={SERVICES_DESCRIPTION}
         path="/services"
-        items={categories.flatMap((category) => [
-          { name: category.name, path: `/services/${category.slug}`, description: category.line },
-          ...category.services.map((service) => ({
+        items={categories.flatMap((category) =>
+          category.services.map((service) => ({
             name: service.name,
             path: `/services/${service.anchor}`,
             description: service.summary,
           })),
-        ])}
+        )}
       />
       <PageIntro
         eyebrow="Services"

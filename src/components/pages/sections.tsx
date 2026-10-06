@@ -1,13 +1,11 @@
 import type { CSSProperties, ReactNode } from 'react';
 
-import type { Faq, Point, PriceCard, Tint } from '@/content/pages';
+import type { Faq, Point, PriceCard } from '@/content/pages';
 import { startFor, whatsappAbout } from '@/content/site';
 
 import { AskCard, FaqList } from '../home/faq';
 import { Band } from '../layout/band';
-import { PixelReveal } from '../motion/pixel-reveal';
 import { Icon } from '../ui/icon';
-import { TINT_BG, TINT_HEX } from '../visuals/scene-panel';
 import { Card } from './cards';
 import { PriceCards } from './price-cards';
 
@@ -54,26 +52,6 @@ export function Section({
       ) : null}
       {children ? <div className="mt-12">{children}</div> : null}
     </Band>
-  );
-}
-
-/**
- * The page's picture, straight after its intro: the scene in a wide well of the page's tint,
- * arriving through the pixel dissolve as the Services cards' scenes do. Decorative line art — the
- * words beside it say everything it shows — so it is hidden from assistive tech.
- */
-export function HeroWell({ tint, children }: { tint: Tint; children: ReactNode }) {
-  return (
-    <div aria-hidden="true" className="container-fluid pb-4">
-      <div className={`relative overflow-hidden rounded-[2rem] ${TINT_BG[tint]}`}>
-        <PixelReveal
-          cover={TINT_HEX[tint]}
-          className="grid h-[17rem] place-items-center px-6 py-8 sm:h-[24rem] lg:h-[28rem] [&_svg]:max-h-full [&_svg]:max-w-[40rem]"
-        >
-          {children}
-        </PixelReveal>
-      </div>
-    </div>
   );
 }
 

@@ -348,17 +348,6 @@ export const socials: { id: SocialId; label: string; href: string | null }[] = [
 ];
 
 /**
- * The AI assistant's launcher, in the lower right of every page. The assistant itself is not built
- * yet: the launcher opens a short note from it and the three ways to reach the team today. Rename
- * it here and the button, the panel and every label follow.
- */
-export const assistant = {
-  name: 'Kix',
-  role: 'Pixel Kinetix AI assistant',
-  avatar: '/brand/assistant.webp',
-};
-
-/**
  * The thirty-one questions, on four shelves for the FAQ's category rail — each with a one-word name
  * for the phone's tabs. Each answer carries its shelf (`topic` in the catalogue), so a reordered
  * catalogue cannot put an answer on the wrong one.
@@ -391,7 +380,7 @@ export const nav = [
 ];
 
 /** Every "Get Started" and "Start a Project": the contact page, where every way to reach us is. */
-export const START = { label: 'Get Started', href: '/contact' };
+export const START = { label: 'Get Started', href: '/start' };
 
 /**
  * The form's "Interested in" choices, and which one a page's `?interest=` picks: a package slug
@@ -451,7 +440,7 @@ const INTEREST_OF: Record<string, Interest> = {
 export const interestFor = (slug?: string | null): Interest =>
   (slug && INTEREST_OF[slug]) || 'Not sure yet';
 
-/** A "Get Started" that tells the form where it came from. */
+/** A "Get Started" that opens Start a project (`/start`), telling it where it came from. */
 export const startFor = (interest?: string) =>
   interest ? `${START.href}?interest=${encodeURIComponent(interest)}` : START.href;
 

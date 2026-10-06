@@ -17,6 +17,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import Link from 'next/link';
 import { createPortal } from 'react-dom';
 
 import { SPRING_LAYOUT, SPRING_PRESS } from '@/lib/ease';
@@ -37,7 +38,13 @@ import { Corners } from './scene-panel';
  * the same screen in the fan and opened up, and the flight between them is a plain zoom.
  */
 
-export type FanCard = { id: string; content: ReactNode };
+export type FanCard = {
+  id: string;
+  content: ReactNode;
+  /** Opened up, a card with an address is a link to it, its label under it. */
+  label?: string;
+  href?: string;
+};
 
 const CANVAS_W = 240;
 const CANVAS_H = 320;
@@ -95,6 +102,34 @@ function Canvas({ children }: { children: ReactNode }) {
       >
         {children}
       </span>
+    </span>
+  );
+}
+
+/**
+ * One screen as a still picture: its canvas scaled to the box it fills, nothing moving. For the
+ * links to a page — the related cards — where the screen stands in for the page itself.
+ */
+export function ScreenThumb({
+  accent,
+  brand,
+  live = false,
+  children,
+}: {
+  accent: string;
+  brand?: string;
+  /** Its rows take turns and its live dot breathes, as in the fan; still otherwise. */
+  live?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      data-play={live || undefined}
+      className="sc sc--still relative block h-full w-full"
+      style={{ '--sc-accent': accent, '--sc-brand': brand ?? accent } as CSSProperties}
+    >
+      <Canvas>{children}</Canvas>
     </span>
   );
 }
@@ -304,17 +339,42 @@ export function ProjectFan({
 
             <div className="grid grid-cols-2 place-items-center gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
               {expanded
-                ? items.map((card) => (
-                    <motion.div
-                      key={card.id}
-                      layoutId={`fan-${card.id}`}
-                      transition={transition}
-                      className="relative aspect-[3/4] w-full max-w-60 overflow-hidden border border-line bg-white shadow-[0_30px_60px_-34px_rgb(11_13_18/0.45)]"
-                      style={{ borderRadius: 16 }}
-                    >
-                      <Canvas>{card.content}</Canvas>
-                    </motion.div>
-                  ))
+                ? items.map((card) => {
+                    const face = (
+                      <motion.div
+                        key={card.id}
+                        layoutId={`fan-${card.id}`}
+                        transition={transition}
+                        className="fan-face relative aspect-[3/4] w-full max-w-60 overflow-hidden border border-line bg-white shadow-[0_30px_60px_-34px_rgb(11_13_18/0.45)]"
+                        style={{ borderRadius: 16 }}
+                      >
+                        <Canvas>{card.content}</Canvas>
+                      </motion.div>
+                    );
+                    if (!card.href) return face;
+                    return (
+                      <Link
+                        key={card.id}
+                        href={card.href}
+                        className="fan-link group flex w-full max-w-60 flex-col items-center gap-3 rounded-[18px] outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-4"
+                      >
+                        {face}
+                        <motion.span
+                          initial={{ opacity: 0, y: reduce ? 0 : 6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={reduce ? { duration: 0 } : { duration: 0.25, delay: 0.15 }}
+                          className="inline-flex items-center gap-1.5 text-[0.875rem] font-medium text-ink"
+                        >
+                          {card.label}
+                          <Icon
+                            name="arrow"
+                            size={13}
+                            className="transition-transform duration-300 group-hover:translate-x-0.5"
+                          />
+                        </motion.span>
+                      </Link>
+                    );
+                  })
                 : null}
             </div>
           </div>

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 import { CopyChips } from '@/components/contact/copy-chips';
-import { EnquiryForm } from '@/components/contact/enquiry-form';
-import { NextSteps } from '@/components/contact/next-steps';
+import { ContactForm } from '@/components/contact/contact-form';
 import { Band } from '@/components/layout/band';
 import { Card, CardBand } from '@/components/pages/cards';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
@@ -10,28 +10,24 @@ import { FaqBand } from '@/components/pages/sections';
 import { Icon } from '@/components/ui/icon';
 import { RollLink } from '@/components/ui/roll-link';
 import { WebPageStructuredData } from '@/components/seo/web-page-data';
-import { ConnectScene } from '@/components/visuals/connect-scene';
-import { contact } from '@/content/site';
-import { ENQUIRY_AUTOMATION_LIVE, enquiryLive } from '@/lib/enquiry';
+import { contact, startFor } from '@/content/site';
+import { enquiryLive } from '@/lib/enquiry';
 
 /**
- * `/contact` — where every "Get Started" leads. Under the headline, the three quickest ways in:
- * email first in Kinetic Orange, WhatsApp in its own green and Call Now with its phone ringing; under
- * them the address and the number as beUI's expandable chips, each opening onto a copy action.
- * Then the enquiry form, "Tell us about it", with what happens next beside it; the ways to reach
- * us; and three questions.
+ * `/contact` — for anything. Under the headline, the three quickest ways in: email first in Kinetic
+ * Orange, WhatsApp in its own green and Call Now with its phone ringing; under them the address and
+ * the number as beUI's expandable chips, each opening onto a copy action. Then the general form,
+ * "Send us a message", beside what to expect and the way into Start a project (every Get Started on
+ * the site opens that); the ways to reach us; and three questions.
  *
- * The form shows only once it has somewhere to send to (`enquiryLive`). Until then the page keeps
- * the four things to put in a first message, so nothing on it goes nowhere.
+ * Until the form has somewhere to send to (`enquiryLive`), it sends by WhatsApp, already written.
  */
 const live = enquiryLive();
 
-const CONTACT_DESCRIPTION = `Tell Pixel Kinetix what’s slowing your business down. ${
-  live ? 'Fill in a short form, message us on WhatsApp or call' : 'Message us on WhatsApp or call'
-} ${contact.phone}. Kalyan Nagar, Bangalore.`;
+const CONTACT_DESCRIPTION = `Send Pixel Kinetix a message, chat on WhatsApp or call ${contact.phone}. Kalyan Nagar, Bangalore.`;
 
 export const metadata: Metadata = {
-  title: 'Contact: Start a Project in Bangalore',
+  title: 'Contact Pixel Kinetix, Bangalore',
   description: CONTACT_DESCRIPTION,
   alternates: { canonical: '/contact' },
 };
@@ -53,11 +49,10 @@ const FAQS = [
   },
 ];
 
-const ASKS = [
-  'What your business does, and where',
-  'What’s slowing it down, or what you want to build',
-  'The tools you use today, if any',
-  'When you’d like it working',
+const REPLIES = [
+  'A person reads every message',
+  'A reply within one working day',
+  'Honest advice, even if we’re not the fit',
 ];
 
 export default function Contact() {
@@ -117,38 +112,56 @@ export default function Contact() {
       </PageIntro>
 
       <div className="alt-bands">
-        {live ? (
-          <Band id="form" labelledBy="form-heading" className="py-20 lg:py-28">
-            <div className="grid gap-12 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:gap-16">
-              <div>
-                <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
-                  <span className="size-1.5 bg-ink" />
-                  Enquiry
-                </p>
-                <h2
-                  id="form-heading"
-                  className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
-                >
-                  Tell us about it
-                </h2>
-                <div className="mt-10 rounded-[var(--radius-panel)] border border-line bg-white p-6 sm:p-9">
-                  <EnquiryForm />
-                </div>
-              </div>
-              <div className="flex flex-col gap-10 lg:pt-24">
-                <NextSteps />
-                <figure>
-                  <ConnectScene icon="file" result={{ icon: 'chat', tone: 'white' }} />
-                  {ENQUIRY_AUTOMATION_LIVE ? (
-                    <figcaption className="mt-3 text-sm text-ink-2">
-                      This form runs on our own Connected Website.
-                    </figcaption>
-                  ) : null}
-                </figure>
-              </div>
+        <Band id="form" labelledBy="form-heading" className="py-20 lg:py-28">
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+            <div className="flex flex-col">
+              <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
+                <span className="size-1.5 bg-ink" />
+                Message
+              </p>
+              <h2
+                id="form-heading"
+                className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
+              >
+                Send us a message
+              </h2>
+              <p className="mt-5 max-w-md text-body text-ink-2">
+                A question, a quote, help with a site you already have — write to us here and a
+                person replies within one working day.
+              </p>
+              <ul className="mt-8 flex flex-col gap-3 text-[0.9375rem] text-ink">
+                {REPLIES.map((reply) => (
+                  <li key={reply} className="flex items-center gap-3">
+                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-fill text-ink">
+                      <Icon name="check" size={12} strokeWidth={2.4} />
+                    </span>
+                    {reply}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={startFor('contact')}
+                className="contact-start group mt-10 flex items-center gap-4 rounded-[1.25rem] p-5 text-white lg:mt-auto"
+              >
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-kinetic">
+                  <Icon name="rocket" size={18} />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block font-semibold">Starting a project?</span>
+                  <span className="block text-sm text-white/65">
+                    Four short steps, and a fuller first reply.
+                  </span>
+                </span>
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white text-ink transition-transform duration-300 group-hover:translate-x-1">
+                  <Icon name="arrow" size={15} />
+                </span>
+              </Link>
             </div>
-          </Band>
-        ) : null}
+            <div className="rounded-[var(--radius-panel)] border border-line bg-white p-6 shadow-[0_30px_60px_-44px_rgb(11_13_18/0.35)] sm:p-9">
+              <ContactForm live={live} />
+            </div>
+          </div>
+        </Band>
 
         <CardBand id="reach" eyebrow="Reach us" title="Whichever suits you." columns={4}>
           <Card
@@ -176,40 +189,6 @@ export default function Contact() {
             index={3}
           />
         </CardBand>
-
-        {live ? null : (
-          <Band id="first-message" labelledBy="first-message-heading" className="py-20 lg:py-28">
-            <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16">
-              <div>
-                <p data-reveal="" className="eyebrow inline-flex items-center gap-2">
-                  <span className="size-1.5 bg-ink" />
-                  Your first message
-                </p>
-                <h2
-                  id="first-message-heading"
-                  className="mt-5 text-h2 tracking-[var(--tracking-heading)] text-ink"
-                >
-                  Four things help us reply with a real next step.
-                </h2>
-              </div>
-              <ul
-                data-reveal=""
-                className="flex flex-col divide-y divide-line border-y border-line"
-              >
-                {ASKS.map((ask, i) => (
-                  <li key={ask} className="flex items-center gap-5 py-5 text-body text-ink">
-                    <span className="font-tech text-xs text-ink-2">0{i + 1}</span>
-                    {ask}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <p className="mt-12 inline-flex items-center gap-2 text-sm text-ink-2">
-              <Icon name="check" size={14} />
-              Not sure what you need? That’s fine. Tell us the problem and we’ll map it with you.
-            </p>
-          </Band>
-        )}
 
         <FaqBand eyebrow="Contact" title="Questions" faqs={FAQS} />
       </div>

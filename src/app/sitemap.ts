@@ -1,17 +1,16 @@
 import type { MetadataRoute } from 'next';
 
-import { groupPages, isLive, servicePages, solutionPages } from '@/content/pages';
+import { isLive, servicePages, solutionPages } from '@/content/pages';
 import { evolve, SITE_URL } from '@/content/site';
 
 /**
- * Every page that is live: home, the service groups, services, Evolve and solutions, About,
- * Contact and the legal pages. A paused page (`paused` in `content/pages.ts`) stays out; the
- * thanks page, which only makes sense after the form, is never in.
+ * Every page that is live: home, services, Evolve and solutions, About,
+ * Contact and the legal pages. A paused page (`paused` in `content/pages.ts`) stays out, and so
+ * does Start a project (`/start`), a form rather than a page to land on.
  */
 const PAGES = [
   '',
   '/services',
-  ...groupPages.filter((page) => isLive(page.slug)).map((page) => `/services/${page.slug}`),
   ...servicePages.filter((page) => isLive(page.slug)).map((page) => `/services/${page.slug}`),
   `/services/${evolve.slug}`,
   '/solutions',

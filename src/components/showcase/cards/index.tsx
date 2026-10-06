@@ -1,7 +1,7 @@
-import type { ComponentType } from 'react';
+import type { ComponentType, CSSProperties } from 'react';
 
 import { BRANDS } from '../../visuals/concept-sites';
-import { ProjectFan } from '../../visuals/project-fan';
+import { ProjectFan, ScreenThumb } from '../../visuals/project-fan';
 import * as AiAssistants from './ai-assistants';
 import * as AiWorkflows from './ai-workflows';
 import * as ApiIntegrations from './api-integrations';
@@ -190,6 +190,78 @@ const BUSINESS: Record<string, string> = {
   'ai-workflows': 'accounting',
 };
 
+const brandOf = (slug: string) => {
+  const business = BUSINESS[slug];
+  return business ? BRANDS[business]?.accent : undefined;
+};
+
+/**
+ * One of a page's screens as a still thumbnail — by default its lead, the fan's middle card — for a
+ * link to that page. `at` picks another of the five.
+ */
+export function PageScreen({
+  slug,
+  accent,
+  at = 2,
+}: {
+  slug: string;
+  accent: string;
+  at?: number;
+}) {
+  const card = CARDS[slug]?.[at];
+  if (!card) return null;
+  const [, Screen] = card;
+  return (
+    <ScreenThumb accent={accent} brand={brandOf(slug)}>
+      <Screen />
+    </ScreenThumb>
+  );
+}
+
+/** A page's lead screen in its own colours, for a fan that mixes pages (a service group's). */
+function LeadScreen({ slug, accent }: { slug: string; accent: string }) {
+  const card = CARDS[slug]?.[2];
+  if (!card) return null;
+  const [, Screen] = card;
+  const brand = brandOf(slug);
+  return (
+    <span
+      className="sc block h-full w-full"
+      style={{ '--sc-accent': accent, '--sc-brand': brand ?? accent } as CSSProperties}
+    >
+      <Screen />
+    </span>
+  );
+}
+
+/**
+ * A service group on `/services`: its five services fanned, one card each — the lead screen of each
+ * service's own fan. Opened up, every card is a link to its service.
+ */
+export function GroupFan({
+  name,
+  accent,
+  services,
+}: {
+  name: string;
+  accent: string;
+  services: { slug: string; name: string; href: string; accent: string }[];
+}) {
+  return (
+    <ProjectFan
+      title={name}
+      note="Five services · open one to see it in full"
+      accent={accent}
+      cards={services.map((service) => ({
+        id: service.slug,
+        label: service.name,
+        href: service.href,
+        content: <LeadScreen slug={service.slug} accent={service.accent} />,
+      }))}
+    />
+  );
+}
+
 /** A page's five screens, fanned, opening on a press. */
 export function PageFan({
   slug,
@@ -204,8 +276,7 @@ export function PageFan({
 }) {
   const cards = CARDS[slug];
   if (!cards) return null;
-  const business = BUSINESS[slug];
-  const brand = business ? BRANDS[business]?.accent : undefined;
+  const brand = brandOf(slug);
   return (
     <ProjectFan
       title={name}

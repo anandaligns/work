@@ -1,26 +1,16 @@
-import {
-  EvolveHeroScene,
-  GroupHeroScene,
-  ServiceHeroScene,
-} from '@/components/visuals/page-scenes';
-import {
-  GROUP_TINT,
-  groupPageFor,
-  groupPages,
-  servicePageFor,
-  servicePages,
-} from '@/content/pages';
+import { EvolveHeroScene, ServiceHeroScene } from '@/components/visuals/page-scenes';
+import { GROUP_TINT, servicePageFor, servicePages } from '@/content/pages';
 import { categories, evolve } from '@/content/site';
 import { productFor } from '@/content/products';
 import { SHARE_SIZE, shareImage } from '@/lib/share-image';
 
-/** A service group's, a service's or Evolve's share image: its hero scene on its tint. */
+/** A service's or Evolve's share image: its hero scene on its tint. */
 export const size = SHARE_SIZE;
 export const contentType = 'image/png';
 export const alt = 'Pixel Kinetix';
 
 export function generateStaticParams() {
-  return [...groupPages, ...servicePages, { slug: evolve.slug }].map(({ slug }) => ({ slug }));
+  return [...servicePages, { slug: evolve.slug }].map(({ slug }) => ({ slug }));
 }
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,16 +22,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
       line: productFor(evolve.slug)!.sub,
       tint: 'butter',
       scene: <EvolveHeroScene />,
-    });
-  }
-  const group = groupPageFor(slug);
-  if (group) {
-    return shareImage({
-      eyebrow: group.chip,
-      title: group.h1,
-      line: categories.find((c) => c.slug === slug)?.line ?? '',
-      tint: GROUP_TINT[group.slug],
-      scene: <GroupHeroScene slug={group.slug} />,
     });
   }
   const page = servicePageFor(slug)!;

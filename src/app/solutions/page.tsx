@@ -4,6 +4,8 @@ import { Closing } from '@/components/home/closing';
 import { Actions, PageIntro } from '@/components/pages/page-intro';
 import { type ZigRow, ZigZag } from '@/components/pages/zigzag';
 import { RollLink } from '@/components/ui/roll-link';
+import { PageFan } from '@/components/showcase/cards';
+import { SOLUTION_CONTENT } from '@/content/lab/solutions';
 import { WebPageStructuredData } from '@/components/seo/web-page-data';
 import { ConnectScene } from '@/components/visuals/connect-scene';
 import { solutionPageFor } from '@/content/pages';
@@ -12,7 +14,7 @@ import { productFor } from '@/content/products';
 
 /**
  * `/solutions` — every solution: the page intro, then the four goals as alternating rows (each
- * with the services behind it as points and a crop of its product), then the closing.
+ * with the services behind it as points, beside its five screens fanned), then the closing.
  */
 const SOLUTIONS_TITLE = 'Solutions: Leads, Online Sales, CRM & Care';
 const SOLUTIONS_DESCRIPTION =
@@ -38,6 +40,7 @@ export default function SolutionsPage() {
   const rows: ZigRow[] = solutions.map((solution) => {
     const page = solutionPageFor(solution.slug)!;
     const product = productFor(solution.slug)!;
+    const accent = SOLUTION_CONTENT[solution.slug]?.accent ?? product.accent;
     const behind = page.services.flatMap((anchor) => {
       const service = services.find((s) => s.anchor === anchor);
       if (service)
@@ -64,13 +67,8 @@ export default function SolutionsPage() {
       text: page.intro,
       points,
       cta: { label: `See ${solution.name}`, href: `/solutions/${solution.slug}` },
-      accent: product.accent,
-      visual: {
-        back: product.stage?.back!,
-        backAccent: product.accent,
-        front: product.stage?.front?.[0],
-        frontAccent: product.accent,
-      },
+      accent,
+      visual: <PageFan slug={solution.slug} name={solution.name} accent={accent} />,
     };
   });
 

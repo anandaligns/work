@@ -7,13 +7,20 @@ lives elsewhere (see [The enquiry form](#the-enquiry-form)).
 
 ## Run
 
-Docker only. Node is never installed on the host; `node_modules` lives in a named volume.
+With Node 20.9 or newer:
+
+```sh
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm run start   # the production build
+```
+
+Or with Docker, where Node is never installed on the host and `node_modules` lives in a named
+volume:
 
 ```sh
 docker compose up
 ```
-
-Open <http://localhost:3000>. `/lab` shows every illustration side by side.
 
 ```sh
 docker compose exec web npx tsc --noEmit      # typecheck
@@ -28,12 +35,12 @@ docker compose down                           # stop
 | `src/app/globals.css`                          | Tokens (the brand's Graphite Ink, Kinetic Orange and cool greys, the tints, the type scale, beUI's shadcn names) and every CSS-driven motion                                                    |
 | `src/content/catalogue.json`                   | Catalogue v2 (25 Sep 2026): service groups, services, solutions, offers, FAQs, home copy. Ahead of the platform's seed until the seed takes the same text                                                         |
 | `src/content/site.ts`                          | Typed reads of the catalogue, plus this page's own headings and figures                                                                                                                                           |
-| `src/content/pages.ts`                         | The three group pages in full; for the services, Evolve and the solutions, their titles, descriptions, opening lines and closings                                                                                 |
+| `src/content/pages.ts`                         | For the services, Evolve and the solutions: their titles, descriptions, opening lines and closings (the three group pages are gone; their addresses redirect to `/services#group`, `next.config.ts`)          |
 | `src/content/products/`                        | One file per service, solution and Evolve: the product page's words, accent, example business and screens, and its FAQPage answers (`kit.ts` holds the shorthands)                                                |
 | `src/content/lab/`                             | Each solution page’s own words (`solutions.ts`): its colour, opening tasks, the system behind it, its story, how it works and what changes                                                                        |
 | `src/components/solutions/`                    | The solution page (`solution-page.tsx`) and its parts: the split section after Lightfield (`showcase.tsx`), the story and the ways in                                                                             |
 | `src/components/showcase/`                     | Every mockup, drawn as the home Services pictures are: the kit (`kit.tsx` — Stage, Panel, Step, Toast, Metric, Bars…), one file per service and solution and the home's (`home.tsx`), the lists the pages read (`sets.ts`), and each page's five fan screens (`cards/`, framed by `sheet.tsx`) |
-| `src/components/lab/`                          | Where the pages pick their mockups (`service-mocks.tsx`, `solution-mocks.tsx`), the service pages' "included" dashboards, and the earlier light-kit drawings kept for `/lab`                              |
+| `src/components/lab/`                          | Where the pages pick their mockups (`service-mocks.tsx`, `solution-mocks.tsx`) and the service pages' "included" dashboards                                                                              |
 | `src/content/cases.ts`                         | Case studies for `/work/<slug>` — empty until a client agrees to one                                                                                                                                              |
 | `src/components/motion/`                       | The blur-in headline, scroll-filled headings, the pixel dissolve, the one scroll controller, the logo's quarter-turn and the living brand pattern, beside beUI's components (see [beUI](#beui))                |
 | `src/components/visuals/iso.tsx`               | The isometric drawing kit                                                                                                                                                                                         |
@@ -47,12 +54,14 @@ docker compose down                           # stop
 | `src/components/layout/`                       | Header (Apple-style bar and flyouts), footer, framed band                                                                                                                                                         |
 | `src/components/home/`                         | The home page's sections                                                                                                                                                                                          |
 | `src/components/pages/`                        | What the other pages are built from: the page intro, card bands, sections, price cards, the flow strip, the policy page                                                                                           |
-| `src/components/contact/`                      | The enquiry form, what happens next, and the thanks heading                                                                                                                                                       |
+| `src/components/contact/`, `forms/`, `start/`  | The contact page's general form; the fields both forms share (beUI input, checkbox, pills); Start a project, the four-step modal every Get Started opens (`/start`, intercepted by `app/@modal/(.)start`)      |
+| `src/components/evolve/`                       | Evolve's own page: the live status console, a month on the plan, what's covered, plans, changes, moving in, terms, closing                                                                                         |
+| `src/components/pages/related.tsx`             | The related cards near the end of every service and solution page, each with its page's own lead screen                                                                                                          |
 | `src/components/seo/`                          | JSON-LD: home (business, website, all 31 answers), every service and solution page (Service, BreadcrumbList, FAQPage), and the indexes, About, Contact and policies (`web-page-data.tsx`)                         |
 | `src/app/services/[slug]`, `solutions/[slug]`  | Every service group, service, Evolve and solution, live and indexed, each with its own share image                                                                                                                |
-| `src/app/api/enquiry`, `contact/thanks`        | Where the form sends (checked again, honeypot, rate limit, passed to `LEAD_WEBHOOK_URL`) and where it lands (`noindex`)                                                                                           |
+| `src/app/api/enquiry`                          | Where both forms send (`kind: 'project'` or `'contact'`; checked again, honeypot, rate limit, passed to `LEAD_WEBHOOK_URL`)                                                                                       |
 | `src/app/about`, `contact`, `privacy`, `terms` | The company pages; `not-found.tsx` is the 404                                                                                                                                                                     |
-| `src/app/sitemap.ts`, `robots.ts`, `llms.txt/` | The sitemap (live pages only), robots rules (search and AI crawlers welcome, `/lab` and `/api/` kept out) and `/llms.txt` for answer engines. All use `SITE_URL`, set per build by `NEXT_PUBLIC_SITE_URL`       |
+| `src/app/sitemap.ts`, `robots.ts`, `llms.txt/` | The sitemap (live pages only), robots rules (search and AI crawlers welcome, `/api/` kept out) and `/llms.txt` for answer engines. All use `SITE_URL`, set per build by `NEXT_PUBLIC_SITE_URL`       |
 
 What's left before the move to pixelkinetix.com — server, search, content and open decisions — is
 in [LAUNCH-CHECKLIST.md](LAUNCH-CHECKLIST.md).
@@ -108,17 +117,17 @@ running the same command again updates them in place.
 | `breadcrumb`         | Every inner page's opening (`pages/page-trail.tsx`)                                                          |
 | `expandable-control` | The contact page's copy chips (`contact/copy-chips.tsx`)                                                     |
 | `switch`             | Evolve's yearly billing in Pricing                                                                           |
-| `select`, `checkbox`, `alert`, `button` | The enquiry form: its three choices, the consent box, the send failure, the stateful Send |
+| `checkbox`, `button` | Both forms' consent box and their stateful Send |
 | `number-ticker`      | The home figures, Pricing's figures (they roll between monthly and yearly), the mockups' figures            |
-| `input`              | The enquiry form's text fields: error shake, drawn tick (`contact/enquiry-form.tsx`)                         |
+| `input`              | Both forms' text fields: error shake, drawn tick (`forms/fields.tsx`)                                        |
 | `tooltip`            | The home Services chips' one-line summaries                                                                  |
 | `shared-layout-bg`   | The pill that glides through the mega menu's items (`layout/header.tsx`)                                     |
 | `scroll-progress`    | The reading-progress line on the legal pages (`pages/legal.tsx`)                                              |
 | `text-shimmer`       | "Reading 2 documents…" in the AI mockups (`showcase/kit.tsx`, `Thinking`)                                     |
-| `project-folder`     | Adapted, not copied in: the point of view's five fanned screens on every service and solution page, the folder's back and cover taken away (`visuals/project-fan.tsx`) |
+| `project-folder`     | Adapted, not copied in: the five fanned screens on every service and solution page, the groups on `/services` and the rows on `/solutions`, the folder's back and cover taken away (`visuals/project-fan.tsx`) |
 | `marquee`            | The sector rows, a service page's tool rows and logo strip, the Work gallery                                 |
 | `smooth-scroll`, `scroll-to` | Lenis on every page (`app/layout.tsx`, with `motion/scroll-bridge.tsx`), the footer's Back to top    |
-| shared               | `lib/utils.ts` (`cn`), `lib/ease.ts` (every `RollLink` presses on its `SPRING_PRESS`), `lib/hooks/use-hover-capable.ts`, `lib/presence-gate.tsx` |
+| shared               | `lib/utils.ts` (`cn`), `lib/ease.ts` (every `RollLink` presses on its `SPRING_PRESS`), `lib/hooks/use-hover-capable.ts` |
 
 Their sources are in `src/components/motion/` beside the site's own motion. One local change:
 `tabs.tsx` line 202 has a `!` that this repository's stricter TypeScript (`noUncheckedIndexedAccess`)
@@ -131,16 +140,15 @@ takes the brand's colours without editing it. beUI's AI-agent guide is at
 
 ## The enquiry form
 
-The contact page's form shows only once it has somewhere to send to. Set, where the site is hosted:
+Two forms send leads: Start a project (the four-step modal every Get Started opens) and the contact
+page's general form. Set, where the site is hosted:
 
 - `LEAD_WEBHOOK_URL` — the automation that saves each lead to the dashboard, replies on WhatsApp
   and email, and alerts the team. The form posts its lead there as JSON.
 - `LEAD_WEBHOOK_SECRET` (optional) — sent with it as a bearer token.
 
-With neither, a production build leaves the form off and keeps "Your first message"; the dev server
-shows the form and logs each lead instead. When the automation really replies to the visitor, set
-`ENQUIRY_AUTOMATION_LIVE` in `src/lib/enquiry.ts` to `true`: the thanks page then says a copy is on
-its way, and the contact page shows its "runs on our own Connected Website" caption.
+With neither, a production build sends both by WhatsApp instead — the form opens WhatsApp with the
+whole message already written; the dev server sends to `/api/enquiry` and logs each lead.
 
 ## The foundation
 

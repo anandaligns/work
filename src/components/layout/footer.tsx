@@ -27,7 +27,7 @@ const COLUMNS = [
   {
     heading: 'Services',
     links: [
-      ...categories.map((c) => ({ label: c.name, href: `/services/${c.slug}` })),
+      ...categories.map((c) => ({ label: c.name, href: `/services#${c.slug}` })),
       { label: evolve.name, href: `/services/${evolve.slug}` },
     ],
   },

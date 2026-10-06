@@ -628,7 +628,6 @@ export const solutionPages: SolutionPage[] = [
   },
 ];
 
-export const groupPageFor = (slug: string) => groupPages.find((page) => page.slug === slug);
 export const servicePageFor = (slug: string) => servicePages.find((page) => page.slug === slug);
 export const solutionPageFor = (slug: string) => solutionPages.find((page) => page.slug === slug);
 

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import type { GroupSlug, Tint } from '@/content/pages';
+import type { Tint } from '@/content/pages';
 
 import type { IconName } from '../ui/icon';
 import {
@@ -16,13 +16,7 @@ import {
   SIGNAL,
   type Tone,
 } from './iso';
-import {
-  GetOnlineScene,
-  ManagedScene,
-  PageLayout,
-  SERVICE_SCENES,
-  SOLUTION_SCENES,
-} from './scenes';
+import { GetOnlineScene, ManagedScene, PageLayout, SOLUTION_SCENES } from './scenes';
 
 /**
  * Every page's hero scene, from the same drawing kit as the home page's — no new art, only new
@@ -832,12 +826,6 @@ export function ServiceHeroScene({
 }) {
   const plan = PLANS[slug];
   return plan ? <PlanScene plan={plan} tint={tint} bare={bare} /> : null;
-}
-
-/** A group's hero: its Services card scene, drawn larger. */
-export function GroupHeroScene({ slug }: { slug: GroupSlug }) {
-  const Scene = SERVICE_SCENES[slug];
-  return <Scene />;
 }
 
 /** A solution's hero: its Solutions scene — the chat swapped in, or the site being moved in. */

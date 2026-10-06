@@ -1,7 +1,14 @@
-import { type Enquiry, normalisePhone, validateEnquiry } from '@/lib/enquiry';
+import {
+  type ContactMessage,
+  type Enquiry,
+  normalisePhone,
+  validateContact,
+  validateEnquiry,
+} from '@/lib/enquiry';
 
 /**
- * `POST /api/enquiry` — where the contact form sends. It checks the form again, drops what the
+ * `POST /api/enquiry` — where the Start a project flow (`kind: 'project'`, an `Enquiry`) and the
+ * contact page's general form (`kind: 'contact'`, a `ContactMessage`) send. It checks the form again, drops what the
  * hidden honeypot catches, holds any one address to five enquiries in ten minutes, and passes the
  * lead on to `LEAD_WEBHOOK_URL`: the automation that saves it to the dashboard, replies to the
  * visitor on WhatsApp and email, and alerts Pixel Kinetix. `LEAD_WEBHOOK_SECRET`, if set, goes
@@ -28,7 +35,7 @@ const clip = (value: unknown, max = 2000) =>
   typeof value === 'string' ? value.trim().slice(0, max) : '';
 
 export async function POST(request: Request) {
-  let body: Partial<Enquiry> & { website_url?: string };
+  let body: Partial<Enquiry> & Partial<ContactMessage> & { website_url?: string; kind?: string };
   try {
     body = await request.json();
   } catch {
@@ -41,32 +48,53 @@ export async function POST(request: Request) {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   if (limited(ip)) return Response.json({ error: 'too-many' }, { status: 429 });
 
-  const errors = validateEnquiry(body);
-  if (Object.keys(errors).length) return Response.json({ errors }, { status: 422 });
-
   const utm = Object.fromEntries(
     Object.entries(body.utm ?? {})
       .filter(([key]) => /^utm_[a-z]+$/.test(key))
       .map(([key, value]) => [key, clip(value, 200)]),
   );
-  const lead = {
-    name: clip(body.name, 120),
-    business: clip(body.business, 160),
-    phone: normalisePhone(clip(body.phone, 40)),
-    email: clip(body.email, 200),
-    city: clip(body.city, 120),
-    does: clip(body.does),
-    need: clip(body.need),
-    interest: clip(body.interest, 60) || 'Not sure yet',
-    budget: clip(body.budget, 60),
-    when: clip(body.when, 60),
-    consent: true,
-    source: clip(body.source, 120),
-    page: clip(body.page, 300),
-    referrer: clip(body.referrer, 500),
-    utm,
-    receivedAt: new Date().toISOString(),
-  };
+
+  let lead: Record<string, unknown>;
+  if (body.kind === 'contact') {
+    const errors = validateContact(body);
+    if (Object.keys(errors).length) return Response.json({ errors }, { status: 422 });
+    const phone = clip(body.phone, 40);
+    lead = {
+      kind: 'contact',
+      name: clip(body.name, 120),
+      email: clip(body.email, 200),
+      phone: phone && phone !== '+91' ? normalisePhone(phone) : '',
+      topic: clip(body.topic, 60),
+      message: clip(body.message),
+      consent: true,
+      page: clip(body.page, 300),
+      referrer: clip(body.referrer, 500),
+      utm,
+      receivedAt: new Date().toISOString(),
+    };
+  } else {
+    const errors = validateEnquiry(body);
+    if (Object.keys(errors).length) return Response.json({ errors }, { status: 422 });
+    lead = {
+      kind: 'project',
+      name: clip(body.name, 120),
+      business: clip(body.business, 160),
+      phone: normalisePhone(clip(body.phone, 40)),
+      email: clip(body.email, 200),
+      city: clip(body.city, 120),
+      does: clip(body.does),
+      need: clip(body.need),
+      interest: clip(body.interest, 60) || 'Not sure yet',
+      budget: clip(body.budget, 60),
+      when: clip(body.when, 60),
+      consent: true,
+      source: clip(body.source, 120),
+      page: clip(body.page, 300),
+      referrer: clip(body.referrer, 500),
+      utm,
+      receivedAt: new Date().toISOString(),
+    };
+  }
 
   const url = process.env.LEAD_WEBHOOK_URL;
   if (!url) {

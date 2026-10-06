@@ -12,18 +12,6 @@ import { Icon, type IconName } from '../ui/icon';
  * same invented ones the product pages use.
  */
 
-/**
- * The four solutions at work and the four promises, now drawn in the showcase kit
- * (`components/showcase/home.tsx`); their lists are kept here, where the sections find them.
- */
-export const SOLUTION_MOCKS: Record<string, () => ReactNode> = {
-  'lead-automation': Home.LeadMock,
-  'online-store-and-bookings': Home.SellMock,
-  'business-dashboard-crm': Home.RunMock,
-  'website-care-hosting': Home.KeepMock,
-};
-export const SolutionsRestMock = Home.RestMock;
-
 export const PROMISE_MOCKS = [
   Home.PriceMock,
   Home.TimelineMock,

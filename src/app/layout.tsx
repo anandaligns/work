@@ -43,7 +43,7 @@ export const viewport: Viewport = { themeColor: '#fcfcfc' };
  */
 const FIRST_FONTS = ['dm-sans-400', 'dm-sans-500', 'dm-sans-700'];
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children, modal }: { children: ReactNode; modal: ReactNode }) {
   for (const font of FIRST_FONTS)
     preload(`/fonts/${font}.woff2`, { as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' });
   return (
@@ -67,6 +67,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <MobileStart />
           <ScrollEffects />
         </SmoothScroll>
+        {/* Start a project, over the page it was opened on (`app/@modal/(.)start`). */}
+        {modal}
       </body>
     </html>
   );

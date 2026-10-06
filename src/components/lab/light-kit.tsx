@@ -242,51 +242,6 @@ export function Pill({
   );
 }
 
-/** Fine dashed wires in the page's colour, flowing, with a ringed dot at each named point. */
-export function Wires({
-  w,
-  h,
-  d,
-  dots = [],
-  accent,
-}: {
-  w: number;
-  h: number;
-  d: string[];
-  dots?: [number, number][];
-  accent: string;
-}) {
-  return (
-    <svg
-      className="frag-in pointer-events-none absolute inset-0"
-      width={w}
-      height={h}
-      viewBox={`0 0 ${w} ${h}`}
-      fill="none"
-      style={{ '--i': 1 } as CSSProperties}
-    >
-      {d.map((path) => (
-        <path
-          key={path}
-          d={path}
-          stroke={accent}
-          strokeOpacity={0.55}
-          strokeWidth={1.25}
-          strokeDasharray="3 4"
-          strokeLinecap="round"
-          className="wire-flow"
-        />
-      ))}
-      {dots.map(([x, y]) => (
-        <g key={`${x}-${y}`}>
-          <circle cx={x} cy={y} r={6} fill={accent} className="dot-pulse" />
-          <circle cx={x} cy={y} r={3.5} fill="#fff" stroke={accent} strokeWidth={1.5} />
-        </g>
-      ))}
-    </svg>
-  );
-}
-
 /**
  * Pieces moved as one, keeping their own places inside — so a mockup drawn for one frame can be
  * laid out again for another (a split section's box) without redrawing it.

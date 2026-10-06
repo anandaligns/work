@@ -1,5 +1,4 @@
 import { PortalScene } from '@/components/visuals/scenes';
-import { hero } from '@/content/site';
 import { SHARE_SIZE, shareImage } from '@/lib/share-image';
 
 /**

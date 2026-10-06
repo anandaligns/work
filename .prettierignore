@@ -20,10 +20,7 @@ src/components/motion/number-ticker.tsx
 src/components/motion/marquee.tsx
 src/components/motion/bouncy-accordion.tsx
 src/components/motion/input.tsx
-src/components/motion/select.tsx
 src/components/motion/checkbox.tsx
-src/components/motion/alert.tsx
-src/lib/presence-gate.tsx
 src/components/motion/smooth-scroll.tsx
 src/components/motion/scroll-to.tsx
 src/components/motion/tooltip.tsx

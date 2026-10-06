@@ -1,10 +1,22 @@
-# UI foundation — v2.17
+# UI foundation — v2.18
 
 Locked 23 Sep 2026, after the owner's review of the home page; brought onto the new brand identity
 25 Sep 2026. Every page of the public site is built from what is below — and when this build moves
 into `apps/web`, this is the spec it moves with. Change it on purpose: bump the version, say what
 changed and why.
 
+- **v2.18** — 6 Oct 2026: Start a project. Every Get Started now opens a four-step assessment
+  over the page it was pressed on (`/start`, intercepted by `app/@modal/(.)start`; at its own
+  address it is the page): what to build, the business, scope and timing, the details — a dark
+  step panel on the left with the answers so far, one question at a time on the right, Back and
+  Continue at the foot, each step checked before the next. The contact page keeps a general form
+  (no picture beside it), and both send to `/api/enquiry`, or by WhatsApp while there is nowhere to
+  send. Evolve has a page of its own, opening on a dark live console. The related links are cards
+  with each page's lead screen; `/services` fans each group's five services and `/solutions` each
+  solution's screens; the three group pages are gone, redirected to their groups. On the home page
+  one solution is always open, each says the same amount, and the picture beside the list —
+  three of the solution's own screens — is held to the list's height. The lab and test pages, the
+  parked assistant and their code are removed.
 - **v2.17** — 6 Oct 2026: the point of view's picture on every service page, Evolve and the four
   solutions is beUI's Project Folder block with the folder taken away
   (`components/visuals/project-fan.tsx`, adapted rather than copied in): no back, no cover, no
