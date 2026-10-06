@@ -1,10 +1,23 @@
-# UI foundation — v2.16
+# UI foundation — v2.17
 
 Locked 23 Sep 2026, after the owner's review of the home page; brought onto the new brand identity
 25 Sep 2026. Every page of the public site is built from what is below — and when this build moves
 into `apps/web`, this is the spec it moves with. Change it on purpose: bump the version, say what
 changed and why.
 
+- **v2.17** — 6 Oct 2026: the point of view's picture on every service page, Evolve and the four
+  solutions is beUI's Project Folder block with the folder taken away
+  (`components/visuals/project-fan.tsx`, adapted rather than copied in): no back, no cover, no
+  title on it — only its five cards, fanned in the page's frame, each a screen from the page's
+  example build drawn in the showcase kit (`components/showcase/cards/`, one file a page; their
+  frames — a product surface, a browser page, a phone app, a WhatsApp chat — in
+  `showcase/sheet.tsx`). The cards spread under the pointer or keyboard focus as the folder's do;
+  a press flies them into a grid over the blurred page with the page's name and a close button,
+  and Escape, the button or the page behind flies them back. The page stays still while it is
+  open, focus stays inside it and returns to the fan. Each screen is drawn on one 240 × 320
+  canvas scaled to its card, so the flight is a plain zoom; nothing rises in on them, only the
+  rows' turns, the live dot, the caret and the button move. The isometric scenes
+  (`visuals/iso-views.tsx`) are gone.
 - **v2.16** — 6 Oct 2026: the mockups redrawn the way the home Services pictures are, in their
   own colours, at the owner's request (a graphite recolour with grid grounds was tried and set
   aside). One kit for all of them (`components/showcase/kit.tsx`): a product surface per picture

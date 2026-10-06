@@ -7,9 +7,9 @@ import { Highlights, ProductOpeningFull, RelatedIndex, WhyGrid } from '@/compone
 import { Industries, PointOfView, Rich } from '@/components/pages/product-parts';
 import { FaqBand } from '@/components/pages/sections';
 import { PageStructuredData } from '@/components/seo/page-structured-data';
+import { PageFan } from '@/components/showcase/cards';
 import { iconFor, SOLUTION_ICONS } from '@/components/ui/icon';
 import { ConnectScene } from '@/components/visuals/connect-scene';
-import { IsoView } from '@/components/visuals/iso-views';
 import { SOLUTION_CONTENT } from '@/content/lab/solutions';
 import { solutionPageFor, solutionPages } from '@/content/pages';
 import { productFor } from '@/content/products';
@@ -107,7 +107,7 @@ export function SolutionPageView({ slug }: { slug: string }) {
         <PointOfView
           statement={product.view.statement}
           body={product.view.body}
-          photo={<IsoView slug={slug} accent={A} />}
+          photo={<PageFan slug={slug} name={solution.name} accent={A} />}
         />
 
         <SystemRow

@@ -3530,6 +3530,12 @@ html.lenis body {
   .sc[data-play] .sc-live::before {
     animation-play-state: running;
   }
+  /* The fan's screens (`visuals/project-fan.tsx`) are there whole from the start — in the fan and
+     as they fly open — so nothing rises or grows in them; only the rows' turns, the live dot, the
+     caret and the button keep moving. */
+  .sc--still :is(.sc-rise, .sc-pop, .sc-grow, .sc-fill, .sc-draw) {
+    animation: none;
+  }
   @keyframes sc-rise {
     from {
       opacity: 0;

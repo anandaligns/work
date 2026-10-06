@@ -14,12 +14,12 @@ import { ProductBody, ProductOpening, RelatedIndex } from '@/components/pages/pr
 import { ServiceOpening } from '@/components/pages/service-stage';
 import { businessColour, stageFor } from '@/components/pages/service-stages';
 import { PageStructuredData } from '@/components/seo/page-structured-data';
+import { PageFan } from '@/components/showcase/cards';
 import { ShowcasePanel } from '@/components/solutions/showcase';
 import { type IconName, iconFor } from '@/components/ui/icon';
 import { RollLink } from '@/components/ui/roll-link';
 import { ConnectScene } from '@/components/visuals/connect-scene';
 import { GroupHeroScene } from '@/components/visuals/page-scenes';
-import { IsoView } from '@/components/visuals/iso-views';
 import {
   evolvePage,
   GROUP_TINT,
@@ -297,7 +297,7 @@ function ServiceView({ page }: { page: ServicePage }) {
         eyebrow={service.name}
         tint={tint}
         next={mocksFor(page.slug, product.accent)}
-        view={<IsoView slug={page.slug} accent={product.accent} />}
+        view={<PageFan slug={page.slug} name={service.name} accent={product.accent} />}
         tail={
           <>
             <RelatedIndex
@@ -378,7 +378,7 @@ function EvolveView() {
         interest={evolve.slug}
         eyebrow={evolve.name}
         tint="butter"
-        view={<IsoView slug={evolve.slug} accent={product.accent} />}
+        view={<PageFan slug={evolve.slug} name={evolve.name} accent={product.accent} />}
         priceExtra={<Pricing only="care" />}
         after={
           <Section

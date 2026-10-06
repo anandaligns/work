@@ -61,6 +61,6 @@ Tick each one off as it is done.
 - [ ] Real proof: a first case study for `/work/<slug>` and real reviews, once clients agree. The
       site has no client logos, counts or named results yet — the biggest gap in trust.
 - [ ] The product panel's dark background photos ([IMAGE-PROMPTS.md](IMAGE-PROMPTS.md)). The
-      point-of-view photos are no longer needed: each page now has its isometric scene.
+      point-of-view photos are no longer needed: each page now has its five fanned screens.
 - [ ] `/privacy` and `/terms` read by a lawyer, and `/privacy` updated before the form or
       analytics goes live.

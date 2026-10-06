@@ -32,7 +32,7 @@ docker compose down                           # stop
 | `src/content/products/`                        | One file per service, solution and Evolve: the product page's words, accent, example business and screens, and its FAQPage answers (`kit.ts` holds the shorthands)                                                |
 | `src/content/lab/`                             | Each solution page’s own words (`solutions.ts`): its colour, opening tasks, the system behind it, its story, how it works and what changes                                                                        |
 | `src/components/solutions/`                    | The solution page (`solution-page.tsx`) and its parts: the split section after Lightfield (`showcase.tsx`), the story and the ways in                                                                             |
-| `src/components/showcase/`                     | Every mockup, drawn as the home Services pictures are: the kit (`kit.tsx` — Stage, Panel, Step, Toast, Metric, Bars…), one file per service and solution and the home's (`home.tsx`), and the lists the pages read (`sets.ts`) |
+| `src/components/showcase/`                     | Every mockup, drawn as the home Services pictures are: the kit (`kit.tsx` — Stage, Panel, Step, Toast, Metric, Bars…), one file per service and solution and the home's (`home.tsx`), the lists the pages read (`sets.ts`), and each page's five fan screens (`cards/`, framed by `sheet.tsx`) |
 | `src/components/lab/`                          | Where the pages pick their mockups (`service-mocks.tsx`, `solution-mocks.tsx`), the service pages' "included" dashboards, and the earlier light-kit drawings kept for `/lab`                              |
 | `src/content/cases.ts`                         | Case studies for `/work/<slug>` — empty until a client agrees to one                                                                                                                                              |
 | `src/components/motion/`                       | The blur-in headline, scroll-filled headings, the pixel dissolve, the one scroll controller, the logo's quarter-turn and the living brand pattern, beside beUI's components (see [beUI](#beui))                |
@@ -60,7 +60,7 @@ in [LAUNCH-CHECKLIST.md](LAUNCH-CHECKLIST.md).
 ## Photos and statements
 
 The service and solution pages wait for one photograph each: a dark background for the product
-panel (their point of view is drawn — an isometric scene per page, `visuals/iso-views.tsx`). [IMAGE-PROMPTS.md](IMAGE-PROMPTS.md) lists all forty: file names,
+panel (their point of view is drawn — five screens from the page's example build, fanned: `visuals/project-fan.tsx`, `showcase/cards/`). [IMAGE-PROMPTS.md](IMAGE-PROMPTS.md) lists all forty: file names,
 alt text and a prompt for each, in each page's own colour. They go in `public/photos/` as
 `<name>-800` and `<name>-1600`, in AVIF and WebP; until one is there, the panel shows its dark
 gradient and the point of view a tinted placeholder.
@@ -115,6 +115,7 @@ running the same command again updates them in place.
 | `shared-layout-bg`   | The pill that glides through the mega menu's items (`layout/header.tsx`)                                     |
 | `scroll-progress`    | The reading-progress line on the legal pages (`pages/legal.tsx`)                                              |
 | `text-shimmer`       | "Reading 2 documents…" in the AI mockups (`showcase/kit.tsx`, `Thinking`)                                     |
+| `project-folder`     | Adapted, not copied in: the point of view's five fanned screens on every service and solution page, the folder's back and cover taken away (`visuals/project-fan.tsx`) |
 | `marquee`            | The sector rows, a service page's tool rows and logo strip, the Work gallery                                 |
 | `smooth-scroll`, `scroll-to` | Lenis on every page (`app/layout.tsx`, with `motion/scroll-bridge.tsx`), the footer's Back to top    |
 | shared               | `lib/utils.ts` (`cn`), `lib/ease.ts` (every `RollLink` presses on its `SPRING_PRESS`), `lib/hooks/use-hover-capable.ts`, `lib/presence-gate.tsx` |

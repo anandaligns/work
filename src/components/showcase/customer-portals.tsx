@@ -274,8 +274,8 @@ export function DocumentsMock() {
               {Array.from({ length: 10 }, (_, k) => (
                 <circle
                   key={k}
-                  cx={40 + 22.5 * Math.cos((k * Math.PI) / 5)}
-                  cy={40 + 22.5 * Math.sin((k * Math.PI) / 5)}
+                  cx={(40 + 22.5 * Math.cos((k * Math.PI) / 5)).toFixed(2)}
+                  cy={(40 + 22.5 * Math.sin((k * Math.PI) / 5)).toFixed(2)}
                   r="4"
                 />
               ))}
