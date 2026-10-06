@@ -54,7 +54,7 @@ docker compose down                           # stop
 | `src/components/layout/`                       | Header (Apple-style bar and flyouts), footer, framed band                                                                                                                                                         |
 | `src/components/home/`                         | The home page's sections                                                                                                                                                                                          |
 | `src/components/pages/`                        | What the other pages are built from: the page intro, card bands, sections, price cards, the flow strip, the policy page                                                                                           |
-| `src/components/contact/`, `forms/`, `start/`  | The contact page's general form; the fields both forms share (beUI input, checkbox, pills); Start a project, the four-step modal every Get Started opens (`/start`, intercepted by `app/@modal/(.)start`)      |
+| `src/components/contact/`, `forms/`, `start/`  | The contact page's general form; the fields both forms share (beUI input, checkbox, pills); Start your project, the five-step modal every Get Started opens (`/start`, intercepted by `app/@modal/(.)start`)      |
 | `src/components/evolve/`                       | Evolve's own page: the live status console, a month on the plan, what's covered, plans, changes, moving in, terms, closing                                                                                         |
 | `src/components/pages/related.tsx`             | The related cards near the end of every service and solution page, each with its page's own lead screen                                                                                                          |
 | `src/components/seo/`                          | JSON-LD: home (business, website, all 31 answers), every service and solution page (Service, BreadcrumbList, FAQPage), and the indexes, About, Contact and policies (`web-page-data.tsx`)                         |
@@ -140,7 +140,7 @@ takes the brand's colours without editing it. beUI's AI-agent guide is at
 
 ## The enquiry form
 
-Two forms send leads: Start a project (the four-step modal every Get Started opens) and the contact
+Two forms send leads: Start your project (the five-step modal every Get Started opens) and the contact
 page's general form. Set, where the site is hosted:
 
 - `LEAD_WEBHOOK_URL` — the automation that saves each lead to the dashboard, replies on WhatsApp

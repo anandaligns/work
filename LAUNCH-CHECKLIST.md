@@ -16,7 +16,7 @@ Tick each one off as it is done.
       `sudo nginx -t && sudo systemctl reload nginx`, and check every site loads.
       (On nginx 1.25.1+ it is `http2 on;` inside one server block instead.)
 - [ ] **Forms:** set `LEAD_WEBHOOK_URL` (and optionally `LEAD_WEBHOOK_SECRET`) in the
-      server's `docker-compose.yml` environment. Until then Start a project and the contact form
+      server's `docker-compose.yml` environment. Until then Start your project and the contact form
       send by WhatsApp, with the message already written.
 
 ## Moving to pixelkinetix.com

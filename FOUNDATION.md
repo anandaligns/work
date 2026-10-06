@@ -1,11 +1,21 @@
-# UI foundation — v2.18
+# UI foundation — v2.19
 
 Locked 23 Sep 2026, after the owner's review of the home page; brought onto the new brand identity
 25 Sep 2026. Every page of the public site is built from what is below — and when this build moves
 into `apps/web`, this is the spec it moves with. Change it on purpose: bump the version, say what
 changed and why.
 
-- **v2.18** — 6 Oct 2026: Start a project. Every Get Started now opens a four-step assessment
+- **v2.19** — 6 Oct 2026: Start your project, rebuilt on the owner's reference wizard in the
+  brand. A night page with a Kinetic Orange glow; the lockup and Back to the site; a line of five
+  steps (Business, Service, Project, Contact, Review) with a diamond travelling along it; and the
+  workspace — a dark story panel (its words, three of the site's screens behind a gradient, two
+  facts along its foot) beside the light form. The service step is nine picture cards, each on
+  its service's own screen, real radios underneath; the review has an Edit on every part and the
+  consent. Errors are said under their fields, answers are kept for the visit, and it sends to
+  `/api/enquiry` (with industry, team, service, website, notes and the marketing opt-in) or by
+  WhatsApp. From 1200px it fits the screen and only the form's middle scrolls; 768–1199px it is a
+  page; below 768px it is an app, the form a light sheet with Back and Continue fixed at its foot.
+- **v2.18** — 6 Oct 2026: Start a project. Every Get Started now opens a four-step flow
   over the page it was pressed on (`/start`, intercepted by `app/@modal/(.)start`; at its own
   address it is the page): what to build, the business, scope and timing, the details — a dark
   step panel on the left with the answers so far, one question at a time on the right, Back and

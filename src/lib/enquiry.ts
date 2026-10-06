@@ -26,6 +26,14 @@ export type Enquiry = {
   budget: string;
   when: string;
   consent: boolean;
+  /** Start your project's own answers: the industry, the team's size, the service chosen, the
+   *  current website, anything else, and whether offers may be sent too. All optional. */
+  industry?: string;
+  team?: string;
+  service?: string;
+  website?: string;
+  notes?: string;
+  marketing?: boolean;
   /** Hidden: the page the visitor came from, the slug its button carried, and campaign tags. */
   source: string;
   page: string;
