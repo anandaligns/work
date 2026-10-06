@@ -59,7 +59,7 @@ export function Promises() {
                 <PixelReveal
                   cover={COVERS[index % 4]}
                   delay={index * 120}
-                  className="h-60 transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-[1.03]"
+                  className="h-72 transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-[1.03]"
                 >
                   {(() => {
                     const Mock = PROMISE_MOCKS[index];

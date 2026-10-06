@@ -1,10 +1,28 @@
-# UI foundation — v2.15
+# UI foundation — v2.16
 
 Locked 23 Sep 2026, after the owner's review of the home page; brought onto the new brand identity
 25 Sep 2026. Every page of the public site is built from what is below — and when this build moves
 into `apps/web`, this is the spec it moves with. Change it on purpose: bump the version, say what
 changed and why.
 
+- **v2.16** — 6 Oct 2026: the mockups redrawn the way the home Services pictures are, in their
+  own colours, at the owner's request (a graphite recolour with grid grounds was tried and set
+  aside). One kit for all of them (`components/showcase/kit.tsx`): a product surface per picture
+  in real type sizes, white on a hairline with a deep soft shadow; a mono, upper-case label and a
+  Live badge; rows of an icon tile or the real tool's mark, a title, a line and a status pill; a
+  key figure under a rule; at most one notification overlapping it, never a dashed wire. They
+  move only on screen — pieces rise in, rows take turns lighting in the page's colour, figures
+  roll up, bars grow, meters fill, rings draw — and hold still off it, or under reduced motion.
+  The `Stage` measures what is drawn and scales it to its panel. Every service page's features
+  and how-it's-built, every solution page's pictures, and the home promises and Solutions panel
+  are drawn in it; the portal and the service "included" dashboards stay product windows. The
+  first Services box's ground is a faint grid, and the mock panels' dots fainter.
+  beUI, further: the bouncy accordion for every FAQ and the home Solutions list (grouped at
+  rest, the open one springing apart, our +/− drawn over its chevron), the input on the enquiry
+  form (an error shakes the field, a field filled right draws its tick), tooltips on the Services
+  chips, the number ticker rolling Pricing's figures between monthly and yearly, the
+  shared-layout pill gliding through the mega menu, a reading-progress line on the legal pages,
+  and the text shimmer in the AI mockups.
 - **v2.15** — 5 Oct 2026: the beUI component framework, on the v2.14 site as it stood. The
   2026 identity's Kinetic Blue was tried and set aside at the owner's request: Kinetic Orange
   `#FF3D00` stays the colour of what moves, and every button is as it was — graphite first,

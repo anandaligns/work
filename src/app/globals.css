@@ -3200,9 +3200,6 @@ html.lenis body {
   }
 }
 
-@layer components {
-}
-
 /* Looping motion holds still while its section is off screen (`data-offscreen`, set by
    ScrollEffects) and picks up again as the section comes back into view, so no one ever sees it
    stop — and the page stops repainting dozens of loops no one can see. Outside the layers, so it
