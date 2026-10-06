@@ -16,7 +16,7 @@ import { ENQUIRY_AUTOMATION_LIVE, enquiryLive } from '@/lib/enquiry';
 
 /**
  * `/contact` — where every "Get Started" leads. Under the headline, the three quickest ways in:
- * email first in Kinetic Blue, WhatsApp in its own green and Call Now with its phone ringing; under
+ * email first in Kinetic Orange, WhatsApp in its own green and Call Now with its phone ringing; under
  * them the address and the number as beUI's expandable chips, each opening onto a copy action.
  * Then the enquiry form, "Tell us about it", with what happens next beside it; the ways to reach
  * us; and three questions.

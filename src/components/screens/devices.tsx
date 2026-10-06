@@ -460,7 +460,7 @@ export function MacBook({
               </svg>
               <span className="truncate text-[8.5px] text-[#202124]">{url}</span>
             </span>
-            <span className="size-[12px] shrink-0 rounded-full bg-[linear-gradient(128deg,#0753bf,#0069e9,#0755c4)]" />
+            <span className="size-[12px] shrink-0 rounded-full bg-[linear-gradient(135deg,#ff8a5c,#ff3d00)]" />
             <span className="text-[10px] leading-none text-[#5f6368]">⋮</span>
           </div>
           <div

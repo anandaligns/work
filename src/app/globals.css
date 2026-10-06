@@ -7,13 +7,9 @@
    every section. The ink is the brand's Graphite Ink and the greys lean the brand's cool way.
    Colour is spent deliberately, in three places only — the concept work (hero tiles and the
    gallery), the soft tints behind the illustrations, and a handful of signal dots inside the
-   line art. Kinetic Blue is rarer still: it marks what moves — the logo's pixel, the modules
-   turning in the hero — and, on the brand's lit surface, the second of a pair of actions beside
-   the graphite first. Everything else is monochrome, which is what makes those places land.
-
-   Brand identity 2026: Graphite Ink #0B0D12, Kinetic Blue #055BD3 (flat, for marks and type),
-   the 128° lit surface (the blue for backgrounds), Blue Night #5CA6FF, Haze #E7F0FC, Signal
-   White and Steel #6B7080. DM Sans for everything people read, IBM Plex Mono for specs.
+   line art. Kinetic Orange is rarer still: it marks what moves — the logo's pixel, and the modules
+   turning in the hero — and nothing else. Everything else is monochrome, which is what makes
+   those places land.
 
    The components come from beUI (beui.dev), installed as source through the shadcn registry.
    beUI speaks shadcn's token names — background, foreground, muted, border, ring, primary — so
@@ -149,18 +145,16 @@
   --color-graphite: #0b0d12;
   --color-graphite-2: #1d2130;
 
-  /* --- The brand's own colours, beyond the ink. Kinetic Blue marks what moves and nothing
-         else — flat for marks and type, the lit surface (`--surface-kinetic`) behind white type;
-         Blue Night is its light partner on dark grounds; Haze is the pale wash. --- */
-  --color-kinetic: #055bd3;
-  --color-kinetic-deep: #0449ab;
-  --color-kinetic-night: #5ca6ff;
-  --color-haze: #e7f0fc;
+  /* --- The brand's own colours, beyond the ink. Kinetic Orange marks what moves and nothing
+         else; Orange Night is its light partner on dark grounds; Haze is the pale wash. --- */
+  --color-kinetic: #ff3d00;
+  --color-kinetic-night: #ff7a4d;
+  --color-haze: #e8eaf6;
   --color-steel: #6b7080;
 
   /* --- The colour in between. Tints sit behind illustrations and in chips; the signals are
-         the small saturated dots inside the line art. One family each, five hues; the blue of
-         the brand stays out of them, so only what moves is ever Kinetic Blue. --- */
+         the small saturated dots inside the line art. One family each, five hues — the violet
+         now the brand's Haze and Orange Night, so nothing sits beside the logo in a near-blue. --- */
   --color-tint-violet: #eceefb;
   --color-tint-mint: #e6f7ee;
   --color-tint-sky: #e5f3fb;
@@ -219,20 +213,6 @@
   --ease-premium: cubic-bezier(0.2, 0.78, 0.2, 1);
 }
 
-/* The brand's lit surface: Kinetic Blue as a 128° gradient with a soft central glow, the colour
-   of a lit display. Backgrounds only — marks and type use the flat #055BD3. */
-:root {
-  --surface-kinetic-glow: radial-gradient(
-    circle at 50% 46%,
-    rgb(0 119 255 / 0.48) 0%,
-    rgb(0 102 235 / 0.28) 35%,
-    rgb(0 73 183 / 0.15) 72%,
-    rgb(0 58 150 / 0.06) 100%
-  );
-  --surface-kinetic-base: linear-gradient(128deg, #0753bf 0%, #0069e9 48%, #0755c4 100%);
-  --surface-kinetic: var(--surface-kinetic-glow), var(--surface-kinetic-base);
-}
-
 /* beUI's marquee (`@beui/marquee`) runs on these. Its keyframes take their own name, so the
    site's `.marquee__track` keeps its half-width `marquee`. */
 @theme {
@@ -277,7 +257,7 @@
   --color-border: var(--color-line);
   --color-input: var(--color-line-2);
   --color-border-strong: var(--color-line-2);
-  --color-ring: var(--color-kinetic);
+  --color-ring: var(--color-ink);
 }
 
 /* ============================================================================================
@@ -405,7 +385,7 @@ html.lenis body {
     animation: stage-toast-in 700ms var(--ease-out-expo) 0.9s both;
   }
   /* A solution's one system (`Engine`): the front window's face swaps with its tab, the work
-     runs along its wires in Kinetic Blue, and the open tab's line fills while it waits. */
+     runs along its wires in Kinetic Orange, and the open tab's line fills while it waits. */
   .engine-swap,
   .view-swap {
     animation: engine-swap 600ms var(--ease-out-expo) both;
@@ -839,25 +819,23 @@ html.lenis body {
       rgb(0 0 0 / 0.3) 0 1px 2px 0,
       rgb(255 255 255 / 0.12) 0 0.5px 0 1px inset;
   }
-  /* Kinetic Blue on the brand's lit surface — the 128° gradient with its soft central glow — for
-     the second of a pair of actions (the first is graphite, `btn-ink`) and contact's Mail us.
-     White on it is about 4.5:1 at its lightest point, the glow; 5:1 and more everywhere else. */
+  /* Kinetic Orange, for the one action a page leads with. White on it is 3.5:1 — enough for its
+     label only at large sizes. */
   .btn-kinetic {
-    background: var(--surface-kinetic);
+    background: var(--color-kinetic);
     color: #fff;
     box-shadow:
-      #0449ab 0 0 0 1px,
-      rgb(4 40 100 / 0.4) 0 1px 2px 0,
-      rgb(255 255 255 / 0.2) 0 0.5px 0 1px inset;
+      #e63700 0 0 0 1px,
+      rgb(120 30 0 / 0.4) 0 1px 2px 0,
+      rgb(255 255 255 / 0.18) 0 0.5px 0 1px inset;
   }
   .btn-kinetic:hover {
-    background:
-      var(--surface-kinetic-glow), linear-gradient(128deg, #064aab 0%, #005fd6 48%, #064bb0 100%);
+    background: #e63700;
     translate: 0 -2px;
     box-shadow:
-      #0449ab 0 0 0 1px,
-      rgb(5 91 211 / 0.55) 0 12px 24px -12px,
-      rgb(255 255 255 / 0.22) 0 0.5px 0 1px inset;
+      #e63700 0 0 0 1px,
+      rgb(255 61 0 / 0.55) 0 12px 24px -12px,
+      rgb(255 255 255 / 0.2) 0 0.5px 0 1px inset;
   }
   /* WhatsApp's own green, #25D366, with its white label. */
   .btn-whatsapp {
@@ -1341,13 +1319,6 @@ html.lenis body {
     animation-play-state: paused;
   }
   /* ---- Services: fifteen services in one panel ---------------------------------------------- */
-  /* Each group's name in brackets, the way a spec sheet labels a part. */
-  .svc-bracket::before {
-    content: '[\00a0';
-  }
-  .svc-bracket::after {
-    content: '\00a0]';
-  }
   /* A service: a white pill, its icon in a grey disc that turns graphite when pointed at. */
   .svc-chip {
     display: inline-flex;
@@ -1390,7 +1361,7 @@ html.lenis body {
     background: var(--color-graphite);
     color: #fff;
   }
-  /* The ground under each picture: rings, or dots, fading in from the words above. */
+  /* The ground under each picture: small checks, or dots, fading in from the words above. */
   .svc-ground > * {
     position: relative;
   }
@@ -1402,30 +1373,25 @@ html.lenis body {
     mask-image: linear-gradient(to bottom, transparent, #000 30%);
     pointer-events: none;
   }
-  .svc-ground--rings::before {
-    background-image: radial-gradient(
-      circle,
-      transparent 3.5px,
-      #dfe2e8 4px,
-      #dfe2e8 5px,
-      transparent 5.5px
-    );
+  /* Small checks: a fine checkerboard of 8px squares, one grey a step off the white. */
+  .svc-ground--checks::before {
+    background-image: conic-gradient(#eff0f4 25%, transparent 0 50%, #eff0f4 0 75%, transparent 0);
     background-position: center top;
-    background-size: 22px 22px;
+    background-size: 16px 16px;
   }
   .svc-ground--dots::before {
     background-image: radial-gradient(#d9dce4 1px, transparent 1.25px);
     background-position: center top;
     background-size: 12px 12px;
   }
-  /* "Live": the lit Kinetic Blue, its dot breathing. */
+  /* "Live": Kinetic Orange, its dot breathing. */
   .svc-live {
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
     padding: 0.25rem 0.5rem;
     border-radius: 0.375rem;
-    background: var(--surface-kinetic);
+    background: var(--color-kinetic);
     color: #fff;
     font-family: var(--font-mono);
     font-size: 0.625rem;
@@ -1460,8 +1426,8 @@ html.lenis body {
     }
     6%,
     26% {
-      border-color: rgb(5 91 211 / 0.35);
-      box-shadow: 0 12px 26px -20px rgb(5 91 211 / 0.7);
+      border-color: rgb(255 61 0 / 0.35);
+      box-shadow: 0 12px 26px -20px rgb(255 61 0 / 0.7);
     }
   }
   .svc-step__status {
@@ -1493,7 +1459,7 @@ html.lenis body {
       stroke: #d9dce4;
     }
     8% {
-      stroke: #055bd3;
+      stroke: #ff3d00;
     }
   }
   .svc-ripple {
@@ -2385,7 +2351,7 @@ html.lenis body {
     margin: -0.3125rem 0 0 -0.3125rem;
     border-radius: 9999px;
     background: var(--color-kinetic);
-    box-shadow: 0 0 0 4px rgb(5 91 211 / 0.15);
+    box-shadow: 0 0 0 4px rgb(255 61 0 / 0.15);
     opacity: 0;
   }
   .flow[data-play] .flow__dot {

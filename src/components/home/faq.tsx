@@ -182,7 +182,7 @@ export function AskCard({
       <p className="text-h4 font-medium text-ink">Still have a question?</p>
       <p className="mt-1 text-sm text-ink-2">Ask us on WhatsApp, or tell us what you need.</p>
       <div className="mt-4 grid gap-2.5">
-        <RollLink href={whatsapp} variant="kinetic" size="sm" external className="w-full">
+        <RollLink href={whatsapp} variant="line" size="sm" external className="w-full">
           Ask on WhatsApp
         </RollLink>
         <RollLink href={start} size="sm" className="w-full">

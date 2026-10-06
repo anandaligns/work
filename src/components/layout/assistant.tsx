@@ -13,7 +13,7 @@ import { Icon, type IconName } from '../ui/icon';
  * after the footer in `app/layout.tsx`.
  *
  * A graphite pill: the assistant's face, then "Ask" and its name. Beside the face sits the brand's
- * pixel in Kinetic Blue, which makes the logo's quarter-turn once the page settles and again when
+ * pixel in Kinetic Orange, which makes the logo's quarter-turn once the page settles and again when
  * the launcher is pointed at. Desktops only: phones and tablets — under 1280px, or any screen
  * driven by touch — don't show it.
  *

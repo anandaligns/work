@@ -15,11 +15,11 @@ import { ScenePanel } from './scene-panel';
  * through the Pixel Kinetix block to a finished result, drawn as the home mockups are — rounded
  * white tiles on soft shadows, each glyph on a chip in its tint, fine dashed routes with a ringed
  * dot at each joint. On the left, the subject; in the middle, the ink block with the P on top, its
- * pixel in Kinetic Blue; on the right, the result — a check unless given — with a green signal
+ * pixel in Kinetic Orange; on the right, the result — a check unless given — with a green signal
  * beside it. Home's is `converge`: three tiles — what customers see, what the team runs on, what
  * runs on its own — meet in the block, and the result is Evolve's shield.
  *
- * Once, when it is 45% in view: the routes draw in (900ms, each dashed line uncovered by a mask), a Kinetic Blue dot travels subject →
+ * Once, when it is 45% in view: the routes draw in (900ms, each dashed line uncovered by a mask), a Kinetic Orange dot travels subject →
  * cube → result (1.4s), the pixel makes its quarter-turn as the dot reaches the cube, and the
  * signal pings once. Pointing at it plays the dot again. Nothing loops, so there is no pause
  * button; under reduced motion it is drawn complete and still.

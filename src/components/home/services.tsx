@@ -10,14 +10,14 @@ import { SectionHead } from './section-head';
 
 /**
  * The fifteen services as one system, in one bordered panel: Digital Experiences and Automation &
- * AI side by side, Business Systems across the foot. Each group opens with its name in brackets,
- * what it does as a title and its line, then its services as chips, each to its own page — and
+ * AI side by side, Business Systems across the foot. Each group opens with what it does as a title
+ * and its line, then its services as chips, each to its own page — and
  * under them, a picture of that group at work:
  *
  * - Digital Experiences, the website answering back: customers' requests turning into next steps,
- *   on a ground of rings;
+ *   on a ground of small checks;
  * - Automation & AI, the tools working as one: a honeycomb of the tools a business already uses,
- *   our mark lit in Kinetic Blue at its centre, on a ground of dots;
+ *   our mark on Kinetic Orange at its centre, on a ground of dots;
  * - Business Systems, the place the business runs from: the overview of its own dashboard, cropped
  *   by the panel's foot.
  *
@@ -28,8 +28,8 @@ const NUMBER_WORDS: Record<number, string> = { 12: 'Twelve', 15: 'Fifteen', 16: 
 const total = categories.reduce((sum, category) => sum + category.services.length, 0);
 
 /** The groups in the panel's order — two above, one across the foot — and each one's picture. */
-const LAYOUT: { slug: string; visual: () => ReactNode; ground: 'rings' | 'dots' | 'plain' }[] = [
-  { slug: 'digital-experiences', visual: NextStepCard, ground: 'rings' },
+const LAYOUT: { slug: string; visual: () => ReactNode; ground: 'checks' | 'dots' | 'plain' }[] = [
+  { slug: 'digital-experiences', visual: NextStepCard, ground: 'checks' },
   { slug: 'automation-ai', visual: ToolHive, ground: 'dots' },
   { slug: 'business-systems', visual: OverviewWindow, ground: 'plain' },
 ];
@@ -74,7 +74,7 @@ function Group({
 }: {
   category: (typeof categories)[number];
   visual: () => ReactNode;
-  ground: 'rings' | 'dots' | 'plain';
+  ground: 'checks' | 'dots' | 'plain';
   index: number;
   wide?: boolean;
   className?: string;
@@ -88,15 +88,9 @@ function Group({
       className={`flex min-w-0 scroll-mt-28 flex-col border-line ${className}`}
     >
       <div className="px-6 pt-12 text-center sm:px-10 lg:pt-16">
-        <Link
-          href={`/services/${category.slug}`}
-          className="svc-bracket font-mono text-[0.75rem] tracking-[0.16em] text-ink-2 uppercase transition-colors hover:text-ink"
-        >
-          {category.name}
-        </Link>
         <h3
           id={`${category.slug}-title`}
-          className="mt-4 font-display text-[clamp(1.5rem,1.3rem+0.6vw,1.75rem)] leading-tight font-medium tracking-[-0.03em] text-ink"
+          className="font-display text-[clamp(1.5rem,1.3rem+0.6vw,1.75rem)] leading-tight font-medium tracking-[-0.03em] text-ink"
         >
           {groupTitles[category.slug] ?? category.name}
         </h3>

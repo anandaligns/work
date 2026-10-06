@@ -98,7 +98,7 @@ export default function ServicesPage() {
           <RollLink href={startFor('services')} size="lg">
             Get Started
           </RollLink>
-          <RollLink href={whatsappAbout('your services')} variant="kinetic" size="lg" external>
+          <RollLink href={whatsappAbout('your services')} variant="line" size="lg" external>
             Ask on WhatsApp
           </RollLink>
         </Actions>

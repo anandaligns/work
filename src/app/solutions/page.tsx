@@ -97,7 +97,7 @@ export default function SolutionsPage() {
           <RollLink href={startFor('solutions')} size="lg">
             Get Started
           </RollLink>
-          <RollLink href={whatsappAbout('a solution')} variant="kinetic" size="lg" external>
+          <RollLink href={whatsappAbout('a solution')} variant="line" size="lg" external>
             Ask on WhatsApp
           </RollLink>
         </Actions>

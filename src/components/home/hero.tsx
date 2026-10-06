@@ -147,7 +147,7 @@ export function Hero() {
             <RollLink href={START.href} size="lg">
               Start a Project
             </RollLink>
-            <RollLink href="/#pricing" variant="kinetic" size="lg">
+            <RollLink href="/#pricing" variant="line" size="lg">
               See plans and prices
             </RollLink>
           </div>
