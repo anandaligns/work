@@ -1340,6 +1340,199 @@ html.lenis body {
   [data-paused] .marquee__track {
     animation-play-state: paused;
   }
+  /* ---- Services: fifteen services in one panel ---------------------------------------------- */
+  /* Each group's name in brackets, the way a spec sheet labels a part. */
+  .svc-bracket::before {
+    content: '[\00a0';
+  }
+  .svc-bracket::after {
+    content: '\00a0]';
+  }
+  /* A service: a white pill, its icon in a grey disc that turns graphite when pointed at. */
+  .svc-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.3125rem 0.875rem 0.3125rem 0.3125rem;
+    border: 1px solid var(--color-line);
+    border-radius: 9999px;
+    background: #fff;
+    color: var(--color-ink);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    box-shadow: 0 1px 2px rgb(11 13 18 / 0.04);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.4s ease,
+      translate 0.4s var(--ease-premium);
+  }
+  .svc-chip:hover {
+    translate: 0 -1px;
+    border-color: var(--color-line-2);
+    box-shadow: 0 12px 24px -16px rgb(11 13 18 / 0.35);
+  }
+  .svc-chip__icon {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex: none;
+    place-items: center;
+    border-radius: 9999px;
+    background: var(--color-fill);
+    color: var(--color-ink-2);
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+  .svc-chip:hover .svc-chip__icon {
+    background: var(--color-graphite);
+    color: #fff;
+  }
+  /* The ground under each picture: rings, or dots, fading in from the words above. */
+  .svc-ground > * {
+    position: relative;
+  }
+  .svc-ground::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%);
+    mask-image: linear-gradient(to bottom, transparent, #000 30%);
+    pointer-events: none;
+  }
+  .svc-ground--rings::before {
+    background-image: radial-gradient(
+      circle,
+      transparent 3.5px,
+      #dfe2e8 4px,
+      #dfe2e8 5px,
+      transparent 5.5px
+    );
+    background-position: center top;
+    background-size: 22px 22px;
+  }
+  .svc-ground--dots::before {
+    background-image: radial-gradient(#d9dce4 1px, transparent 1.25px);
+    background-position: center top;
+    background-size: 12px 12px;
+  }
+  /* "Live": the lit Kinetic Blue, its dot breathing. */
+  .svc-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    background: var(--surface-kinetic);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .svc-live::before {
+    content: '';
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999px;
+    background: #fff;
+    animation: svc-live 1.6s ease-in-out infinite;
+  }
+  @keyframes svc-live {
+    50% {
+      opacity: 0.35;
+    }
+  }
+  /* The rows take turns being the one that just happened. */
+  .svc-step {
+    animation: svc-step 9s var(--ease-premium) infinite;
+    animation-delay: calc(var(--i) * 3s);
+  }
+  @keyframes svc-step {
+    0%,
+    34%,
+    100% {
+      border-color: var(--color-line);
+      box-shadow: none;
+    }
+    6%,
+    26% {
+      border-color: rgb(5 91 211 / 0.35);
+      box-shadow: 0 12px 26px -20px rgb(5 91 211 / 0.7);
+    }
+  }
+  .svc-step__status {
+    animation: svc-status 9s var(--ease-premium) infinite;
+    animation-delay: calc(var(--i) * 3s);
+  }
+  @keyframes svc-status {
+    0%,
+    10%,
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+    2% {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+  }
+  /* The tools' edges light in turn round the centre, and a ring breathes out from it. */
+  .svc-hex {
+    stroke: #d9dce4;
+    animation: svc-hex 7.2s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 1.2s);
+  }
+  @keyframes svc-hex {
+    0%,
+    22%,
+    100% {
+      stroke: #d9dce4;
+    }
+    8% {
+      stroke: #055bd3;
+    }
+  }
+  .svc-ripple {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: svc-ripple 3.6s ease-out infinite;
+  }
+  @keyframes svc-ripple {
+    0% {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.55);
+    }
+  }
+  /* The bookings rise as the panel arrives. */
+  .svc-bar {
+    transform-origin: 50% 100%;
+    transition: transform 900ms var(--ease-premium);
+    transition-delay: calc(var(--i) * 70ms + 250ms);
+  }
+  [data-pending] .svc-bar {
+    transform: scaleY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .svc-live::before,
+    .svc-step,
+    .svc-step__status,
+    .svc-hex,
+    .svc-ripple {
+      animation: none;
+    }
+    .svc-ripple {
+      opacity: 0;
+    }
+  }
+
   /* ---- The sector strip's chips (on beUI's marquee) ------------------------------------------ */
   /* A business: a white pill with its mark in a tinted disc. Pointed at, it lifts and the mark
      turns graphite. */

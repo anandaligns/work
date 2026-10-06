@@ -195,6 +195,13 @@ export const headings = {
   },
 } satisfies Record<string, Heading>;
 
+/** Each service group's title on the home page: what the group is, said as what it does. */
+export const groupTitles: Record<string, string> = {
+  'digital-experiences': 'A website that answers back',
+  'automation-ai': 'Your tools, working as one',
+  'business-systems': 'One place to run the business',
+};
+
 /**
  * Four figures, each one already on the price list or in the catalogue — nothing here is a
  * statistic about clients this business does not have yet.

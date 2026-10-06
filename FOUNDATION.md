@@ -22,6 +22,9 @@ changed and why.
   Back to top); every `RollLink` presses on beUI's `SPRING_PRESS`. beUI's shadcn token names
   (`background`, `foreground`, `muted`, `border`, `ring`, `primary`, …) map onto the brand's
   tokens in `globals.css`; its motion runs on `motion` v11 with the springs in `lib/ease.ts`.
+  The home Services section is one bordered panel: Digital Experiences and Automation & AI side
+  by side, Business Systems across the foot, each a bracketed name, a title, its line, its
+  services as chips and a picture of it at work (`home/services-visuals.tsx`).
   Kept as they were, on purpose: `BlurText` and `[data-reveal]` (beUI's text and scroll reveals
   hide their content until script runs), the hero's phone marquee (its second copy waits for the
   page, which beUI's marquee can't) and the product screens.

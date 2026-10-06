@@ -1,81 +1,135 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-import { categories, headings } from '@/content/site';
+import { categories, groupTitles, headings } from '@/content/site';
 
 import { Band } from '../layout/band';
-import { PixelReveal } from '../motion/pixel-reveal';
-import { Icon, iconFor } from '../ui/icon';
-import { AutomationMock, DigitalMock, SystemsMock } from './native-mocks';
+import { Lucide, MENU_ICONS } from '../ui/lucide';
+import { NextStepCard, OverviewWindow, ToolHive } from './services-visuals';
 import { SectionHead } from './section-head';
 
 /**
- * aoutive's feature section, three times over: each service gets an isometric scene that arrives
- * through the pixel dissolve, then its promise and its five services, each linking to its own
- * page. The cards sit in one bordered row with shared hairlines, the way aoutive's grids are drawn.
- * Evolve is told under Pricing, with its plans.
+ * The fifteen services as one system, in one bordered panel: Digital Experiences and Automation &
+ * AI side by side, Business Systems across the foot. Each group opens with its name in brackets,
+ * what it does as a title and its line, then its services as chips, each to its own page — and
+ * under them, a picture of that group at work:
+ *
+ * - Digital Experiences, the website answering back: customers' requests turning into next steps,
+ *   on a ground of rings;
+ * - Automation & AI, the tools working as one: a honeycomb of the tools a business already uses,
+ *   our mark lit in Kinetic Blue at its centre, on a ground of dots;
+ * - Business Systems, the place the business runs from: the overview of its own dashboard, cropped
+ *   by the panel's foot.
+ *
+ * The pictures repeat what the words say, so they are hidden from assistive tech. Evolve is told
+ * under Pricing, with its plans.
  */
-const TINTS = ['bg-tint-violet', 'bg-tint-sky', 'bg-tint-mint'];
-const COVERS = ['#eceefb', '#e5f3fb', '#e6f7ee'];
-/** Each group's picture, after Native's: a few pieces of the product at work. */
-const MOCKS: Record<string, () => ReactNode> = {
-  'digital-experiences': DigitalMock,
-  'business-systems': SystemsMock,
-  'automation-ai': AutomationMock,
-};
+const NUMBER_WORDS: Record<number, string> = { 12: 'Twelve', 15: 'Fifteen', 16: 'Sixteen' };
+const total = categories.reduce((sum, category) => sum + category.services.length, 0);
+
+/** The groups in the panel's order — two above, one across the foot — and each one's picture. */
+const LAYOUT: { slug: string; visual: () => ReactNode; ground: 'rings' | 'dots' | 'plain' }[] = [
+  { slug: 'digital-experiences', visual: NextStepCard, ground: 'rings' },
+  { slug: 'automation-ai', visual: ToolHive, ground: 'dots' },
+  { slug: 'business-systems', visual: OverviewWindow, ground: 'plain' },
+];
 
 export function Services() {
+  const groups = LAYOUT.map((entry) => ({
+    ...entry,
+    category: categories.find((category) => category.slug === entry.slug)!,
+  }));
+  const [first, second, wide] = groups as [
+    (typeof groups)[number],
+    (typeof groups)[number],
+    (typeof groups)[number],
+  ];
   return (
     <Band id="services" labelledBy="services-heading" className="py-24 lg:py-32">
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-        <SectionHead
-          id="services"
-          eyebrow="Services"
-          heading={headings.services}
-          intro="Websites, business software and automation, engineered as one system. Start with one, or leave all three to us."
-        />
+      <SectionHead
+        id="services"
+        eyebrow={`${NUMBER_WORDS[total] ?? total} services, one system`}
+        heading={headings.services}
+        intro="Websites, business software and automation, engineered as one system. Start with one, or leave all three to us."
+        align="center"
+      />
+      <div className="svc-panel mt-14 overflow-hidden rounded-[1.75rem] border border-line bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <Group {...first} index={0} className="max-lg:border-b lg:border-r" />
+          <Group {...second} index={1} />
+        </div>
+        <Group {...wide} index={2} className="border-t" wide />
       </div>
-      <ul className="mt-14 grid overflow-hidden rounded-[var(--radius-panel)] border border-line bg-white md:grid-cols-3">
-        {categories.map((category, index) => {
-          const Mock = MOCKS[category.slug];
-          return (
-            <li
-              key={category.slug}
-              id={category.slug}
-              data-reveal=""
-              style={{ ['--i' as string]: index }}
-              className="flex flex-col border-line max-md:border-b max-md:last:border-b-0 md:border-r md:last:border-r-0"
-            >
-              <div className={`relative m-3 overflow-hidden rounded-2xl ${TINTS[index]}`}>
-                <PixelReveal cover={COVERS[index]} delay={index * 150} className="h-64">
-                  {Mock ? <Mock /> : null}
-                </PixelReveal>
-              </div>
-              <div className="flex flex-1 flex-col px-7 pt-4 pb-8">
-                <p className="font-tech text-xs text-ink-2">0{index + 1}</p>
-                <h3 className="mt-2 text-h4 font-medium tracking-[-0.02em]">{category.name}</h3>
-                <p className="mt-1 text-body text-ink-2">{category.line}</p>
-                <ul className="mt-6 flex flex-col divide-y divide-line border-t border-line">
-                  {category.services.map((service) => (
-                    <li key={service.anchor} id={service.anchor} className="scroll-mt-40">
-                      <Link
-                        href={`/services/${service.anchor}`}
-                        title={service.summary}
-                        className="group flex items-center gap-3 py-3 text-sm"
-                      >
-                        <span className="grid size-7 shrink-0 place-items-center rounded-lg border border-line transition-colors duration-300 group-hover:bg-graphite group-hover:text-white">
-                          <Icon name={iconFor(service.anchor)} size={14} />
-                        </span>
-                        <span className="font-medium text-ink">{service.name}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
     </Band>
+  );
+}
+
+function Group({
+  category,
+  visual: Visual,
+  ground,
+  index,
+  wide = false,
+  className = '',
+}: {
+  category: (typeof categories)[number];
+  visual: () => ReactNode;
+  ground: 'rings' | 'dots' | 'plain';
+  index: number;
+  wide?: boolean;
+  className?: string;
+}) {
+  return (
+    <section
+      id={category.slug}
+      aria-labelledby={`${category.slug}-title`}
+      data-reveal=""
+      style={{ ['--i' as string]: index }}
+      className={`flex min-w-0 scroll-mt-28 flex-col border-line ${className}`}
+    >
+      <div className="px-6 pt-12 text-center sm:px-10 lg:pt-16">
+        <Link
+          href={`/services/${category.slug}`}
+          className="svc-bracket font-mono text-[0.75rem] tracking-[0.16em] text-ink-2 uppercase transition-colors hover:text-ink"
+        >
+          {category.name}
+        </Link>
+        <h3
+          id={`${category.slug}-title`}
+          className="mt-4 font-display text-[clamp(1.5rem,1.3rem+0.6vw,1.75rem)] leading-tight font-medium tracking-[-0.03em] text-ink"
+        >
+          {groupTitles[category.slug] ?? category.name}
+        </h3>
+        <p className="mt-3 text-body text-ink-2">{category.line}</p>
+        <ul
+          className={`mx-auto mt-8 flex flex-wrap justify-center gap-2.5 ${wide ? 'max-w-6xl' : 'max-w-xl'}`}
+        >
+          {category.services.map((service) => (
+            <li key={service.anchor} id={service.anchor} className="scroll-mt-40">
+              <Link
+                href={`/services/${service.anchor}`}
+                title={service.summary}
+                className="svc-chip"
+              >
+                <span className="svc-chip__icon" aria-hidden="true">
+                  <Lucide name={MENU_ICONS[service.anchor] ?? 'sparkles'} size={14} />
+                </span>
+                {service.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div
+        aria-hidden="true"
+        className={`svc-ground svc-ground--${ground} relative mt-10 flex flex-1 justify-center overflow-hidden ${
+          wide
+            ? 'h-[22rem] px-4 pt-2 sm:h-[24rem] sm:px-10'
+            : 'min-h-[20rem] items-center px-4 py-8 sm:px-10'
+        }`}
+      >
+        <Visual />
+      </div>
+    </section>
   );
 }
